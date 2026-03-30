@@ -1,26 +1,42 @@
-import { useState, useEffect, useCallback } from "react";
+// client/src/hooks/use-theme.ts
+// Manages light/dark theme via data-theme attribute on <html>.
+// DS-foundation tokens swap automatically when data-theme changes.
 
-type Theme = "dark" | "light";
+import { useState } from 'react'
+
+type Theme = 'light' | 'dark'
+
+const STORAGE_KEY = 'theme'
+const DEFAULT_THEME: Theme = 'dark'
+
+function getStoredTheme(): Theme {
+  if (typeof window === 'undefined') return DEFAULT_THEME
+  const stored = localStorage.getItem(STORAGE_KEY)
+  return stored === 'light' || stored === 'dark' ? stored : DEFAULT_THEME
+}
+
+function applyTheme(theme: Theme) {
+  document.documentElement.setAttribute('data-theme', theme)
+  localStorage.setItem(STORAGE_KEY, theme)
+}
+
+// Apply theme synchronously before first paint to avoid flash.
+if (typeof window !== 'undefined') {
+  applyTheme(getStoredTheme())
+}
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("paym-theme") as Theme) ?? "dark";
-    }
-    return "dark";
-  });
+  const [theme, setThemeState] = useState<Theme>(() => getStoredTheme())
 
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === "light") {
-      root.classList.add("light-mode");
-    } else {
-      root.classList.remove("light-mode");
-    }
-    localStorage.setItem("paym-theme", theme);
-  }, [theme]);
+  function setTheme(next: Theme) {
+    applyTheme(next)
+    setThemeState(next)
+  }
 
-  const toggle = useCallback(() => setTheme(t => (t === "dark" ? "light" : "dark")), []);
+  function toggleTheme() {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
 
-  return { theme, toggle };
+  // `toggle` is an alias for `toggleTheme` — kept for backwards compat with UnifiedNav.
+  return { theme, setTheme, toggleTheme, toggle: toggleTheme }
 }

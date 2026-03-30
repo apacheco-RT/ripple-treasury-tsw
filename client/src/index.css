@@ -12,7 +12,7 @@ layer(base);
 @import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&[data-theme="dark"], [data-theme="dark"] &);
 
 @theme {
   --color-risk-critical: #ef4444;
