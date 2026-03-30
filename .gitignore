@@ -6,3 +6,10 @@ vite.config.ts.*
 *.tar.gz
 .local/
 .upm/
+.replit
+replit.nix
+.config/
+generated-icon.png
+*.zip
+pyproject.toml
+uv.lock
