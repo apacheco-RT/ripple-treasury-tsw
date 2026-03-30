@@ -1,7 +1,18 @@
-/* DS-Foundation token imports — source of truth for all design tokens */
-/* Note: only the tailwind preset is imported (hex values). The raw CSS files
-   use color(oklch ...) syntax which has limited browser support. Dark-mode
-   semantic overrides are applied via the [data-theme="dark"] block below. */
+/* DS-Foundation token imports — source of truth for all design tokens
+ *
+ * Why only /tailwind and not /css or /css/dark?
+ * The raw CSS files (@ds-foundation/tokens/css and /css/dark) use
+ * `color(oklch ...)` syntax (CSS Color Level 4 color() function) which has
+ * limited browser support — the browser in this project resolves those vars
+ * to rgba(0,0,0,0), breaking all surface and text colors.
+ *
+ * The /tailwind preset emits all primitive tokens as hex values into :root,
+ * which works everywhere. It also supplies the light-mode semantic mappings
+ * via its @theme {} block, so no separate /css import is needed for light.
+ *
+ * Dark-mode semantic overrides are applied manually via the
+ * [data-theme="dark"] block below, using the hex primitives already in :root.
+ */
 @import "@ds-foundation/tokens/tailwind";
 
 /* Space Grotesk = closest available substitute for TT Ripple (Ripple's custom typeface).
@@ -88,7 +99,6 @@ layer(base);
   --color-status-busy: rgb(239 68 68);
   --color-status-offline: rgb(156 163 175);
 
-  --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
 
@@ -452,7 +462,12 @@ layer(base);
   }
 }
 
-/* ══ Light Mode Overrides ═══════════════════════════════════════════════ */
+/* ══ Light Mode Overrides ═══════════════════════════════════════════════
+ * Phase 1 specificity debt: these rules use !important to override the
+ * DS-foundation defaults that land in :root from the /tailwind preset.
+ * Phase 2 will resolve this by aligning component-level token usage so
+ * light-mode values flow from the semantic layer without overrides.
+ * ═════════════════════════════════════════════════════════════════════ */
 
 [data-theme="light"] body {
   background-image:
