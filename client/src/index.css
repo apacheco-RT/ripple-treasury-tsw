@@ -446,7 +446,7 @@ layer(base);
     color: #e2e8f0;
   }
 
-  html.light-mode select option {
+  [data-theme="light"] select option {
     background-color: #ffffff;
     color: #1e293b;
   }
@@ -454,76 +454,76 @@ layer(base);
 
 /* ══ Light Mode Overrides ═══════════════════════════════════════════════ */
 
-html.light-mode body {
+[data-theme="light"] body {
   background-image:
     radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
     radial-gradient(circle at 100% 0%, rgba(20, 184, 166, 0.04) 0%, transparent 40%);
 }
 
-html.light-mode h1,
-html.light-mode h2,
-html.light-mode h3,
-html.light-mode h4,
-html.light-mode h5,
-html.light-mode h6 {
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
   color: #0f172a;
 }
 
 /* ── Nav / header ─── */
-html.light-mode .glass-header {
+[data-theme="light"] .glass-header {
   background-color: rgba(241, 245, 249, 0.92) !important;
   border-bottom-color: #cbd5e1 !important;
 }
 
 /* ── Slate utility backgrounds ─── */
-html.light-mode [class*="bg-slate-900"] { background-color: #f1f5f9 !important; }
-html.light-mode [class*="bg-slate-800"] { background-color: #e2e8f0 !important; }
-html.light-mode [class*="bg-slate-700"] { background-color: #f1f5f9 !important; }
+[data-theme="light"] [class*="bg-slate-900"] { background-color: #f1f5f9 !important; }
+[data-theme="light"] [class*="bg-slate-800"] { background-color: #e2e8f0 !important; }
+[data-theme="light"] [class*="bg-slate-700"] { background-color: #f1f5f9 !important; }
 
 /* ── Borders ─── */
-html.light-mode .border-l-teal-400 { border-color: #0f766e !important; }
-html.light-mode [class*="border-slate-800"] { border-color: #cbd5e1 !important; }
-html.light-mode [class*="border-slate-700"] { border-color: #e2e8f0 !important; }
+[data-theme="light"] .border-l-teal-400 { border-color: #0f766e !important; }
+[data-theme="light"] [class*="border-slate-800"] { border-color: #cbd5e1 !important; }
+[data-theme="light"] [class*="border-slate-700"] { border-color: #e2e8f0 !important; }
 
 /* ── White text — flip to dark for content on light surfaces ─── */
-html.light-mode .text-white { color: #0f172a !important; }
+[data-theme="light"] .text-white { color: #0f172a !important; }
 
 /* Restore white text on gradient buttons/badges (same element has both classes) */
-html.light-mode [class*="from-teal"].text-white,
-html.light-mode [class*="from-blue"].text-white,
-html.light-mode [class*="from-purple"].text-white,
-html.light-mode [class*="from-rose"].text-white,
-html.light-mode [class*="from-amber"].text-white,
-html.light-mode [class*="from-emerald"].text-white,
-html.light-mode [class*="from-indigo"].text-white {
+[data-theme="light"] [class*="from-teal"].text-white,
+[data-theme="light"] [class*="from-blue"].text-white,
+[data-theme="light"] [class*="from-purple"].text-white,
+[data-theme="light"] [class*="from-rose"].text-white,
+[data-theme="light"] [class*="from-amber"].text-white,
+[data-theme="light"] [class*="from-emerald"].text-white,
+[data-theme="light"] [class*="from-indigo"].text-white {
   color: #ffffff !important;
 }
 
 /* Fraud spotlight gradient is an inline style (not a Tailwind class), so the
    [class*="from-rose"] selector above won't match. Restore white text explicitly. */
-html.light-mode .fraud-gradient-header .text-white { color: #ffffff !important; }
+[data-theme="light"] .fraud-gradient-header .text-white { color: #ffffff !important; }
 
 /* ── Top nav: stays dark in both light and dark modes ────────────────────── */
-html.light-mode .nav-dark .text-slate-300              { color: #cbd5e1 !important; }
-html.light-mode .nav-dark .text-slate-400,
-html.light-mode .nav-dark .text-slate-500              { color: #94a3b8 !important; }
-html.light-mode .nav-dark .text-teal-400               { color: #2dd4bf !important; }
-html.light-mode .nav-dark .hover\:text-slate-200:hover { color: #e2e8f0 !important; }
+[data-theme="light"] .nav-dark .text-slate-300              { color: #cbd5e1 !important; }
+[data-theme="light"] .nav-dark .text-slate-400,
+[data-theme="light"] .nav-dark .text-slate-500              { color: #94a3b8 !important; }
+[data-theme="light"] .nav-dark .text-teal-400               { color: #2dd4bf !important; }
+[data-theme="light"] .nav-dark .hover\:text-slate-200:hover { color: #e2e8f0 !important; }
 /* White SVG wordmark: stays white on the dark nav in both modes — no invert */
-html.light-mode .nav-dark .nav-logo                    { filter: none !important; }
+[data-theme="light"] .nav-dark .nav-logo                    { filter: none !important; }
 /* Fallback: white logo on a light nav (nav-dark not present) gets inverted */
-html.light-mode .nav-logo                              { filter: invert(1); }
+[data-theme="light"] .nav-logo                              { filter: invert(1); }
 
 /* Breadcrumb bar: background flips to light in light-mode (via bg-[#0d1c30] rule above);
    white/opacity text variants must flip to legible dark equivalents */
-html.light-mode .breadcrumb-bar span { color: #6b7280; }
-html.light-mode .breadcrumb-bar span[aria-current="page"] { color: #1e293b; font-weight: 600; }
-html.light-mode .breadcrumb-bar svg { color: #9ca3af; }
-html.light-mode .breadcrumb-bar { border-color: #e2e8f0 !important; }
-html.light-mode .breadcrumb-bar span:hover { color: #1e293b !important; }
+[data-theme="light"] .breadcrumb-bar span { color: #6b7280; }
+[data-theme="light"] .breadcrumb-bar span[aria-current="page"] { color: #1e293b; font-weight: 600; }
+[data-theme="light"] .breadcrumb-bar svg { color: #9ca3af; }
+[data-theme="light"] .breadcrumb-bar { border-color: #e2e8f0 !important; }
+[data-theme="light"] .breadcrumb-bar span:hover { color: #1e293b !important; }
 /* Breadcrumb <a> elements (e.g. wouter Link) — same dark treatment as spans */
-html.light-mode .breadcrumb-bar a { color: #6b7280 !important; }
-html.light-mode .breadcrumb-bar a:hover { color: #1e293b !important; }
+[data-theme="light"] .breadcrumb-bar a { color: #6b7280 !important; }
+[data-theme="light"] .breadcrumb-bar a:hover { color: #1e293b !important; }
 
 /* Hide scrollbar on nav overflow but keep scroll functionality */
 .scrollbar-none { scrollbar-width: none; }
@@ -532,94 +532,94 @@ html.light-mode .breadcrumb-bar a:hover { color: #1e293b !important; }
 /* ── Dark color-scheme for native form controls ──────────────────────────── */
 /* Without this, Chrome macOS renders calendar icons, select arrows, and
    spinner buttons in light-mode system colors even on dark backgrounds.     */
-:not(.light-mode) input,
-:not(.light-mode) select,
-:not(.light-mode) textarea {
+:not([data-theme="light"]) input,
+:not([data-theme="light"]) select,
+:not([data-theme="light"]) textarea {
   color-scheme: dark;
 }
 
 /* ── Hover states — white/2 and white/3 overlays are invisible in light mode ─── */
-html.light-mode [class*="hover:bg-white\/2"]:hover { background-color: rgba(0, 0, 0, 0.04) !important; }
-html.light-mode [class*="hover:bg-white\/3"]:hover { background-color: rgba(0, 0, 0, 0.06) !important; }
+[data-theme="light"] [class*="hover:bg-white\/2"]:hover { background-color: rgba(0, 0, 0, 0.04) !important; }
+[data-theme="light"] [class*="hover:bg-white\/3"]:hover { background-color: rgba(0, 0, 0, 0.06) !important; }
 /* Process Flow selected stage: bg-white/5 (5% white) is invisible on light surfaces.
    Use exact class selector (.bg-white\/5) not substring (*=) to avoid matching bg-white/50 etc. */
-html.light-mode .bg-white\/5 { background-color: rgba(0, 0, 0, 0.04) !important; }
+[data-theme="light"] .bg-white\/5 { background-color: rgba(0, 0, 0, 0.04) !important; }
 
 /* ── color-scheme: restore to light for form controls in light mode ─── */
-html.light-mode input,
-html.light-mode select,
-html.light-mode textarea {
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
   color-scheme: light;
 }
 
 /* ── Slate text — single authoritative set (was duplicated causing conflicts) ─── */
-html.light-mode .text-slate-200 { color: #1e293b !important; }  /* slate-800 */
-html.light-mode .text-slate-300 { color: #374151 !important; }  /* gray-700  */
-html.light-mode .text-slate-400 { color: #4b5563 !important; }  /* gray-600  */
-html.light-mode .text-slate-500 { color: #6b7280 !important; }  /* gray-500  */
-html.light-mode .text-slate-600 { color: #6b7280 !important; }  /* gray-500  ≈ 5.3:1 */
-html.light-mode .hover\:text-white:hover { color: #0f172a !important; }
+[data-theme="light"] .text-slate-200 { color: #1e293b !important; }  /* slate-800 */
+[data-theme="light"] .text-slate-300 { color: #374151 !important; }  /* gray-700  */
+[data-theme="light"] .text-slate-400 { color: #4b5563 !important; }  /* gray-600  */
+[data-theme="light"] .text-slate-500 { color: #6b7280 !important; }  /* gray-500  */
+[data-theme="light"] .text-slate-600 { color: #6b7280 !important; }  /* gray-500  ≈ 5.3:1 */
+[data-theme="light"] .hover\:text-white:hover { color: #0f172a !important; }
 
 /* ── Coloured text — darken to ≥ 4.5:1 contrast on light backgrounds ─── */
 /* Teal: teal-400/300 (#2dd4bf / #5eead4) ≈ 1.5:1 on white → darken to teal-700 (#0f766e) ≈ 5.5:1 */
-html.light-mode .text-teal-300,
-html.light-mode .text-teal-400 { color: #0f766e !important; }
+[data-theme="light"] .text-teal-300,
+[data-theme="light"] .text-teal-400 { color: #0f766e !important; }
 
 /* Rose: rose-400/300 ≈ 3.7:1 / 2.5:1 on white → darken to rose-600 (#e11d48) ≈ 6:1 */
-html.light-mode .text-rose-300,
-html.light-mode .text-rose-400 { color: #e11d48 !important; }
+[data-theme="light"] .text-rose-300,
+[data-theme="light"] .text-rose-400 { color: #e11d48 !important; }
 
 /* Amber: amber-400/300 ≈ 1.8:1 / 1.5:1 on white → darken to amber-700 (#b45309) ≈ 6:1 */
-html.light-mode .text-amber-300,
-html.light-mode .text-amber-400 { color: #b45309 !important; }
+[data-theme="light"] .text-amber-300,
+[data-theme="light"] .text-amber-400 { color: #b45309 !important; }
 
 /* Emerald: emerald-400/300 ≈ 2.5:1 / 1.7:1 on white → darken to emerald-700 (#047857) ≈ 5:1 */
-html.light-mode .text-emerald-300,
-html.light-mode .text-emerald-400 { color: #047857 !important; }
+[data-theme="light"] .text-emerald-300,
+[data-theme="light"] .text-emerald-400 { color: #047857 !important; }
 
 /* Orange: orange-400 ≈ 2.0:1 on white → darken to orange-700 (#c2410c) ≈ 5:1 */
-html.light-mode .text-orange-400 { color: #c2410c !important; }
+[data-theme="light"] .text-orange-400 { color: #c2410c !important; }
 
 /* Blue/Sky/Purple: already readable but boost to accessible dark variants */
-html.light-mode .text-blue-300,
-html.light-mode .text-blue-400   { color: #1d4ed8 !important; }  /* blue-700   ≈ 5:1 */
-html.light-mode .text-sky-300    { color: #0369a1 !important; }  /* sky-700    ≈ 5:1 */
-html.light-mode .text-purple-300 { color: #6d28d9 !important; }  /* purple-700 ≈ 5:1 */
+[data-theme="light"] .text-blue-300,
+[data-theme="light"] .text-blue-400   { color: #1d4ed8 !important; }  /* blue-700   ≈ 5:1 */
+[data-theme="light"] .text-sky-300    { color: #0369a1 !important; }  /* sky-700    ≈ 5:1 */
+[data-theme="light"] .text-purple-300 { color: #6d28d9 !important; }  /* purple-700 ≈ 5:1 */
 
 /* Red: red-400 (#f87171) = 3.2:1 on white → darken to red-600 (#dc2626) ≈ 5.1:1 */
-html.light-mode .text-red-400 { color: #dc2626 !important; }
+[data-theme="light"] .text-red-400 { color: #dc2626 !important; }
 
 /* Orange/Red/Indigo -300 variants used by new status chips */
-html.light-mode .text-orange-300 { color: #c2410c !important; }  /* orange-700 ≈ 5:1 */
-html.light-mode .text-red-300    { color: #dc2626 !important; }  /* red-600    ≈ 5:1 */
-html.light-mode .text-indigo-300 { color: #4338ca !important; }  /* indigo-700 ≈ 6:1 */
+[data-theme="light"] .text-orange-300 { color: #c2410c !important; }  /* orange-700 ≈ 5:1 */
+[data-theme="light"] .text-red-300    { color: #dc2626 !important; }  /* red-600    ≈ 5:1 */
+[data-theme="light"] .text-indigo-300 { color: #4338ca !important; }  /* indigo-700 ≈ 6:1 */
 
 /* ── bg-white opacity variants invisible on light surfaces ─────────────── */
 /* bg-white/15 and bg-white/20 are used for icon/badge overlays in the
    FraudSpotlight gradient header — map to a subtle dark tint instead.    */
-html.light-mode [class*="bg-white\/15"] { background-color: rgba(0,0,0,0.05) !important; }
-html.light-mode [class*="bg-white\/20"] { background-color: rgba(0,0,0,0.06) !important; }
+[data-theme="light"] [class*="bg-white\/15"] { background-color: rgba(0,0,0,0.05) !important; }
+[data-theme="light"] [class*="bg-white\/20"] { background-color: rgba(0,0,0,0.06) !important; }
 
 /* ── border-white opacity variants vanish on light surfaces ────────────── */
-html.light-mode [class*="border-white\/10"] { border-color: #e2e8f0 !important; }
-html.light-mode [class*="border-white\/25"] { border-color: #cbd5e1 !important; }
+[data-theme="light"] [class*="border-white\/10"] { border-color: #e2e8f0 !important; }
+[data-theme="light"] [class*="border-white\/25"] { border-color: #cbd5e1 !important; }
 
 /* ── Solid-colour badges with text-white — restore white text ─────────── */
 /* e.g. RLUSD badge: <span class="bg-teal-500 text-white">,
    status chip fill backgrounds from orange/rose/amber/blue/emerald etc.  */
-html.light-mode [class*="bg-teal-500"].text-white,
-html.light-mode [class*="bg-rose-500"].text-white,
-html.light-mode [class*="bg-amber-500"].text-white,
-html.light-mode [class*="bg-blue-500"].text-white,
-html.light-mode [class*="bg-emerald-500"].text-white,
-html.light-mode [class*="bg-orange-500"].text-white,
-html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important; }
+[data-theme="light"] [class*="bg-teal-500"].text-white,
+[data-theme="light"] [class*="bg-rose-500"].text-white,
+[data-theme="light"] [class*="bg-amber-500"].text-white,
+[data-theme="light"] [class*="bg-blue-500"].text-white,
+[data-theme="light"] [class*="bg-emerald-500"].text-white,
+[data-theme="light"] [class*="bg-orange-500"].text-white,
+[data-theme="light"] [class*="bg-indigo-500"].text-white { color: #ffffff !important; }
 
 /* ══ Export / Print Page Styles ═════════════════════════════════════════ */
 
 .export-root {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   color: #0f172a;
   background: #ffffff;
   max-width: 960px;
@@ -643,13 +643,13 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
   gap: 16px;
 }
 .print-bar-title { color: #f8fafc; font-size: 13px; font-weight: 600; margin: 0 0 2px; }
-.print-bar-sub   { color: #64748b; font-size: 11px; margin: 0; }
+.print-bar-sub   { color: #94a3b8; font-size: 12px; margin: 0; }
 .print-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
-  background: #14b8a6;
+  background: #0f766e;
   color: #ffffff;
   border: none;
   border-radius: 6px;
@@ -675,11 +675,11 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
   color: white;
 }
 .cover-inner { padding: 40px 0; }
-.cover-tag      { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #14b8a6; margin: 0 0 8px; }
+.cover-tag      { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #2dd4bf; margin: 0 0 8px; }
 .cover-title    { font-size: 32px; font-weight: 800; color: #ffffff; margin: 0 0 6px; line-height: 1.1; }
 .cover-subtitle { font-size: 16px; color: #94a3b8; margin: 0 0 20px; }
-.cover-meta     { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 11px; color: #64748b; margin-bottom: 28px; }
-.toc-label      { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #64748b; margin: 0 0 6px; }
+.cover-meta     { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12px; color: #94a3b8; margin-bottom: 28px; }
+.toc-label      { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #94a3b8; margin: 0 0 6px; }
 .toc-list       { margin: 0; padding-left: 16px; color: #94a3b8; line-height: 1.8; font-size: 12px; }
 
 /* Section headers */
@@ -703,7 +703,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
 .section-badge.purple { background: #ede9fe; color: #7c3aed; }
 .section-badge.orange { background: #ffedd5; color: #c2410c; }
 .section-title  { font-size: 16px; font-weight: 700; color: #0f172a; margin: 0 0 4px; }
-.section-sub    { font-size: 11px; color: #64748b; margin: 0; }
+.section-sub    { font-size: 12px; color: #64748b; margin: 0; }
 
 /* Tables */
 .data-table {
@@ -715,7 +715,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
   background: #f1f5f9;
   color: #475569;
   font-weight: 700;
-  font-size: 9.5px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 7px 8px;
@@ -735,7 +735,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
 .mono  { font-family: 'JetBrains Mono', monospace; }
 .bold  { font-weight: 600; }
 .blue  { color: #2563eb; }
-.muted { color: #94a3b8; }
+.muted { color: #64748b; }
 
 /* Chips */
 .screen-chip {
@@ -744,7 +744,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
   border-radius: 4px;
   background: #f1f5f9;
   color: #475569;
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -754,7 +754,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
   border-radius: 4px;
   background: #ede9fe;
   color: #7c3aed;
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -765,7 +765,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
   gap: 3px;
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -791,7 +791,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
 }
 .req-id {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   color: #475569;
   background: #e2e8f0;
@@ -799,7 +799,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
   border-radius: 4px;
 }
 .req-title {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: #0f172a;
   flex: 1;
@@ -835,13 +835,13 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
   border-radius: 6px;
   background: #e2e8f0;
   color: #0f172a;
-  font-size: 11px; font-weight: 800;
+  font-size: 12px; font-weight: 800;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 .heuristic-chip {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 600;
   color: #475569;
   background: #e2e8f0;
@@ -868,7 +868,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
 .spec-col:last-child, .req-col:last-child { border-right: none; }
 
 .col-label {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -878,7 +878,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
 .col-label.teal-label { color: #0d9488; }
 .col-label.red-label  { color: #dc2626; }
 .col-text {
-  font-size: 10.5px;
+  font-size: 12px;
   color: #334155;
   line-height: 1.55;
   margin: 0;
@@ -886,7 +886,7 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
 .token-list, .criteria-list {
   margin: 0;
   padding-left: 14px;
-  font-size: 10px;
+  font-size: 12px;
   color: #475569;
   line-height: 1.7;
 }
@@ -894,8 +894,8 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
 .export-footer {
   text-align: center;
   padding: 16px;
-  color: #94a3b8;
-  font-size: 10px;
+  color: #64748b;
+  font-size: 12px;
   border-top: 1px solid #e2e8f0;
 }
 
@@ -906,10 +906,10 @@ html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important;
 .theme-logo:hover {
   opacity: 1;
 }
-html.light-mode .theme-logo {
+[data-theme="light"] .theme-logo {
   filter: brightness(0);
 }
-html.light-mode .nav-dark .theme-logo {
+[data-theme="light"] .nav-dark .theme-logo {
   filter: none;
 }
 
