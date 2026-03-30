@@ -1,0 +1,864 @@
+/* Space Grotesk = closest available substitute for TT Ripple (Ripple's custom typeface).
+   Replace @font-face below with self-hosted TT Ripple files when design system is supplied. */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ── Ripple Brand (baseline from brand.ripple.com) ──────────────────── */
+  --ripple-blue:        #1E90FF;
+  --ripple-blue-dark:   #0071E5;
+  --ripple-blue-deeper: #0043A7;
+  --ripple-success:     #53C922;
+  --ripple-error:       #ED346A;
+  --ripple-warning:     #F9731C;
+
+  /* ── Fraud Spotlight Gradient ───────────────────────────────────────── */
+  --fraud-gradient-from: #f43f5e;
+  --fraud-gradient-via:  #F06844;
+  --fraud-gradient-to:   #fb923c;
+
+  /* ── M3 Shape Scale (corner radius) ────────────────────────────────── */
+  --m3-shape-xs:    4px;
+  --m3-shape-sm:    8px;
+  --m3-shape-md:    12px;
+  --m3-shape-lg:    16px;
+  --m3-shape-xl:    28px;
+  --m3-shape-full:  9999px;
+
+  /* ── M3 Component Sizing ───────────────────────────────────────────── */
+  --m3-button-height: 40px;
+  --m3-chip-height:   32px;
+  --m3-input-height:  56px;
+  --m3-input-height-dense: 40px;
+  --m3-row-height:    52px;
+  --m3-switch-w:      52px;
+  --m3-switch-h:      32px;
+  --m3-icon-button:   40px;
+  --m3-icon-button-sm: 28px;
+  --m3-fab-small:     40px;
+  --m3-fab:           56px;
+  --m3-nav-item:      56px;
+
+  /* ── M3 Typography Scale (font-size / line-height / weight) ──────── */
+  --m3-display-lg:    3.5625rem;    /* 57px */
+  --m3-display-md:    2.8125rem;    /* 45px */
+  --m3-display-sm:    2.25rem;      /* 36px */
+  --m3-headline-lg:   2rem;         /* 32px */
+  --m3-headline-md:   1.75rem;      /* 28px */
+  --m3-headline-sm:   1.5rem;       /* 24px */
+  --m3-title-lg:      1.375rem;     /* 22px */
+  --m3-title-md:      1rem;         /* 16px */
+  --m3-title-sm:      0.875rem;     /* 14px */
+  --m3-body-lg:       1rem;         /* 16px */
+  --m3-body-md:       0.875rem;     /* 14px */
+  --m3-body-sm:       0.75rem;      /* 12px */
+  --m3-label-lg:      0.875rem;     /* 14px */
+  --m3-label-md:      0.75rem;      /* 12px */
+  --m3-label-sm:      0.6875rem;    /* 11px */
+
+  /* ── M3 Spacing ──────────────────────────────────────────────────── */
+  --m3-spacing-xs:    4px;
+  --m3-spacing-sm:    8px;
+  --m3-spacing-md:    12px;
+  --m3-spacing-lg:    16px;
+  --m3-spacing-xl:    24px;
+  --m3-spacing-2xl:   32px;
+  --m3-spacing-3xl:   48px;
+
+  /* ── M3 Padding (component-specific) ─────────────────────────────── */
+  --m3-card-padding:      16px;
+  --m3-dialog-padding:    24px;
+  --m3-button-padding-h:  24px;
+  --m3-button-padding-sm: 16px;
+  --m3-chip-padding-h:    16px;
+  --m3-cell-padding-h:    16px;
+  --m3-nav-padding-h:     12px;
+
+  /* ── M3 Elevation (tonal, not shadow—uses surface color shift) ───── */
+  --m3-elevation-0: transparent;
+  --m3-elevation-1: rgba(255,255,255,0.05);
+  --m3-elevation-2: rgba(255,255,255,0.08);
+  --m3-elevation-3: rgba(255,255,255,0.11);
+  --m3-elevation-4: rgba(255,255,255,0.12);
+  --m3-elevation-5: rgba(255,255,255,0.14);
+
+  /* ── M3 State Layers ───────────────────────────────────────────────── */
+  --m3-state-hover:   rgba(255,255,255,0.08);
+  --m3-state-focus:   rgba(255,255,255,0.12);
+  --m3-state-pressed: rgba(255,255,255,0.12);
+  --m3-state-dragged: rgba(255,255,255,0.16);
+
+  /* ── Surface tokens (dark mode defaults) ─────────────────────────────── */
+  --surface-page:      218 56% 13%;   /* #0f1e35 — page background           */
+  --surface-card:      218 48% 18%;   /* #162a47 — card / panel background   */
+  --surface-elevated:  218 44% 32%;   /* #2d4a77 — tooltips, dropdowns       */
+  --surface-inset:     218 60% 10%;   /* #0a1628 — form inputs, deep inset   */
+  --surface-section:   218 57% 12%;   /* #0d1c30 — breadcrumbs, alternates   */
+  --surface-deep:      216 60% 5%;    /* #050b14 — footer                    */
+  --surface-row-hover: 218 54% 16%;   /* #132640 — table row hover           */
+  --surface-border:    218 47% 22%;   /* #1a3455 — borders throughout        */
+
+  /* Legacy aliases — resolve through surface tokens automatically */
+  --navy-dark:  var(--surface-page);
+  --navy-mid:   var(--surface-card);
+  --navy-light: var(--surface-elevated);
+
+  /* ── Brand accents ───────────────────────────────────────────────────── */
+  --primary-blue: 217 91% 60%; /* #3b82f6 */
+  --accent-teal: 173 80% 40%;  /* #14b8a6 */
+  --accent-purple: 262 83% 66%; /* #8b5cf6 */
+
+  --text-primary: 210 40% 98%; /* #f8fafc */
+  --text-secondary: 215 20% 65%; /* #94a3b8 — ≈ 7.1:1 on surface-page */
+  --text-tertiary: 215 17% 62%; /* #8e9eb0 — ≈ 6.3:1 on surface-page, ≈ 4.7:1 on surface-card */
+
+  /* ── Severity / Status ───────────────────────────────────────────────── */
+  --status-high: 343 88% 60%;  /* Rose   #f43f5e */
+  --status-med: 38 92% 50%;    /* Amber  #f59e0b */
+  --status-low: 158 64% 52%;   /* Emerald #10b981 */
+
+  /* ── TSW Risk Levels ─────────────────────────────────────────────────── */
+  --risk-critical-bg:     #fef2f2; --risk-critical-text: #dc2626;
+  --risk-high-bg:         #fff7ed; --risk-high-text:     #c2410c;
+  --risk-medium-bg:       #fffbeb; --risk-medium-text:   #b45309;
+  --risk-low-bg:          #f0fdf4; --risk-low-text:      #166534;
+  --risk-none-bg:         #f8fafc; --risk-none-text:     #475569;
+
+  /* ── Fraud Spotlight ─────────────────────────────────────────────────── */
+  --spotlight-gradient: linear-gradient(135deg, #f43f5e, #fb923c);
+
+  /* Base mapping for Shadcn/Tailwind */
+  --background: 0 0% 100%;
+  --foreground: 210 25% 7.8431%;
+  
+  --card: 180 6.6667% 97.0588%;
+  --card-foreground: 210 25% 7.8431%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 210 25% 7.8431%;
+  
+  --primary: 203.8863 88.2845% 53.1373%;
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 210 25% 7.8431%;
+  --secondary-foreground: 0 0% 100%;
+  
+  --muted: 240 1.9608% 90%;
+  --muted-foreground: 210 25% 7.8431%;
+  
+  --accent: 211.5789 51.3514% 92.7451%;
+  --accent-foreground: 203.8863 88.2845% 53.1373%;
+  
+  --destructive: 356.3033 90.5579% 54.3137%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 201.4286 30.4348% 90.9804%;
+  --input: 200 23.0769% 97.4510%;
+  --ring: 202.8169 89.1213% 53.1373%;
+  
+  --radius: 1.3rem;
+  
+  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  
+  --chart-1: hsl(203.8863 88.2845% 53.1373%);
+  
+  --chart-2: hsl(159.7826 100% 36.0784%);
+  
+  --chart-3: hsl(42.0290 92.8251% 56.2745%);
+  
+  --chart-4: hsl(147.1429 78.5047% 41.9608%);
+  
+  --chart-5: hsl(341.4894 75.2000% 50.9804%);
+  
+  --sidebar: hsl(180 6.6667% 97.0588%);
+  
+  --spacing: 0.25rem;
+  
+  --font-mono: "JetBrains Mono", Menlo, monospace;
+
+  /* TT Ripple is Ripple's typeface — swap in self-hosted files when available */
+  --font-sans: "TT Ripple", "Space Grotesk", Inter, -apple-system, sans-serif;
+  
+  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  
+  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  
+  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  
+  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  
+  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  
+  --font-serif: Georgia, serif;
+  
+  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  
+  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  
+  --sidebar-ring: hsl(202.8169 89.1213% 53.1373%);
+  
+  --sidebar-accent: hsl(211.5789 51.3514% 92.7451%);
+  
+  --sidebar-border: hsl(205.0000 25.0000% 90.5882%);
+  
+  --sidebar-primary: hsl(203.8863 88.2845% 53.1373%);
+  
+  --tracking-normal: 0em;
+  
+  --sidebar-foreground: hsl(210 25% 7.8431%);
+  
+  --sidebar-accent-foreground: hsl(203.8863 88.2845% 53.1373%);
+  
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+}
+
+@layer base {
+  body {
+    @apply bg-surface-page text-[hsl(var(--text-primary))] font-sans antialiased selection:bg-blue-500/30;
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 100% 0%, rgba(20, 184, 166, 0.1) 0%, transparent 40%);
+    background-attachment: fixed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-white;
+  }
+
+  h1 {
+    @apply text-4xl md:text-6xl;
+  }
+  
+  h2 {
+    @apply text-2xl md:text-3xl mb-6 flex items-center gap-3;
+  }
+  
+  h3 {
+    @apply text-xl md:text-2xl mb-4;
+  }
+  
+  p {
+    @apply text-[hsl(var(--text-secondary))] leading-relaxed;
+  }
+}
+
+.m3-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 5 3 3 3-3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+.m3-date::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.m3-date::-webkit-datetime-edit {
+  padding-right: 0;
+}
+
+.m3-date::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+.m3-date::-moz-focus-inner {
+  border: 0;
+}
+
+select option {
+  background-color: hsl(218 48% 18%);
+  color: #e2e8f0;
+}
+
+html.light-mode select option {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400;
+  }
+  
+  .card-gradient {
+    @apply bg-gradient-to-br from-surface-card to-surface-page border border-[hsl(var(--border))];
+  }
+  
+  .glass-header {
+    @apply bg-surface-page/80 backdrop-blur-md border-b border-[hsl(var(--border))];
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .nav-link {
+    @apply text-sm font-medium text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer;
+  }
+  
+  .nav-link.active {
+    @apply text-blue-400;
+  }
+  
+  .glow-point {
+    @apply relative flex items-center justify-center w-8 h-8 rounded-[var(--m3-shape-full)] bg-surface-elevated text-blue-400 font-bold border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.2)];
+  }
+}
+
+/* ══ Light Mode Overrides ═══════════════════════════════════════════════ */
+
+html.light-mode {
+  --m3-state-hover:   rgba(0,0,0,0.08);
+  --m3-state-focus:   rgba(0,0,0,0.12);
+  --m3-state-pressed: rgba(0,0,0,0.12);
+  --m3-state-dragged: rgba(0,0,0,0.16);
+  --m3-elevation-1: rgba(0,0,0,0.05);
+  --m3-elevation-2: rgba(0,0,0,0.08);
+  --m3-elevation-3: rgba(0,0,0,0.11);
+  --surface-page:      210 40% 97%;   /* #f1f5f9 slate-100 */
+  --surface-card:      0 0% 100%;     /* #ffffff           */
+  --surface-elevated:  213 27% 84%;   /* #cbd5e1 slate-300 */
+  --surface-inset:     210 40% 98%;   /* #f8fafc slate-50  */
+  --surface-section:   220 14% 96%;   /* #f3f4f6 gray-100  */
+  --surface-deep:      210 40% 97%;   /* #f1f5f9 slate-100 */
+  --surface-row-hover: 220 13% 93%;   /* #edf2f7           */
+  --surface-border:    213 27% 84%;   /* #cbd5e1 slate-300 */
+  --text-primary:      222 47% 11%;   /* #0f172a slate-900 */
+  --text-secondary:    215 16% 47%;   /* #64748b slate-500 — ≈ 5.3:1 on white */
+  --text-tertiary:     215 14% 34%;   /* #4b5563 gray-600  — ≈ 6.6:1 on white */
+}
+
+html.light-mode body {
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 100% 0%, rgba(20, 184, 166, 0.04) 0%, transparent 40%);
+}
+
+html.light-mode h1,
+html.light-mode h2,
+html.light-mode h3,
+html.light-mode h4,
+html.light-mode h5,
+html.light-mode h6 {
+  color: #0f172a;
+}
+
+/* ── Nav / header ─── */
+html.light-mode .glass-header {
+  background-color: rgba(241, 245, 249, 0.92) !important;
+  border-bottom-color: #cbd5e1 !important;
+}
+
+/* ── Slate utility backgrounds ─── */
+html.light-mode [class*="bg-slate-900"] { background-color: #f1f5f9 !important; }
+html.light-mode [class*="bg-slate-800"] { background-color: #e2e8f0 !important; }
+html.light-mode [class*="bg-slate-700"] { background-color: #f1f5f9 !important; }
+
+/* ── Borders ─── */
+html.light-mode .border-l-teal-400 { border-color: #0f766e !important; }
+html.light-mode [class*="border-slate-800"] { border-color: #cbd5e1 !important; }
+html.light-mode [class*="border-slate-700"] { border-color: #e2e8f0 !important; }
+
+/* ── White text — flip to dark for content on light surfaces ─── */
+html.light-mode .text-white { color: #0f172a !important; }
+
+/* Restore white text on gradient buttons/badges (same element has both classes) */
+html.light-mode [class*="from-teal"].text-white,
+html.light-mode [class*="from-blue"].text-white,
+html.light-mode [class*="from-purple"].text-white,
+html.light-mode [class*="from-rose"].text-white,
+html.light-mode [class*="from-amber"].text-white,
+html.light-mode [class*="from-emerald"].text-white,
+html.light-mode [class*="from-indigo"].text-white {
+  color: #ffffff !important;
+}
+
+/* Fraud spotlight gradient is an inline style (not a Tailwind class), so the
+   [class*="from-rose"] selector above won't match. Restore white text explicitly. */
+html.light-mode .fraud-gradient-header .text-white { color: #ffffff !important; }
+
+/* ── Top nav: stays dark in both light and dark modes ────────────────────── */
+/* Override surface tokens back to dark values inside nav-dark context */
+html.light-mode .nav-dark {
+  --surface-page:    218 56% 13%;
+  --surface-inset:   218 60% 10%;
+  --surface-section: 218 57% 12%;
+  --surface-card:    218 48% 18%;
+  --surface-border:  218 47% 22%;
+}
+html.light-mode .nav-dark .text-slate-300              { color: #cbd5e1 !important; }
+html.light-mode .nav-dark .text-slate-400,
+html.light-mode .nav-dark .text-slate-500              { color: #94a3b8 !important; }
+html.light-mode .nav-dark .text-teal-400               { color: #2dd4bf !important; }
+html.light-mode .nav-dark .hover\:text-slate-200:hover { color: #e2e8f0 !important; }
+html.light-mode .nav-dark { --text-secondary: 215 20% 65%; --text-tertiary: 215 17% 62%; }
+/* White SVG wordmark: stays white on the dark nav in both modes — no invert */
+html.light-mode .nav-dark .nav-logo                    { filter: none !important; }
+/* Fallback: white logo on a light nav (nav-dark not present) gets inverted */
+html.light-mode .nav-logo                              { filter: invert(1); }
+
+/* Breadcrumb bar: background flips to light in light-mode (via bg-[#0d1c30] rule above);
+   white/opacity text variants must flip to legible dark equivalents */
+html.light-mode .breadcrumb-bar span { color: #6b7280; }
+html.light-mode .breadcrumb-bar span[aria-current="page"] { color: #1e293b; font-weight: 600; }
+html.light-mode .breadcrumb-bar svg { color: #9ca3af; }
+html.light-mode .breadcrumb-bar { border-color: #e2e8f0 !important; }
+html.light-mode .breadcrumb-bar span:hover { color: #1e293b !important; }
+/* Breadcrumb <a> elements (e.g. wouter Link) — same dark treatment as spans */
+html.light-mode .breadcrumb-bar a { color: #6b7280 !important; }
+html.light-mode .breadcrumb-bar a:hover { color: #1e293b !important; }
+
+/* Hide scrollbar on nav overflow but keep scroll functionality */
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ── Dark color-scheme for native form controls ──────────────────────────── */
+/* Without this, Chrome macOS renders calendar icons, select arrows, and
+   spinner buttons in light-mode system colors even on dark backgrounds.     */
+.bg-surface-page input,
+.bg-surface-page select,
+.bg-surface-page textarea {
+  color-scheme: dark;
+}
+
+/* ── Hover states — white/2 and white/3 overlays are invisible in light mode ─── */
+html.light-mode [class*="hover:bg-white\/2"]:hover { background-color: rgba(0, 0, 0, 0.04) !important; }
+html.light-mode [class*="hover:bg-white\/3"]:hover { background-color: rgba(0, 0, 0, 0.06) !important; }
+/* Process Flow selected stage: bg-white/5 (5% white) is invisible on light surfaces.
+   Use exact class selector (.bg-white\/5) not substring (*=) to avoid matching bg-white/50 etc. */
+html.light-mode .bg-white\/5 { background-color: rgba(0, 0, 0, 0.04) !important; }
+
+/* ── color-scheme: restore to light for form controls in light mode ─── */
+html.light-mode .bg-surface-page input,
+html.light-mode .bg-surface-page select,
+html.light-mode .bg-surface-page textarea {
+  color-scheme: light;
+}
+
+/* ── Slate text — single authoritative set (was duplicated causing conflicts) ─── */
+html.light-mode .text-slate-200 { color: #1e293b !important; }  /* slate-800 */
+html.light-mode .text-slate-300 { color: #374151 !important; }  /* gray-700  */
+html.light-mode .text-slate-400 { color: #4b5563 !important; }  /* gray-600  */
+html.light-mode .text-slate-500 { color: #6b7280 !important; }  /* gray-500  */
+html.light-mode .text-slate-600 { color: #6b7280 !important; }  /* gray-500  ≈ 5.3:1 */
+html.light-mode .hover\:text-white:hover { color: #0f172a !important; }
+
+/* ── Coloured text — darken to ≥ 4.5:1 contrast on light backgrounds ─── */
+/* Teal: teal-400/300 (#2dd4bf / #5eead4) ≈ 1.5:1 on white → darken to teal-700 (#0f766e) ≈ 5.5:1 */
+html.light-mode .text-teal-300,
+html.light-mode .text-teal-400 { color: #0f766e !important; }
+
+/* Rose: rose-400/300 ≈ 3.7:1 / 2.5:1 on white → darken to rose-600 (#e11d48) ≈ 6:1 */
+html.light-mode .text-rose-300,
+html.light-mode .text-rose-400 { color: #e11d48 !important; }
+
+/* Amber: amber-400/300 ≈ 1.8:1 / 1.5:1 on white → darken to amber-700 (#b45309) ≈ 6:1 */
+html.light-mode .text-amber-300,
+html.light-mode .text-amber-400 { color: #b45309 !important; }
+
+/* Emerald: emerald-400/300 ≈ 2.5:1 / 1.7:1 on white → darken to emerald-700 (#047857) ≈ 5:1 */
+html.light-mode .text-emerald-300,
+html.light-mode .text-emerald-400 { color: #047857 !important; }
+
+/* Orange: orange-400 ≈ 2.0:1 on white → darken to orange-700 (#c2410c) ≈ 5:1 */
+html.light-mode .text-orange-400 { color: #c2410c !important; }
+
+/* Blue/Sky/Purple: already readable but boost to accessible dark variants */
+html.light-mode .text-blue-300,
+html.light-mode .text-blue-400   { color: #1d4ed8 !important; }  /* blue-700   ≈ 5:1 */
+html.light-mode .text-sky-300    { color: #0369a1 !important; }  /* sky-700    ≈ 5:1 */
+html.light-mode .text-purple-300 { color: #6d28d9 !important; }  /* purple-700 ≈ 5:1 */
+
+/* Red: red-400 (#f87171) = 3.2:1 on white → darken to red-600 (#dc2626) ≈ 5.1:1 */
+html.light-mode .text-red-400 { color: #dc2626 !important; }
+
+/* Orange/Red/Indigo -300 variants used by new status chips */
+html.light-mode .text-orange-300 { color: #c2410c !important; }  /* orange-700 ≈ 5:1 */
+html.light-mode .text-red-300    { color: #dc2626 !important; }  /* red-600    ≈ 5:1 */
+html.light-mode .text-indigo-300 { color: #4338ca !important; }  /* indigo-700 ≈ 6:1 */
+
+/* ── bg-white opacity variants invisible on light surfaces ─────────────── */
+/* bg-white/15 and bg-white/20 are used for icon/badge overlays in the
+   FraudSpotlight gradient header — map to a subtle dark tint instead.    */
+html.light-mode [class*="bg-white\/15"] { background-color: rgba(0,0,0,0.05) !important; }
+html.light-mode [class*="bg-white\/20"] { background-color: rgba(0,0,0,0.06) !important; }
+
+/* ── border-white opacity variants vanish on light surfaces ────────────── */
+html.light-mode [class*="border-white\/10"] { border-color: #e2e8f0 !important; }
+html.light-mode [class*="border-white\/25"] { border-color: #cbd5e1 !important; }
+
+/* ── Solid-colour badges with text-white — restore white text ─────────── */
+/* e.g. RLUSD badge: <span class="bg-teal-500 text-white">,
+   status chip fill backgrounds from orange/rose/amber/blue/emerald etc.  */
+html.light-mode [class*="bg-teal-500"].text-white,
+html.light-mode [class*="bg-rose-500"].text-white,
+html.light-mode [class*="bg-amber-500"].text-white,
+html.light-mode [class*="bg-blue-500"].text-white,
+html.light-mode [class*="bg-emerald-500"].text-white,
+html.light-mode [class*="bg-orange-500"].text-white,
+html.light-mode [class*="bg-indigo-500"].text-white { color: #ffffff !important; }
+
+/* ══ Export / Print Page Styles ═════════════════════════════════════════ */
+
+.export-root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  color: #0f172a;
+  background: #ffffff;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 0 40px;
+}
+
+/* Print toolbar */
+.print-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  padding: 10px 24px;
+}
+.print-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.print-bar-title { color: #f8fafc; font-size: 13px; font-weight: 600; margin: 0 0 2px; }
+.print-bar-sub   { color: #64748b; font-size: 11px; margin: 0; }
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #14b8a6;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.print-btn:hover { background: #0d9488; }
+
+/* Page blocks */
+.print-page {
+  padding: 32px 40px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Cover */
+.cover-page {
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #0a1628 0%, #162a4d 100%);
+  color: white;
+}
+.cover-inner { padding: 40px 0; }
+.cover-tag      { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #14b8a6; margin: 0 0 8px; }
+.cover-title    { font-size: 32px; font-weight: 800; color: #ffffff; margin: 0 0 6px; line-height: 1.1; }
+.cover-subtitle { font-size: 16px; color: #94a3b8; margin: 0 0 20px; }
+.cover-meta     { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 11px; color: #64748b; margin-bottom: 28px; }
+.toc-label      { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #64748b; margin: 0 0 6px; }
+.toc-list       { margin: 0; padding-left: 16px; color: #94a3b8; line-height: 1.8; font-size: 12px; }
+
+/* Section headers */
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.section-badge {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.section-badge.teal   { background: #ccfbf1; color: #0d9488; }
+.section-badge.purple { background: #ede9fe; color: #7c3aed; }
+.section-badge.orange { background: #ffedd5; color: #c2410c; }
+.section-title  { font-size: 16px; font-weight: 700; color: #0f172a; margin: 0 0 4px; }
+.section-sub    { font-size: 11px; color: #64748b; margin: 0; }
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10.5px;
+}
+.data-table th {
+  background: #f1f5f9;
+  color: #475569;
+  font-weight: 700;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 7px 8px;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+}
+.data-table td {
+  padding: 7px 8px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: top;
+  line-height: 1.5;
+  color: #334155;
+}
+.data-table tr:hover td { background: #f8fafc; }
+
+/* Inline styles */
+.mono  { font-family: 'JetBrains Mono', monospace; }
+.bold  { font-weight: 600; }
+.blue  { color: #2563eb; }
+.muted { color: #94a3b8; }
+
+/* Chips */
+.screen-chip {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 9.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.source-chip {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #ede9fe;
+  color: #7c3aed;
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+/* Severity / effort badges */
+.print-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 9.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.print-badge-high { background: #fee2e2; color: #b91c1c; }
+.print-badge-med  { background: #fef3c7; color: #b45309; }
+.print-badge-low  { background: #d1fae5; color: #065f46; }
+
+/* Requirements */
+.req-list { display: flex; flex-direction: column; gap: 10px; }
+.req-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.req-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+.req-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 800;
+  color: #475569;
+  background: #e2e8f0;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.req-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f172a;
+  flex: 1;
+  min-width: 200px;
+}
+.req-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  divide: 1px solid #e2e8f0;
+}
+
+/* Specs */
+.specs-list { display: flex; flex-direction: column; gap: 14px; }
+.spec-card {
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+.spec-high { border-left: 3px solid #ef4444; }
+.spec-med  { border-left: 3px solid #f59e0b; }
+.spec-low  { border-left: 3px solid #10b981; }
+.spec-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+.spec-rank {
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #0f172a;
+  font-size: 11px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.heuristic-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #475569;
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.spec-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  flex: 1;
+  min-width: 200px;
+}
+.spec-body, .spec-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #f1f5f9;
+}
+.spec-footer { background: #f8fafc; }
+.spec-col, .req-col {
+  padding: 8px 12px;
+  border-right: 1px solid #f1f5f9;
+}
+.spec-col:last-child, .req-col:last-child { border-right: none; }
+
+.col-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  margin: 0 0 4px;
+}
+.col-label.teal-label { color: #0d9488; }
+.col-label.red-label  { color: #dc2626; }
+.col-text {
+  font-size: 10.5px;
+  color: #334155;
+  line-height: 1.55;
+  margin: 0;
+}
+.token-list, .criteria-list {
+  margin: 0;
+  padding-left: 14px;
+  font-size: 10px;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.export-footer {
+  text-align: center;
+  padding: 16px;
+  color: #94a3b8;
+  font-size: 10px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.theme-logo {
+  opacity: 0.85;
+  transition: opacity 0.2s, filter 0.2s;
+}
+.theme-logo:hover {
+  opacity: 1;
+}
+html.light-mode .theme-logo {
+  filter: brightness(0);
+}
+html.light-mode .nav-dark .theme-logo {
+  filter: none;
+}
+
+/* ── @media print ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm 14mm;
+  }
+
+  body { background: white !important; }
+  .no-print { display: none !important; }
+  .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+  .print-page { border-bottom: none; padding: 0 0 20px; }
+  .print-page + .print-page { border-top: 1px solid #e2e8f0; padding-top: 20px; }
+  .cover-page { break-after: page; page-break-after: always; min-height: unset; padding: 60px 0; }
+  .section-header { break-after: avoid; page-break-after: avoid; }
+  .data-table thead { display: table-header-group; }
+  .data-table tr { break-inside: avoid; page-break-inside: avoid; }
+  .req-card, .spec-card { break-inside: avoid; page-break-inside: avoid; }
+  .export-root { max-width: 100%; padding: 0; }
+}
+
+.m3-elevation-1 { background-image: linear-gradient(var(--m3-elevation-1), var(--m3-elevation-1)); }
+.m3-elevation-2 { background-image: linear-gradient(var(--m3-elevation-2), var(--m3-elevation-2)); }
+.m3-elevation-3 { background-image: linear-gradient(var(--m3-elevation-3), var(--m3-elevation-3)); }
+.m3-elevation-4 { background-image: linear-gradient(var(--m3-elevation-4), var(--m3-elevation-4)); }
+.m3-elevation-5 { background-image: linear-gradient(var(--m3-elevation-5), var(--m3-elevation-5)); }
+
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.08) 25%,
+    rgba(148, 163, 184, 0.18) 50%,
+    rgba(148, 163, 184, 0.08) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
+  }
+}

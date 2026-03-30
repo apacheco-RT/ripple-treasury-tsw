@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ripple Treasury — Design Strategy &amp; Research Plan</title>
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-light: #132038;
+    --navy-mid: #1a2d4d;
+    --slate: #2a3f5f;
+    --blue: #3b82f6;
+    --blue-light: #60a5fa;
+    --teal: #14b8a6;
+    --teal-light: #2dd4bf;
+    --purple: #8b5cf6;
+    --amber: #f59e0b;
+    --rose: #f43f5e;
+    --emerald: #10b981;
+    --white: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --card-bg: #132038;
+    --card-border: #1e3a5f;
+    --shadow: 0 4px 24px rgba(0,0,0,0.25);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header ── */
+  .site-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-bottom: 1px solid var(--card-border);
+    padding: 28px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--teal) 100%);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 20px; color: #fff;
+    letter-spacing: -1px;
+  }
+  .brand h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--white);
+  }
+  .brand .subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  /* ── Top Nav ── */
+  .top-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .top-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .top-nav a:hover {
+    color: var(--white);
+    background: rgba(59,130,246,0.15);
+  }
+
+  /* ── Main Layout ── */
+  .main-content {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 48px;
+  }
+  .hero h2 {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--white) 0%, var(--blue-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* ── Sections ── */
+  section { margin-bottom: 64px; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  h2.section-title {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--white);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--card-border);
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin: 32px 0 16px;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--blue-light);
+    margin: 24px 0 12px;
+  }
+
+  p { margin-bottom: 16px; color: var(--text-secondary); }
+  strong { color: var(--white); font-weight: 600; }
+
+  a {
+    color: var(--blue-light);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  a:hover { border-bottom-color: var(--blue-light); }
+
+  /* ── Context Box ── */
+  .context-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 32px;
+  }
+  .context-box p { color: var(--text-secondary); margin-bottom: 0; }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 20px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  /* ── Tables ── */
+  .table-wrapper {
+    overflow-x: auto;
+    margin: 20px 0 28px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: var(--card-bg);
+  }
+  thead th {
+    background: var(--navy-mid);
+    color: var(--white);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-size: 11px;
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 2px solid var(--blue);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(30,58,95,0.5);
+    color: var(--text-secondary);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  tbody tr:nth-child(even) { background: rgba(26,45,77,0.3); }
+  tbody tr:hover { background: rgba(59,130,246,0.08); }
+  tbody td strong { color: var(--white); }
+
+  /* ── Priority Table ── */
+  .priority-table td:first-child {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .priority-high { color: var(--rose) !important; }
+  .priority-med { color: var(--amber) !important; }
+  .priority-low { color: var(--emerald) !important; }
+  .priority-indicator {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .pi-high { background: var(--rose); box-shadow: 0 0 6px rgba(244,63,94,0.5); }
+  .pi-med { background: var(--amber); box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+  .pi-low { background: var(--emerald); box-shadow: 0 0 6px rgba(16,185,129,0.5); }
+
+  /* ── Competitor Cards ── */
+  .competitor-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-left: 5px solid;
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow-sm);
+  }
+  .competitor-card h4 {
+    margin-top: 0;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .comp-modern-treasury  { border-left-color: var(--teal); }
+  .comp-modern-treasury h4 { color: var(--teal-light); }
+  .comp-kyriba           { border-left-color: var(--purple); }
+  .comp-kyriba h4        { color: #a78bfa; }
+  .comp-highradius       { border-left-color: var(--amber); }
+  .comp-highradius h4    { color: var(--amber); }
+  .comp-tipalti          { border-left-color: var(--rose); }
+  .comp-tipalti h4       { color: #fb7185; }
+  .comp-trovata          { border-left-color: var(--blue); }
+  .comp-trovata h4       { color: var(--blue-light); }
+  .comp-wise             { border-left-color: var(--emerald); }
+  .comp-wise h4          { color: #34d399; }
+
+  .comp-sub {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin: 20px 0 10px;
+  }
+  .comp-sub-strengths { color: var(--emerald); }
+  .comp-sub-weaknesses { color: var(--amber); }
+  .comp-sub-sources { color: var(--gray-400); }
+
+  .competitor-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .competitor-card ul li {
+    padding: 10px 0 10px 20px;
+    position: relative;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(30,58,95,0.3);
+    line-height: 1.6;
+  }
+  .competitor-card ul li:last-child { border-bottom: none; }
+  .competitor-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 18px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gray-500);
+  }
+
+  /* ── Heuristic annotations ── */
+  .heuristic {
+    display: block;
+    margin-top: 6px;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--teal);
+    background: rgba(20,184,166,0.08);
+    border-left: 3px solid var(--teal);
+    padding: 6px 10px;
+    border-radius: 0 6px 6px 0;
+    line-height: 1.5;
+  }
+
+  .source-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .source-links a {
+    font-size: 12px;
+    color: var(--blue-light);
+    background: rgba(59,130,246,0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(59,130,246,0.2);
+    transition: all 0.2s;
+  }
+  .source-links a:hover {
+    background: rgba(59,130,246,0.2);
+    border-bottom: 1px solid rgba(59,130,246,0.2);
+  }
+
+  /* ── Design Principle Cards ── */
+  .principle-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 28px 28px 28px 80px;
+    margin-bottom: 16px;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .principle-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .principle-number {
+    position: absolute;
+    left: 20px; top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px;
+    color: #fff;
+  }
+  .principle-card h4 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: var(--white);
+  }
+  .principle-card p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Differentiator Cards ── */
+  .diff-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 28px 28px 28px 80px;
+    margin-bottom: 16px;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s;
+  }
+  .diff-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .diff-number {
+    position: absolute;
+    left: 20px; top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--rose));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px; color: #fff;
+  }
+  .diff-card h4 { margin: 0 0 6px; font-size: 16px; color: var(--white); }
+  .diff-card p { margin: 0; font-size: 14px; color: var(--text-secondary); }
+
+  /* ── Track Cards ── */
+  .track-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .track-card h4 {
+    margin: 0 0 16px;
+    font-size: 17px;
+  }
+  .track-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .badge-track1 { background: rgba(59,130,246,0.15); color: var(--blue-light); }
+  .badge-track2 { background: rgba(139,92,246,0.15); color: #a78bfa; }
+
+  .connect-list {
+    list-style: none;
+    padding: 0;
+  }
+  .connect-list li {
+    padding: 8px 0 8px 20px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .connect-list li::before {
+    content: '\2192';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  /* ── Timeline / Day-by-Day ── */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--blue), var(--teal), var(--purple));
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -33px; top: 6px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--navy);
+    box-shadow: 0 0 0 2px var(--blue);
+  }
+  .timeline-dot.dot-blue { background: var(--blue); box-shadow: 0 0 0 2px var(--blue); }
+  .timeline-dot.dot-teal { background: var(--teal); box-shadow: 0 0 0 2px var(--teal); }
+  .timeline-dot.dot-purple { background: var(--purple); box-shadow: 0 0 0 2px var(--purple); }
+  .timeline-dot.dot-amber { background: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+  .timeline-dot.dot-rose { background: var(--rose); box-shadow: 0 0 0 2px var(--rose); }
+
+  .timeline-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+  .tl-blue { color: var(--blue-light); }
+  .tl-teal { color: var(--teal-light); }
+  .tl-purple { color: #a78bfa; }
+  .tl-amber { color: var(--amber); }
+  .tl-rose { color: #fb7185; }
+
+  .timeline-content {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    box-shadow: var(--shadow-sm);
+  }
+  .timeline-content ul {
+    list-style: none;
+    padding: 0;
+  }
+  .timeline-content ul li {
+    padding: 6px 0 6px 18px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .timeline-content ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 14px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gray-500);
+  }
+
+  /* ── Artifact Pills ── */
+  .artifact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .artifact-pill {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px 14px 48px;
+    position: relative;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .artifact-num {
+    position: absolute;
+    left: 14px; top: 50%;
+    transform: translateY(-50%);
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    background: var(--navy-mid);
+    border: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--blue-light);
+  }
+
+  /* ── Access Gap Items ── */
+  .access-item {
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--amber);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 14px;
+  }
+  .access-item strong { color: var(--amber); }
+  .access-item span { color: var(--text-secondary); }
+
+  /* ── Q1-Q2 Bridge Items ── */
+  .bridge-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+  .bridge-card h4 {
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bridge-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .bridge-icon-fraud { background: rgba(244,63,94,0.15); color: var(--rose); }
+  .bridge-icon-stable { background: rgba(139,92,246,0.15); color: #a78bfa; }
+  .bridge-icon-verify { background: rgba(20,184,166,0.15); color: var(--teal); }
+
+  /* ── Verification Checklist ── */
+  .check-list {
+    list-style: none;
+    padding: 0;
+  }
+  .check-list li {
+    padding: 12px 0 12px 32px;
+    position: relative;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(30,58,95,0.3);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0; top: 12px;
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: rgba(16,185,129,0.15);
+    color: var(--emerald);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+  }
+
+  /* ── Sources Section ── */
+  .source-grid {
+    display: grid;
+    gap: 10px;
+  }
+  .source-grid a {
+    display: block;
+    padding: 14px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--blue-light);
+    transition: all 0.2s;
+  }
+  .source-grid a:hover {
+    background: rgba(59,130,246,0.08);
+    border-color: var(--blue);
+    border-bottom: 1px solid var(--blue);
+  }
+
+  /* ── Divider ── */
+  .divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+    margin: 48px 0;
+  }
+
+  /* ── Footer ── */
+  .site-footer {
+    border-top: 1px solid var(--card-border);
+    padding: 32px 40px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  .site-footer span { color: var(--gray-400); }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .top-nav { margin-top: 12px; }
+    .hero h2 { font-size: 28px; }
+    .main-content { padding: 32px 18px 60px; }
+    .principle-card, .diff-card { padding-left: 70px; }
+    .principle-number, .diff-number { left: 16px; width: 38px; height: 38px; font-size: 16px; }
+    table { font-size: 13px; }
+    thead th, tbody td { padding: 10px 12px; }
+    .competitor-card { padding: 22px; }
+    .timeline { padding-left: 32px; }
+    .timeline::before { left: 10px; }
+    .timeline-dot { left: -28px; }
+  }
+
+  /* ── Print ── */
+  @media print {
+    body {
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 11pt;
+      line-height: 1.5;
+    }
+    .site-header { position: static; background: #fff; border-bottom: 2px solid #333; }
+    .top-nav { display: none; }
+    .brand h1 { color: #1a1a1a; }
+    .brand .subtitle { color: #555; }
+    .brand-icon { background: #333; }
+    .hero h2 {
+      background: none;
+      -webkit-text-fill-color: #1a1a1a;
+      color: #1a1a1a;
+    }
+    .hero p { color: #444; }
+    h2.section-title { color: #1a1a1a; border-bottom-color: #ccc; }
+    h3 { color: #1a1a1a; }
+    h4 { color: #333; }
+    p, .text-secondary, li, td { color: #333 !important; }
+    strong { color: #1a1a1a !important; }
+    .card, .context-box, .competitor-card, .principle-card, .diff-card,
+    .track-card, .timeline-content, .bridge-card, .artifact-pill, .access-item {
+      background: #fff;
+      border-color: #ddd;
+      box-shadow: none;
+      break-inside: avoid;
+    }
+    table { background: #fff; }
+    thead th { background: #f0f0f0; color: #1a1a1a; border-bottom-color: #333; }
+    tbody td { border-bottom-color: #ddd; }
+    tbody tr:nth-child(even) { background: #f8f8f8; }
+    tbody tr:hover { background: transparent; }
+    .heuristic { background: #f5f5f5; color: #2a7a6f; border-left-color: #2a7a6f; }
+    a { color: #2563eb; border-bottom: none; }
+    .source-links a { background: none; border: 1px solid #ccc; color: #2563eb; }
+    .section-label { color: #2a7a6f; }
+    .principle-number { background: #333; }
+    .diff-number { background: #555; }
+    .timeline::before { background: #ccc; }
+    .timeline-dot { border-color: #fff; }
+    .site-footer { border-top-color: #ccc; color: #888; }
+    section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">RT</div>
+      <div>
+        <h1>Ripple Treasury</h1>
+        <div class="subtitle">Design Strategy &amp; Research Plan</div>
+      </div>
+    </div>
+    <nav class="top-nav">
+      <a href="#context">Context</a>
+      <a href="#strategy">Strategy</a>
+      <a href="#research">Research</a>
+      <a href="#principles">Principles</a>
+      <a href="#competitors">Competitors</a>
+      <a href="#heuristics">Heuristics</a>
+      <a href="#customers">Customers</a>
+      <a href="#differentiators">Differentiators</a>
+      <a href="#next-steps">Next Steps</a>
+      <a href="#access-gap">Access Gap</a>
+      <a href="#bridge">Q1&rarr;Q2</a>
+      <a href="#verification">Verification</a>
+      <a href="#sources">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero">
+  <h2>GTreasury Payments Modernization</h2>
+  <p>Design Strategy &amp; Research Plan &mdash; From orientation through validated Q1 designs, laying foundations for Q2 features including GSmart fraud detection and stablecoin integration.</p>
+</div>
+
+<div class="main-content">
+
+<!-- ═══════════════ CONTEXT ═══════════════ -->
+<section id="context">
+  <span class="section-label">Overview</span>
+  <h2 class="section-title">Context</h2>
+  <div class="context-box">
+    <p>Ripple Treasury (powered by GTreasury) is modernizing its payment hub frontend. The legacy system handles billions in daily transactions across 250+ payment clients globally, but suffers from a clunky UX (rage clicks, P1 incidents from XPayment), an outdated tech stack, and lost deals to competitors like Kyriba and Modern Treasury. Q1 focus is system resilience and a React frontend migration. The design team (Alex + Michael) is pre-Phase 1 of the 7-phase product design lifecycle, with the transaction status workflow page and payment hub homepage as the first design priorities.</p>
+    <p style="margin-top:16px;">This document outlines the design strategy, research plan, and concrete next steps to take this project from orientation through to validated Q1 designs, while laying foundations for Q2 features (GSmart fraud detection, stablecoin integration).</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ STRATEGY ═══════════════ -->
+<section id="strategy">
+  <span class="section-label">Approach</span>
+  <h2 class="section-title">Strategy: Modified Parallel Tracks</h2>
+  <p>Two concurrent workstreams over 8 weeks:</p>
+
+  <!-- Track 1 -->
+  <div class="track-card">
+    <span class="track-badge badge-track1">Track 1</span>
+    <h4 style="color:var(--blue-light)">Page Design <span style="font-weight:400;font-size:14px;color:var(--text-secondary)">&mdash; Alex leads, Michael reviews</span></h4>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Weeks</th><th>Focus</th><th>Lifecycle Phase</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1&ndash;2</strong></td><td>Transaction status page &mdash; discovery &amp; research</td><td>Understand</td></tr>
+          <tr><td><strong>2&ndash;3</strong></td><td>Transaction status page &mdash; concepts &amp; prototyping</td><td>Explore</td></tr>
+          <tr><td><strong>3&ndash;4</strong></td><td>Transaction status page &mdash; hi-fi design &amp; validate</td><td>Design + Validate</td></tr>
+          <tr><td><strong>4&ndash;5</strong></td><td>Payment hub homepage &mdash; discovery &amp; research</td><td>Understand</td></tr>
+          <tr><td><strong>5&ndash;6</strong></td><td>Payment hub homepage &mdash; concepts &amp; prototyping</td><td>Explore</td></tr>
+          <tr><td><strong>7&ndash;8</strong></td><td>Payment hub homepage &mdash; hi-fi design &amp; validate</td><td>Design + Validate</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Track 2 -->
+  <div class="track-card">
+    <span class="track-badge badge-track2">Track 2</span>
+    <h4 style="color:#a78bfa">System Foundations <span style="font-weight:400;font-size:14px;color:var(--text-secondary)">&mdash; Michael leads, Alex contributes</span></h4>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Weeks</th><th>Focus</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1&ndash;3</strong></td><td>Full legacy audit, persona mapping, competitive analysis (full product), design system gap analysis</td></tr>
+          <tr><td><strong>3&ndash;5</strong></td><td>Information architecture v1, cross-cutting pattern library (status indicators, data tables, filters, alerts, navigation, error/empty/loading states)</td></tr>
+          <tr><td><strong>5&ndash;8</strong></td><td>Q2 feature discovery (GSmart, stablecoin), external user research planning, IA validation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- How tracks connect -->
+  <h3>How Tracks Connect</h3>
+  <ul class="connect-list">
+    <li><strong>Track 2 feeds Track 1:</strong> pattern library and IA inform each page design</li>
+    <li><strong>Track 1 feeds Track 2:</strong> designing real pages reveals systemic questions, validates IA</li>
+    <li><strong>Both tracks</strong> ensure Q2 features are considered in Q1 designs (fraud alert flags on transaction status page, stablecoin transaction types, etc.)</li>
+  </ul>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ RESEARCH PLAN ═══════════════ -->
+<section id="research">
+  <span class="section-label">Discovery</span>
+  <h2 class="section-title">Research Plan</h2>
+
+  <h3>Immediate &mdash; No Access Required (Weeks 1&ndash;2)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Activity</th><th>Owner</th><th>Method</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Stakeholder interviews</strong> (Shahid, eng lead)</td><td>Alex</td><td>60min sessions, JTBD-style questions</td></tr>
+        <tr><td><strong>Internal user interviews</strong> (support, QA, ops) &mdash; 3&ndash;5 sessions</td><td>Alex</td><td>JTBD: &ldquo;Walk me through the last time you needed to find a transaction status&hellip;&rdquo;</td></tr>
+        <tr><td><strong>Competitive audit:</strong> transaction status patterns (Kyriba, Modern Treasury, Tipalti, Trovata, HighRadius)</td><td>Alex</td><td>Public demos, marketing sites, docs</td></tr>
+        <tr><td><strong>Competitive audit:</strong> full-product experiences (nav, dashboards, alerts)</td><td>Michael</td><td>Same sources, broader lens</td></tr>
+        <tr><td><strong>Design system inventory</strong> &amp; gap analysis</td><td>Michael</td><td>Audit existing Figma components vs. payment page needs</td></tr>
+        <tr><td><strong>Review Shahid&rsquo;s Lovable prototype</strong> (GSmart, stablecoin)</td><td>Both</td><td>Request access/walkthrough</td></tr>
+        <tr><td><strong>P1 incident report analysis</strong></td><td>Alex</td><td>Request from Shahid &mdash; categorize UX vs. backend</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Requires Workaround &mdash; Demo Access Pending (Weeks 1&ndash;2)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Activity</th><th>Workaround</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Legacy transaction status page audit</strong></td><td>60&ndash;90min screen-share recording from colleague with access</td></tr>
+        <tr><td><strong>Full legacy system audit</strong> (all pages)</td><td>Same + help docs, support ticket themes</td></tr>
+        <tr><td><strong>Pendo analytics</strong> (rage clicks, funnels, usage)</td><td>Request Shahid/PM to export specific reports</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Requires Client Access &mdash; Defer (Weeks 5&ndash;8)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Activity</th><th>Coordination</th></tr></thead>
+      <tbody>
+        <tr><td><strong>External usability testing</strong> on transaction status page (5&ndash;8 participants)</td><td>Recruit via CS/account managers</td></tr>
+        <tr><td><strong>JTBD interviews</strong> with actual payment operators (US, EU, APAC)</td><td>Same recruitment channel</td></tr>
+        <tr><td><strong>IA validation</strong> (tree testing / card sorting)</td><td>Unmoderated via Maze or Optimal Workshop</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ DESIGN PRINCIPLES ═══════════════ -->
+<section id="principles">
+  <span class="section-label">Foundation</span>
+  <h2 class="section-title">Design Principles <span style="font-size:16px;font-weight:400;color:var(--text-secondary)">(establish in Week 1)</span></h2>
+
+  <div class="principle-card">
+    <div class="principle-number">1</div>
+    <h4>Status clarity over information density</h4>
+    <p>Scannable status at a glance &mdash; addresses rage clicks</p>
+  </div>
+  <div class="principle-card">
+    <div class="principle-number">2</div>
+    <h4>Exception-driven design</h4>
+    <p>Surface failures and items needing attention; normal transactions fade to background</p>
+  </div>
+  <div class="principle-card">
+    <div class="principle-number">3</div>
+    <h4>Progressive disclosure</h4>
+    <p>Reveal complexity as users drill down, don&rsquo;t overwhelm upfront</p>
+  </div>
+  <div class="principle-card">
+    <div class="principle-number">4</div>
+    <h4>Consistent patterns across all pages</h4>
+    <p>Every data table, filter, and status indicator works the same everywhere</p>
+  </div>
+  <div class="principle-card">
+    <div class="principle-number">5</div>
+    <h4>Built for Q2 from day 1</h4>
+    <p>Design extension points for fraud detection and stablecoin</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ COMPETITOR ANALYSIS ═══════════════ -->
+<section id="competitors">
+  <span class="section-label">Landscape</span>
+  <h2 class="section-title">In-Depth Competitor Analysis</h2>
+  <h3>Transaction Status &amp; Payment Hub &mdash; What Best-in-Class Looks Like</h3>
+
+  <!-- Modern Treasury -->
+  <div class="competitor-card comp-modern-treasury">
+    <h4>1. Modern Treasury &mdash; The Design Benchmark</h4>
+    <p class="comp-sub comp-sub-strengths">What they do well</p>
+    <ul>
+      <li><strong>&ldquo;Today&rsquo;s Tasks&rdquo; widget</strong> &mdash; surfaces ACH returns, pending approvals, and items needing action.
+        <span class="heuristic">Heuristic: Visibility of system status (Nielsen #1). Exception-driven &mdash; normal state is &ldquo;nothing to do here,&rdquo; which reduces cognitive load.</span></li>
+      <li><strong>Payments by Status view</strong> &mdash; centralizes all payment orders with their statuses, allowing quick identification of issues.
+        <span class="heuristic">Heuristic: Match between system and real world (Nielsen #2). Uses language finance teams understand, not backend jargon.</span></li>
+      <li><strong>Quickswitch (Cmd+K)</strong> &mdash; keyboard shortcut for rapid object discovery and creation.
+        <span class="heuristic">Heuristic: Flexibility and efficiency of use (Nielsen #7). Power users can bypass navigation entirely.</span></li>
+      <li><strong>Smart Balances Table</strong> &mdash; prior day, available balances, money in/out, reconciliation %, future movements. Drill-down into specific accounts.
+        <span class="heuristic">Heuristic: Progressive disclosure. Summary &rarr; detail without leaving context.</span></li>
+      <li><strong>Approval workflow transparency</strong> &mdash; shows which rules triggered, which roles need to approve, current status, blockers.
+        <span class="heuristic">Heuristic: Visibility of system status (Nielsen #1). Users are never left wondering &ldquo;why is this stuck?&rdquo;</span></li>
+      <li><strong>Human-readable reconciliation rules</strong> &mdash; rules displayed in plain language, not JSON.
+        <span class="heuristic">Heuristic: Match between system and real world (Nielsen #2). Finance personas creating rules don&rsquo;t think in code.</span></li>
+      <li><strong>Cash Flow Visualization</strong> &mdash; cross-account visualization of incoming/outgoing flows.
+        <span class="heuristic">Heuristic: Recognition rather than recall (Nielsen #6). Visual patterns reveal trends that tables hide.</span></li>
+    </ul>
+    <p class="comp-sub comp-sub-weaknesses">Weaknesses / Opportunities for Ripple Treasury</p>
+    <ul>
+      <li>Originally API-first; dashboard can still feel developer-oriented for pure finance users</li>
+      <li>No native fraud detection &mdash; opportunity for GTreasury with GSmart</li>
+      <li>No stablecoin/crypto support &mdash; major differentiator for Ripple</li>
+    </ul>
+    <p class="comp-sub comp-sub-sources">Sources</p>
+    <div class="source-links">
+      <a href="https://www.moderntreasury.com/journal/behind-the-scenes-designing-our-new-ui" target="_blank">Behind the Scenes: Designing Our New UI</a>
+      <a href="https://www.moderntreasury.com/journal/updated-dashboard" target="_blank">Updated Dashboard</a>
+      <a href="https://www.moderntreasury.com/journal/best-practices-for-payment-operations" target="_blank">Best Practices for Payment Operations</a>
+    </div>
+  </div>
+
+  <!-- Kyriba -->
+  <div class="competitor-card comp-kyriba">
+    <h4>2. Kyriba &mdash; The Enterprise Incumbent</h4>
+    <p class="comp-sub comp-sub-strengths">What they do well</p>
+    <ul>
+      <li><strong>Single payment center</strong> &mdash; manage payments across multiple banks from one hub. 66,000+ payment format scenarios.
+        <span class="heuristic">Heuristic: Consistency and standards (Nielsen #4). One workflow regardless of bank or region.</span></li>
+      <li><strong>AI-powered fraud detection</strong> &mdash; scenario-based, real-time quarantine of suspicious payments.
+        <span class="heuristic">Heuristic: Error prevention (Nielsen #5). Stops bad payments before they reach the bank.</span></li>
+      <li><strong>Real-time dashboards</strong> &mdash; payment status, alerts, mobile access, full audit trails.
+        <span class="heuristic">Heuristic: Visibility of system status (Nielsen #1).</span></li>
+      <li><strong>Two-way bank communication</strong> &mdash; payment acknowledgments, tracking, bank status reporting.
+        <span class="heuristic">Best practice: Both push (notifications) and pull (status tracker) mechanisms per NNG guidelines.</span></li>
+    </ul>
+    <p class="comp-sub comp-sub-weaknesses">Weaknesses / Opportunities for Ripple Treasury</p>
+    <ul>
+      <li><strong>Steep learning curve</strong> &mdash; interface can overwhelm new users.
+        <span class="heuristic">Violates: Aesthetic and minimalist design (Nielsen #8). Too much information density upfront.</span></li>
+      <li><strong>Legacy enterprise feel</strong> &mdash; UI evolved incrementally, not designed holistically.
+        <span class="heuristic">Opportunity: Progressive disclosure and modern design language can leapfrog this.</span></li>
+      <li>Not built for stablecoin/crypto &mdash; traditional payment rails only</li>
+    </ul>
+    <p class="comp-sub comp-sub-sources">Sources</p>
+    <div class="source-links">
+      <a href="https://www.kyriba.com/resource/payments-hubs/" target="_blank">Kyriba Payments Hub</a>
+      <a href="https://www.kyriba.com/products/payments/" target="_blank">Kyriba Payments Solutions</a>
+      <a href="https://www.euromoney.com/article/3o6y09eup6g4osg4ksk4k4k08/corporate-banking/the-worlds-best-treasury-management-system-2025-kyriba/" target="_blank">World&rsquo;s Best TMS 2025 &mdash; Euromoney</a>
+    </div>
+  </div>
+
+  <!-- HighRadius -->
+  <div class="competitor-card comp-highradius">
+    <h4>3. HighRadius &mdash; Role-Based Dashboard Leader</h4>
+    <p class="comp-sub comp-sub-strengths">What they do well</p>
+    <ul>
+      <li><strong>Role-specific dashboard summaries</strong> &mdash; initiators, approvers, and treasurers each see different views with tailored alerts and CTAs.
+        <span class="heuristic">Heuristic: User control and freedom (Nielsen #3). Each role sees what matters to them.</span></li>
+      <li><strong>Approver workspace</strong> &mdash; consolidates pending approvals, prioritizes tasks, tracks payment statuses in one place.
+        <span class="heuristic">Best practice: Job-focused design. The approver&rsquo;s entire workflow in one screen.</span></li>
+      <li><strong>Bank cutoff monitoring</strong> &mdash; real-time alerts ensuring payments process before bank deadlines.
+        <span class="heuristic">Heuristic: Error prevention (Nielsen #5). Prevents a common, costly mistake.</span></li>
+      <li><strong>Target balance checker</strong> &mdash; verify funds before initiating payments.
+        <span class="heuristic">Heuristic: Error prevention (Nielsen #5).</span></li>
+      <li><strong>Real-time failure notifications</strong> &mdash; immediate alerts on payment failures with corrective action guidance.
+        <span class="heuristic">Heuristic: Help users recognize, diagnose, and recover from errors (Nielsen #9).</span></li>
+    </ul>
+    <p class="comp-sub comp-sub-weaknesses">Weaknesses / Opportunities for Ripple Treasury</p>
+    <ul>
+      <li>Less focus on design craft &mdash; functional but not visually refined</li>
+      <li>Heavy enterprise onboarding process</li>
+      <li>No stablecoin support</li>
+    </ul>
+    <p class="comp-sub comp-sub-sources">Sources</p>
+    <div class="source-links">
+      <a href="https://www.highradius.com/product/treasury-payment-solutions/" target="_blank">HighRadius Treasury Payments</a>
+      <a href="https://www.highradius.com/software/treasury-risk/treasury-payment/mobile-app/" target="_blank">HighRadius Mobile App</a>
+    </div>
+  </div>
+
+  <!-- Tipalti -->
+  <div class="competitor-card comp-tipalti">
+    <h4>4. Tipalti &mdash; Payment Status State Machine Reference</h4>
+    <p class="comp-sub comp-sub-strengths">What they do well</p>
+    <ul>
+      <li><strong>Clear progressive status system:</strong> Waiting to Approve &rarr; Submitted &rarr; Paid (with branches: Deferred if payee info missing, Rejected if info incorrect).
+        <span class="heuristic">Heuristic: Visibility of system status (Nielsen #1). Every payment has a clear, understandable state.</span></li>
+      <li><strong>Push notifications at every transition</strong> &mdash; automated alerts for approvals, processing, completions.
+        <span class="heuristic">NNG guideline: Offer both push and pull tracking. Don&rsquo;t make users obsessively check.</span></li>
+      <li><strong>&ldquo;Ask Pi&rdquo; AI feature</strong> &mdash; natural language queries like &ldquo;Which suppliers haven&rsquo;t been paid this month?&rdquo;
+        <span class="heuristic">Best practice: Reducing friction for ad-hoc information retrieval.</span></li>
+      <li><strong>Vendor self-service portal</strong> &mdash; suppliers track their own payment status.
+        <span class="heuristic">Heuristic: User control and freedom (Nielsen #3). Reduces inbound support queries.</span></li>
+    </ul>
+    <p class="comp-sub comp-sub-weaknesses">Weaknesses / Opportunities for Ripple Treasury</p>
+    <ul>
+      <li>AP-focused, not treasury-focused &mdash; different user mental model</li>
+      <li>Less sophisticated treasury analytics</li>
+    </ul>
+    <p class="comp-sub comp-sub-sources">Sources</p>
+    <div class="source-links">
+      <a href="https://help.tipalti.com/hc/en-us/articles/30607267805463-Payments-Workflow" target="_blank">Tipalti Payments Workflow</a>
+      <a href="https://help.tipalti.com/hc/en-us/articles/30607336767127-Payment-statuses-defined" target="_blank">Tipalti Payment Statuses</a>
+    </div>
+  </div>
+
+  <!-- Trovata -->
+  <div class="competitor-card comp-trovata">
+    <h4>5. Trovata &mdash; Modern UX Benchmark</h4>
+    <p class="comp-sub comp-sub-strengths">What they do well</p>
+    <ul>
+      <li><strong>Customizable dashboards</strong> &mdash; arrange reports and forecasts however you want.
+        <span class="heuristic">Heuristic: User control and freedom (Nielsen #3).</span></li>
+      <li><strong>Natural language search</strong> &mdash; AI-powered search across all transaction data.
+        <span class="heuristic">Best practice: Reducing cognitive load for data exploration.</span></li>
+      <li><strong>Auto-tagging</strong> &mdash; ML-based transaction categorization.
+        <span class="heuristic">Heuristic: Flexibility and efficiency of use (Nielsen #7). Automation reduces repetitive manual work.</span></li>
+      <li><strong>Drill-down BI charts</strong> &mdash; click into cash flow visualizations to see underlying transactions.
+        <span class="heuristic">Best practice: Progressive disclosure with visual entry points.</span></li>
+    </ul>
+    <p class="comp-sub comp-sub-weaknesses">Weaknesses / Opportunities for Ripple Treasury</p>
+    <ul>
+      <li>Focused on cash management, not payment initiation/approval workflows</li>
+      <li>API-first, lighter on manual payment workflows</li>
+    </ul>
+    <p class="comp-sub comp-sub-sources">Sources</p>
+    <div class="source-links">
+      <a href="https://trovata.io/ds/cash-reporting-dashboard/" target="_blank">Trovata Cash Reporting Dashboard</a>
+      <a href="https://trovata.io/" target="_blank">Trovata Platform</a>
+    </div>
+  </div>
+
+  <!-- Wise -->
+  <div class="competitor-card comp-wise">
+    <h4>6. Wise &mdash; Transaction Details Design Gold Standard</h4>
+    <p class="comp-sub comp-sub-strengths">What they do well</p>
+    <ul>
+      <li><strong>Minimalist transaction detail page</strong> &mdash; spacious, uncluttered, functional.
+        <span class="heuristic">Heuristic: Aesthetic and minimalist design (Nielsen #8). Every element earns its place.</span></li>
+      <li><strong>Top-positioned status + reference</strong> &mdash; most critical info above the fold.
+        <span class="heuristic">NNG guideline #2: Prioritize latest status information.</span></li>
+      <li><strong>Expandable detail sections</strong> &mdash; summary first, expand for full context.
+        <span class="heuristic">Best practice: Progressive disclosure for complex financial data.</span></li>
+      <li><strong>Calm blue-green palette</strong> &mdash; conveys security and reliability.
+        <span class="heuristic">Design psychology: Color as trust signal in fintech.</span></li>
+      <li><strong>Accessible CTAs</strong> &mdash; &ldquo;Get help&rdquo; and &ldquo;Download PDF&rdquo; always visible.
+        <span class="heuristic">Heuristic: Help and documentation (Nielsen #10).</span></li>
+    </ul>
+    <p class="comp-sub comp-sub-sources">Sources</p>
+    <div class="source-links">
+      <a href="https://www.saasframe.io/examples/wise-transaction-details" target="_blank">Wise Transaction Details UI</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ HEURISTICS SUMMARY ═══════════════ -->
+<section id="heuristics">
+  <span class="section-label">Framework</span>
+  <h2 class="section-title">Design Heuristics for Transaction Status Pages</h2>
+  <p>Based on NNG&rsquo;s <a href="https://www.nngroup.com/articles/status-tracker-progress-update/" target="_blank">16 guidelines for status trackers</a> applied to payment workflows:</p>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Guideline</th><th>Application to Payment Status Page</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Prioritize latest status</strong></td><td>Show current state prominently; historical states via progressive disclosure</td></tr>
+        <tr><td><strong>Use plain language</strong></td><td>&ldquo;Payment sent to bank&rdquo; not &ldquo;ACPT&rdquo; or &ldquo;RJCT&rdquo; codes</td></tr>
+        <tr><td><strong>Provide both push + pull</strong></td><td>In-app status tracker AND email/notification alerts</td></tr>
+        <tr><td><strong>Show historical records</strong></td><td>Timestamped audit trail of all state transitions</td></tr>
+        <tr><td><strong>Specific error messages</strong></td><td>&ldquo;Rejected: insufficient funds in account ending 4521&rdquo; not &ldquo;Payment failed&rdquo;</td></tr>
+        <tr><td><strong>Reliable, automated data</strong></td><td>Real-time bank status updates, not manual entry</td></tr>
+        <tr><td><strong>Scannable format</strong></td><td>Adequate spacing, clear visual hierarchy, color-coded status badges</td></tr>
+        <tr><td><strong>Omnichannel consistency</strong></td><td>Dashboard status matches what support sees and what notifications say</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ WHAT CUSTOMERS WANT ═══════════════ -->
+<section id="customers">
+  <span class="section-label">Insights</span>
+  <h2 class="section-title">What Customers Want Most <span style="font-size:16px;font-weight:400;color:var(--text-secondary)">(2025&ndash;2026 Research)</span></h2>
+  <p>Based on industry surveys and reports from <a href="https://ctmfile.com/story/10-must-know-payments-and-treasury-insights-from-2025-to-inform-2026" target="_blank">CTMfile</a>, <a href="https://www.pwc.com/us/en/services/consulting/business-transformation/library/2025-global-treasury-survey.html" target="_blank">PwC Global Treasury Survey 2025</a>, and payment operations research:</p>
+
+  <div class="table-wrapper">
+    <table class="priority-table">
+      <thead><tr><th>Priority</th><th>Evidence</th><th>Design Implication</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="priority-indicator pi-high"></span><strong>Real-time status visibility</strong></td>
+          <td>#1 treasury priority per European ACT survey; &ldquo;immediacy has become crucial&rdquo;</td>
+          <td>Live status updates, not end-of-day batch. WebSocket or polling-based refresh.</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-high"></span><strong>End-to-end transparency</strong></td>
+          <td>Swift standardizing cross-border tracking via ISO 20022</td>
+          <td>Full journey from initiation through bank confirmation with receipt acknowledgment</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-high"></span><strong>Single pane of glass</strong></td>
+          <td>BNY TreasuryEdge, Kyriba single payment center &mdash; consolidation is table stakes</td>
+          <td>Unified dashboard across all banks, accounts, payment types</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-high"></span><strong>Rich metadata &amp; context</strong></td>
+          <td>&ldquo;Most legacy TMS only give you part of the picture&rdquo; (Trovata)</td>
+          <td>Transaction details should include full context: who initiated, who approved, which template, bank reference, timestamps</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-high"></span><strong>Exception-driven workflows</strong></td>
+          <td>Modern Treasury &ldquo;Today&rsquo;s Tasks&rdquo;; HighRadius role-based alerts</td>
+          <td>Default view shows what needs attention. Healthy transactions don&rsquo;t demand cognitive resources.</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-med"></span><strong>AI-powered intelligence</strong></td>
+          <td>76% expect AI to improve forecasting (up from 65%); 22% deploy agentic AI operationally</td>
+          <td>Anomaly detection, natural language search, predictive insights</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-med"></span><strong>Low learning curve</strong></td>
+          <td>Kyriba&rsquo;s #1 complaint is steep learning curve; competitors win deals on usability</td>
+          <td>Progressive disclosure, role-based views, consistent patterns</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-med"></span><strong>Fraud prevention built-in</strong></td>
+          <td>63% targeted by BEC fraud; leading threat for 2026</td>
+          <td>Fraud flags integrated into transaction status flow, not a separate module</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-low"></span><strong>Mobile access</strong></td>
+          <td>HighRadius, Kyriba both offer mobile approval workflows</td>
+          <td>Mobile-responsive at minimum; native mobile for approval workflows</td>
+        </tr>
+        <tr>
+          <td><span class="priority-indicator pi-low"></span><strong>Push + pull notifications</strong></td>
+          <td>NNG research: pull-only creates anxiety; both mechanisms needed</td>
+          <td>In-app status tracker + configurable email/push notifications at state transitions</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ KEY DIFFERENTIATORS ═══════════════ -->
+<section id="differentiators">
+  <span class="section-label">Positioning</span>
+  <h2 class="section-title">Key Differentiators for Ripple Treasury</h2>
+  <p>Based on competitive gaps and customer needs:</p>
+
+  <div class="diff-card">
+    <div class="diff-number">1</div>
+    <h4>Stablecoin + traditional payments in one hub</h4>
+    <p>No competitor offers this. Ripple&rsquo;s unique positioning post-acquisition.</p>
+  </div>
+  <div class="diff-card">
+    <div class="diff-number">2</div>
+    <h4>Built-in fraud detection (GSmart)</h4>
+    <p>Modern Treasury and Trovata lack this. Kyriba has it but in a separate module.</p>
+  </div>
+  <div class="diff-card">
+    <div class="diff-number">3</div>
+    <h4>Modern UX with Wise-level craft</h4>
+    <p>Kyriba is powerful but clunky. HighRadius is functional but unrefined. Ripple can compete on design quality.</p>
+  </div>
+  <div class="diff-card">
+    <div class="diff-number">4</div>
+    <h4>Role-based progressive disclosure</h4>
+    <p>CFO sees KPIs and approvals. Treasurer sees cash positions and exceptions. Operator sees transaction details and workflow actions. Same data, different lenses.</p>
+  </div>
+  <div class="diff-card">
+    <div class="diff-number">5</div>
+    <h4>Exception-first design</h4>
+    <p>Where Kyriba shows everything, Ripple Treasury shows what matters. Normal is quiet; problems are loud.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ NEXT STEPS ═══════════════ -->
+<section id="next-steps">
+  <span class="section-label">Execution</span>
+  <h2 class="section-title">Concrete Next Steps &mdash; First 10 Working Days</h2>
+
+  <div class="timeline">
+    <!-- Day 1 -->
+    <div class="timeline-item">
+      <div class="timeline-dot dot-blue"></div>
+      <div class="timeline-label tl-blue">Day 1</div>
+      <div class="timeline-content">
+        <ul>
+          <li>Send Shahid prioritized access request with justification (demo env, Pendo, competitor list, Lovable prototype)</li>
+          <li>Schedule interviews: Shahid (60 min), engineering lead (45 min), Michael (45 min &mdash; align on parallel tracks and division of labor)</li>
+          <li>Set up shared Figma project workspace</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 2-3 -->
+    <div class="timeline-item">
+      <div class="timeline-dot dot-teal"></div>
+      <div class="timeline-label tl-teal">Day 2&ndash;3</div>
+      <div class="timeline-content">
+        <ul>
+          <li>Conduct stakeholder interviews</li>
+          <li>Request + record screen-share walkthrough of legacy transaction status page + homepage</li>
+          <li>Michael begins design system inventory</li>
+          <li>Begin competitive analysis (Modern Treasury first &mdash; most publicly accessible)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 4-5 -->
+    <div class="timeline-item">
+      <div class="timeline-dot dot-purple"></div>
+      <div class="timeline-label tl-purple">Day 4&ndash;5</div>
+      <div class="timeline-content">
+        <ul>
+          <li>Conduct 3&ndash;5 internal user interviews using JTBD methodology</li>
+          <li>Request P1 incident reports for XPayment</li>
+          <li>Continue competitive analysis: Kyriba, Trovata, HighRadius, Tipalti</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 6-7 -->
+    <div class="timeline-item">
+      <div class="timeline-dot dot-amber"></div>
+      <div class="timeline-label tl-amber">Day 6&ndash;7</div>
+      <div class="timeline-content">
+        <ul>
+          <li>Synthesize research into JTBD jobs atlas for transaction status page</li>
+          <li>Map transaction state machine (all states, transitions, edge cases)</li>
+          <li>Alex + Michael sync: align on initial IA direction and cross-cutting patterns</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 8-10 -->
+    <div class="timeline-item">
+      <div class="timeline-dot dot-rose"></div>
+      <div class="timeline-label tl-rose">Day 8&ndash;10</div>
+      <div class="timeline-content">
+        <ul>
+          <li>Begin 2&ndash;3 concept sketches for transaction status page in Figma</li>
+          <li>Define status indicator system (colors, icons, terminology)</li>
+          <li>Michael drafts v1 of cross-cutting pattern library</li>
+          <li>Schedule internal design review with Shahid + engineering for end of week 2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>Key Week 1&ndash;2 Artifacts</h3>
+  <div class="artifact-grid">
+    <div class="artifact-pill"><div class="artifact-num">1</div>JTBD Jobs Atlas &mdash; transaction status page</div>
+    <div class="artifact-pill"><div class="artifact-num">2</div>Transaction state machine diagram</div>
+    <div class="artifact-pill"><div class="artifact-num">3</div>Competitive analysis document</div>
+    <div class="artifact-pill"><div class="artifact-num">4</div>Design system gap analysis</div>
+    <div class="artifact-pill"><div class="artifact-num">5</div>2&ndash;3 concept directions for transaction status page</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ ACCESS GAP ═══════════════ -->
+<section id="access-gap">
+  <span class="section-label">Logistics</span>
+  <h2 class="section-title">Handling the Access Gap</h2>
+  <p>Day 1 protocol &mdash; send Shahid a prioritized access request:</p>
+
+  <div class="access-item">
+    <strong>Demo environment:</strong> <span>&ldquo;Need to audit current transaction status page &mdash; map all states, edge cases, pain points&rdquo;</span>
+  </div>
+  <div class="access-item">
+    <strong>Pendo analytics:</strong> <span>&ldquo;Need rage click data, page-level funnels, session recordings for transaction status page&rdquo;</span>
+  </div>
+  <div class="access-item">
+    <strong>Competitor list:</strong> <span>&ldquo;Need full competitive set to ensure redesign addresses gaps competitors have solved&rdquo;</span>
+  </div>
+  <div class="access-item">
+    <strong>Lovable prototype:</strong> <span>&ldquo;Need to review Q2 vision to ensure Q1 designs accommodate future features&rdquo;</span>
+  </div>
+
+  <div class="card" style="margin-top:24px; border-left: 4px solid var(--teal);">
+    <p style="margin:0;"><strong>While waiting:</strong> execute every activity that doesn&rsquo;t require access. Use screen-share recordings as a bridge. P1 incident reports are a research goldmine &mdash; UX-related incidents reveal the most critical pain points.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ Q1 → Q2 BRIDGE ═══════════════ -->
+<section id="bridge">
+  <span class="section-label">Forward Planning</span>
+  <h2 class="section-title">Q1 &rarr; Q2 Bridge</h2>
+  <p>The transaction status page must accommodate Q2 features without rework:</p>
+
+  <div class="bridge-card">
+    <h4><span class="bridge-icon bridge-icon-fraud">&#9888;</span> Fraud Detection (GSmart)</h4>
+    <p style="margin:0;">Design a &ldquo;flags/alerts&rdquo; column that&rsquo;s minimal initially but expandable. Transaction detail views should have space for fraud scoring and alert details.</p>
+  </div>
+
+  <div class="bridge-card">
+    <h4><span class="bridge-icon bridge-icon-stable">&#9830;</span> Stablecoin Integration</h4>
+    <p style="margin:0;">The transaction type taxonomy should include crypto/stablecoin categories even if not yet active. Status indicators should account for blockchain-specific states (confirming, settled on-chain, etc.)</p>
+  </div>
+
+  <div class="bridge-card">
+    <h4><span class="bridge-icon bridge-icon-verify">&#10003;</span> Account Verification</h4>
+    <p style="margin:0;">Transaction detail views should reference verified/unverified account status.</p>
+  </div>
+
+  <div class="card" style="margin-top:20px; border-left: 4px solid var(--purple);">
+    <p style="margin:0;">Review Shahid&rsquo;s Lovable prototype in Week 1 to understand his Q2 vision and design accordingly.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ VERIFICATION ═══════════════ -->
+<section id="verification">
+  <span class="section-label">Quality</span>
+  <h2 class="section-title">Verification</h2>
+  <ul class="check-list">
+    <li>Each page design follows the 7-phase lifecycle gate criteria before handoff</li>
+    <li>Definition of Done checklist from the product design process applies to every deliverable</li>
+    <li>Internal design reviews at end of Week 2 (transaction status concepts) and Week 6 (homepage concepts)</li>
+    <li>External usability testing targets: task success rate threshold, SUM scores (Weeks 5&ndash;8)</li>
+    <li>Design QA during engineering build phase ensures pixel-perfect implementation</li>
+  </ul>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════ SOURCES ═══════════════ -->
+<section id="sources">
+  <span class="section-label">References</span>
+  <h2 class="section-title">Sources</h2>
+  <div class="source-grid">
+    <a href="https://www.euromoney.com/article/3o6y09eup6g4osg4ksk4k4k08/corporate-banking/the-worlds-best-treasury-management-system-2025-kyriba/" target="_blank">Kyriba: World&rsquo;s Best TMS 2025 &mdash; Euromoney</a>
+    <a href="https://www.moderntreasury.com/journal/behind-the-scenes-designing-our-new-ui" target="_blank">Modern Treasury: Behind the Scenes &mdash; Designing Our New UI</a>
+    <a href="https://www.moderntreasury.com/journal/updated-dashboard" target="_blank">Modern Treasury: Updated Dashboard</a>
+    <a href="https://www.gtreasury.com/posts/what-is-a-payment-hub" target="_blank">GTreasury Payment Hub</a>
+    <a href="https://www.gtreasury.com/solutions/payments/payments" target="_blank">GTreasury Payments Solutions</a>
+    <a href="https://www.kyriba.com/resource/payments-hubs/" target="_blank">Kyriba Payments Hub</a>
+    <a href="https://www.kosh.ai/blog/top-10-best-treasury-management-systems-for-cfos-in-2026" target="_blank">Top 10 TMS for CFOs 2026</a>
+  </div>
+</section>
+
+</div><!-- end main-content -->
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+  Ripple Treasury Design Team &nbsp;&bull;&nbsp; February 2026 &nbsp;&bull;&nbsp; <span>Confidential</span>
+</footer>
+
+</body>
+</html>

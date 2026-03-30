@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "Bn5qRCdf1rZQupNzrbonI"
+uri = "file://UX-UI-AUDIT.md"
+type = "text"
+title = "UX/UI Audit Report — WCAG 2.2 AA, Heuristics & Design Principles"
