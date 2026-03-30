@@ -512,7 +512,7 @@ Operator-facing config screen. Controls which fraud detection rules fire, their 
 #### Key behaviours
 
 - **`isDirty` state** — set to `true` by any `updateRule()` call; reset to `false` on `handleSave()`. Drives the sticky unsaved-changes bar.
-- **Sticky save bar** — `sticky bottom-0 -mx-6 -mb-6` inside `overflow-y-auto` `<main>` with `p-6` padding. Counteracts padding to span full column width. `bg-[#0a1628]/95 backdrop-blur-sm` for floating appearance.
+- **Sticky save bar** — `sticky bottom-0 -mx-6 -mb-6` inside `overflow-y-auto` `<main>` with `p-6` padding. Counteracts padding to span full column width. `bg-[#0a1628]/95 backdrop-blur-xs` for floating appearance.
 - **Rule card expand hit area** — icon + rule name + description wrapped in a single `<button onClick={() => setExpanded(o => !o)}>`. Chevron demoted to `<div aria-hidden="true">` (non-interactive). Workflow `<select>` and enable toggle remain as siblings — no nested interactive elements.
 - **Workflow select** — `e.stopPropagation()` removed after expand-button restructure (no longer inside the expand button).
 - **Risk weight badge** — displays numeric weight only: `"Risk 35"` (not `"Risk ×35"` — × symbol was incorrect and visually ambiguous).
@@ -668,7 +668,7 @@ interface ReportsFilters {
 | 2.1.1 Keyboard | All functionality keyboard accessible | Table rows: `tabIndex={0}` + `onKeyDown` Enter/Space; FraudSpotlight list: `onKeyDown` arrow keys |
 | 2.3.3 Animation from Interactions | Respect prefers-reduced-motion | Pulsing status dot uses `motion-safe:animate-pulse` |
 | 2.4.3 Focus Order | Focus order meaningful | Modal `autoFocus` on primary button; backdrop click dismisses |
-| 2.4.7 Focus Visible | Focus indicator always visible | `focus:ring-2 focus:ring-teal-500/50` — no `focus:outline-none` without replacement |
+| 2.4.7 Focus Visible | Focus indicator always visible | `focus:ring-2 focus:ring-teal-500/50` — no `focus:outline-hidden` without replacement |
 | 2.4.11 Focus Not Obscured | Focused element not fully hidden | Sticky header/toolbar account for scroll offset |
 | 2.5.8 Target Size Minimum | Min 24×24px on all interactive elements | All buttons ≥ `min-h-[24px] min-w-[24px]`; AppNav icons `p-2`; inline clear buttons `p-1.5 min-w-[28px] min-h-[28px]` |
 | 3.2.2 On Change | No unexpected context changes | All selects only update filter state; date presets only update date range |
@@ -719,7 +719,7 @@ All questions resolved. No open items.
 | Q12 | 2026-02-25 | Light mode audit — `breadcrumb-bar` class missing from fraud pages? | ✅ **Fixed** — added `breadcrumb-bar` class to `<nav aria-label="Breadcrumb">` in both `FraudRulesConfig.tsx` and `FraudReports.tsx`. Without it, `text-white/50`, `text-white/30`, `text-white/90` are not matched by the `.text-white` rule (they generate separate CSS class names) and render as invisible white-on-white. Also extended `.breadcrumb-bar a { color: #6b7280 }` to cover `Link` components (renders as `<a>`) in FraudReports. |
 | Q13 | 2026-02-25 | Process Flow selected stage invisible in light mode? | ✅ **Fixed** — `bg-white/5` (5% white overlay) is near-invisible on light surfaces. Added `html.light-mode [class*="bg-white\/5"] { background-color: rgba(0,0,0,0.04) }` to `index.css`, consistent with the existing `bg-white/2` and `bg-white/3` hover overrides. |
 | Q14 | 2026-02-25 | `color-scheme: dark` on form controls persisting in light mode? | ✅ **Fixed** — the base rule keys on the `bg-[#0f1e35]` class name, which stays on the root div even after the background is overridden in light mode. Native calendar pickers and select arrows were rendering with dark chrome on light backgrounds. Added `html.light-mode [class*="bg-[#0f1e35]"] input/select/textarea { color-scheme: light }` immediately after the base rule. |
-| Q15 | 2026-02-25 | FraudReports "Clear filters" button — no visible focus indicator? | ✅ **Fixed** — button had `focus:outline-none` with no replacement. Added `focus:ring-1 focus:ring-orange-500/40 rounded`. Consistent with the ring pattern used across filter buttons in the same file. |
+| Q15 | 2026-02-25 | FraudReports "Clear filters" button — no visible focus indicator? | ✅ **Fixed** — button had `focus:outline-hidden` with no replacement. Added `focus:ring-1 focus:ring-orange-500/40 rounded`. Consistent with the ring pattern used across filter buttons in the same file. |
 
 ---
 

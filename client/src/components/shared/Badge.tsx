@@ -59,7 +59,7 @@ function StatusBadgeContent({ status, next, overdue, className }: Omit<StatusBad
     :                            "bg-surface-elevated/30 border-surface-border/40 text-slate-300";
   return (
     <div className={cn("flex items-center gap-1 text-xs flex-wrap", className)}>
-      <span className={`inline-flex items-center h-[var(--m3-chip-height)] px-3 rounded-[var(--m3-shape-sm)] font-medium text-xs border ${cls}`}>
+      <span className={`inline-flex items-center h-(--m3-chip-height) px-3 rounded-(--m3-shape-sm) font-medium text-xs border ${cls}`}>
         {overdue && <Clock className="w-2.5 h-2.5 inline mr-1" aria-hidden="true" />}
         {status}
       </span>
@@ -73,7 +73,7 @@ function FraudBadgeContent({ risk, reason, className }: Omit<FraudBadgeProps, "v
   const c = getRiskColors(risk);
   return (
     <div className={className}>
-      <div className={cn("inline-flex items-center gap-1 px-1.5 py-0.5 rounded-[var(--m3-shape-xs)] border-2 text-xs font-bold w-fit", c.text, c.bg, c.border)}
+      <div className={cn("inline-flex items-center gap-1 px-1.5 py-0.5 rounded-(--m3-shape-xs) border-2 text-xs font-bold w-fit", c.text, c.bg, c.border)}
         aria-label={`Risk score ${risk} — ${c.label}`}>
         {c.isHigh ? <ShieldAlert className="w-2.5 h-2.5" aria-hidden="true" /> : <ShieldCheck className="w-2.5 h-2.5" aria-hidden="true" />}
         <span aria-hidden="true">{risk}</span> · {c.label}
@@ -91,7 +91,7 @@ function RiskScoreBadgeContent({ txn, size = "sm", className }: Omit<RiskScoreBa
   return (
     <div className={cn("shrink-0 flex flex-col", className)}>
       <div className="flex items-center gap-1.5">
-        <div className={cn("rounded-[var(--m3-shape-full)] shrink-0", c.dot, lg ? "w-2.5 h-2.5" : "w-2 h-2")} />
+        <div className={cn("rounded-(--m3-shape-full) shrink-0", c.dot, lg ? "w-2.5 h-2.5" : "w-2 h-2")} />
         <span className={cn("font-bold tabular-nums", c.text, lg ? "text-2xl" : "text-sm")}>{score}</span>
         <span className={cn("text-slate-400", lg ? "text-sm" : "text-xs")}>/100</span>
       </div>

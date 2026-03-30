@@ -40,7 +40,7 @@ function TransactionRowInner({
         tabIndex={0}
         aria-expanded={isExpanded}
         aria-label={`${urgencyLabel} — ${t.payee}, ${fmtAmt(t.amount, t.cur)}, ${t.status}`}
-        className={`transition-colors cursor-pointer border-l-2 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-teal-400
+        className={`transition-colors cursor-pointer border-l-2 focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-teal-400
           ${t.overdue ? "border-l-rose-500"
           : t.risk >= 70 ? "border-l-orange-500"
           : t.risk >= 40 ? "border-l-amber-500/50"
@@ -54,7 +54,7 @@ function TransactionRowInner({
           <button
             aria-label={isSel ? `Deselect ${t.payee}` : `Select ${t.payee}`}
             aria-pressed={isSel}
-            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-slate-400 hover:text-teal-400 transition-colors rounded-[var(--m3-shape-xs)] focus:outline-none focus:ring-2 focus:ring-teal-400">
+            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-slate-400 hover:text-teal-400 transition-colors rounded-(--m3-shape-xs) focus:outline-hidden focus:ring-2 focus:ring-teal-400">
             {isSel ? <CheckSquare className="w-4 h-4 text-teal-400" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
           </button>
         </td>
@@ -63,7 +63,7 @@ function TransactionRowInner({
           <td className={`${td} font-mono text-xs text-slate-300 whitespace-nowrap`}>
             {t.id}
             {featureFlags.rlusdStrip && t.rlusdEligible && t.status === "Needs Approval" && (
-              <span className="ml-1.5 inline-flex items-center px-1 py-0 rounded-[var(--m3-shape-xs)] text-[9px] font-bold text-white bg-teal-500 leading-tight">RLUSD</span>
+              <span className="ml-1.5 inline-flex items-center px-1 py-0 rounded-(--m3-shape-xs) text-[9px] font-bold text-white bg-teal-500 leading-tight">RLUSD</span>
             )}
           </td>
         )}
@@ -79,14 +79,14 @@ function TransactionRowInner({
             <button
               aria-label={`View operative account ${t.operativeAcct}`}
               onClick={e => e.stopPropagation()}
-              className="text-teal-400 hover:text-teal-300 hover:underline transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-xs)]">
+              className="text-teal-400 hover:text-teal-300 hover:underline transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-xs)">
               {t.operativeAcct}
             </button>
           </td>
         )}
         {cols.instType && (
           <td className={td}>
-            <span className="text-xs px-1.5 py-0.5 rounded-[var(--m3-shape-sm)] bg-slate-800/60 border border-surface-border text-slate-300 font-medium">{t.instType}</span>
+            <span className="text-xs px-1.5 py-0.5 rounded-(--m3-shape-sm) bg-slate-800/60 border border-surface-border text-slate-300 font-medium">{t.instType}</span>
           </td>
         )}
         {cols.valDate && <td className={`${td} text-xs text-slate-300`}>{t.valDate}</td>}
@@ -191,7 +191,7 @@ function TransactionRowInner({
                         <div className="flex items-baseline justify-between gap-3">
                           <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Chain</dt>
                           <dd className="text-xs font-medium text-right">
-                            <button className="text-teal-400 hover:underline focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-xs)]">
+                            <button className="text-teal-400 hover:underline focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-xs)">
                               {t.waterfallChain} ({t.waterfallPosition}/{t.waterfallTotal})
                             </button>
                           </dd>
@@ -202,7 +202,7 @@ function TransactionRowInner({
                           <Paperclip className="w-3 h-3 text-slate-400 shrink-0" aria-hidden="true" />
                           <button
                             onClick={e => { e.stopPropagation(); setAttachment(t.attachment!); }}
-                            className="text-xs text-teal-400 hover:underline truncate focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-xs)]">
+                            className="text-xs text-teal-400 hover:underline truncate focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-xs)">
                             {t.attachment.name}
                           </button>
                         </div>

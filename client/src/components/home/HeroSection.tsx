@@ -14,7 +14,7 @@ const staggerContainer = {
 export function HeroSection() {
   return (
     <section id="overview" className="pt-32 pb-20 relative overflow-hidden">
-      <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div className="absolute top-0 inset-x-0 h-[500px] bg-linear-to-b from-blue-900/10 to-transparent pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 
@@ -23,10 +23,10 @@ export function HeroSection() {
           variants={staggerContainer}
           className="max-w-4xl mx-auto text-center"
         >
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1 rounded-[var(--m3-shape-full)] bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6">
+          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1 rounded-(--m3-shape-full) bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-[var(--m3-shape-full)] bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-[var(--m3-shape-full)] h-2 w-2 bg-blue-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-(--m3-shape-full) bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-(--m3-shape-full) h-2 w-2 bg-blue-500"></span>
             </span>
             Internal Strategy Document
           </motion.div>
@@ -39,7 +39,7 @@ export function HeroSection() {
             A unified platform strategy to revolutionize how global finance teams manage liquidity, risk, and operations.
           </motion.p>
           
-          <motion.div variants={fadeInUp} className="bg-surface-card border border-surface-border rounded-[var(--m3-shape-md)] p-[var(--m3-dialog-padding)] text-left shadow-2xl relative overflow-hidden group">
+          <motion.div variants={fadeInUp} className="bg-surface-card border border-surface-border rounded-(--m3-shape-md) p-(--m3-dialog-padding) text-left shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
               <Target className="w-32 h-32 text-blue-400" />
             </div>

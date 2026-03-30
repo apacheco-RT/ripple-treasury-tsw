@@ -37,7 +37,7 @@ export function RoadmapSection() {
         />
 
         <div className="relative">
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-teal-500 to-slate-800 md:left-1/2 md:-ml-px" />
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-linear-to-b from-blue-500 via-teal-500 to-slate-800 md:left-1/2 md:-ml-px" />
 
           <div className="space-y-12">
             {phases.map((item, i) => (
@@ -49,19 +49,19 @@ export function RoadmapSection() {
                 transition={{ delay: i * 0.1 }}
                 className={`relative flex items-center justify-between md:justify-normal ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
               >
-                <div className={`absolute left-6 md:left-1/2 w-4 h-4 rounded-[var(--m3-shape-full)] border-4 border-surface-section -ml-2 z-10 
+                <div className={`absolute left-6 md:left-1/2 w-4 h-4 rounded-(--m3-shape-full) border-4 border-surface-section -ml-2 z-10 
                   ${item.status === 'completed' ? 'bg-emerald-500' : item.status === 'active' ? 'bg-blue-500 animate-pulse' : 'bg-slate-600'}`} 
                 />
 
                 <div className="hidden md:block w-1/2" />
 
                 <div className={`w-[calc(100%-60px)] md:w-[calc(50%-40px)] ml-16 md:ml-0 ${i % 2 === 0 ? 'md:mr-10' : 'md:ml-10'}`}>
-                  <div className="bg-surface-card p-[var(--m3-dialog-padding)] rounded-[var(--m3-shape-md)] border border-slate-800 shadow-lg relative group hover:border-blue-500/30 transition-colors">
+                  <div className="bg-surface-card p-(--m3-dialog-padding) rounded-(--m3-shape-md) border border-slate-800 shadow-lg relative group hover:border-blue-500/30 transition-colors">
                     <div className="flex justify-between items-start mb-4">
-                      <div className={`p-2 rounded-[var(--m3-shape-sm)] ${item.status === 'active' ? 'bg-blue-500/20' : 'bg-slate-800'}`}>
+                      <div className={`p-2 rounded-(--m3-shape-sm) ${item.status === 'active' ? 'bg-blue-500/20' : 'bg-slate-800'}`}>
                         {item.icon}
                       </div>
-                      <span className={`text-xs font-bold px-2 py-1 rounded-[var(--m3-shape-full)] uppercase tracking-wide
+                      <span className={`text-xs font-bold px-2 py-1 rounded-(--m3-shape-full) uppercase tracking-wide
                         ${item.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400' : 
                           item.status === 'active' ? 'bg-blue-500/10 text-blue-400' : 'bg-slate-700/50 text-slate-400'}`}>
                         {item.time}
@@ -72,7 +72,7 @@ export function RoadmapSection() {
                     <ul className="mt-4 space-y-2">
                       {item.items.map((sub, j) => (
                         <li key={j} className="flex items-center gap-2 text-sm text-slate-300">
-                          <div className="w-1.5 h-1.5 rounded-[var(--m3-shape-full)] bg-blue-500/50" />
+                          <div className="w-1.5 h-1.5 rounded-(--m3-shape-full) bg-blue-500/50" />
                           {sub}
                         </li>
                       ))}

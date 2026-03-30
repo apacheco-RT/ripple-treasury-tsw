@@ -18,7 +18,7 @@ export function SeverityBadge({ level }: { level: "HIGH" | "MEDIUM" | "LOW" }) {
   };
   const s = map[level];
   return (
-    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-[var(--m3-shape-sm)] text-xs font-bold border ${s.bg} ${s.border} ${s.text}`}>
+    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-(--m3-shape-sm) text-xs font-bold border ${s.bg} ${s.border} ${s.text}`}>
       {s.icon}{level}
     </span>
   );
@@ -31,7 +31,7 @@ export function FeasBadge({ level }: { level: "LOW EFFORT" | "MED EFFORT" | "HIG
     "HIGH EFFORT": "bg-rose-500/10    border-rose-500/20    text-rose-400",
   };
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-[var(--m3-shape-sm)] text-xs font-bold border ${map[level]}`}>
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-(--m3-shape-sm) text-xs font-bold border ${map[level]}`}>
       {level}
     </span>
   );

@@ -21,7 +21,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
   return (
     <section id="feedback" className="py-20">
       <div className="container mx-auto px-6 max-w-3xl">
-        <div className="bg-gradient-to-br from-surface-card to-surface-page rounded-[var(--m3-shape-lg)] p-[var(--m3-dialog-padding)] md:p-[var(--m3-spacing-3xl)] border border-slate-700/50 shadow-2xl">
+        <div className="bg-linear-to-br from-surface-card to-surface-page rounded-(--m3-shape-lg) p-(--m3-dialog-padding) md:p-(--m3-spacing-3xl) border border-slate-700/50 shadow-2xl">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-medium text-white mb-4">Share Your Feedback</h2>
             <p className="text-slate-400">Help shape the future of Treasury Management. Your input goes directly to the product team.</p>
@@ -78,7 +78,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
 
               <Button 
                 type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-6 rounded-[var(--m3-shape-full)] shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-6 rounded-(--m3-shape-full) shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
                 disabled={isPending}
               >
                 {isPending ? "Submitting..." : (
@@ -96,7 +96,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.25 }}
                     role="status"
-                    className="flex items-center gap-2 px-[var(--m3-card-padding)] py-3 rounded-[var(--m3-shape-sm)] bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-sm font-medium"
+                    className="flex items-center gap-2 px-(--m3-card-padding) py-3 rounded-(--m3-shape-sm) bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-sm font-medium"
                   >
                     <CheckCircle2 className="w-4 h-4 shrink-0" />
                     Thank you! Your feedback has been submitted successfully.

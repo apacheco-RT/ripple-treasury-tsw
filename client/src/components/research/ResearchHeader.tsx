@@ -20,11 +20,11 @@ export function ResearchHeader() {
   return (
     <section className="pt-28 pb-12 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/3 w-[500px] h-[300px] bg-blue-600/8 rounded-[var(--m3-shape-full)] blur-3xl" />
+        <div className="absolute top-0 left-1/3 w-[500px] h-[300px] bg-blue-600/8 rounded-(--m3-shape-full) blur-3xl" />
       </div>
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[var(--m3-shape-full)] bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
+          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-(--m3-shape-full) bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
             <FileSearch className="w-3.5 h-3.5" /> Research Report
           </motion.div>
           <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-medium tracking-tight mb-3 text-white">
@@ -34,7 +34,7 @@ export function ResearchHeader() {
             Nielsen's 10 heuristics applied to the Transaction Status Workflow, synthesised with
             7 customer-reported enhancement requests.
           </motion.p>
-          <motion.div variants={fadeInUp} className="bg-slate-800/40 border border-surface-border rounded-[var(--m3-shape-md)] p-[var(--m3-card-padding)] max-w-4xl">
+          <motion.div variants={fadeInUp} className="bg-slate-800/40 border border-surface-border rounded-(--m3-shape-md) p-(--m3-card-padding) max-w-4xl">
             <p className="text-sm text-slate-300 leading-relaxed m-0">The current payment approval interface has critical usability and risk management gaps — it shows all 9,177 transactions the same way, with no way to prioritize by risk or urgency. A heuristic evaluation identified 17 findings (6 rated high severity) around missing fraud signals, information overload, and unsafe bulk approval workflows, which customer feedback corroborates. These findings have been distilled into 10 prioritized improvements: the first six redesign the core queue with smarter triage, risk visibility, and fraud prevention, while the last four focus on everyday friction like filtering, clearer labels, and saved views — all grounded in 15 traceable design requirements.</p>
           </motion.div>
         </motion.div>
@@ -44,7 +44,7 @@ export function ResearchHeader() {
           className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10"
         >
           {contextCards.map((c, i) => (
-            <div key={i} className="bg-surface-card rounded-[var(--m3-shape-md)] border border-slate-800 p-[var(--m3-card-padding)] flex items-start gap-4">
+            <div key={i} className="bg-surface-card rounded-(--m3-shape-md) border border-slate-800 p-(--m3-card-padding) flex items-start gap-4">
               <div className="mt-0.5">{c.icon}</div>
               <div>
                 <p className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-0.5">{c.label}</p>

@@ -94,8 +94,8 @@ export default function Landing() {
       <main id="main-content">
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-blue-600/8 rounded-[var(--m3-shape-full)] blur-3xl" />
-          <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-teal-600/8 rounded-[var(--m3-shape-full)] blur-3xl" />
+          <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-blue-600/8 rounded-(--m3-shape-full) blur-3xl" />
+          <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-teal-600/8 rounded-(--m3-shape-full) blur-3xl" />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -105,7 +105,7 @@ export default function Landing() {
             variants={stagger}
             className="max-w-3xl mx-auto text-center"
           >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[var(--m3-shape-full)] bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold uppercase tracking-widest mb-6">
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-(--m3-shape-full) bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold uppercase tracking-widest mb-6">
               PAYM · Transaction Status Workflow
             </motion.div>
 
@@ -121,7 +121,7 @@ export default function Landing() {
 
             <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-3 mb-12">
               {stats.map((s, i) => (
-                <div key={i} className="flex items-center gap-2 px-[var(--m3-card-padding)] py-2 rounded-[var(--m3-shape-sm)] bg-surface-card border border-slate-800 text-sm">
+                <div key={i} className="flex items-center gap-2 px-(--m3-card-padding) py-2 rounded-(--m3-shape-sm) bg-surface-card border border-slate-800 text-sm">
                   <span className={s.color}>{s.icon}</span>
                   <span className="font-bold text-white">{s.value}</span>
                   <span className="text-slate-400">{s.label}</span>
@@ -134,18 +134,18 @@ export default function Landing() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="max-w-lg mx-auto mb-16 bg-surface-card rounded-[var(--m3-shape-md)] border border-slate-800 p-[var(--m3-card-padding)]"
+            className="max-w-lg mx-auto mb-16 bg-surface-card rounded-(--m3-shape-md) border border-slate-800 p-(--m3-card-padding)"
           >
             <p className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-4 text-center">Finding Severity Distribution</p>
             <div className="space-y-3">
               {severityMap.map((s) => (
                 <div key={s.label} className="flex items-center gap-3">
-                  <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-[var(--m3-shape-sm)] text-xs font-bold border ${s.bg} ${s.border} ${s.text} w-24 shrink-0`}>
+                  <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-(--m3-shape-sm) text-xs font-bold border ${s.bg} ${s.border} ${s.text} w-24 shrink-0`}>
                     {s.icon} {s.label}
                   </div>
-                  <div className="flex-1 h-2 rounded-[var(--m3-shape-full)] bg-slate-800 overflow-hidden">
+                  <div className="flex-1 h-2 rounded-(--m3-shape-full) bg-slate-800 overflow-hidden">
                     <div
-                      className={`h-full rounded-[var(--m3-shape-full)] ${s.bar}`}
+                      className={`h-full rounded-(--m3-shape-full) ${s.bar}`}
                       style={{ width: `${(s.count / 10) * 100}%` }}
                     />
                   </div>
@@ -164,12 +164,12 @@ export default function Landing() {
             {deliverables.map((d, i) => {
               const isPrototype = d.href === "/prototype";
               const cardContent = (
-                <div className={`group relative bg-surface-card rounded-[var(--m3-shape-md)] border ${d.border} p-[var(--m3-dialog-padding)] cursor-pointer transition-all duration-300 hover:shadow-xl ${d.glow} h-full flex flex-col`}>
-                  <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-[var(--m3-shape-md)] bg-gradient-to-r ${d.accent} opacity-70 group-hover:opacity-100 transition-opacity`} />
-                  <div className={`w-14 h-14 rounded-[var(--m3-shape-md)] bg-gradient-to-br ${d.accent} flex items-center justify-center text-white mb-4 shadow-lg opacity-80 group-hover:opacity-100 transition-opacity`}>
+                <div className={`group relative bg-surface-card rounded-(--m3-shape-md) border ${d.border} p-(--m3-dialog-padding) cursor-pointer transition-all duration-300 hover:shadow-xl ${d.glow} h-full flex flex-col`}>
+                  <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-(--m3-shape-md) bg-linear-to-r ${d.accent} opacity-70 group-hover:opacity-100 transition-opacity`} />
+                  <div className={`w-14 h-14 rounded-(--m3-shape-md) bg-linear-to-br ${d.accent} flex items-center justify-center text-white mb-4 shadow-lg opacity-80 group-hover:opacity-100 transition-opacity`}>
                     {d.icon}
                   </div>
-                  <div className={`inline-flex items-center self-start px-2.5 py-0.5 rounded-[var(--m3-shape-full)] text-xs font-bold border mb-2 ${d.badgeColor}`}>
+                  <div className={`inline-flex items-center self-start px-2.5 py-0.5 rounded-(--m3-shape-full) text-xs font-bold border mb-2 ${d.badgeColor}`}>
                     {d.badge}
                   </div>
                   <h2 className="text-xl font-medium text-white mb-1 tracking-tight m-0">{d.title}</h2>
@@ -204,7 +204,7 @@ export default function Landing() {
                     <button
                       type="button"
                       onClick={() => setShowConfigModal(true)}
-                      className="w-full text-left appearance-none bg-transparent border-0 p-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-[var(--m3-shape-md)]"
+                      className="w-full text-left appearance-none bg-transparent border-0 p-0 cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 rounded-(--m3-shape-md)"
                     >
                       {cardContent}
                     </button>

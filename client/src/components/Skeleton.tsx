@@ -16,9 +16,9 @@ export function Skeleton({
   className,
 }: SkeletonProps) {
   const shapeClasses: Record<SkeletonShape, string> = {
-    rectangle: "rounded-[var(--m3-shape-sm)]",
+    rectangle: "rounded-(--m3-shape-sm)",
     circle: "rounded-full",
-    "text-line": "rounded-[var(--m3-shape-xs)] h-3",
+    "text-line": "rounded-(--m3-shape-xs) h-3",
   };
 
   return (

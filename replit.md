@@ -65,7 +65,7 @@ All UI components use M3 CSS custom properties defined in `index.css`:
 - **Component sizing**: `--m3-button-height` (40px), `--m3-chip-height` (32px), `--m3-input-height` (40px), `--m3-switch-w/h` (52/32px)
 - **State layers**: `--m3-state-hover` (white/8), `--m3-state-focus` (white/12), `--m3-state-pressed` (white/12)
 - **Mapping**: Dialogs → XL (28px), Cards → MD (12px), Chips → SM (8px), Inputs → XS (4px), Buttons → Full (pill)
-- All components reference these tokens via `rounded-[var(--m3-shape-*)]` instead of hardcoded Tailwind radius classes
+- All components reference these tokens via `rounded-(--m3-shape-*)` instead of hardcoded Tailwind radius classes
 - Ripple Treasury brand colors and fonts (Space Grotesk) are preserved
 
 ## Accessibility (WCAG 2.2 AA)

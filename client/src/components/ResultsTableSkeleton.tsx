@@ -6,7 +6,7 @@ export function ResultsTableSkeleton() {
 
   return (
     <section aria-label="Transaction results loading">
-      <div className="flex items-center px-4 py-3 bg-surface-card border border-b border-slate-700/50 rounded-t-[var(--m3-shape-md)]">
+      <div className="flex items-center px-4 py-3 bg-surface-card border border-b border-slate-700/50 rounded-t-(--m3-shape-md)">
         <Skeleton width="160px" height="20px" />
       </div>
 
@@ -19,7 +19,7 @@ export function ResultsTableSkeleton() {
         </div>
       </div>
 
-      <div className="bg-surface-card border border-slate-700/50 rounded-b-[var(--m3-shape-md)] overflow-x-auto">
+      <div className="bg-surface-card border border-slate-700/50 rounded-b-(--m3-shape-md) overflow-x-auto">
         <table className="w-full text-left border-collapse text-sm">
           <thead>
             <tr className="bg-surface-inset border-b border-slate-700/60">

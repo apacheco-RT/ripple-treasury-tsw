@@ -44,7 +44,7 @@ export function RequirementsSection() {
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 className="text-xl font-medium text-white mb-2 flex items-center gap-3">
-            <span className="w-8 h-8 rounded-[var(--m3-shape-full)] bg-orange-500/15 border border-orange-500/25 text-orange-400 text-sm font-bold flex items-center justify-center">D</span>
+            <span className="w-8 h-8 rounded-(--m3-shape-full) bg-orange-500/15 border border-orange-500/25 text-orange-400 text-sm font-bold flex items-center justify-center">D</span>
             Design Requirements &amp; Changes
           </h2>
           <p className="text-slate-400 text-sm mb-8">
@@ -53,7 +53,7 @@ export function RequirementsSection() {
 
           <div className="flex flex-wrap gap-2 mb-8">
             {screenLegend.map((l) => (
-              <span key={l.label} className={`text-xs font-bold px-2.5 py-1 rounded-[var(--m3-shape-sm)] border ${l.color}`}>{l.label}</span>
+              <span key={l.label} className={`text-xs font-bold px-2.5 py-1 rounded-(--m3-shape-sm) border ${l.color}`}>{l.label}</span>
             ))}
           </div>
 
@@ -67,24 +67,24 @@ export function RequirementsSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.04 }}
-                  className="bg-surface-card rounded-[var(--m3-shape-md)] border border-slate-800 overflow-hidden hover:border-slate-700 transition-colors"
+                  className="bg-surface-card rounded-(--m3-shape-md) border border-slate-800 overflow-hidden hover:border-slate-700 transition-colors"
                 >
                   <div className="flex items-start gap-4 p-4 border-b border-surface-border">
                     <div className="flex items-center gap-2 shrink-0">
-                      <div className="w-14 h-8 rounded-[var(--m3-shape-sm)] bg-surface-card border border-slate-700 flex items-center justify-center">
-                        <span className="text-[var(--m3-label-sm)] font-extrabold text-slate-300 font-mono">{req.id}</span>
+                      <div className="w-14 h-8 rounded-(--m3-shape-sm) bg-surface-card border border-slate-700 flex items-center justify-center">
+                        <span className="text-(--m3-label-sm) font-extrabold text-slate-300 font-mono">{req.id}</span>
                       </div>
-                      <div className={`w-8 h-8 rounded-[var(--m3-shape-sm)] flex items-center justify-center shrink-0 ${icons.iconBg}`}>
+                      <div className={`w-8 h-8 rounded-(--m3-shape-sm) flex items-center justify-center shrink-0 ${icons.iconBg}`}>
                         {icons.icon}
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <span className={`text-xs font-bold px-2 py-0.5 rounded-[var(--m3-shape-sm)] border ${screenColor(req.screen)}`}>{req.screen}</span>
+                        <span className={`text-xs font-bold px-2 py-0.5 rounded-(--m3-shape-sm) border ${screenColor(req.screen)}`}>{req.screen}</span>
                         <SeverityBadge level={req.severity} />
                         <FeasBadge level={req.effort} />
                         {req.isBug && (
-                          <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-[var(--m3-shape-sm)] border bg-rose-500/10 border-rose-500/25 text-rose-400">
+                          <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-(--m3-shape-sm) border bg-rose-500/10 border-rose-500/25 text-rose-400">
                             <Bug className="w-3 h-3" /> Defect
                           </span>
                         )}

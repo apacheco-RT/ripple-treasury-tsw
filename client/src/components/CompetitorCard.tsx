@@ -29,11 +29,11 @@ export function CompetitorCard({ name, pros, cons, color }: CompetitorCardProps)
       whileHover={{ y: -5 }}
       transition={{ duration: 0.2 }}
       className={cn(
-        "bg-surface-card rounded-[var(--m3-shape-md)] p-[var(--m3-card-padding)] border border-slate-800 shadow-lg border-l-4",
+        "bg-surface-card rounded-(--m3-shape-md) p-(--m3-card-padding) border border-slate-800 shadow-lg border-l-4",
         borderColors[color]
       )}
     >
-      <div className={cn("h-16 w-full mb-4 rounded-[var(--m3-shape-sm)] bg-gradient-to-r to-transparent flex items-center px-4", bgColors[color])}>
+      <div className={cn("h-16 w-full mb-4 rounded-(--m3-shape-sm) bg-linear-to-r to-transparent flex items-center px-4", bgColors[color])}>
         <h3 className="text-xl font-medium text-white m-0">{name}</h3>
       </div>
       

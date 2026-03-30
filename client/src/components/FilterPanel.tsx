@@ -41,12 +41,12 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
     setFilters({ ...filters, datePreset: r, dateFrom: from, dateTo: to });
   };
 
-  const inpBar = "h-[var(--m3-input-height-dense)] bg-surface-page border border-slate-700/60 text-slate-200 text-sm rounded-[var(--m3-shape-sm)] px-3 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-400 placeholder:text-slate-400 transition-all";
+  const inpBar = "h-(--m3-input-height-dense) bg-surface-page border border-slate-700/60 text-slate-200 text-sm rounded-(--m3-shape-sm) px-3 focus:outline-hidden focus:ring-2 focus:ring-teal-400 focus:border-teal-400 placeholder:text-slate-400 transition-all";
   const inp = `w-full ${inpBar}`;
   const sel = `m3-select ${inp} cursor-pointer`;
 
   return (
-    <section aria-label="Filters" className={cn("bg-surface-card border border-slate-700/50 rounded-[var(--m3-shape-md)] overflow-hidden", className)}>
+    <section aria-label="Filters" className={cn("bg-surface-card border border-slate-700/50 rounded-(--m3-shape-md) overflow-hidden", className)}>
 
       <div className="flex flex-wrap items-center gap-2 px-3 py-2.5">
 
@@ -57,7 +57,7 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
             placeholder="Search ID or beneficiary…"
             aria-label="Quick search transactions"
             onChange={e => setFilters({ ...filters, quickSearch: e.target.value })}
-            className="h-[var(--m3-input-height-dense)] bg-surface-page border border-slate-700/60 text-slate-200 text-sm rounded-[var(--m3-shape-sm)] pl-7 pr-3 w-48 focus:outline-none focus:ring-2 focus:ring-teal-400 placeholder:text-slate-400 transition-all"
+            className="h-(--m3-input-height-dense) bg-surface-page border border-slate-700/60 text-slate-200 text-sm rounded-(--m3-shape-sm) pl-7 pr-3 w-48 focus:outline-hidden focus:ring-2 focus:ring-teal-400 placeholder:text-slate-400 transition-all"
           />
         </div>
 
@@ -118,9 +118,9 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
           aria-label="Show only items I can approve"
           onClick={() => setFilters({ ...filters, showMyItems: !filters.showMyItems })}
           onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setFilters({ ...filters, showMyItems: !filters.showMyItems }); } }}
-          className="flex items-center gap-2 cursor-pointer shrink-0 focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-sm)] px-1">
-          <div className={`w-[52px] h-[32px] rounded-[var(--m3-shape-full)] relative transition-colors ${filters.showMyItems ? "bg-teal-500" : "bg-slate-500"}`}>
-            <div className={`rounded-[var(--m3-shape-full)] bg-white absolute top-1 transition-all shadow ${filters.showMyItems ? "w-6 h-6 left-[26px]" : "w-5 h-5 left-1"}`} />
+          className="flex items-center gap-2 cursor-pointer shrink-0 focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-sm) px-1">
+          <div className={`w-[52px] h-[32px] rounded-(--m3-shape-full) relative transition-colors ${filters.showMyItems ? "bg-teal-500" : "bg-slate-500"}`}>
+            <div className={`rounded-(--m3-shape-full) bg-white absolute top-1 transition-all shadow-sm ${filters.showMyItems ? "w-6 h-6 left-[26px]" : "w-5 h-5 left-1"}`} />
           </div>
           <span className="text-xs text-slate-300 whitespace-nowrap select-none">My items</span>
         </div>
@@ -134,7 +134,7 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
                 filters.txnType && `Type: ${filters.txnType}`,
                 filters.legalEntity && filters.legalEntity.replace("Ripple Treasury ", ""),
               ] as (string | false)[]).filter(Boolean).slice(0, 2).map((c, i) => (
-                <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[var(--m3-shape-sm)] text-xs font-medium bg-surface-card/60 border border-surface-border/60 text-slate-200 shrink-0">
+                <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-(--m3-shape-sm) text-xs font-medium bg-surface-card/60 border border-surface-border/60 text-slate-200 shrink-0">
                   {c}
                 </span>
               ))}
@@ -148,14 +148,14 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
             onClick={() => setMoreOpen(o => !o)}
             aria-expanded={moreOpen}
             aria-controls="more-filters-panel"
-            className={`flex items-center gap-1.5 px-4 h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] border text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-teal-400
+            className={`flex items-center gap-1.5 px-4 h-(--m3-button-height) rounded-(--m3-shape-full) border text-xs font-medium transition-all focus:outline-hidden focus:ring-2 focus:ring-teal-400
               ${moreOpen || secondaryCount > 0
                 ? "bg-teal-500/15 border-teal-500/35 text-teal-300"
                 : "bg-surface-card border-slate-700/60 text-slate-300 hover:border-teal-500/30 hover:text-teal-400"}`}>
             <SlidersHorizontal className="w-3 h-3" aria-hidden="true" />
             More filters
             {secondaryCount > 0 && (
-              <span className="w-4 h-4 rounded-[var(--m3-shape-full)] bg-teal-500 text-white text-xs font-bold flex items-center justify-center leading-none">
+              <span className="w-4 h-4 rounded-(--m3-shape-full) bg-teal-500 text-white text-xs font-bold flex items-center justify-center leading-none">
                 {secondaryCount}
               </span>
             )}
@@ -163,7 +163,7 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
 
           {hasAnyClear && (
             <button onClick={clearAll}
-              className="text-xs text-slate-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-full)] px-3 h-[var(--m3-button-height)]">
+              className="text-xs text-slate-400 hover:text-white transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-full) px-3 h-(--m3-button-height)">
               Clear all
             </button>
           )}
@@ -230,7 +230,7 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
                 <button
                   onClick={() => setAdvOpen(o => !o)}
                   aria-expanded={advOpen}
-                  className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-300 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-sm)] px-1 py-0.5">
+                  className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-300 font-medium transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-sm) px-1 py-0.5">
                   <ChevronRight className={`w-3 h-3 transition-transform ${advOpen ? "rotate-90" : ""}`} aria-hidden="true" />
                   Advanced
                 </button>
@@ -281,11 +281,11 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => setMoreOpen(false)}
-                    className="px-6 h-[var(--m3-button-height)] text-xs text-slate-300 border border-surface-border rounded-[var(--m3-shape-full)] hover:text-white hover:bg-[var(--m3-state-hover)] transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400">
+                    className="px-6 h-(--m3-button-height) text-xs text-slate-300 border border-surface-border rounded-(--m3-shape-full) hover:text-white hover:bg-(--m3-state-hover) transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
                     Close
                   </button>
                   <button onClick={() => setMoreOpen(false)}
-                    className="flex items-center gap-2 px-6 h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs transition-all focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-surface-card">
+                    className="flex items-center gap-2 px-6 h-(--m3-button-height) rounded-(--m3-shape-full) bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs transition-all focus:outline-hidden focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-surface-card">
                     <Search className="w-3.5 h-3.5" aria-hidden="true" /> Apply
                   </button>
                 </div>

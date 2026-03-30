@@ -11,7 +11,7 @@ export function SpecCard({ spec, index }: { spec: Spec; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.05 }}
-      className="bg-surface-card rounded-[var(--m3-shape-md)] border border-slate-800 overflow-hidden"
+      className="bg-surface-card rounded-(--m3-shape-md) border border-slate-800 overflow-hidden"
     >
       <div className="flex items-start gap-4 p-4 border-b border-surface-border">
         <PriorityBadge rank={spec.rank} />
@@ -19,7 +19,7 @@ export function SpecCard({ spec, index }: { spec: Spec; index: number }) {
           <div className="flex flex-wrap items-center gap-2 mb-1.5">
             <SeverityBadge level={spec.severity} />
             <FeasBadge level={spec.effort} />
-            <span className="text-xs px-2 py-0.5 rounded-[var(--m3-shape-sm)] bg-slate-800 text-slate-400 font-mono font-bold border border-surface-border">{spec.heuristic}</span>
+            <span className="text-xs px-2 py-0.5 rounded-(--m3-shape-sm) bg-slate-800 text-slate-400 font-mono font-bold border border-surface-border">{spec.heuristic}</span>
           </div>
           <h3 className="text-xl font-medium text-white m-0 leading-snug">{spec.title}</h3>
         </div>
@@ -53,7 +53,7 @@ export function SpecCard({ spec, index }: { spec: Spec; index: number }) {
           <ul className="space-y-1.5">
             {spec.criteria.map((c, i) => (
               <li key={i} className="flex items-start gap-2 text-xs text-slate-400">
-                <span className="w-4 h-4 rounded-[var(--m3-shape-full)] bg-surface-card border border-surface-border flex items-center justify-center text-slate-400 shrink-0 mt-0.5 text-xs font-bold">{i + 1}</span>
+                <span className="w-4 h-4 rounded-(--m3-shape-full) bg-surface-card border border-surface-border flex items-center justify-center text-slate-400 shrink-0 mt-0.5 text-xs font-bold">{i + 1}</span>
                 {c}
               </li>
             ))}

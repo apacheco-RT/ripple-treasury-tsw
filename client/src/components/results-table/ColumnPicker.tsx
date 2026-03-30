@@ -43,8 +43,8 @@ function ColumnPickerInner({ showColPicker, setShowColPicker, cols, setCols, col
         {showColPicker && (
           <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
             role="dialog" aria-label="Column visibility"
-            className="absolute right-0 top-full mt-1.5 w-48 bg-surface-card border border-slate-700/60 rounded-[var(--m3-shape-md)] shadow-2xl p-3 z-30">
-            <p className="text-[var(--m3-label-sm)] uppercase tracking-widest text-slate-400 font-medium mb-2">Show / hide columns</p>
+            className="absolute right-0 top-full mt-1.5 w-48 bg-surface-card border border-slate-700/60 rounded-(--m3-shape-md) shadow-2xl p-3 z-30">
+            <p className="text-(--m3-label-sm) uppercase tracking-widest text-slate-400 font-medium mb-2">Show / hide columns</p>
             {Object.entries(ALL_COLS).map(([key, label]) => (
               <label key={key} className="flex items-center gap-2 py-1.5 cursor-pointer group">
                 <input type="checkbox"

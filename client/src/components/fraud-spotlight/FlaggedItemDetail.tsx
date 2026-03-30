@@ -62,7 +62,7 @@ function FlaggedItemDetailInner({
           ? anomFactors.map((f, i) => (
             <span key={i} className="relative group cursor-default inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded border border-blue-400/30 bg-blue-500/10 text-blue-300 font-medium">
               ~ {f.split(":")[0]}
-              <span className="pointer-events-none absolute bottom-full left-0 mb-2 hidden group-hover:block w-60 rounded-[var(--m3-shape-sm)] bg-slate-900 border border-surface-border px-3 py-2 text-xs text-slate-300 shadow-xl z-20 leading-relaxed">
+              <span className="pointer-events-none absolute bottom-full left-0 mb-2 hidden group-hover:block w-60 rounded-(--m3-shape-sm) bg-slate-900 border border-surface-border px-3 py-2 text-xs text-slate-300 shadow-xl z-20 leading-relaxed">
                 Anomaly Detected — statistically derived from this client's historical transaction data
               </span>
             </span>
@@ -133,27 +133,27 @@ function FlaggedItemDetailInner({
 
       <div>
         <p className="text-xs text-slate-400 font-medium mb-2 m-0">Recommendation</p>
-        <div className={`border-l-4 rounded-r-[var(--m3-shape-sm)] px-3 py-2.5 text-sm ${recCls}`}>
+        <div className={`border-l-4 rounded-r-(--m3-shape-sm) px-3 py-2.5 text-sm ${recCls}`}>
           {anomalyOnly ? "Unusual pattern detected — please review payment details before approving." : selectedTxn.recommendation}
         </div>
       </div>
 
       <div className="flex flex-wrap gap-2">
         <button onClick={() => onAction(selectedTxn.id)}
-          className="flex items-center gap-1.5 px-[var(--m3-button-padding-sm)] h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] text-xs font-medium bg-slate-700/40 hover:bg-slate-700/60 text-slate-300 border border-surface-border transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 focus:ring-offset-transparent">
+          className="flex items-center gap-1.5 px-(--m3-button-padding-sm) h-(--m3-button-height) rounded-(--m3-shape-full) text-xs font-medium bg-slate-700/40 hover:bg-slate-700/60 text-slate-300 border border-surface-border transition-colors focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 focus:ring-offset-transparent">
           Skip →
         </button>
         <button onClick={() => onAction(selectedTxn.id)}
-          className="flex items-center gap-1.5 px-[var(--m3-button-padding-sm)] h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] text-xs font-medium bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 focus:ring-offset-transparent">
+          className="flex items-center gap-1.5 px-(--m3-button-padding-sm) h-(--m3-button-height) rounded-(--m3-shape-full) text-xs font-medium bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 transition-colors focus:outline-hidden focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 focus:ring-offset-transparent">
           <X className="w-3.5 h-3.5" aria-hidden="true" /> Reject
         </button>
         <button onClick={() => onAction(selectedTxn.id)}
-          className="flex items-center gap-1.5 px-[var(--m3-button-padding-sm)] h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] text-xs font-medium bg-transparent hover:bg-rose-500/15 text-rose-400 border border-rose-500/40 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 focus:ring-offset-transparent">
+          className="flex items-center gap-1.5 px-(--m3-button-padding-sm) h-(--m3-button-height) rounded-(--m3-shape-full) text-xs font-medium bg-transparent hover:bg-rose-500/15 text-rose-400 border border-rose-500/40 transition-colors focus:outline-hidden focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 focus:ring-offset-transparent">
           <Ban className="w-3.5 h-3.5" aria-hidden="true" /> Void
         </button>
         <button
           onClick={() => onOverride(selectedTxn)}
-          className="flex-1 flex items-center justify-center gap-1.5 px-[var(--m3-button-padding-h)] h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] text-xs font-medium text-white transition-all hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 focus:ring-offset-transparent"
+          className="flex-1 flex items-center justify-center gap-1.5 px-(--m3-button-padding-h) h-(--m3-button-height) rounded-(--m3-shape-full) text-xs font-medium text-white transition-all hover:brightness-110 focus:outline-hidden focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 focus:ring-offset-transparent"
           style={{ background: `linear-gradient(to right, ${fraudSpotlight.gradientFrom}, ${fraudSpotlight.gradientTo})` }}>
           <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" /> Override &amp; Approve
         </button>

@@ -30,8 +30,8 @@ const differentiators: Differentiator[] = [
 export function StrategySection() {
   return (
     <section id="strategy" className="py-20 relative overflow-hidden">
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-[var(--m3-shape-full)] blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-600/5 rounded-[var(--m3-shape-full)] blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-(--m3-shape-full) blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-600/5 rounded-(--m3-shape-full) blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <SectionHeader 
@@ -48,7 +48,7 @@ export function StrategySection() {
                 <motion.div 
                   key={i}
                   whileHover={{ x: 5 }}
-                  className="flex gap-4 p-[var(--m3-card-padding)] rounded-[var(--m3-shape-md)] hover:bg-[var(--m3-state-hover)] transition-colors border border-transparent hover:border-white/5"
+                  className="flex gap-4 p-(--m3-card-padding) rounded-(--m3-shape-md) hover:bg-(--m3-state-hover) transition-colors border border-transparent hover:border-white/5"
                 >
                   <div className="glow-point shrink-0">
                     {i + 1}
@@ -64,12 +64,12 @@ export function StrategySection() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-surface-card to-surface-inset p-1 rounded-[var(--m3-shape-lg)]">
-            <div className="bg-surface-inset rounded-[var(--m3-shape-md)] h-full p-[var(--m3-dialog-padding)] border border-slate-800">
+          <div className="bg-linear-to-br from-surface-card to-surface-inset p-1 rounded-(--m3-shape-lg)">
+            <div className="bg-surface-inset rounded-(--m3-shape-md) h-full p-(--m3-dialog-padding) border border-slate-800">
               <h3 className="text-xl font-medium text-white mb-6">Key Differentiators</h3>
               <div className="grid grid-cols-1 gap-4">
                 {differentiators.map((diff, i) => (
-                  <div key={i} className="flex items-center justify-between p-[var(--m3-card-padding)] bg-surface-card rounded-[var(--m3-shape-sm)] border border-slate-800/50">
+                  <div key={i} className="flex items-center justify-between p-(--m3-card-padding) bg-surface-card rounded-(--m3-shape-sm) border border-slate-800/50">
                     <span className="font-medium text-blue-300">{diff.title}</span>
                     <span className="text-sm text-slate-400 text-right max-w-[200px]">{diff.val}</span>
                   </div>

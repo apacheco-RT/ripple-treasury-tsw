@@ -96,7 +96,7 @@ export function UnifiedNav() {
 
   return (
     <>
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-[var(--m3-shape-sm)] focus:bg-teal-600 focus:text-white focus:text-sm focus:font-bold focus:shadow-lg focus:outline-none">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:px-4 focus:py-2 focus:rounded-(--m3-shape-sm) focus:bg-teal-600 focus:text-white focus:text-sm focus:font-bold focus:shadow-lg focus:outline-hidden">
         Skip to main content
       </a>
       <header className="fixed top-0 left-0 right-0 z-50 glass-header">
@@ -104,7 +104,7 @@ export function UnifiedNav() {
           <div className="flex items-center h-11">
             <button
               onClick={() => setMobileMenuOpen(o => !o)}
-              className="p-2 rounded-[var(--m3-shape-full)] text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors shrink-0 mr-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 h-[var(--m3-icon-button)] w-[var(--m3-icon-button)] flex items-center justify-center"
+              className="p-2 rounded-(--m3-shape-full) text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors shrink-0 mr-3 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-(--m3-icon-button) w-(--m3-icon-button) flex items-center justify-center"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -120,7 +120,7 @@ export function UnifiedNav() {
                       key={href}
                       ref={triggerRef}
                       onClick={() => setShowConfigModal(true)}
-                      className={`px-3 py-1.5 rounded-[var(--m3-shape-sm)] text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400
+                      className={`px-3 py-1.5 rounded-(--m3-shape-sm) text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
                         ${active
                           ? "bg-teal-500/15 text-teal-400 border border-teal-500/25"
                           : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
@@ -135,7 +135,7 @@ export function UnifiedNav() {
                   <Link
                     key={href}
                     href={href}
-                    className={`px-3 py-1.5 rounded-[var(--m3-shape-sm)] text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400
+                    className={`px-3 py-1.5 rounded-(--m3-shape-sm) text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
                       ${active
                         ? "bg-teal-500/15 text-teal-400 border border-teal-500/25"
                         : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
@@ -153,7 +153,7 @@ export function UnifiedNav() {
                 disabled={downloading}
                 aria-label="Download prototype as HTML"
                 title="Download prototype as HTML"
-                className="p-2 rounded-[var(--m3-shape-full)] transition-all duration-200 text-slate-400 hover:text-teal-400 hover:bg-teal-500/10 border border-transparent hover:border-teal-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 h-[var(--m3-icon-button)] w-[var(--m3-icon-button)] flex items-center justify-center disabled:opacity-50 disabled:cursor-wait"
+                className="p-2 rounded-(--m3-shape-full) transition-all duration-200 text-slate-400 hover:text-teal-400 hover:bg-teal-500/10 border border-transparent hover:border-teal-500/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-(--m3-icon-button) w-(--m3-icon-button) flex items-center justify-center disabled:opacity-50 disabled:cursor-wait"
               >
                 {downloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               </button>
@@ -161,7 +161,7 @@ export function UnifiedNav() {
                 onClick={toggle}
                 aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
                 title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                className="p-2 rounded-[var(--m3-shape-full)] transition-all duration-200 text-slate-400 hover:text-slate-600 hover:bg-black/5 border border-transparent hover:border-slate-200/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 h-[var(--m3-icon-button)] w-[var(--m3-icon-button)] flex items-center justify-center"
+                className="p-2 rounded-(--m3-shape-full) transition-all duration-200 text-slate-400 hover:text-slate-600 hover:bg-black/5 border border-transparent hover:border-slate-200/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-(--m3-icon-button) w-(--m3-icon-button) flex items-center justify-center"
               >
                 {theme === "dark"
                   ? <Sun className="w-4 h-4" />
@@ -181,7 +181,7 @@ export function UnifiedNav() {
                     <button
                       key={href}
                       onClick={() => { setMobileMenuOpen(false); setShowConfigModal(true); }}
-                      className={`px-3 py-2 rounded-[var(--m3-shape-sm)] text-sm font-medium text-left transition-all duration-200 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400
+                      className={`px-3 py-2 rounded-(--m3-shape-sm) text-sm font-medium text-left transition-all duration-200 flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
                         ${active
                           ? "bg-teal-500/15 text-teal-400"
                           : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
@@ -196,7 +196,7 @@ export function UnifiedNav() {
                   <Link
                     key={href}
                     href={href}
-                    className={`px-3 py-2 rounded-[var(--m3-shape-sm)] text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400
+                    className={`px-3 py-2 rounded-(--m3-shape-sm) text-sm font-medium transition-all duration-200 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
                       ${active
                         ? "bg-teal-500/15 text-teal-400"
                         : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
@@ -217,7 +217,7 @@ export function UnifiedNav() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-xs"
             onClick={closeModal}
           >
             <motion.div
@@ -231,32 +231,32 @@ export function UnifiedNav() {
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-md mx-4 bg-surface-card border border-slate-700/60 rounded-[var(--m3-shape-xl)] shadow-2xl overflow-hidden outline-none"
+              className="w-full max-w-md mx-4 bg-surface-card border border-slate-700/60 rounded-(--m3-shape-xl) shadow-2xl overflow-hidden outline-hidden"
             >
-              <div className="flex items-center justify-between p-[var(--m3-dialog-padding)] border-b border-surface-border">
+              <div className="flex items-center justify-between p-(--m3-dialog-padding) border-b border-surface-border">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-[var(--m3-shape-sm)] bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-(--m3-shape-sm) bg-linear-to-br from-purple-600 to-purple-800 flex items-center justify-center">
                     <Settings2 className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h2 id="config-modal-title" className="text-[var(--m3-headline-sm)] font-normal text-white m-0">Configure Prototype</h2>
+                    <h2 id="config-modal-title" className="text-(--m3-headline-sm) font-normal text-white m-0">Configure Prototype</h2>
                     <p className="text-xs text-slate-400 m-0">Toggle features before launching</p>
                   </div>
                 </div>
                 <button
                   onClick={closeModal}
                   aria-label="Close configure modal"
-                  className="p-2 rounded-[var(--m3-shape-sm)] text-slate-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+                  className="p-2 rounded-(--m3-shape-sm) text-slate-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="p-[var(--m3-dialog-padding)] space-y-3">
+              <div className="p-(--m3-dialog-padding) space-y-3">
                 {prototypeFeatures.map((feature) => (
                   <div
                     key={feature.key}
-                    className={`flex items-center justify-between p-[var(--m3-card-padding)] rounded-[var(--m3-shape-md)] border transition-all ${
+                    className={`flex items-center justify-between p-(--m3-card-padding) rounded-(--m3-shape-md) border transition-all ${
                       featureToggles[feature.key]
                         ? "border-teal-500/30 bg-teal-500/5"
                         : "border-slate-700/40 bg-surface-inset"
@@ -270,14 +270,14 @@ export function UnifiedNav() {
                       role="switch"
                       aria-checked={featureToggles[feature.key]}
                       onClick={() => toggleFeature(feature.key)}
-                      className={`relative inline-flex h-6 w-11 shrink-0 rounded-[var(--m3-shape-full)] border-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 ${
+                      className={`relative inline-flex h-6 w-11 shrink-0 rounded-(--m3-shape-full) border-2 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 ${
                         featureToggles[feature.key]
                           ? "bg-teal-500 border-teal-500"
                           : "bg-surface-elevated border-surface-border"
                       }`}
                     >
                       <span
-                        className={`pointer-events-none block h-4 w-4 rounded-[var(--m3-shape-full)] bg-white shadow transition-transform mt-[1px] ${
+                        className={`pointer-events-none block h-4 w-4 rounded-(--m3-shape-full) bg-white shadow transition-transform mt-px ${
                           featureToggles[feature.key] ? "translate-x-[21px]" : "translate-x-[2px]"
                         }`}
                       />
@@ -286,13 +286,13 @@ export function UnifiedNav() {
                 ))}
               </div>
 
-              <div className="p-[var(--m3-dialog-padding)] border-t border-surface-border flex items-center justify-between">
+              <div className="p-(--m3-dialog-padding) border-t border-surface-border flex items-center justify-between">
                 <span className="text-xs text-slate-400">
                   {Object.values(featureToggles).filter(Boolean).length} of {prototypeFeatures.length} features enabled
                 </span>
                 <button
                   onClick={launchPrototype}
-                  className="h-[var(--m3-button-height)] px-[var(--m3-button-padding-h)] bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white text-sm font-medium rounded-[var(--m3-shape-full)] transition-all shadow-lg hover:shadow-purple-500/20 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+                  className="h-(--m3-button-height) px-(--m3-button-padding-h) bg-linear-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white text-sm font-medium rounded-(--m3-shape-full) transition-all shadow-lg hover:shadow-purple-500/20 flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
                 >
                   Launch Prototype
                   <ArrowRight className="w-4 h-4" />

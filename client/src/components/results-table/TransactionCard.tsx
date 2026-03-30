@@ -31,7 +31,7 @@ function TransactionCardInner({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(i * 0.03, 0.36), duration: 0.25 }}
       aria-label={`${urgencyLabel} — ${t.payee}, ${fmtAmt(t.amount, t.cur)}, ${t.status}`}
-      className={`rounded-[var(--m3-shape-md)] border transition-colors
+      className={`rounded-(--m3-shape-md) border transition-colors
         ${t.overdue ? "border-l-4 border-l-rose-500"
         : t.risk >= 70 ? "border-l-4 border-l-orange-500"
         : t.risk >= 40 ? "border-l-4 border-l-amber-500/50"
@@ -54,7 +54,7 @@ function TransactionCardInner({
           <button
             aria-label={isSel ? `Deselect ${t.payee}` : `Select ${t.payee}`}
             aria-pressed={isSel}
-            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-slate-400 hover:text-teal-400 transition-colors rounded-[var(--m3-shape-xs)] focus:outline-none focus:ring-2 focus:ring-teal-400"
+            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-slate-400 hover:text-teal-400 transition-colors rounded-(--m3-shape-xs) focus:outline-hidden focus:ring-2 focus:ring-teal-400"
           >
             {isSel ? <CheckSquare className="w-4 h-4 text-teal-400" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
           </button>
@@ -69,7 +69,7 @@ function TransactionCardInner({
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-[10px] px-1.5 py-0.5 rounded-[var(--m3-shape-xs)] font-medium
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-(--m3-shape-xs) font-medium
               ${t.status === "Needs Approval" ? "bg-amber-500/15 text-amber-300 border border-amber-500/25"
               : t.status === "Approved" ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"
               : "bg-slate-700/50 text-slate-300 border border-slate-600/50"}`}
@@ -78,7 +78,7 @@ function TransactionCardInner({
             </span>
             <FraudBadge risk={t.risk} reason={null} />
             {featureFlags.rlusdStrip && t.rlusdEligible && t.status === "Needs Approval" && (
-              <span className="inline-flex items-center px-1 py-0 rounded-[var(--m3-shape-xs)] text-[9px] font-bold text-white bg-teal-500 leading-tight">RLUSD</span>
+              <span className="inline-flex items-center px-1 py-0 rounded-(--m3-shape-xs) text-[9px] font-bold text-white bg-teal-500 leading-tight">RLUSD</span>
             )}
           </div>
 
@@ -142,7 +142,7 @@ function TransactionCardInner({
                       {featureFlags.selectPaymentRail ? (
                         <button
                           onClick={e => { e.stopPropagation(); setPaymentRailTxn(t); }}
-                          className="text-teal-400 hover:text-teal-300 hover:underline transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-xs)]"
+                          className="text-teal-400 hover:text-teal-300 hover:underline transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-xs)"
                         >
                           {t.operativeAcct}
                         </button>
@@ -193,7 +193,7 @@ function TransactionCardInner({
                       <Paperclip className="w-3 h-3 text-slate-400 shrink-0" aria-hidden="true" />
                       <button
                         onClick={e => { e.stopPropagation(); setAttachment(t.attachment!); }}
-                        className="text-xs text-teal-400 hover:underline truncate focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-xs)]"
+                        className="text-xs text-teal-400 hover:underline truncate focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-xs)"
                       >
                         {t.attachment.name}
                       </button>

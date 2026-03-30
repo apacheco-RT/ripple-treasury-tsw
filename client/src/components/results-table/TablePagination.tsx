@@ -42,7 +42,7 @@ function TablePaginationInner({ sorted, page, totalPages, rowsPerPage, setPage, 
         value={filters.rowsPerPage}
         aria-label="Rows per page"
         onChange={e => setFilters({ ...filters, rowsPerPage: e.target.value })}
-        className="m3-select bg-surface-page border border-slate-700/50 text-slate-300 text-xs rounded-[var(--m3-shape-xs)] px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-teal-400 cursor-pointer">
+        className="m3-select bg-surface-page border border-slate-700/50 text-slate-300 text-xs rounded-(--m3-shape-xs) px-2 py-1.5 focus:outline-hidden focus:ring-2 focus:ring-teal-400 cursor-pointer">
         <option value="25">25 / page</option>
         <option value="50">50 / page</option>
         <option value="100">100 / page</option>

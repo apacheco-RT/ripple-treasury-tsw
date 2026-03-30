@@ -10,7 +10,7 @@ const VARIANT_CLASSES: Record<IconButtonVariant, string> = {
   complete: "text-slate-400 hover:text-teal-300 hover:bg-teal-500/10 focus:ring-teal-400",
   reextract: "text-slate-400 hover:text-amber-300 hover:bg-amber-500/10 focus:ring-amber-400",
   fail: "text-slate-400 hover:text-rose-300 hover:bg-rose-500/10 focus:ring-rose-400",
-  default: "text-slate-400 hover:text-white hover:bg-[var(--m3-state-hover)] focus:ring-teal-400",
+  default: "text-slate-400 hover:text-white hover:bg-(--m3-state-hover) focus:ring-teal-400",
 };
 
 const SIZE_CLASSES: Record<IconButtonSize, { iconOnly: string; withText: string }> = {
@@ -19,8 +19,8 @@ const SIZE_CLASSES: Record<IconButtonSize, { iconOnly: string; withText: string 
     withText: "gap-1 px-2 py-1 min-h-[24px] text-xs",
   },
   md: {
-    iconOnly: "p-1.5 min-w-[var(--m3-icon-button-sm)] min-h-[var(--m3-icon-button-sm)]",
-    withText: "gap-1.5 px-3 py-1.5 min-h-[var(--m3-icon-button-sm)]",
+    iconOnly: "p-1.5 min-w-(--m3-icon-button-sm) min-h-(--m3-icon-button-sm)",
+    withText: "gap-1.5 px-3 py-1.5 min-h-(--m3-icon-button-sm)",
   },
 };
 
@@ -39,7 +39,7 @@ const IconButtonInner = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         {...rest}
         className={cn(
-          "flex items-center justify-center rounded-[var(--m3-shape-sm)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-transparent disabled:opacity-30 disabled:cursor-not-allowed",
+          "flex items-center justify-center rounded-(--m3-shape-sm) transition-colors focus:outline-hidden focus:ring-2 focus:ring-offset-1 focus:ring-offset-transparent disabled:opacity-30 disabled:cursor-not-allowed",
           sizeClass,
           VARIANT_CLASSES[variant],
           className,

@@ -26,7 +26,7 @@ function FlaggedItemRowInner({ txn: t, isSelected: isSel, onSelect, flagged }: F
         else if (e.key === "ArrowUp" && idx > 0) { e.preventDefault(); onSelect(flagged[idx - 1].id); }
         else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelect(isSel ? null : t.id); }
       }}
-      className={`w-full flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-400
+      className={`w-full flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-200 focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-teal-400
         ${isSel ? "bg-surface-card border-l-2 border-l-teal-400" : "hover:bg-surface-card/50 border-l-2 border-l-transparent"}`}>
       <RiskScoreBadge txn={t} size="sm" />
       <div className="flex-1 min-w-0">

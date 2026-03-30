@@ -27,7 +27,7 @@ export function ProcessFlow({ txns, isFiltered, filters, setFilters, className }
   };
 
   return (
-    <section aria-label="Process flow" className={cn("bg-surface-card border border-slate-700/50 rounded-[var(--m3-shape-md)] overflow-hidden", className)}>
+    <section aria-label="Process flow" className={cn("bg-surface-card border border-slate-700/50 rounded-(--m3-shape-md) overflow-hidden", className)}>
       <button
         onClick={() => setOpen(o => !o)}
         aria-expanded={open}
@@ -39,7 +39,7 @@ export function ProcessFlow({ txns, isFiltered, filters, setFilters, className }
           <div className="flex items-center gap-1.5 flex-1 min-w-0 ml-1" aria-hidden="true">
             {PROCESS_STAGES.map((s, i) => (
               <div key={s.key} className="flex items-center gap-1 shrink-0">
-                <span className={`text-xs px-1.5 py-0.5 rounded-[var(--m3-shape-xs)] font-bold transition-all ${activeStage === s.key ? "ring-1" : ""}`}
+                <span className={`text-xs px-1.5 py-0.5 rounded-(--m3-shape-xs) font-bold transition-all ${activeStage === s.key ? "ring-1" : ""}`}
                   style={{
                     color: s.color,
                     background: activeStage === s.key ? s.color + "33" : s.color + "22",
@@ -76,7 +76,7 @@ export function ProcessFlow({ txns, isFiltered, filters, setFilters, className }
                     aria-pressed={isActive}
                     aria-label={isActive ? `Clear ${s.key} filter` : `Filter by ${s.key} stage`}
                     className={[
-                      "p-3 flex flex-col gap-1.5 text-left transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-inset",
+                      "p-3 flex flex-col gap-1.5 text-left transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-inset",
                       i < 4 ? "border-r border-surface-border" : "",
                       isActive
                         ? "bg-white/5"
@@ -86,12 +86,12 @@ export function ProcessFlow({ txns, isFiltered, filters, setFilters, className }
                   >
                     <div className="flex items-center justify-between gap-1">
                       <div className="flex items-center gap-1.5 min-w-0">
-                        <div className={`w-2 h-2 rounded-[var(--m3-shape-full)] shrink-0 transition-all ${isActive ? "scale-125" : ""}`}
+                        <div className={`w-2 h-2 rounded-(--m3-shape-full) shrink-0 transition-all ${isActive ? "scale-125" : ""}`}
                           style={{ background: s.color }} aria-hidden="true" />
                         <span className="text-xs font-medium text-white truncate">{s.key}</span>
                       </div>
                       {isActive && (
-                        <span className="text-xs font-bold px-1.5 py-0.5 rounded-[var(--m3-shape-full)] shrink-0"
+                        <span className="text-xs font-bold px-1.5 py-0.5 rounded-(--m3-shape-full) shrink-0"
                           style={{ background: s.color + "30", color: s.color }}>
                           Active
                         </span>

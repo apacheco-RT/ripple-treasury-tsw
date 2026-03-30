@@ -44,16 +44,16 @@ function TableToolbarInner({
           <div className="flex items-center gap-2" role="toolbar" aria-label="Bulk actions">
             <span className="text-xs text-slate-300 font-medium">{selected.length} selected</span>
             <button onClick={handleApprove}
-              className="flex items-center gap-1.5 px-4 h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] text-xs font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 focus:ring-offset-transparent">
+              className="flex items-center gap-1.5 px-4 h-(--m3-button-height) rounded-(--m3-shape-full) text-xs font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors focus:outline-hidden focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 focus:ring-offset-transparent">
               <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" /> Approve
             </button>
             <button onClick={() => setShowVoid(true)}
-              className="flex items-center gap-1.5 px-4 h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] text-xs font-medium bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 focus:ring-offset-transparent">
+              className="flex items-center gap-1.5 px-4 h-(--m3-button-height) rounded-(--m3-shape-full) text-xs font-medium bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 transition-colors focus:outline-hidden focus:ring-2 focus:ring-rose-400 focus:ring-offset-1 focus:ring-offset-transparent">
               <Trash2 className="w-3.5 h-3.5" aria-hidden="true" /> Reject
             </button>
             {handleHold && (
               <button onClick={handleHold}
-                className="flex items-center gap-1.5 px-4 h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] text-xs font-medium bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/25 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-1 focus:ring-offset-transparent">
+                className="flex items-center gap-1.5 px-4 h-(--m3-button-height) rounded-(--m3-shape-full) text-xs font-medium bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/25 transition-colors focus:outline-hidden focus:ring-2 focus:ring-amber-400 focus:ring-offset-1 focus:ring-offset-transparent">
                 <PauseCircle className="w-3.5 h-3.5" aria-hidden="true" /> Hold
               </button>
             )}
@@ -67,7 +67,7 @@ function TableToolbarInner({
             <ChevronUp className="w-3 h-3 text-rose-400" aria-hidden="true" />
             {sortCol === "urgency"
               ? "Sorted by urgency · overdue first, then risk score"
-              : <>{`Sorted by ${sortCol}`} · <button onClick={() => setSortCol("urgency")} className="text-teal-400 hover:underline focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-[var(--m3-shape-xs)]">Reset to urgency sort</button></>}
+              : <>{`Sorted by ${sortCol}`} · <button onClick={() => setSortCol("urgency")} className="text-teal-400 hover:underline focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-(--m3-shape-xs)">Reset to urgency sort</button></>}
           </span>
         )}
       </div>
@@ -80,10 +80,10 @@ function TableToolbarInner({
             onChange={e => { setTableSearch(e.target.value); setPage(1); }}
             placeholder="Search transactions…"
             aria-label="Search transaction details"
-            className="h-[var(--m3-input-height-dense)] bg-surface-page border border-slate-700/60 text-slate-200 text-xs rounded-[var(--m3-shape-sm)] pl-8 pr-3 w-44 focus:outline-none focus:ring-2 focus:ring-teal-400 placeholder:text-slate-400 transition-all"
+            className="h-(--m3-input-height-dense) bg-surface-page border border-slate-700/60 text-slate-200 text-xs rounded-(--m3-shape-sm) pl-8 pr-3 w-44 focus:outline-hidden focus:ring-2 focus:ring-teal-400 placeholder:text-slate-400 transition-all"
           />
         </div>
-        <button className="flex items-center gap-1.5 px-4 h-[var(--m3-button-height)] rounded-[var(--m3-shape-full)] text-xs text-slate-300 hover:text-white border border-slate-700/60 hover:border-slate-600 bg-surface-page transition-all focus:outline-none focus:ring-2 focus:ring-teal-400">
+        <button className="flex items-center gap-1.5 px-4 h-(--m3-button-height) rounded-(--m3-shape-full) text-xs text-slate-300 hover:text-white border border-slate-700/60 hover:border-slate-600 bg-surface-page transition-all focus:outline-hidden focus:ring-2 focus:ring-teal-400">
           <Download className="w-3.5 h-3.5" aria-hidden="true" /> Export
         </button>
         <ColumnPicker

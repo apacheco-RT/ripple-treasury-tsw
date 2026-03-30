@@ -50,14 +50,14 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
   };
 
   return (
-    <section aria-label="Payment summary" className="bg-surface-card border border-slate-700/50 rounded-[var(--m3-shape-md)] overflow-hidden">
+    <section aria-label="Payment summary" className="bg-surface-card border border-slate-700/50 rounded-(--m3-shape-md) overflow-hidden">
 
       <div className="flex items-center gap-3 px-4 py-2.5">
         <button
           onClick={() => setOpen(o => !o)}
           aria-expanded={open}
           aria-controls="payment-summary-content"
-          className="flex items-center gap-2 flex-1 hover:bg-[var(--m3-state-hover)] transition-colors duration-200 select-none text-left rounded-[var(--m3-shape-sm)] focus:outline-none focus:ring-2 focus:ring-teal-400">
+          className="flex items-center gap-2 flex-1 hover:bg-(--m3-state-hover) transition-colors duration-200 select-none text-left rounded-(--m3-shape-sm) focus:outline-hidden focus:ring-2 focus:ring-teal-400">
           <span className="text-base font-medium text-white shrink-0">Payment summary</span>
           <span className="text-xs text-slate-400 font-normal ml-1">
             {totalCount.toLocaleString()} transactions · {displayRows.length} status{displayRows.length !== 1 ? "es" : ""}
@@ -72,8 +72,8 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
           const activeRow = SUMMARY_ROWS.find(r => r.id === activeId);
           if (!activeRow) return null;
           return (
-            <div className="flex items-center gap-1.5 shrink-0 bg-teal-500/10 border border-teal-500/30 rounded-[var(--m3-shape-sm)] px-2.5 py-1">
-              <div className={`w-4 h-4 rounded-[var(--m3-shape-xs)] flex items-center justify-center ${activeRow.iconBg}`}>
+            <div className="flex items-center gap-1.5 shrink-0 bg-teal-500/10 border border-teal-500/30 rounded-(--m3-shape-sm) px-2.5 py-1">
+              <div className={`w-4 h-4 rounded-(--m3-shape-xs) flex items-center justify-center ${activeRow.iconBg}`}>
                 <activeRow.Icon className={`w-2.5 h-2.5 ${activeRow.iconColor}`} aria-hidden="true" />
               </div>
               <span className="text-xs font-medium text-teal-300">{activeRow.label}</span>
@@ -81,7 +81,7 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
               <button
                 onClick={handleClear}
                 aria-label="Clear status filter"
-                className="ml-0.5 p-0.5 rounded-[var(--m3-shape-xs)] hover:bg-[var(--m3-state-hover)] transition-colors text-slate-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-teal-400">
+                className="ml-0.5 p-0.5 rounded-(--m3-shape-xs) hover:bg-(--m3-state-hover) transition-colors text-slate-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-teal-400">
                 <X className="w-3 h-3" aria-hidden="true" />
               </button>
             </div>
@@ -92,14 +92,14 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
             onClick={() => setViewMode("table")}
             aria-label="Table view"
             aria-pressed={viewMode === "table"}
-            className={`p-1.5 rounded-[var(--m3-shape-sm)] transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 ${viewMode === "table" ? "bg-teal-500/15 text-teal-400" : "text-slate-400 hover:text-slate-300 hover:bg-[var(--m3-state-hover)]"}`}>
+            className={`p-1.5 rounded-(--m3-shape-sm) transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${viewMode === "table" ? "bg-teal-500/15 text-teal-400" : "text-slate-400 hover:text-slate-300 hover:bg-(--m3-state-hover)"}`}>
             <LayoutList className="w-4 h-4" />
           </button>
           <button
             onClick={() => setViewMode("cards")}
             aria-label="Card view"
             aria-pressed={viewMode === "cards"}
-            className={`p-1.5 rounded-[var(--m3-shape-sm)] transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 ${viewMode === "cards" ? "bg-teal-500/15 text-teal-400" : "text-slate-400 hover:text-slate-300 hover:bg-[var(--m3-state-hover)]"}`}>
+            className={`p-1.5 rounded-(--m3-shape-sm) transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${viewMode === "cards" ? "bg-teal-500/15 text-teal-400" : "text-slate-400 hover:text-slate-300 hover:bg-(--m3-state-hover)"}`}>
             <LayoutGrid className="w-4 h-4" />
           </button>
         </div>
@@ -139,13 +139,13 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                             : isDimmed
                               ? "bg-surface-page/60 opacity-[0.45] hover:opacity-70 hover:bg-surface-row-hover"
                               : "bg-surface-page hover:bg-surface-row-hover"
-                            } focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-inset`}
+                            } focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-inset`}
                           aria-disabled={isDimmed ? true : undefined}
                           onClick={() => handleRowClick(row)}
                           onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleRowClick(row); } }}>
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-3">
-                              <div className={`w-8 h-8 rounded-[var(--m3-shape-sm)] flex items-center justify-center shrink-0 ${row.iconBg}`}>
+                              <div className={`w-8 h-8 rounded-(--m3-shape-sm) flex items-center justify-center shrink-0 ${row.iconBg}`}>
                                 <row.Icon className={`w-4 h-4 ${row.iconColor}`} aria-hidden="true" />
                               </div>
                               <span className="text-sm font-medium text-slate-200 leading-tight">
@@ -158,7 +158,7 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                           <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-slate-300">{fmt(row.credits)}</td>
                           <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-slate-200">{fmt(row.amount)}</td>
                           <td className="px-4 py-3 text-center">
-                            <span className={`text-xs transition-all rounded-[var(--m3-shape-sm)] px-2 py-1 ${isActive
+                            <span className={`text-xs transition-all rounded-(--m3-shape-sm) px-2 py-1 ${isActive
                               ? "text-teal-400 font-medium"
                               : "text-slate-400 group-hover:text-teal-400"
                               }`}>
@@ -197,7 +197,7 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                         animate={{ opacity: isDimmed ? 0.45 : 1, scale: isDimmed ? 0.97 : 1 }}
                         transition={{ delay: i * 0.035, duration: 0.25, layout: { duration: 0.2, ease: "easeInOut" } }}
                         aria-disabled={isDimmed ? true : undefined}
-                        className={`rounded-[var(--m3-shape-md)] border flex flex-col overflow-hidden focus-within:ring-2 focus-within:ring-teal-400 ${isActive
+                        className={`rounded-(--m3-shape-md) border flex flex-col overflow-hidden focus-within:ring-2 focus-within:ring-teal-400 ${isActive
                           ? "border-teal-500/50 bg-teal-500/8 shadow-lg shadow-teal-500/10 ring-1 ring-teal-400/30"
                           : isDimmed
                             ? "border-slate-700/30 bg-surface-page/60"
@@ -214,12 +214,12 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                           onKeyDown={(e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleRowClick(row); } }}
                         >
                           <div className="flex items-center gap-2.5">
-                            <div className={`w-7 h-7 rounded-[var(--m3-shape-sm)] flex items-center justify-center shrink-0 ${row.iconBg}`}>
+                            <div className={`w-7 h-7 rounded-(--m3-shape-sm) flex items-center justify-center shrink-0 ${row.iconBg}`}>
                               <row.Icon className={`w-3.5 h-3.5 ${row.iconColor}`} aria-hidden="true" />
                             </div>
                             <span className="text-sm font-medium text-white leading-tight truncate">{row.label}</span>
                             {isActive && (
-                              <div className="w-2 h-2 rounded-[var(--m3-shape-full)] bg-teal-400 shrink-0 animate-pulse ml-auto" />
+                              <div className="w-2 h-2 rounded-(--m3-shape-full) bg-teal-400 shrink-0 animate-pulse ml-auto" />
                             )}
                           </div>
                           <div className="pl-[38px] mt-1 flex items-baseline justify-between gap-2">
@@ -244,14 +244,14 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                                 <div className="px-4 pb-2.5 space-y-1 border-t border-surface-border pt-2.5 ml-[38px]">
                                   <div className="flex items-center justify-between">
                                     <span className="flex items-center gap-1.5 text-xs text-slate-400">
-                                      <span className="w-3.5 h-3.5 rounded-[var(--m3-shape-full)] bg-red-500/15 flex items-center justify-center text-red-400 text-xs font-bold leading-none shrink-0">−</span>
+                                      <span className="w-3.5 h-3.5 rounded-(--m3-shape-full) bg-red-500/15 flex items-center justify-center text-red-400 text-xs font-bold leading-none shrink-0">−</span>
                                       Debits
                                     </span>
                                     <span className="text-xs tabular-nums text-slate-300">USD {fmt(row.debits)}</span>
                                   </div>
                                   <div className="flex items-center justify-between">
                                     <span className="flex items-center gap-1.5 text-xs text-slate-400">
-                                      <span className="w-3.5 h-3.5 rounded-[var(--m3-shape-full)] bg-emerald-500/15 flex items-center justify-center text-emerald-400 text-xs font-bold leading-none shrink-0">+</span>
+                                      <span className="w-3.5 h-3.5 rounded-(--m3-shape-full) bg-emerald-500/15 flex items-center justify-center text-emerald-400 text-xs font-bold leading-none shrink-0">+</span>
                                       Credits
                                     </span>
                                     <span className="text-xs tabular-nums text-slate-300">USD {fmt(row.credits)}</span>
@@ -281,7 +281,7 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                     );
                   })}
                 </div>
-                <div className="grid grid-cols-3 gap-4 mt-3 rounded-[var(--m3-shape-md)] border border-slate-700/60 bg-surface-section px-5 py-3">
+                <div className="grid grid-cols-3 gap-4 mt-3 rounded-(--m3-shape-md) border border-slate-700/60 bg-surface-section px-5 py-3">
                   <div>
                     <div className="text-xs text-slate-400 font-medium mb-0.5">Total debits</div>
                     <div className="text-sm font-medium tabular-nums text-slate-200">USD ${fmt(totalDebits)}</div>

@@ -1,218 +1,412 @@
 /* Space Grotesk = closest available substitute for TT Ripple (Ripple's custom typeface).
    Replace @font-face below with self-hosted TT Ripple files when design system is supplied. */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap')
+layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-:root {
-  /* ── Ripple Brand (baseline from brand.ripple.com) ──────────────────── */
-  --ripple-blue:        #1E90FF;
-  --ripple-blue-dark:   #0071E5;
-  --ripple-blue-deeper: #0043A7;
-  --ripple-success:     #53C922;
-  --ripple-error:       #ED346A;
-  --ripple-warning:     #F9731C;
+@import 'tw-animate-css';
+@plugin '@tailwindcss/typography';
 
-  /* ── Fraud Spotlight Gradient ───────────────────────────────────────── */
-  --fraud-gradient-from: #f43f5e;
-  --fraud-gradient-via:  #F06844;
-  --fraud-gradient-to:   #fb923c;
+@custom-variant dark (&:is(.dark *));
 
-  /* ── M3 Shape Scale (corner radius) ────────────────────────────────── */
-  --m3-shape-xs:    4px;
-  --m3-shape-sm:    8px;
-  --m3-shape-md:    12px;
-  --m3-shape-lg:    16px;
-  --m3-shape-xl:    28px;
-  --m3-shape-full:  9999px;
+@theme {
+  --radius-pill: 100px;
+  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
 
-  /* ── M3 Component Sizing ───────────────────────────────────────────── */
-  --m3-button-height: 40px;
-  --m3-chip-height:   32px;
-  --m3-input-height:  56px;
-  --m3-input-height-dense: 40px;
-  --m3-row-height:    52px;
-  --m3-switch-w:      52px;
-  --m3-switch-h:      32px;
-  --m3-icon-button:   40px;
-  --m3-icon-button-sm: 28px;
-  --m3-fab-small:     40px;
-  --m3-fab:           56px;
-  --m3-nav-item:      56px;
+  --color-surface-page: hsl(var(--surface-page));
+  --color-surface-card: hsl(var(--surface-card));
+  --color-surface-elevated: hsl(var(--surface-elevated));
+  --color-surface-inset: hsl(var(--surface-inset));
+  --color-surface-section: hsl(var(--surface-section));
+  --color-surface-deep: hsl(var(--surface-deep));
+  --color-surface-row-hover: hsl(var(--surface-row-hover));
+  --color-surface-border: hsl(var(--surface-border));
 
-  /* ── M3 Typography Scale (font-size / line-height / weight) ──────── */
-  --m3-display-lg:    3.5625rem;    /* 57px */
-  --m3-display-md:    2.8125rem;    /* 45px */
-  --m3-display-sm:    2.25rem;      /* 36px */
-  --m3-headline-lg:   2rem;         /* 32px */
-  --m3-headline-md:   1.75rem;      /* 28px */
-  --m3-headline-sm:   1.5rem;       /* 24px */
-  --m3-title-lg:      1.375rem;     /* 22px */
-  --m3-title-md:      1rem;         /* 16px */
-  --m3-title-sm:      0.875rem;     /* 14px */
-  --m3-body-lg:       1rem;         /* 16px */
-  --m3-body-md:       0.875rem;     /* 14px */
-  --m3-body-sm:       0.75rem;      /* 12px */
-  --m3-label-lg:      0.875rem;     /* 14px */
-  --m3-label-md:      0.75rem;      /* 12px */
-  --m3-label-sm:      0.6875rem;    /* 11px */
+  --color-ripple-blue: #1e90ff;
+  --color-ripple-blue-dark: #0071e5;
+  --color-ripple-success: #53c922;
+  --color-ripple-error: #ed346a;
+  --color-ripple-warning: #f9731c;
 
-  /* ── M3 Spacing ──────────────────────────────────────────────────── */
-  --m3-spacing-xs:    4px;
-  --m3-spacing-sm:    8px;
-  --m3-spacing-md:    12px;
-  --m3-spacing-lg:    16px;
-  --m3-spacing-xl:    24px;
-  --m3-spacing-2xl:   32px;
-  --m3-spacing-3xl:   48px;
+  --color-risk-critical: #ef4444;
+  --color-risk-high: #f97316;
+  --color-risk-medium: #f59e0b;
+  --color-risk-low: #22c55e;
+  --color-risk-none: #94a3b8;
 
-  /* ── M3 Padding (component-specific) ─────────────────────────────── */
-  --m3-card-padding:      16px;
-  --m3-dialog-padding:    24px;
-  --m3-button-padding-h:  24px;
-  --m3-button-padding-sm: 16px;
-  --m3-chip-padding-h:    16px;
-  --m3-cell-padding-h:    16px;
-  --m3-nav-padding-h:     12px;
+  --color-stage-create: #6366f1;
+  --color-stage-antifraud: #f97316;
+  --color-stage-approvals: #8b5cf6;
+  --color-stage-status: #0ea5e9;
+  --color-stage-history: #64748b;
 
-  /* ── M3 Elevation (tonal, not shadow—uses surface color shift) ───── */
-  --m3-elevation-0: transparent;
-  --m3-elevation-1: rgba(255,255,255,0.05);
-  --m3-elevation-2: rgba(255,255,255,0.08);
-  --m3-elevation-3: rgba(255,255,255,0.11);
-  --m3-elevation-4: rgba(255,255,255,0.12);
-  --m3-elevation-5: rgba(255,255,255,0.14);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
 
-  /* ── M3 State Layers ───────────────────────────────────────────────── */
-  --m3-state-hover:   rgba(255,255,255,0.08);
-  --m3-state-focus:   rgba(255,255,255,0.12);
-  --m3-state-pressed: rgba(255,255,255,0.12);
-  --m3-state-dragged: rgba(255,255,255,0.16);
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
 
-  /* ── Surface tokens (dark mode defaults) ─────────────────────────────── */
-  --surface-page:      218 56% 13%;   /* #0f1e35 — page background           */
-  --surface-card:      218 48% 18%;   /* #162a47 — card / panel background   */
-  --surface-elevated:  218 44% 32%;   /* #2d4a77 — tooltips, dropdowns       */
-  --surface-inset:     218 60% 10%;   /* #0a1628 — form inputs, deep inset   */
-  --surface-section:   218 57% 12%;   /* #0d1c30 — breadcrumbs, alternates   */
-  --surface-deep:      216 60% 5%;    /* #050b14 — footer                    */
-  --surface-row-hover: 218 54% 16%;   /* #132640 — table row hover           */
-  --surface-border:    218 47% 22%;   /* #1a3455 — borders throughout        */
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
 
-  /* Legacy aliases — resolve through surface tokens automatically */
-  --navy-dark:  var(--surface-page);
-  --navy-mid:   var(--surface-card);
-  --navy-light: var(--surface-elevated);
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-border: var(--primary-border);
 
-  /* ── Brand accents ───────────────────────────────────────────────────── */
-  --primary-blue: 217 91% 60%; /* #3b82f6 */
-  --accent-teal: 173 80% 40%;  /* #14b8a6 */
-  --accent-purple: 262 83% 66%; /* #8b5cf6 */
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-border: var(--secondary-border);
 
-  --text-primary: 210 40% 98%; /* #f8fafc */
-  --text-secondary: 215 20% 65%; /* #94a3b8 — ≈ 7.1:1 on surface-page */
-  --text-tertiary: 215 17% 62%; /* #8e9eb0 — ≈ 6.3:1 on surface-page, ≈ 4.7:1 on surface-card */
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted-border: var(--muted-border);
 
-  /* ── Severity / Status ───────────────────────────────────────────────── */
-  --status-high: 343 88% 60%;  /* Rose   #f43f5e */
-  --status-med: 38 92% 50%;    /* Amber  #f59e0b */
-  --status-low: 158 64% 52%;   /* Emerald #10b981 */
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-border: var(--accent-border);
 
-  /* ── TSW Risk Levels ─────────────────────────────────────────────────── */
-  --risk-critical-bg:     #fef2f2; --risk-critical-text: #dc2626;
-  --risk-high-bg:         #fff7ed; --risk-high-text:     #c2410c;
-  --risk-medium-bg:       #fffbeb; --risk-medium-text:   #b45309;
-  --risk-low-bg:          #f0fdf4; --risk-low-text:      #166534;
-  --risk-none-bg:         #f8fafc; --risk-none-text:     #475569;
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-destructive-border: var(--destructive-border);
 
-  /* ── Fraud Spotlight ─────────────────────────────────────────────────── */
-  --spotlight-gradient: linear-gradient(135deg, #f43f5e, #fb923c);
+  --color-tsw-text-primary: hsl(var(--text-primary));
+  --color-tsw-text-secondary: hsl(var(--text-secondary));
+  --color-tsw-text-tertiary: hsl(var(--text-tertiary));
 
-  /* Base mapping for Shadcn/Tailwind */
-  --background: 0 0% 100%;
-  --foreground: 210 25% 7.8431%;
-  
-  --card: 180 6.6667% 97.0588%;
-  --card-foreground: 210 25% 7.8431%;
-  
-  --popover: 0 0% 100%;
-  --popover-foreground: 210 25% 7.8431%;
-  
-  --primary: 203.8863 88.2845% 53.1373%;
-  --primary-foreground: 0 0% 100%;
-  
-  --secondary: 210 25% 7.8431%;
-  --secondary-foreground: 0 0% 100%;
-  
-  --muted: 240 1.9608% 90%;
-  --muted-foreground: 210 25% 7.8431%;
-  
-  --accent: 211.5789 51.3514% 92.7451%;
-  --accent-foreground: 203.8863 88.2845% 53.1373%;
-  
-  --destructive: 356.3033 90.5579% 54.3137%;
-  --destructive-foreground: 0 0% 100%;
+  --color-ring: hsl(var(--ring));
 
-  --border: 201.4286 30.4348% 90.9804%;
-  --input: 200 23.0769% 97.4510%;
-  --ring: 202.8169 89.1213% 53.1373%;
-  
-  --radius: 1.3rem;
-  
-  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  
-  --chart-1: hsl(203.8863 88.2845% 53.1373%);
-  
-  --chart-2: hsl(159.7826 100% 36.0784%);
-  
-  --chart-3: hsl(42.0290 92.8251% 56.2745%);
-  
-  --chart-4: hsl(147.1429 78.5047% 41.9608%);
-  
-  --chart-5: hsl(341.4894 75.2000% 50.9804%);
-  
-  --sidebar: hsl(180 6.6667% 97.0588%);
-  
-  --spacing: 0.25rem;
-  
-  --font-mono: "JetBrains Mono", Menlo, monospace;
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
 
-  /* TT Ripple is Ripple's typeface — swap in self-hosted files when available */
-  --font-sans: "TT Ripple", "Space Grotesk", Inter, -apple-system, sans-serif;
-  
-  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  
-  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  
-  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  
-  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  
-  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  
-  --font-serif: Georgia, serif;
-  
-  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  
-  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  
-  --sidebar-ring: hsl(202.8169 89.1213% 53.1373%);
-  
-  --sidebar-accent: hsl(211.5789 51.3514% 92.7451%);
-  
-  --sidebar-border: hsl(205.0000 25.0000% 90.5882%);
-  
-  --sidebar-primary: hsl(203.8863 88.2845% 53.1373%);
-  
-  --tracking-normal: 0em;
-  
-  --sidebar-foreground: hsl(210 25% 7.8431%);
-  
-  --sidebar-accent-foreground: hsl(203.8863 88.2845% 53.1373%);
-  
-  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-primary-border: var(--sidebar-primary-border);
+
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-accent-border: var(--sidebar-accent-border);
+
+  --color-status-online: rgb(34 197 94);
+  --color-status-away: rgb(245 158 11);
+  --color-status-busy: rgb(239 68 68);
+  --color-status-offline: rgb(156 163 175);
+
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-teal-400;
+}
+
+@utility card-gradient {
+  @apply bg-linear-to-br from-surface-card to-surface-page border border-[hsl(var(--border))];
+}
+
+@utility glass-header {
+  @apply bg-surface-page/80 backdrop-blur-md border-b border-[hsl(var(--border))];
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+@utility nav-link {
+  @apply text-sm font-medium text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer;
+
+  &.active {
+    @apply text-blue-400;
+  }
+}
+
+@utility active {
+  &.nav-link {
+    @apply text-blue-400;
+  }
+}
+
+@utility glow-point {
+  @apply relative flex items-center justify-center w-8 h-8 rounded-(--m3-shape-full) bg-surface-elevated text-blue-400 font-bold border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.2)];
+}
+
+@layer utilities {
+  :root {
+    /* ── Ripple Brand (baseline from brand.ripple.com) ──────────────────── */
+    --ripple-blue: #1e90ff;
+    --ripple-blue-dark: #0071e5;
+    --ripple-blue-deeper: #0043a7;
+    --ripple-success: #53c922;
+    --ripple-error: #ed346a;
+    --ripple-warning: #f9731c;
+
+    /* ── Fraud Spotlight Gradient ───────────────────────────────────────── */
+    --fraud-gradient-from: #f43f5e;
+    --fraud-gradient-via: #f06844;
+    --fraud-gradient-to: #fb923c;
+
+    /* ── M3 Shape Scale (corner radius) ────────────────────────────────── */
+    --m3-shape-xs: 4px;
+    --m3-shape-sm: 8px;
+    --m3-shape-md: 12px;
+    --m3-shape-lg: 16px;
+    --m3-shape-xl: 28px;
+    --m3-shape-full: 9999px;
+
+    /* ── M3 Component Sizing ───────────────────────────────────────────── */
+    --m3-button-height: 40px;
+    --m3-chip-height: 32px;
+    --m3-input-height: 56px;
+    --m3-input-height-dense: 40px;
+    --m3-row-height: 52px;
+    --m3-switch-w: 52px;
+    --m3-switch-h: 32px;
+    --m3-icon-button: 40px;
+    --m3-icon-button-sm: 28px;
+    --m3-fab-small: 40px;
+    --m3-fab: 56px;
+    --m3-nav-item: 56px;
+
+    /* ── M3 Typography Scale (font-size / line-height / weight) ──────── */
+    --m3-display-lg: 3.5625rem; /* 57px */
+    --m3-display-md: 2.8125rem; /* 45px */
+    --m3-display-sm: 2.25rem; /* 36px */
+    --m3-headline-lg: 2rem; /* 32px */
+    --m3-headline-md: 1.75rem; /* 28px */
+    --m3-headline-sm: 1.5rem; /* 24px */
+    --m3-title-lg: 1.375rem; /* 22px */
+    --m3-title-md: 1rem; /* 16px */
+    --m3-title-sm: 0.875rem; /* 14px */
+    --m3-body-lg: 1rem; /* 16px */
+    --m3-body-md: 0.875rem; /* 14px */
+    --m3-body-sm: 0.75rem; /* 12px */
+    --m3-label-lg: 0.875rem; /* 14px */
+    --m3-label-md: 0.75rem; /* 12px */
+    --m3-label-sm: 0.6875rem; /* 11px */
+
+    /* ── M3 Spacing ──────────────────────────────────────────────────── */
+    --m3-spacing-xs: 4px;
+    --m3-spacing-sm: 8px;
+    --m3-spacing-md: 12px;
+    --m3-spacing-lg: 16px;
+    --m3-spacing-xl: 24px;
+    --m3-spacing-2xl: 32px;
+    --m3-spacing-3xl: 48px;
+
+    /* ── M3 Padding (component-specific) ─────────────────────────────── */
+    --m3-card-padding: 16px;
+    --m3-dialog-padding: 24px;
+    --m3-button-padding-h: 24px;
+    --m3-button-padding-sm: 16px;
+    --m3-chip-padding-h: 16px;
+    --m3-cell-padding-h: 16px;
+    --m3-nav-padding-h: 12px;
+
+    /* ── M3 Elevation (tonal, not shadow—uses surface color shift) ───── */
+    --m3-elevation-0: transparent;
+    --m3-elevation-1: rgba(255, 255, 255, 0.05);
+    --m3-elevation-2: rgba(255, 255, 255, 0.08);
+    --m3-elevation-3: rgba(255, 255, 255, 0.11);
+    --m3-elevation-4: rgba(255, 255, 255, 0.12);
+    --m3-elevation-5: rgba(255, 255, 255, 0.14);
+
+    /* ── M3 State Layers ───────────────────────────────────────────────── */
+    --m3-state-hover: rgba(255, 255, 255, 0.08);
+    --m3-state-focus: rgba(255, 255, 255, 0.12);
+    --m3-state-pressed: rgba(255, 255, 255, 0.12);
+    --m3-state-dragged: rgba(255, 255, 255, 0.16);
+
+    /* ── Surface tokens (dark mode defaults) ─────────────────────────────── */
+    --surface-page: 218 56% 13%; /* #0f1e35 — page background           */
+    --surface-card: 218 48% 18%; /* #162a47 — card / panel background   */
+    --surface-elevated: 218 44% 32%; /* #2d4a77 — tooltips, dropdowns       */
+    --surface-inset: 218 60% 10%; /* #0a1628 — form inputs, deep inset   */
+    --surface-section: 218 57% 12%; /* #0d1c30 — breadcrumbs, alternates   */
+    --surface-deep: 216 60% 5%; /* #050b14 — footer                    */
+    --surface-row-hover: 218 54% 16%; /* #132640 — table row hover           */
+    --surface-border: 218 47% 22%; /* #1a3455 — borders throughout        */
+
+    /* Legacy aliases — resolve through surface tokens automatically */
+    --navy-dark: var(--surface-page);
+    --navy-mid: var(--surface-card);
+    --navy-light: var(--surface-elevated);
+
+    /* ── Brand accents ───────────────────────────────────────────────────── */
+    --primary-blue: 217 91% 60%; /* #3b82f6 */
+    --accent-teal: 173 80% 40%; /* #14b8a6 */
+    --accent-purple: 262 83% 66%; /* #8b5cf6 */
+
+    --text-primary: 210 40% 98%; /* #f8fafc */
+    --text-secondary: 215 20% 65%; /* #94a3b8 — ≈ 7.1:1 on surface-page */
+    --text-tertiary: 215 17% 62%; /* #8e9eb0 — ≈ 6.3:1 on surface-page, ≈ 4.7:1 on surface-card */
+
+    /* ── Severity / Status ───────────────────────────────────────────────── */
+    --status-high: 343 88% 60%; /* Rose   #f43f5e */
+    --status-med: 38 92% 50%; /* Amber  #f59e0b */
+    --status-low: 158 64% 52%; /* Emerald #10b981 */
+
+    /* ── TSW Risk Levels ─────────────────────────────────────────────────── */
+    --risk-critical-bg: #fef2f2;
+    --risk-critical-text: #dc2626;
+    --risk-high-bg: #fff7ed;
+    --risk-high-text: #c2410c;
+    --risk-medium-bg: #fffbeb;
+    --risk-medium-text: #b45309;
+    --risk-low-bg: #f0fdf4;
+    --risk-low-text: #166534;
+    --risk-none-bg: #f8fafc;
+    --risk-none-text: #475569;
+
+    /* ── Fraud Spotlight ─────────────────────────────────────────────────── */
+    --spotlight-gradient: linear-gradient(135deg, #f43f5e, #fb923c);
+
+    /* Base mapping for Shadcn/Tailwind */
+    --background: 0 0% 100%;
+    --foreground: 210 25% 7.8431%;
+
+    --card: 180 6.6667% 97.0588%;
+    --card-foreground: 210 25% 7.8431%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 25% 7.8431%;
+
+    --primary: 203.8863 88.2845% 53.1373%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 25% 7.8431%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 1.9608% 90%;
+    --muted-foreground: 210 25% 7.8431%;
+
+    --accent: 211.5789 51.3514% 92.7451%;
+    --accent-foreground: 203.8863 88.2845% 53.1373%;
+
+    --destructive: 356.3033 90.5579% 54.3137%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 201.4286 30.4348% 90.9804%;
+    --input: 200 23.0769% 97.451%;
+    --ring: 202.8169 89.1213% 53.1373%;
+
+    --radius: 1.3rem;
+
+    --shadow:
+      0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+      0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+
+    --chart-1: hsl(203.8863 88.2845% 53.1373%);
+
+    --chart-2: hsl(159.7826 100% 36.0784%);
+
+    --chart-3: hsl(42.029 92.8251% 56.2745%);
+
+    --chart-4: hsl(147.1429 78.5047% 41.9608%);
+
+    --chart-5: hsl(341.4894 75.2% 50.9804%);
+
+    --sidebar: hsl(180 6.6667% 97.0588%);
+
+    --spacing: 0.25rem;
+
+    --font-mono: 'JetBrains Mono', Menlo, monospace;
+
+    /* TT Ripple is Ripple's typeface — swap in self-hosted files when available */
+    --font-sans: 'TT Ripple', 'Space Grotesk', Inter, -apple-system, sans-serif;
+
+    --shadow-lg:
+      0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+      0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+
+    --shadow-md:
+      0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+      0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+
+    --shadow-sm:
+      0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+      0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+
+    --shadow-xl:
+      0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+      0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+
+    --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
+
+    --font-serif: Georgia, serif;
+
+    --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
+
+    --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
+
+    --sidebar-ring: hsl(202.8169 89.1213% 53.1373%);
+
+    --sidebar-accent: hsl(211.5789 51.3514% 92.7451%);
+
+    --sidebar-border: hsl(205 25% 90.5882%);
+
+    --sidebar-primary: hsl(203.8863 88.2845% 53.1373%);
+
+    --tracking-normal: 0em;
+
+    --sidebar-foreground: hsl(210 25% 7.8431%);
+
+    --sidebar-accent-foreground: hsl(203.8863 88.2845% 53.1373%);
+
+    --sidebar-primary-foreground: hsl(0 0% 100%);
+  }
 }
 
 @layer base {
@@ -245,71 +439,43 @@
   }
 }
 
-.m3-select {
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 5 3 3 3-3'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  padding-right: 28px;
-}
-
-.m3-date::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-
-.m3-date::-webkit-datetime-edit {
-  padding-right: 0;
-}
-
-.m3-date::-webkit-date-and-time-value {
-  text-align: left;
-}
-
-.m3-date::-moz-focus-inner {
-  border: 0;
-}
-
-select option {
-  background-color: hsl(218 48% 18%);
-  color: #e2e8f0;
-}
-
-html.light-mode select option {
-  background-color: #ffffff;
-  color: #1e293b;
-}
-
 @layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-400;
-  }
-  
-  .card-gradient {
-    @apply bg-gradient-to-br from-surface-card to-surface-page border border-[hsl(var(--border))];
-  }
-  
-  .glass-header {
-    @apply bg-surface-page/80 backdrop-blur-md border-b border-[hsl(var(--border))];
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    will-change: transform;
+  .m3-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 5 3 3 3-3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
   }
 
-  .nav-link {
-    @apply text-sm font-medium text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer;
+  .m3-date::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
-  
-  .nav-link.active {
-    @apply text-blue-400;
+
+  .m3-date::-webkit-datetime-edit {
+    padding-right: 0;
   }
-  
-  .glow-point {
-    @apply relative flex items-center justify-center w-8 h-8 rounded-[var(--m3-shape-full)] bg-surface-elevated text-blue-400 font-bold border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.2)];
+
+  .m3-date::-webkit-date-and-time-value {
+    text-align: left;
+  }
+
+  .m3-date::-moz-focus-inner {
+    border: 0;
+  }
+
+  select option {
+    background-color: hsl(218 48% 18%);
+    color: #e2e8f0;
+  }
+
+  html.light-mode select option {
+    background-color: #ffffff;
+    color: #1e293b;
   }
 }
 

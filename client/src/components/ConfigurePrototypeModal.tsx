@@ -59,7 +59,7 @@ export function ConfigurePrototypeModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-xs"
           onClick={closeModal}
         >
           <motion.div
@@ -73,11 +73,11 @@ export function ConfigurePrototypeModal({
             exit={{ opacity: 0, scale: 0.95, y: 12 }}
             transition={{ duration: 0.2 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md mx-4 bg-surface-card border border-slate-700/60 rounded-[var(--m3-shape-xl)] shadow-2xl overflow-hidden outline-none"
+            className="w-full max-w-md mx-4 bg-surface-card border border-slate-700/60 rounded-(--m3-shape-xl) shadow-2xl overflow-hidden outline-hidden"
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-surface-border">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-[var(--m3-shape-md)] bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-(--m3-shape-md) bg-linear-to-br from-purple-600 to-purple-800 flex items-center justify-center">
                   <Settings2 className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -88,7 +88,7 @@ export function ConfigurePrototypeModal({
               <button
                 onClick={closeModal}
                 aria-label="Close configure modal"
-                className="p-2 rounded-[var(--m3-shape-sm)] text-slate-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+                className="p-2 rounded-(--m3-shape-sm) text-slate-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -98,7 +98,7 @@ export function ConfigurePrototypeModal({
               {prototypeFeatures.map((feature) => (
                 <div
                   key={feature.key}
-                  className={`flex items-center justify-between p-4 rounded-[var(--m3-shape-md)] border transition-all ${
+                  className={`flex items-center justify-between p-4 rounded-(--m3-shape-md) border transition-all ${
                     featureToggles[feature.key]
                       ? "border-teal-500/30 bg-teal-500/5"
                       : "border-slate-700/40 bg-surface-inset"
@@ -112,14 +112,14 @@ export function ConfigurePrototypeModal({
                     role="switch"
                     aria-checked={featureToggles[feature.key]}
                     onClick={() => toggleFeature(feature.key)}
-                    className={`relative inline-flex h-6 w-11 shrink-0 rounded-[var(--m3-shape-full)] border-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 ${
+                    className={`relative inline-flex h-6 w-11 shrink-0 rounded-(--m3-shape-full) border-2 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 ${
                       featureToggles[feature.key]
                         ? "bg-teal-500 border-teal-500"
                         : "bg-surface-elevated border-surface-border"
                     }`}
                   >
                     <span
-                      className={`pointer-events-none block h-4 w-4 rounded-[var(--m3-shape-full)] bg-white shadow transition-transform mt-[1px] ${
+                      className={`pointer-events-none block h-4 w-4 rounded-(--m3-shape-full) bg-white shadow transition-transform mt-px ${
                         featureToggles[feature.key] ? "translate-x-[21px]" : "translate-x-[2px]"
                       }`}
                     />
@@ -134,7 +134,7 @@ export function ConfigurePrototypeModal({
               </span>
               <button
                 onClick={launchPrototype}
-                className="px-6 h-[var(--m3-button-height)] bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium rounded-[var(--m3-shape-full)] transition-all flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+                className="px-6 h-(--m3-button-height) bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium rounded-(--m3-shape-full) transition-all flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
               >
                 Launch Prototype
                 <ArrowRight className="w-4 h-4" />

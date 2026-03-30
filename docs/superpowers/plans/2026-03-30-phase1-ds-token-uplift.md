@@ -136,7 +136,7 @@ npx @tailwindcss/upgrade@next
 
 This codemod:
 - Upgrades `tailwindcss` in `package.json` to v4
-- Migrates utility class renames across all source files (e.g., `shadow-sm` → `shadow-xs` where applicable)
+- Migrates utility class renames across all source files (e.g., `shadow-xs` → `shadow-2xs` where applicable)
 - Converts `tailwind.config.ts` content into a CSS `@theme` block
 - Updates PostCSS config
 
@@ -621,7 +621,7 @@ Replace each with the DS-foundation equivalent per the token-mapping.md table.
 grep -rn 'text-ripple\|bg-ripple\|border-ripple\|text-surface\|bg-surface\|shadow-panel\|shadow-dropdown\|shadow-modal' client/src --include='*.tsx'
 ```
 
-These were custom Tailwind classes from `tailwind.config.ts`. Replace with DS-foundation Tailwind utilities (e.g., `text-[var(--ds-color-brand-primary)]` or a direct DS utility class if one exists).
+These were custom Tailwind classes from `tailwind.config.ts`. Replace with DS-foundation Tailwind utilities (e.g., `text-(--ds-color-brand-primary)` or a direct DS utility class if one exists).
 
 - [ ] **Step 4: Run TypeScript check**
 

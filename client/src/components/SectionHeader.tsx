@@ -18,7 +18,7 @@ export function SectionHeader({ icon, title, subtitle, className }: SectionHeade
       {subtitle && (
         <p className="text-lg text-slate-400 max-w-2xl">{subtitle}</p>
       )}
-      <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-blue-500 to-teal-500 rounded-[var(--m3-shape-full)] opacity-80" />
+      <div className="absolute -bottom-4 left-0 w-24 h-1 bg-linear-to-r from-blue-500 to-teal-500 rounded-(--m3-shape-full) opacity-80" />
     </div>
   );
 }

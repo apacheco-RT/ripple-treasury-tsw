@@ -162,7 +162,7 @@ export default function AppNav() {
       {/* Skip to main content */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-[var(--m3-shape-sm)] focus:bg-teal-600 focus:text-white focus:text-sm focus:font-medium focus:shadow-lg focus:outline-none"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:px-4 focus:py-2 focus:rounded-(--m3-shape-sm) focus:bg-teal-600 focus:text-white focus:text-sm focus:font-medium focus:shadow-lg focus:outline-hidden"
       >
         Skip to main content
       </a>
@@ -234,7 +234,7 @@ export default function AppNav() {
             <input
               placeholder="I'm looking for..."
               aria-label="Global search"
-              className="bg-surface-card border border-surface-border text-slate-300 text-xs rounded-[var(--m3-shape-full)] pl-4 pr-8 py-1.5 w-52 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-teal-500/40 placeholder:text-slate-400 transition-all"
+              className="bg-surface-card border border-surface-border text-slate-300 text-xs rounded-(--m3-shape-full) pl-4 pr-8 py-1.5 w-52 focus:outline-hidden focus:ring-2 focus:ring-teal-400 focus:border-teal-500/40 placeholder:text-slate-400 transition-all"
             />
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" aria-hidden="true" />
           </div>
@@ -248,7 +248,7 @@ export default function AppNav() {
               <button
                 key={lbl}
                 aria-label={lbl}
-                className="text-slate-400 hover:text-slate-200 p-2 transition-colors shrink-0 rounded focus:outline-none focus:ring-2 focus:ring-teal-400"
+                className="text-slate-400 hover:text-slate-200 p-2 transition-colors shrink-0 rounded focus:outline-hidden focus:ring-2 focus:ring-teal-400"
               >
                 <Ic className="w-4 h-4" aria-hidden="true" />
               </button>
@@ -262,7 +262,7 @@ export default function AppNav() {
         <div
           ref={antiFraudPanel}
           style={{ position: "fixed", left: afLeft, top: 140, zIndex: 200 }}
-          className="nav-dark w-[560px] bg-surface-section border border-surface-border rounded-b-[var(--m3-shape-md)] shadow-2xl overflow-hidden"
+          className="nav-dark w-[560px] bg-surface-section border border-surface-border rounded-b-(--m3-shape-md) shadow-2xl overflow-hidden"
         >
           {antiFraudMenuSections.map((section) => (
             <div key={section.title}>
@@ -281,9 +281,9 @@ export default function AppNav() {
                         setAntiFraudOpen(false);
                       }
                     }}
-                    className={`flex flex-col items-center gap-1.5 p-3 rounded-[var(--m3-shape-sm)] transition-colors min-w-[80px] text-left ${
+                    className={`flex flex-col items-center gap-1.5 p-3 rounded-(--m3-shape-sm) transition-colors min-w-[80px] text-left ${
                       item.highlight
-                        ? "bg-gradient-to-br from-orange-500/20 to-yellow-500/10 hover:from-orange-500/30 hover:to-yellow-500/20 ring-1 ring-orange-500/30"
+                        ? "bg-linear-to-br from-orange-500/20 to-yellow-500/10 hover:from-orange-500/30 hover:to-yellow-500/20 ring-1 ring-orange-500/30"
                         : "hover:bg-surface-card"
                     } ${item.route ? "cursor-pointer" : "cursor-default"}`}
                   >
@@ -343,9 +343,9 @@ export default function AppNav() {
                         setPaymentsOpen(false);
                       }
                     }}
-                    className={`flex flex-col items-center gap-1.5 p-3 rounded-[var(--m3-shape-sm)] transition-colors min-w-[100px] ${
+                    className={`flex flex-col items-center gap-1.5 p-3 rounded-(--m3-shape-sm) transition-colors min-w-[100px] ${
                       item.highlight
-                        ? "bg-gradient-to-br from-teal-500/20 to-cyan-500/10 hover:from-teal-500/30 hover:to-cyan-500/20 ring-1 ring-teal-500/30"
+                        ? "bg-linear-to-br from-teal-500/20 to-cyan-500/10 hover:from-teal-500/30 hover:to-cyan-500/20 ring-1 ring-teal-500/30"
                         : "hover:bg-surface-card"
                     } ${item.route ? "cursor-pointer" : "cursor-default"}`}
                   >
