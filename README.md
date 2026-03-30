@@ -77,6 +77,31 @@ Single table: `feedback` (id, name, email, message, isRead)
 npm run db:push
 ```
 
+## Local Setup
+
+### GitHub Packages Authentication
+
+This project consumes packages from GitHub Packages under the `@ds-foundation` scope.
+
+1. Create a GitHub Personal Access Token with `read:packages` scope at:
+   https://github.com/settings/tokens
+
+2. Create `.npmrc` in the project root (this file is gitignored — never commit it):
+   ```
+   @ds-foundation:registry=https://npm.pkg.github.com
+   //npm.pkg.github.com/:_authToken=YOUR_TOKEN_HERE
+   ```
+
+3. Or export the token as an env variable and create the file from the template:
+   ```bash
+   export NODE_AUTH_TOKEN=ghp_your_token_here
+   cp .npmrc.example .npmrc   # if .npmrc.example exists, otherwise create manually
+   ```
+
+### CI
+
+Add `NODE_AUTH_TOKEN` as a GitHub Actions secret. The `.npmrc` template uses `${NODE_AUTH_TOKEN}` and will pick it up automatically.
+
 ## License
 
 Proprietary - Ripple Treasury
