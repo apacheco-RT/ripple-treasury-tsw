@@ -54,7 +54,7 @@ All `@radix-ui/*` packages are framework-agnostic headless components. They emit
 | `@radix-ui/react-toggle-group` | `^1.1.3` | latest | Yes |
 | `@radix-ui/react-tooltip` | `^1.2.0` | latest | Yes |
 
-Verdict: All 17 Radix packages are clear. No action required.
+Verdict: All 27 Radix packages are clear. No action required.
 
 ---
 
@@ -101,11 +101,21 @@ The repo currently has `@tailwindcss/vite@4.1.18` installed alongside `tailwindc
 
 ---
 
-## Next Steps (Task 2)
+## Next Steps
+
+### Task 2: Verify @ds-foundation/tokens export paths
+
+1. Install `@ds-foundation/tokens` from GitHub Packages
+2. Inspect the package exports map (`package.json#exports`)
+3. Confirm CSS variable prefix aligns with what the app expects
+4. Validate that all token entry points resolve correctly before wiring them into the app
+
+### Task 3: Tailwind v3 → v4 upgrade
 
 1. `npm install tailwindcss@^4.2.2 tailwind-merge@^3.5.0`
 2. `npm uninstall tailwindcss-animate` (keep `tw-animate-css`)
 3. `npm uninstall autoprefixer postcss` (optional — v4 no longer needs them)
-4. Update `tailwind.config.ts` → migrate to `@import "tailwindcss"` CSS-first config
-5. Replace `@tailwind base/components/utilities` directives with `@import "tailwindcss"`
-6. Audit `client/src/components/ui/` for deprecated v3 utility classes
+4. Resolve `@tailwindcss/vite` conflict now that `tailwindcss` core is on v4
+5. Update `tailwind.config.ts` → migrate to `@import "tailwindcss"` CSS-first config
+6. Replace `@tailwind base/components/utilities` directives with `@import "tailwindcss"`
+7. Audit `client/src/components/ui/` for deprecated v3 utility classes
