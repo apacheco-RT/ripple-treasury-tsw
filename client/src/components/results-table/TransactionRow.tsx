@@ -79,7 +79,7 @@ function TransactionRowInner({
             <button
               aria-label={`View operative account ${t.operativeAcct}`}
               onClick={e => e.stopPropagation()}
-              className="text-teal-400 hover:text-teal-300 hover:underline transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]">
+              className="inline-flex items-center min-h-6 px-0.5 text-teal-400 hover:text-teal-300 hover:underline transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]">
               {t.operativeAcct}
             </button>
           </td>
