@@ -50,7 +50,7 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
   };
 
   return (
-    <section aria-label="Payment summary" className="bg-[var(--ds-color-surface-default)] border border-slate-700/50 rounded-[var(--ds-radius-xl)] overflow-hidden">
+    <section aria-label="Payment summary" className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/50 rounded-[var(--ds-radius-xl)] overflow-hidden">
 
       <div className="flex items-center gap-3 px-4 py-2.5">
         <button
@@ -59,13 +59,13 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
           aria-controls="payment-summary-content"
           className="flex items-center gap-2 flex-1 hover:bg-white/8 transition-colors duration-200 select-none text-left rounded-[var(--ds-radius-lg)] focus:outline-hidden focus:ring-2 focus:ring-teal-400">
           <span className="text-base font-medium text-white shrink-0">Payment summary</span>
-          <span className="text-xs text-slate-400 font-normal ml-1">
+          <span className="text-xs text-[var(--ds-color-text-secondary)] font-normal ml-1">
             {totalCount.toLocaleString()} transactions · {displayRows.length} status{displayRows.length !== 1 ? "es" : ""}
           </span>
           <div className="ml-auto shrink-0">
             {open
-              ? <ChevronUp className="w-4 h-4 text-slate-400" aria-hidden="true" />
-              : <ChevronDown className="w-4 h-4 text-slate-400" aria-hidden="true" />}
+              ? <ChevronUp className="w-4 h-4 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
+              : <ChevronDown className="w-4 h-4 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />}
           </div>
         </button>
         {activeId && (() => {
@@ -77,11 +77,11 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                 <activeRow.Icon className={`w-2.5 h-2.5 ${activeRow.iconColor}`} aria-hidden="true" />
               </div>
               <span className="text-xs font-medium text-teal-300">{activeRow.label}</span>
-              <span className="text-xs text-slate-400">({activeRow.count})</span>
+              <span className="text-xs text-[var(--ds-color-text-secondary)]">({activeRow.count})</span>
               <button
                 onClick={handleClear}
                 aria-label="Clear status filter"
-                className="ml-0.5 p-0.5 rounded-[var(--ds-radius-xs)] hover:bg-white/8 transition-colors text-slate-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                className="ml-0.5 p-0.5 rounded-[var(--ds-radius-xs)] hover:bg-white/8 transition-colors text-[var(--ds-color-text-secondary)] hover:text-white focus:outline-hidden focus:ring-2 focus:ring-teal-400">
                 <X className="w-3 h-3" aria-hidden="true" />
               </button>
             </div>
@@ -92,14 +92,14 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
             onClick={() => setViewMode("table")}
             aria-label="Table view"
             aria-pressed={viewMode === "table"}
-            className={`p-1.5 rounded-[var(--ds-radius-lg)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${viewMode === "table" ? "bg-teal-500/15 text-teal-400" : "text-slate-400 hover:text-slate-300 hover:bg-white/8"}`}>
+            className={`p-1.5 rounded-[var(--ds-radius-lg)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${viewMode === "table" ? "bg-teal-500/15 text-teal-400" : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-secondary)] hover:bg-white/8"}`}>
             <LayoutList className="w-4 h-4" />
           </button>
           <button
             onClick={() => setViewMode("cards")}
             aria-label="Card view"
             aria-pressed={viewMode === "cards"}
-            className={`p-1.5 rounded-[var(--ds-radius-lg)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${viewMode === "cards" ? "bg-teal-500/15 text-teal-400" : "text-slate-400 hover:text-slate-300 hover:bg-white/8"}`}>
+            className={`p-1.5 rounded-[var(--ds-radius-lg)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${viewMode === "cards" ? "bg-teal-500/15 text-teal-400" : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-secondary)] hover:bg-white/8"}`}>
             <LayoutGrid className="w-4 h-4" />
           </button>
         </div>
@@ -116,15 +116,15 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
               <div className="border-t border-[var(--ds-color-border-default)] overflow-x-auto">
                 <table className="w-full text-left border-collapse text-sm" aria-label="Payment status summary">
                   <thead>
-                    <tr className="bg-[var(--ds-color-surface-sunken)] border-b border-slate-700/60">
-                      <th scope="col" className="px-4 py-2.5 text-sm text-slate-200 font-medium w-[260px]">Status</th>
-                      <th scope="col" className="px-4 py-2.5 text-sm text-slate-200 font-medium text-right">Operative debits</th>
-                      <th scope="col" className="px-4 py-2.5 text-sm text-slate-200 font-medium text-right">Operative credits</th>
-                      <th scope="col" className="px-4 py-2.5 text-sm text-slate-200 font-medium text-right">Amount</th>
-                      <th scope="col" className="px-4 py-2.5 text-sm text-slate-200 font-medium text-center w-[130px]">Actions</th>
+                    <tr className="bg-[var(--ds-color-surface-sunken)] border-b border-[var(--ds-color-border-default)]/60">
+                      <th scope="col" className="px-4 py-2.5 text-sm text-[var(--ds-color-text-primary)] font-medium w-[260px]">Status</th>
+                      <th scope="col" className="px-4 py-2.5 text-sm text-[var(--ds-color-text-primary)] font-medium text-right">Operative debits</th>
+                      <th scope="col" className="px-4 py-2.5 text-sm text-[var(--ds-color-text-primary)] font-medium text-right">Operative credits</th>
+                      <th scope="col" className="px-4 py-2.5 text-sm text-[var(--ds-color-text-primary)] font-medium text-right">Amount</th>
+                      <th scope="col" className="px-4 py-2.5 text-sm text-[var(--ds-color-text-primary)] font-medium text-center w-[130px]">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-700/30">
+                  <tbody className="divide-y divide-[var(--ds-color-border-default)]/30">
                     {displayRows.map((row) => {
                       const isActive = activeId === row.id;
                       const isDimmed = activeId !== null && !isActive;
@@ -148,19 +148,19 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                               <div className={`w-8 h-8 rounded-[var(--ds-radius-lg)] flex items-center justify-center shrink-0 ${row.iconBg}`}>
                                 <row.Icon className={`w-4 h-4 ${row.iconColor}`} aria-hidden="true" />
                               </div>
-                              <span className="text-sm font-medium text-slate-200 leading-tight">
+                              <span className="text-sm font-medium text-[var(--ds-color-text-primary)] leading-tight">
                                 {row.label}
-                                <span className="ml-1.5 text-xs text-slate-400 font-normal">({row.count.toLocaleString()})</span>
+                                <span className="ml-1.5 text-xs text-[var(--ds-color-text-secondary)] font-normal">({row.count.toLocaleString()})</span>
                               </span>
                             </div>
                           </td>
-                          <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-slate-300">{fmt(row.debits)}</td>
-                          <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-slate-300">{fmt(row.credits)}</td>
-                          <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-slate-200">{fmt(row.amount)}</td>
+                          <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-[var(--ds-color-text-secondary)]">{fmt(row.debits)}</td>
+                          <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-[var(--ds-color-text-secondary)]">{fmt(row.credits)}</td>
+                          <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-[var(--ds-color-text-primary)]">{fmt(row.amount)}</td>
                           <td className="px-4 py-3 text-center">
                             <span className={`text-xs transition-all rounded-[var(--ds-radius-lg)] px-2 py-1 ${isActive
                               ? "text-teal-400 font-medium"
-                              : "text-slate-400 group-hover:text-teal-400"
+                              : "text-[var(--ds-color-text-secondary)] group-hover:text-teal-400"
                               }`}>
                               {isActive ? "✓ Filtered" : "View details →"}
                             </span>
@@ -170,13 +170,13 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                     })}
                   </tbody>
                   <tfoot>
-                    <tr className="bg-[var(--ds-color-surface-page)] border-t-2 border-slate-700/60">
+                    <tr className="bg-[var(--ds-color-surface-page)] border-t-2 border-[var(--ds-color-border-default)]/60">
                       <td className="px-4 py-3 font-medium text-white">
                         <div className="pl-11">Total</div>
                       </td>
-                      <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-slate-200">USD ${fmt(totalDebits)}</td>
-                      <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-slate-200">USD ${fmt(totalCredits)}</td>
-                      <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-slate-200">USD ${fmt(totalAmount)}</td>
+                      <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-[var(--ds-color-text-primary)]">USD ${fmt(totalDebits)}</td>
+                      <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-[var(--ds-color-text-primary)]">USD ${fmt(totalCredits)}</td>
+                      <td className="px-4 py-3 text-right font-medium tabular-nums text-sm text-[var(--ds-color-text-primary)]">USD ${fmt(totalAmount)}</td>
                       <td />
                     </tr>
                   </tfoot>
@@ -200,8 +200,8 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                         className={`rounded-[var(--ds-radius-xl)] border flex flex-col overflow-hidden focus-within:ring-2 focus-within:ring-teal-400 ${isActive
                           ? "border-teal-500/50 bg-teal-500/8 shadow-lg shadow-teal-500/10 ring-1 ring-teal-400/30"
                           : isDimmed
-                            ? "border-slate-700/30 bg-[var(--ds-color-surface-page)]/60"
-                            : "border-slate-700/50 bg-[var(--ds-color-surface-page)] hover:border-slate-600/60 hover:bg-[var(--ds-color-interactive-selected-bg)]"
+                            ? "border-[var(--ds-color-border-default)]/30 bg-[var(--ds-color-surface-page)]/60"
+                            : "border-[var(--ds-color-border-default)]/50 bg-[var(--ds-color-surface-page)] hover:border-[var(--ds-color-border-default)]/60 hover:bg-[var(--ds-color-interactive-selected-bg)]"
                           }`}
                       >
                         <div
@@ -225,9 +225,9 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                           <div className="pl-[38px] mt-1 flex items-baseline justify-between gap-2">
                             <span className="flex items-baseline gap-1.5 shrink-0">
                               <span className="text-base font-medium tabular-nums text-white">{row.count.toLocaleString()}</span>
-                              <span className="text-xs text-slate-400">transactions</span>
+                              <span className="text-xs text-[var(--ds-color-text-secondary)]">transactions</span>
                             </span>
-                            <span className="text-xs text-slate-400 tabular-nums truncate min-w-0">USD {fmt(row.amount)}</span>
+                            <span className="text-xs text-[var(--ds-color-text-secondary)] tabular-nums truncate min-w-0">USD {fmt(row.amount)}</span>
                           </div>
                         </div>
                         <div id={`card-details-${row.id}`}>
@@ -243,18 +243,18 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                               >
                                 <div className="px-4 pb-2.5 space-y-1 border-t border-[var(--ds-color-border-default)] pt-2.5 ml-[38px]">
                                   <div className="flex items-center justify-between">
-                                    <span className="flex items-center gap-1.5 text-xs text-slate-400">
+                                    <span className="flex items-center gap-1.5 text-xs text-[var(--ds-color-text-secondary)]">
                                       <span className="w-3.5 h-3.5 rounded-full bg-red-500/15 flex items-center justify-center text-red-400 text-xs font-bold leading-none shrink-0">−</span>
                                       Debits
                                     </span>
-                                    <span className="text-xs tabular-nums text-slate-300">USD {fmt(row.debits)}</span>
+                                    <span className="text-xs tabular-nums text-[var(--ds-color-text-secondary)]">USD {fmt(row.debits)}</span>
                                   </div>
                                   <div className="flex items-center justify-between">
-                                    <span className="flex items-center gap-1.5 text-xs text-slate-400">
+                                    <span className="flex items-center gap-1.5 text-xs text-[var(--ds-color-text-secondary)]">
                                       <span className="w-3.5 h-3.5 rounded-full bg-emerald-500/15 flex items-center justify-center text-emerald-400 text-xs font-bold leading-none shrink-0">+</span>
                                       Credits
                                     </span>
-                                    <span className="text-xs tabular-nums text-slate-300">USD {fmt(row.credits)}</span>
+                                    <span className="text-xs tabular-nums text-[var(--ds-color-text-secondary)]">USD {fmt(row.credits)}</span>
                                   </div>
                                 </div>
                               </motion.div>
@@ -268,7 +268,7 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                           aria-label={isExpanded ? `Collapse ${row.label} details` : `Expand ${row.label} details`}
                           className={`w-full flex items-center justify-center gap-1 text-xs font-medium px-3 py-1.5 border-t cursor-pointer transition-colors ${isActive
                             ? "text-teal-300 bg-teal-500/10 border-teal-400/20 hover:bg-teal-500/15"
-                            : "text-slate-400 hover:text-slate-300 bg-[var(--ds-color-surface-sunken)]/50 border-slate-700/30 hover:bg-[var(--ds-color-surface-sunken)]"
+                            : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-secondary)] bg-[var(--ds-color-surface-sunken)]/50 border-[var(--ds-color-border-default)]/30 hover:bg-[var(--ds-color-surface-sunken)]"
                             }`}
                         >
                           {isExpanded ? (
@@ -281,17 +281,17 @@ export function PaymentSummary({ filters, setFilters }: { filters: Filters; setF
                     );
                   })}
                 </div>
-                <div className="grid grid-cols-3 gap-4 mt-3 rounded-[var(--ds-radius-xl)] border border-slate-700/60 bg-[var(--ds-color-surface-page)] px-5 py-3">
+                <div className="grid grid-cols-3 gap-4 mt-3 rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)]/60 bg-[var(--ds-color-surface-page)] px-5 py-3">
                   <div>
-                    <div className="text-xs text-slate-400 font-medium mb-0.5">Total debits</div>
-                    <div className="text-sm font-medium tabular-nums text-slate-200">USD ${fmt(totalDebits)}</div>
+                    <div className="text-xs text-[var(--ds-color-text-secondary)] font-medium mb-0.5">Total debits</div>
+                    <div className="text-sm font-medium tabular-nums text-[var(--ds-color-text-primary)]">USD ${fmt(totalDebits)}</div>
                   </div>
                   <div>
-                    <div className="text-xs text-slate-400 font-medium mb-0.5">Total credits</div>
-                    <div className="text-sm font-medium tabular-nums text-slate-200">USD ${fmt(totalCredits)}</div>
+                    <div className="text-xs text-[var(--ds-color-text-secondary)] font-medium mb-0.5">Total credits</div>
+                    <div className="text-sm font-medium tabular-nums text-[var(--ds-color-text-primary)]">USD ${fmt(totalCredits)}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-slate-400 font-medium mb-0.5">Total amount</div>
+                    <div className="text-xs text-[var(--ds-color-text-secondary)] font-medium mb-0.5">Total amount</div>
                     <div className="text-sm font-medium tabular-nums text-white">USD ${fmt(totalAmount)}</div>
                   </div>
                 </div>

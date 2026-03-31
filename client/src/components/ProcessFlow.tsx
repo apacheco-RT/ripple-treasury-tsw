@@ -27,14 +27,14 @@ export function ProcessFlow({ txns, isFiltered, filters, setFilters, className }
   };
 
   return (
-    <section aria-label="Process flow" className={cn("bg-[var(--ds-color-surface-default)] border border-slate-700/50 rounded-[var(--ds-radius-xl)] overflow-hidden", className)}>
+    <section aria-label="Process flow" className={cn("bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/50 rounded-[var(--ds-radius-xl)] overflow-hidden", className)}>
       <button
         onClick={() => setOpen(o => !o)}
         aria-expanded={open}
         aria-controls="process-flow-content"
         className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-white/2 transition-colors duration-200 select-none text-left">
         <span className="text-base font-medium text-white shrink-0">Process Flow</span>
-        {isFiltered && <span className="text-xs text-slate-400 italic shrink-0">*filtered</span>}
+        {isFiltered && <span className="text-xs text-[var(--ds-color-text-secondary)] italic shrink-0">*filtered</span>}
         {!open && (
           <div className="flex items-center gap-1.5 flex-1 min-w-0 ml-1" aria-hidden="true">
             {PROCESS_STAGES.map((s, i) => (
@@ -47,15 +47,15 @@ export function ProcessFlow({ txns, isFiltered, filters, setFilters, className }
                   }}>
                   {s.key} ({counts[s.key]})
                 </span>
-                {i < 4 && <ArrowRight className="w-2.5 h-2.5 text-slate-700" aria-hidden="true" />}
+                {i < 4 && <ArrowRight className="w-2.5 h-2.5 text-[var(--ds-color-text-tertiary)]" aria-hidden="true" />}
               </div>
             ))}
           </div>
         )}
         <div className="ml-auto shrink-0">
           {open
-            ? <ChevronUp className="w-4 h-4 text-slate-400" aria-hidden="true" />
-            : <ChevronDown className="w-4 h-4 text-slate-400" aria-hidden="true" />}
+            ? <ChevronUp className="w-4 h-4 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
+            : <ChevronDown className="w-4 h-4 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />}
         </div>
       </button>
 
@@ -103,9 +103,9 @@ export function ProcessFlow({ txns, isFiltered, filters, setFilters, className }
                       {counts[s.key]}
                     </div>
 
-                    <p className="text-xs text-slate-400 leading-tight flex-1">{s.desc}</p>
+                    <p className="text-xs text-[var(--ds-color-text-secondary)] leading-tight flex-1">{s.desc}</p>
 
-                    <div className={`flex items-center gap-0.5 text-xs mt-0.5 transition-colors ${isActive ? "font-bold" : "text-slate-400"
+                    <div className={`flex items-center gap-0.5 text-xs mt-0.5 transition-colors ${isActive ? "font-bold" : "text-[var(--ds-color-text-secondary)]"
                       }`} style={isActive ? { color: s.color } : {}}>
                       {isActive
                         ? <><X className="w-2.5 h-2.5" aria-hidden="true" /> Clear filter</>

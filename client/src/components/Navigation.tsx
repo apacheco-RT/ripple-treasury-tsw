@@ -44,7 +44,7 @@ export function Navigation() {
       <div className="container mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-slate-300">Design Strategy v2.0</span>
+            <span className="text-sm font-medium text-[var(--ds-color-text-secondary)]">Design Strategy v2.0</span>
           </div>
         </div>
 
@@ -55,7 +55,7 @@ export function Navigation() {
               onClick={() => scrollTo(item.toLowerCase())}
               className={cn(
                 "nav-link text-sm font-medium tracking-wide",
-                activeSection === item.toLowerCase() ? "text-blue-400" : "text-slate-400"
+                activeSection === item.toLowerCase() ? "text-blue-400" : "text-[var(--ds-color-text-secondary)]"
               )}
             >
               {item}

@@ -30,10 +30,10 @@ function FlaggedItemRowInner({ txn: t, isSelected: isSel, onSelect, flagged }: F
         ${isSel ? "bg-[var(--ds-color-surface-default)] border-l-2 border-l-teal-400" : "hover:bg-[var(--ds-color-surface-default)]/50 border-l-2 border-l-transparent"}`}>
       <RiskScoreBadge txn={t} size="sm" />
       <div className="flex-1 min-w-0">
-        <div className="text-sm font-medium text-slate-200 truncate">{t.vendor}</div>
+        <div className="text-sm font-medium text-[var(--ds-color-text-primary)] truncate">{t.vendor}</div>
         <div className="flex items-center gap-2 mt-0.5">
-          <span className="text-xs text-slate-300 font-medium">{t.currency} {t.amount.toLocaleString()}</span>
-          <span className="text-xs text-slate-400">#{t.paymentNumber}</span>
+          <span className="text-xs text-[var(--ds-color-text-secondary)] font-medium">{t.currency} {t.amount.toLocaleString()}</span>
+          <span className="text-xs text-[var(--ds-color-text-secondary)]">#{t.paymentNumber}</span>
         </div>
       </div>
       <span className={`shrink-0 text-xs font-bold px-1.5 py-0.5 rounded border uppercase tracking-wider
@@ -42,7 +42,7 @@ function FlaggedItemRowInner({ txn: t, isSelected: isSel, onSelect, flagged }: F
         : "bg-amber-500/15 border-amber-500/25 text-amber-300"}`}>
         {trigger}
       </span>
-      <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${isSel ? "rotate-90 text-teal-400" : "text-slate-400"}`} aria-hidden="true" />
+      <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${isSel ? "rotate-90 text-teal-400" : "text-[var(--ds-color-text-secondary)]"}`} aria-hidden="true" />
     </div>
   );
 }

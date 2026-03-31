@@ -16,7 +16,7 @@ interface TablePaginationProps {
 
 function TablePaginationInner({ sorted, page, totalPages, rowsPerPage, setPage, filters, setFilters, className }: TablePaginationProps) {
   return (
-    <div className={cn("flex items-center justify-between px-4 py-2.5 border-t border-[var(--ds-color-border-default)]/40 text-xs text-slate-300", className)}>
+    <div className={cn("flex items-center justify-between px-4 py-2.5 border-t border-[var(--ds-color-border-default)]/40 text-xs text-[var(--ds-color-text-secondary)]", className)}>
       <span aria-live="polite">
         {sorted.length === 0 ? "0 results" : `Rows ${(page - 1) * rowsPerPage + 1}–${Math.min(page * rowsPerPage, sorted.length)} of ${sorted.length}`}
       </span>
@@ -31,18 +31,18 @@ function TablePaginationInner({ sorted, page, totalPages, rowsPerPage, setPage, 
             key={label as string}
             onClick={fn as () => void}
             disabled={disabled as boolean}
-            className="text-slate-300 hover:text-white"
+            className="text-[var(--ds-color-text-secondary)] hover:text-white"
           >
             {label as string}
           </IconButton>
         ))}
-        <span className="px-3 text-slate-300">Page {page} of {totalPages}</span>
+        <span className="px-3 text-[var(--ds-color-text-secondary)]">Page {page} of {totalPages}</span>
       </nav>
       <select
         value={filters.rowsPerPage}
         aria-label="Rows per page"
         onChange={e => setFilters({ ...filters, rowsPerPage: e.target.value })}
-        className="m3-select bg-[var(--ds-color-surface-page)] border border-slate-700/50 text-slate-300 text-xs rounded-[var(--ds-radius-xs)] px-2 py-1.5 focus:outline-hidden focus:ring-2 focus:ring-teal-400 cursor-pointer">
+        className="ds-select bg-[var(--ds-color-surface-page)] border border-[var(--ds-color-border-default)]/50 text-[var(--ds-color-text-secondary)] text-xs rounded-[var(--ds-radius-xs)] px-2 py-1.5 focus:outline-hidden focus:ring-2 focus:ring-teal-400 cursor-pointer">
         <option value="25">25 / page</option>
         <option value="50">50 / page</option>
         <option value="100">100 / page</option>

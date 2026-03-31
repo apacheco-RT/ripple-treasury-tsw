@@ -16,7 +16,7 @@ export function SectionHeader({ icon, title, subtitle, className }: SectionHeade
         <h2 className="text-3xl font-medium text-white m-0 tracking-tight">{title}</h2>
       </div>
       {subtitle && (
-        <p className="text-lg text-slate-400 max-w-2xl">{subtitle}</p>
+        <p className="text-lg text-[var(--ds-color-text-secondary)] max-w-2xl">{subtitle}</p>
       )}
       <div className="absolute -bottom-4 left-0 w-24 h-1 bg-linear-to-r from-blue-500 to-teal-500 rounded-full opacity-80" />
     </div>

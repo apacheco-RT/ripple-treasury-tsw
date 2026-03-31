@@ -171,8 +171,8 @@ export function FraudSpotlight() {
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full p-8 text-center" aria-live="polite">
-                    <ShieldAlert className="w-8 h-8 text-slate-400 mb-2" aria-hidden="true" />
-                    <p className="text-slate-400 text-sm">Select a transaction to review details</p>
+                    <ShieldAlert className="w-8 h-8 text-[var(--ds-color-text-secondary)] mb-2" aria-hidden="true" />
+                    <p className="text-[var(--ds-color-text-secondary)] text-sm">Select a transaction to review details</p>
                   </div>
                 )}
               </div>

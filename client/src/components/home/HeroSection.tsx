@@ -35,7 +35,7 @@ export function HeroSection() {
             Treasury Management <span className="text-gradient">2.0</span>
           </motion.h1>
           
-          <motion.p variants={fadeInUp} className="text-xl text-slate-400 max-w-2xl mx-auto mb-12">
+          <motion.p variants={fadeInUp} className="text-xl text-[var(--ds-color-text-secondary)] max-w-2xl mx-auto mb-12">
             A unified platform strategy to revolutionize how global finance teams manage liquidity, risk, and operations.
           </motion.p>
           
@@ -45,7 +45,7 @@ export function HeroSection() {
             </div>
             
             <h3 className="text-blue-400 font-medium uppercase tracking-wider text-sm mb-4">The Challenge</h3>
-            <p className="text-lg text-slate-300 leading-relaxed relative z-10">
+            <p className="text-lg text-[var(--ds-color-text-secondary)] leading-relaxed relative z-10">
               Current treasury operations are fragmented across 12+ legacy systems, resulting in <span className="text-white font-bold">48h data latency</span> and <span className="text-white font-bold">manual reconciliation overhead</span>. We need a single source of truth.
             </p>
           </motion.div>

@@ -47,7 +47,7 @@ export function FraudGateModal({
               </div>
               <div>
                 <h3 id="fraud-gate-title" className="text-white font-medium text-base m-0 mb-1">Elevated risk detected</h3>
-                <p className="text-slate-300 text-sm leading-relaxed m-0">
+                <p className="text-[var(--ds-color-text-secondary)] text-sm leading-relaxed m-0">
                   <strong className="text-rose-300">{flaggedInSel} of {selected.length}</strong> selected payments have a risk score ≥ 70. Review before approving.
                 </p>
               </div>
@@ -57,7 +57,7 @@ export function FraudGateModal({
                 <div key={t.id} className="flex items-center gap-2 text-xs" role="listitem">
                   <ShieldAlert className="w-3 h-3 text-rose-400 shrink-0" aria-hidden="true" />
                   <span className="font-mono font-bold text-rose-300">{t.id}</span>
-                  <span className="text-slate-300 flex-1 truncate">{t.payee}</span>
+                  <span className="text-[var(--ds-color-text-secondary)] flex-1 truncate">{t.payee}</span>
                   <span className="text-rose-300 font-bold shrink-0" aria-label={`Risk score ${t.risk}`}>{t.risk}/100</span>
                 </div>
               ))}
@@ -72,7 +72,7 @@ export function FraudGateModal({
                 Approve all anyway (not recommended)
               </button>
               <button onClick={onClose}
-                className="text-slate-400 hover:text-slate-300 text-sm text-center transition-colors h-10 focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-full">
+                className="text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-secondary)] text-sm text-center transition-colors h-10 focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-full">
                 Cancel
               </button>
             </div>

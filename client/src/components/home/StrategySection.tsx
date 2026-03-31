@@ -57,7 +57,7 @@ export function StrategySection() {
                     <h4 className="text-lg font-medium text-white mb-1 flex items-center gap-2">
                       {item.title}
                     </h4>
-                    <p className="text-slate-400 text-sm">{item.desc}</p>
+                    <p className="text-[var(--ds-color-text-secondary)] text-sm">{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -65,13 +65,13 @@ export function StrategySection() {
           </div>
 
           <div className="bg-linear-to-br from-[var(--ds-color-surface-default)] to-surface-inset p-1 rounded-[var(--ds-radius-2xl)]">
-            <div className="bg-[var(--ds-color-surface-sunken)] rounded-[var(--ds-radius-xl)] h-full p-6 border border-slate-800">
+            <div className="bg-[var(--ds-color-surface-sunken)] rounded-[var(--ds-radius-xl)] h-full p-6 border border-[var(--ds-color-border-default)]">
               <h3 className="text-xl font-medium text-white mb-6">Key Differentiators</h3>
               <div className="grid grid-cols-1 gap-4">
                 {differentiators.map((diff, i) => (
-                  <div key={i} className="flex items-center justify-between p-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-lg)] border border-slate-800/50">
+                  <div key={i} className="flex items-center justify-between p-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-lg)] border border-[var(--ds-color-border-default)]/50">
                     <span className="font-medium text-blue-300">{diff.title}</span>
-                    <span className="text-sm text-slate-400 text-right max-w-[200px]">{diff.val}</span>
+                    <span className="text-sm text-[var(--ds-color-text-secondary)] text-right max-w-[200px]">{diff.val}</span>
                   </div>
                 ))}
               </div>

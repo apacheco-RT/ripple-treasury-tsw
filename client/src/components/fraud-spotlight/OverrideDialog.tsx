@@ -29,7 +29,7 @@ function OverrideDialogInner({
             ref={dialogRef}
             initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="bg-[var(--ds-color-surface-default)] border border-slate-700/60 rounded-[var(--ds-radius-3xl)] shadow-2xl w-full max-w-md mx-4 p-6"
+            className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/60 rounded-[var(--ds-radius-3xl)] shadow-2xl w-full max-w-md mx-4 p-6"
             role="dialog" aria-modal="true" aria-labelledby="override-title"
           >
             <h3 id="override-title" className="text-white font-medium text-base m-0 mb-4">Override &amp; Approve</h3>
@@ -38,11 +38,11 @@ function OverrideDialogInner({
                 <AlertTriangle className="w-4 h-4 text-amber-400" aria-hidden="true" />
                 <span className="font-medium text-sm text-white">Payment #{overrideTxn?.paymentNumber}</span>
               </div>
-              <p className="text-xs text-slate-400 m-0">
+              <p className="text-xs text-[var(--ds-color-text-secondary)] m-0">
                 {overrideTxn?.vendor} · {overrideTxn?.currency} {overrideTxn?.amount.toLocaleString()} · Risk Score: {overrideTxn?.riskScore}/100
               </p>
             </div>
-            <label className="block text-sm font-medium text-slate-300 mb-1.5">
+            <label className="block text-sm font-medium text-[var(--ds-color-text-secondary)] mb-1.5">
               Reason for Override <span className="text-rose-400">*</span>
             </label>
             <textarea
@@ -50,18 +50,18 @@ function OverrideDialogInner({
               onChange={e => setOverrideReason(e.target.value)}
               placeholder="Enter the reason for overriding the fraud alert and approving this transaction…"
               rows={4}
-              className="w-full bg-[var(--ds-color-surface-page)] border border-slate-700/60 text-slate-200 text-sm rounded-[var(--ds-radius-xs)] px-3 py-2 resize-none focus:outline-hidden focus:ring-2 focus:ring-teal-400 placeholder:text-slate-400 transition-all"
+              className="w-full bg-[var(--ds-color-surface-page)] border border-[var(--ds-color-border-default)]/60 text-[var(--ds-color-text-primary)] text-sm rounded-[var(--ds-radius-xs)] px-3 py-2 resize-none focus:outline-hidden focus:ring-2 focus:ring-teal-400 placeholder:text-[var(--ds-color-text-secondary)] transition-all"
             />
-            <p className="text-xs text-slate-400 mt-1.5 mb-5 m-0">This will be logged for audit and compliance purposes.</p>
+            <p className="text-xs text-[var(--ds-color-text-secondary)] mt-1.5 mb-5 m-0">This will be logged for audit and compliance purposes.</p>
             <div className="flex gap-3 justify-end">
               <button onClick={() => setOverrideOpen(false)}
-                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-slate-300 hover:text-white hover:bg-white/8 text-sm font-medium transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 text-sm font-medium transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
                 Cancel
               </button>
               <button
                 disabled={!overrideReason.trim()}
                 onClick={onConfirm}
-                className={`px-6 h-10 rounded-full text-white text-sm font-medium transition-all focus:outline-hidden focus:ring-2 focus:ring-rose-400 disabled:opacity-40 disabled:cursor-not-allowed ${overrideReason.trim() ? "bg-rose-600 hover:bg-rose-500" : "bg-slate-700"}`}>
+                className={`px-6 h-10 rounded-full text-white text-sm font-medium transition-all focus:outline-hidden focus:ring-2 focus:ring-rose-400 disabled:opacity-40 disabled:cursor-not-allowed ${overrideReason.trim() ? "bg-rose-600 hover:bg-rose-500" : "bg-[var(--ds-color-surface-raised)]"}`}>
                 Confirm Override
               </button>
             </div>

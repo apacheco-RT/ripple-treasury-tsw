@@ -12,7 +12,7 @@ export function SpecsHeaderSkeleton() {
         <Skeleton width="440px" height="20px" shape="text-line" className="mb-2" />
         <Skeleton width="300px" height="20px" shape="text-line" className="mb-6" />
 
-        <div className="bg-slate-800/40 border border-[var(--ds-color-border-default)] rounded-[var(--ds-radius-xl)] p-4 max-w-4xl mb-10">
+        <div className="bg-[var(--ds-color-surface-raised)]/40 border border-[var(--ds-color-border-default)] rounded-[var(--ds-radius-xl)] p-4 max-w-4xl mb-10">
           <div className="space-y-2">
             <Skeleton width="100%" height="14px" shape="text-line" />
             <Skeleton width="100%" height="14px" shape="text-line" />

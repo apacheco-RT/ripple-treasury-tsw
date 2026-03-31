@@ -35,7 +35,7 @@ function ColumnPickerInner({ showColPicker, setShowColPicker, cols, setCols, col
         aria-expanded={showColPicker}
         aria-haspopup="dialog"
         icon={<Columns3 className="w-3.5 h-3.5" aria-hidden="true" />}
-        className="text-xs text-slate-300 hover:text-white border border-slate-700/60 hover:border-slate-600 bg-[var(--ds-color-surface-page)]"
+        className="text-xs text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)]"
       >
         Columns
       </IconButton>
@@ -43,15 +43,15 @@ function ColumnPickerInner({ showColPicker, setShowColPicker, cols, setCols, col
         {showColPicker && (
           <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
             role="dialog" aria-label="Column visibility"
-            className="absolute right-0 top-full mt-1.5 w-48 bg-[var(--ds-color-surface-default)] border border-slate-700/60 rounded-[var(--ds-radius-xl)] shadow-2xl p-3 z-30">
-            <p className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-2">Show / hide columns</p>
+            className="absolute right-0 top-full mt-1.5 w-48 bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/60 rounded-[var(--ds-radius-xl)] shadow-2xl p-3 z-30">
+            <p className="text-xs uppercase tracking-widest text-[var(--ds-color-text-secondary)] font-medium mb-2">Show / hide columns</p>
             {Object.entries(ALL_COLS).map(([key, label]) => (
               <label key={key} className="flex items-center gap-2 py-1.5 cursor-pointer group">
                 <input type="checkbox"
                   checked={cols[key as keyof typeof cols]}
                   onChange={() => setCols(c => ({ ...c, [key]: !c[key as keyof typeof c] }))}
                   className="w-4 h-4 rounded accent-teal-500" />
-                <span className="text-xs text-slate-300 group-hover:text-white transition-colors">{label}</span>
+                <span className="text-xs text-[var(--ds-color-text-secondary)] group-hover:text-white transition-colors">{label}</span>
               </label>
             ))}
           </motion.div>

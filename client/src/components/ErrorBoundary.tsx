@@ -32,7 +32,7 @@ export default class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen w-full flex items-center justify-center bg-[var(--ds-color-surface-page)]">
-          <div className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-3xl)] border border-slate-800 p-6 text-center">
+          <div className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-3xl)] border border-[var(--ds-color-border-default)] p-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-6">
               <div className="h-8 w-8 rounded-full bg-linear-to-br from-teal-400 to-cyan-300" />
               <span className="text-lg font-semibold text-white tracking-tight">
@@ -45,12 +45,12 @@ export default class ErrorBoundary extends Component<Props, State> {
             <h1 className="text-2xl font-normal text-white mb-2">
               Something went wrong
             </h1>
-            <p className="text-sm text-slate-400 mb-6">
+            <p className="text-sm text-[var(--ds-color-text-secondary)] mb-6">
               An unexpected error occurred. Please reload the page to try again.
             </p>
 
             {this.state.error && (
-              <pre className="text-xs text-slate-500 bg-slate-900/60 rounded-lg p-3 mb-6 overflow-auto max-h-24 text-left">
+              <pre className="text-xs text-[var(--ds-color-text-tertiary)] bg-[var(--ds-color-surface-page)]/60 rounded-lg p-3 mb-6 overflow-auto max-h-24 text-left">
                 {this.state.error.message}
               </pre>
             )}

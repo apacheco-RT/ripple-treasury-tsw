@@ -5,7 +5,7 @@ import { CompetitorCard } from "@/components/CompetitorCard";
 
 export function ResearchSection() {
   return (
-    <section id="research" className="py-20 border-t border-slate-800/50 bg-[var(--ds-color-surface-page)]">
+    <section id="research" className="py-20 border-t border-[var(--ds-color-border-default)]/50 bg-[var(--ds-color-surface-page)]">
       <div className="container mx-auto px-6">
         <SectionHeader 
           icon={<Users className="w-8 h-8" />}
@@ -18,7 +18,7 @@ export function ResearchSection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-slate-800 overflow-hidden shadow-lg"
+            className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)] overflow-hidden shadow-lg"
           >
             <div className="px-6 py-4 border-b border-blue-500/30 bg-[var(--ds-color-surface-default)]">
               <h3 className="text-white font-medium m-0">Key Personas</h3>
@@ -27,35 +27,35 @@ export function ResearchSection() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-[var(--ds-color-border-default)]">
-                    <th className="p-4 text-xs uppercase text-slate-400 font-bold w-1/3">Role</th>
-                    <th className="p-4 text-xs uppercase text-slate-400 font-bold">Primary Pain Point</th>
+                    <th className="p-4 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold w-1/3">Role</th>
+                    <th className="p-4 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold">Primary Pain Point</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-surface-border">
-                  <tr className="hover:bg-slate-800/30 transition-colors">
+                  <tr className="hover:bg-[var(--ds-color-surface-raised)]/30 transition-colors">
                     <td className="p-4">
                       <div className="font-medium text-white">Cash Manager</div>
-                      <div className="text-xs text-slate-400">Daily Ops</div>
+                      <div className="text-xs text-[var(--ds-color-text-secondary)]">Daily Ops</div>
                     </td>
-                    <td className="p-4 text-sm text-slate-300">
+                    <td className="p-4 text-sm text-[var(--ds-color-text-secondary)]">
                       "I spend 4 hours daily just logging into different bank portals to scrape CSVs."
                     </td>
                   </tr>
-                  <tr className="hover:bg-slate-800/30 transition-colors">
+                  <tr className="hover:bg-[var(--ds-color-surface-raised)]/30 transition-colors">
                     <td className="p-4">
                       <div className="font-medium text-white">Risk Analyst</div>
-                      <div className="text-xs text-slate-400">Strategic</div>
+                      <div className="text-xs text-[var(--ds-color-text-secondary)]">Strategic</div>
                     </td>
-                    <td className="p-4 text-sm text-slate-300">
+                    <td className="p-4 text-sm text-[var(--ds-color-text-secondary)]">
                       "FX exposure data is stale by the time I get it. I'm hedging based on yesterday's news."
                     </td>
                   </tr>
-                  <tr className="hover:bg-slate-800/30 transition-colors">
+                  <tr className="hover:bg-[var(--ds-color-surface-raised)]/30 transition-colors">
                     <td className="p-4">
                       <div className="font-medium text-white">CFO</div>
-                      <div className="text-xs text-slate-400">Executive</div>
+                      <div className="text-xs text-[var(--ds-color-text-secondary)]">Executive</div>
                     </td>
-                    <td className="p-4 text-sm text-slate-300">
+                    <td className="p-4 text-sm text-[var(--ds-color-text-secondary)]">
                       "I can't see our global liquidity position in one view. It's a blind spot."
                     </td>
                   </tr>
@@ -72,11 +72,11 @@ export function ResearchSection() {
           >
             <div className="relative">
               <div className="absolute -top-6 -left-6 text-6xl text-blue-800 font-serif opacity-50">"</div>
-              <blockquote className="text-2xl font-light text-slate-300 italic leading-relaxed z-10 relative">
+              <blockquote className="text-2xl font-light text-[var(--ds-color-text-secondary)] italic leading-relaxed z-10 relative">
                 The biggest risk isn't market volatility; it's our inability to see the volatility until it's too late.
               </blockquote>
               <div className="mt-6 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-slate-700 overflow-hidden">
+                <div className="w-12 h-12 rounded-full bg-[var(--ds-color-surface-raised)] overflow-hidden">
                   <div className="w-full h-full bg-linear-to-tr from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">SJ</div>
                 </div>
                 <div>

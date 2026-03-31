@@ -9,8 +9,8 @@ interface DetailCardProps {
 
 function DetailCardInner({ title, children, className }: DetailCardProps) {
   return (
-    <div className={cn("rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-slate-700/50 p-4", className)}>
-      <h4 className="text-xs font-medium text-teal-400 mb-3 pb-2 border-b border-slate-700/50 uppercase tracking-wider">
+    <div className={cn("rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/50 p-4", className)}>
+      <h4 className="text-xs font-medium text-teal-400 mb-3 pb-2 border-b border-[var(--ds-color-border-default)]/50 uppercase tracking-wider">
         {title}
       </h4>
       {children}

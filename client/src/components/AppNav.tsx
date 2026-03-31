@@ -190,7 +190,7 @@ export default function AppNav() {
                   aria-haspopup="true"
                   onClick={() => toggle("antiFraud")}
                   className={`flex flex-col items-center justify-center gap-[3px] px-3 h-full text-xs font-medium tracking-wide shrink-0 border-b-2 transition-all
-                    ${isActive || isOpen ? "text-teal-400 border-teal-400 bg-teal-400/5" : "text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5"}`}
+                    ${isActive || isOpen ? "text-teal-400 border-teal-400 bg-teal-400/5" : "text-[var(--ds-color-text-secondary)] border-transparent hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"}`}
                 >
                   <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                   {label}
@@ -208,7 +208,7 @@ export default function AppNav() {
                   aria-haspopup="true"
                   onClick={() => toggle("payments")}
                   className={`flex flex-col items-center justify-center gap-[3px] px-3 h-full text-xs font-medium tracking-wide shrink-0 border-b-2 transition-all
-                    ${isActive || isOpen ? "text-teal-400 border-teal-400 bg-teal-400/5" : "text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5"}`}
+                    ${isActive || isOpen ? "text-teal-400 border-teal-400 bg-teal-400/5" : "text-[var(--ds-color-text-secondary)] border-transparent hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"}`}
                 >
                   <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                   {label}
@@ -219,7 +219,7 @@ export default function AppNav() {
             return (
               <button
                 key={label}
-                className="flex flex-col items-center justify-center gap-[3px] px-3 h-full text-xs font-medium tracking-wide shrink-0 border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-all"
+                className="flex flex-col items-center justify-center gap-[3px] px-3 h-full text-xs font-medium tracking-wide shrink-0 border-b-2 border-transparent text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5 transition-all"
               >
                 <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                 {label}
@@ -234,9 +234,9 @@ export default function AppNav() {
             <input
               placeholder="I'm looking for..."
               aria-label="Global search"
-              className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] text-slate-300 text-xs rounded-full pl-4 pr-8 py-1.5 w-52 focus:outline-hidden focus:ring-2 focus:ring-teal-400 focus:border-teal-500/40 placeholder:text-slate-400 transition-all"
+              className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] text-xs rounded-full pl-4 pr-8 py-1.5 w-52 focus:outline-hidden focus:ring-2 focus:ring-teal-400 focus:border-teal-500/40 placeholder:text-[var(--ds-color-text-tertiary)] transition-all"
             />
-            <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" aria-hidden="true" />
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
           </div>
           <div role="group" aria-label="User and utility actions" className="flex items-center">
             {([
@@ -248,7 +248,7 @@ export default function AppNav() {
               <button
                 key={lbl}
                 aria-label={lbl}
-                className="text-slate-400 hover:text-slate-200 p-2 transition-colors shrink-0 rounded focus:outline-hidden focus:ring-2 focus:ring-teal-400"
+                className="text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] p-2 transition-colors shrink-0 rounded focus:outline-hidden focus:ring-2 focus:ring-teal-400"
               >
                 <Ic className="w-4 h-4" aria-hidden="true" />
               </button>
@@ -267,7 +267,7 @@ export default function AppNav() {
           {antiFraudMenuSections.map((section) => (
             <div key={section.title}>
               <div className="px-4 py-2 bg-[var(--ds-color-surface-sunken)] border-b border-[var(--ds-color-border-default)]">
-                <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-medium uppercase tracking-wider text-[var(--ds-color-text-secondary)]">
                   {section.title}
                 </span>
               </div>
@@ -288,12 +288,12 @@ export default function AppNav() {
                     } ${item.route ? "cursor-pointer" : "cursor-default"}`}
                   >
                     <item.icon
-                      className={`w-5 h-5 ${item.highlight ? "text-orange-400" : "text-slate-400"}`}
+                      className={`w-5 h-5 ${item.highlight ? "text-orange-400" : "text-[var(--ds-color-text-secondary)]"}`}
                       aria-hidden="true"
                     />
                     <span
                       className={`text-xs font-medium text-center leading-tight ${
-                        item.highlight ? "text-orange-300" : "text-slate-400"
+                        item.highlight ? "text-orange-300" : "text-[var(--ds-color-text-secondary)]"
                       }`}
                     >
                       {item.label}
@@ -321,7 +321,7 @@ export default function AppNav() {
                 className={`w-full text-left px-4 py-2.5 text-xs transition-colors ${
                   paymentsSection === section.title
                     ? "text-teal-400 font-medium bg-teal-400/5 border-l-2 border-teal-400"
-                    : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                    : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                 }`}
               >
                 {section.title}
@@ -350,12 +350,12 @@ export default function AppNav() {
                     } ${item.route ? "cursor-pointer" : "cursor-default"}`}
                   >
                     <item.icon
-                      className={`w-6 h-6 ${item.highlight ? "text-teal-400" : "text-slate-400"}`}
+                      className={`w-6 h-6 ${item.highlight ? "text-teal-400" : "text-[var(--ds-color-text-secondary)]"}`}
                       aria-hidden="true"
                     />
                     <span
                       className={`text-xs font-medium text-center leading-tight ${
-                        item.highlight ? "text-teal-300" : "text-slate-400"
+                        item.highlight ? "text-teal-300" : "text-[var(--ds-color-text-secondary)]"
                       }`}
                     >
                       {item.label}

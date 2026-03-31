@@ -29,7 +29,7 @@ export function CompetitorCard({ name, pros, cons, color }: CompetitorCardProps)
       whileHover={{ y: -5 }}
       transition={{ duration: 0.2 }}
       className={cn(
-        "bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] p-4 border border-slate-800 shadow-lg border-l-4",
+        "bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] p-4 border border-[var(--ds-color-border-default)] shadow-lg border-l-4",
         borderColors[color]
       )}
     >
@@ -42,7 +42,7 @@ export function CompetitorCard({ name, pros, cons, color }: CompetitorCardProps)
           <h4 className="text-xs uppercase tracking-wider text-emerald-400 font-medium mb-2">Strengths</h4>
           <ul className="space-y-2">
             {pros.map((pro, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+              <li key={i} className="flex items-start gap-2 text-sm text-[var(--ds-color-text-secondary)]">
                 <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
                 {pro}
               </li>
@@ -54,7 +54,7 @@ export function CompetitorCard({ name, pros, cons, color }: CompetitorCardProps)
           <h4 className="text-xs uppercase tracking-wider text-rose-400 font-medium mb-2">Weaknesses</h4>
           <ul className="space-y-2">
             {cons.map((con, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+              <li key={i} className="flex items-start gap-2 text-sm text-[var(--ds-color-text-secondary)]">
                 <X className="w-4 h-4 text-rose-500 mt-0.5 shrink-0" />
                 {con}
               </li>

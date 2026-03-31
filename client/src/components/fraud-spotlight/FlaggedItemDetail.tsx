@@ -45,13 +45,13 @@ function FlaggedItemDetailInner({
         <RiskScoreBadge txn={selectedTxn} size="lg" />
         <div className="flex-1 min-w-0">
           <h3 className="font-medium text-white text-base leading-tight m-0">{selectedTxn.vendor}</h3>
-          <p className="text-sm font-medium text-slate-200 mt-1 m-0">
+          <p className="text-sm font-medium text-[var(--ds-color-text-primary)] mt-1 m-0">
             {selectedTxn.currency} {selectedTxn.amount.toLocaleString()}
           </p>
           <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-            <span className="text-xs text-slate-400">#{selectedTxn.paymentNumber}</span>
+            <span className="text-xs text-[var(--ds-color-text-secondary)]">#{selectedTxn.paymentNumber}</span>
             {selectedTxn.corridor !== "N/A" && (
-              <span className="text-xs text-slate-400">· {selectedTxn.corridor}</span>
+              <span className="text-xs text-[var(--ds-color-text-secondary)]">· {selectedTxn.corridor}</span>
             )}
           </div>
         </div>
@@ -62,7 +62,7 @@ function FlaggedItemDetailInner({
           ? anomFactors.map((f, i) => (
             <span key={i} className="relative group cursor-default inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded border border-blue-400/30 bg-blue-500/10 text-blue-300 font-medium">
               ~ {f.split(":")[0]}
-              <span className="pointer-events-none absolute bottom-full left-0 mb-2 hidden group-hover:block w-60 rounded-[var(--ds-radius-lg)] bg-slate-900 border border-[var(--ds-color-border-default)] px-3 py-2 text-xs text-slate-300 shadow-xl z-20 leading-relaxed">
+              <span className="pointer-events-none absolute bottom-full left-0 mb-2 hidden group-hover:block w-60 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-page)] border border-[var(--ds-color-border-default)] px-3 py-2 text-xs text-[var(--ds-color-text-secondary)] shadow-xl z-20 leading-relaxed">
                 Anomaly Detected — statistically derived from this client's historical transaction data
               </span>
             </span>
@@ -77,8 +77,8 @@ function FlaggedItemDetailInner({
 
       <div>
         <div className="flex items-center justify-between mb-2">
-          <p className="text-xs text-slate-400 font-medium m-0">Risk factors</p>
-          <div className="flex items-center gap-3 text-xs text-slate-400">
+          <p className="text-xs text-[var(--ds-color-text-secondary)] font-medium m-0">Risk factors</p>
+          <div className="flex items-center gap-3 text-xs text-[var(--ds-color-text-secondary)]">
             {ruleFactors.length > 0 && <span className="flex items-center gap-1"><AlertTriangle className="w-3 h-3 text-amber-400" />Rule-Based</span>}
             {hasAnomalies && <span className="flex items-center gap-1 text-blue-400"><span className="font-bold">~</span>Anomaly</span>}
           </div>
@@ -88,19 +88,19 @@ function FlaggedItemDetailInner({
             {ruleFactors.map((f, i) => (
               <div key={i} className="flex items-start gap-2 text-xs">
                 <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-400" />
-                <span className="text-slate-400">{f}</span>
+                <span className="text-[var(--ds-color-text-secondary)]">{f}</span>
               </div>
             ))}
           </div>
         )}
         {hasAnomalies && ruleFactors.length > 0 && (
           <div className="mt-3 pt-3 border-t border-[var(--ds-color-border-default)]/60">
-            <span className="text-xs font-medium text-slate-400">Additional signal</span>
+            <span className="text-xs font-medium text-[var(--ds-color-text-secondary)]">Additional signal</span>
             <div className="space-y-1.5 mt-1.5">
               {anomFactors.map((f, i) => (
                 <div key={i} className="flex items-start gap-2 text-xs">
                   <span className="text-blue-400 font-bold shrink-0 mt-0.5">~</span>
-                  <span className="text-slate-400">{f}</span>
+                  <span className="text-[var(--ds-color-text-secondary)]">{f}</span>
                 </div>
               ))}
             </div>
@@ -111,7 +111,7 @@ function FlaggedItemDetailInner({
             {anomFactors.map((f, i) => (
               <div key={i} className="flex items-start gap-2 text-xs">
                 <span className="text-blue-400 font-bold shrink-0 mt-0.5">~</span>
-                <span className="text-slate-400">{f}</span>
+                <span className="text-[var(--ds-color-text-secondary)]">{f}</span>
                 <span className="text-xs text-blue-300 italic mt-0.5 shrink-0">Anomaly Detected</span>
               </div>
             ))}
@@ -132,7 +132,7 @@ function FlaggedItemDetailInner({
       />
 
       <div>
-        <p className="text-xs text-slate-400 font-medium mb-2 m-0">Recommendation</p>
+        <p className="text-xs text-[var(--ds-color-text-secondary)] font-medium mb-2 m-0">Recommendation</p>
         <div className={`border-l-4 rounded-r-[var(--ds-radius-lg)] px-3 py-2.5 text-sm ${recCls}`}>
           {anomalyOnly ? "Unusual pattern detected — please review payment details before approving." : selectedTxn.recommendation}
         </div>
@@ -140,7 +140,7 @@ function FlaggedItemDetailInner({
 
       <div className="flex flex-wrap gap-2">
         <button onClick={() => onAction(selectedTxn.id)}
-          className="flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium bg-slate-700/40 hover:bg-slate-700/60 text-slate-300 border border-[var(--ds-color-border-default)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 focus:ring-offset-transparent">
+          className="flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium bg-[var(--ds-color-surface-raised)]/40 hover:bg-[var(--ds-color-surface-raised)]/60 text-[var(--ds-color-text-secondary)] border border-[var(--ds-color-border-default)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-border-default)] focus:ring-offset-1 focus:ring-offset-transparent">
           Skip →
         </button>
         <button onClick={() => onAction(selectedTxn.id)}

@@ -123,19 +123,19 @@ export default function Prototype() {
         <div className="flex items-center justify-between">
           <div>
             <nav aria-label="Breadcrumb" className="breadcrumb-bar flex items-center gap-1.5 text-xs mb-1.5">
-              <span className="text-slate-400 font-medium">Payments</span>
-              <ChevronRight className="w-3 h-3 text-slate-400" aria-hidden="true" />
-              <span className="text-slate-400" aria-current="page">Transaction Status Workflow</span>
+              <span className="text-[var(--ds-color-text-secondary)] font-medium">Payments</span>
+              <ChevronRight className="w-3 h-3 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
+              <span className="text-[var(--ds-color-text-secondary)]" aria-current="page">Transaction Status Workflow</span>
             </nav>
             <h1 className="text-xl font-medium text-white m-0 leading-tight tracking-tight">Transaction Status Workflow</h1>
-            <p className="text-xs text-slate-400 mt-1 m-0">Manage and monitor all your payments in one place</p>
+            <p className="text-xs text-[var(--ds-color-text-secondary)] mt-1 m-0">Manage and monitor all your payments in one place</p>
           </div>
           <div className="flex items-center gap-3">
-            <p className="text-xs text-slate-400 m-0" aria-live="polite">
-              Last refreshed: <span className="text-slate-300 font-medium">{lastRefreshed}</span>
+            <p className="text-xs text-[var(--ds-color-text-secondary)] m-0" aria-live="polite">
+              Last refreshed: <span className="text-[var(--ds-color-text-secondary)] font-medium">{lastRefreshed}</span>
             </p>
             <button onClick={handleRefresh} aria-label={refreshing ? "Refreshing all sections" : "Refresh all sections"}
-              className={`flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium text-slate-300 hover:text-white border border-slate-700/60 hover:border-slate-600 bg-[var(--ds-color-surface-default)] transition-all focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${refreshing ? "opacity-60" : ""}`}>
+              className={`flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-default)] transition-all focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${refreshing ? "opacity-60" : ""}`}>
               <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin" : ""}`} aria-hidden="true" />
               {refreshing ? "Refreshing…" : "Refresh"}
             </button>
@@ -157,17 +157,17 @@ export default function Prototype() {
         )}
       </main>
 
-      <footer className="shrink-0 py-2 px-4 border-t border-slate-800/60 bg-[var(--ds-color-surface-page)] flex items-center justify-between">
-        <span className="text-xs text-slate-400">©2026 Ripple Treasury. All rights reserved · 26.1.0421 · Policies · QAVR</span>
+      <footer className="shrink-0 py-2 px-4 border-t border-[var(--ds-color-border-default)]/60 bg-[var(--ds-color-surface-page)] flex items-center justify-between">
+        <span className="text-xs text-[var(--ds-color-text-secondary)]">©2026 Ripple Treasury. All rights reserved · 26.1.0421 · Policies · QAVR</span>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-slate-400">TSW Redesign · Ripple Treasury Design System · Feb 2026</span>
+          <span className="text-xs text-[var(--ds-color-text-secondary)]">TSW Redesign · Ripple Treasury Design System · Feb 2026</span>
           <button
             onClick={() => setIsDark(d => !d)}
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--ds-color-border-default)] bg-slate-800/60 hover:border-slate-600 hover:bg-slate-700/60 transition-all text-xs font-medium text-slate-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-raised)]/60 hover:border-[var(--ds-color-border-default)] hover:bg-[var(--ds-color-surface-raised)]/60 transition-all text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white focus:outline-hidden focus:ring-2 focus:ring-teal-400">
             {isDark
               ? <><Sun className="w-3 h-3 text-amber-400" aria-hidden="true" /> Light</>
-              : <><Moon className="w-3 h-3 text-slate-400" aria-hidden="true" /> Dark</>}
+              : <><Moon className="w-3 h-3 text-[var(--ds-color-text-secondary)]" aria-hidden="true" /> Dark</>}
           </button>
         </div>
       </footer>

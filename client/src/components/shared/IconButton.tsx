@@ -5,12 +5,12 @@ type IconButtonVariant = "view" | "confirm" | "complete" | "reextract" | "fail" 
 type IconButtonSize = "sm" | "md";
 
 const VARIANT_CLASSES: Record<IconButtonVariant, string> = {
-  view: "text-slate-400 hover:text-blue-300 hover:bg-blue-500/10 focus:ring-blue-400",
-  confirm: "text-slate-400 hover:text-emerald-300 hover:bg-emerald-500/10 focus:ring-emerald-400",
-  complete: "text-slate-400 hover:text-teal-300 hover:bg-teal-500/10 focus:ring-teal-400",
-  reextract: "text-slate-400 hover:text-amber-300 hover:bg-amber-500/10 focus:ring-amber-400",
-  fail: "text-slate-400 hover:text-rose-300 hover:bg-rose-500/10 focus:ring-rose-400",
-  default: "text-slate-400 hover:text-white hover:bg-white/8 focus:ring-teal-400",
+  view: "text-[var(--ds-color-text-secondary)] hover:text-blue-300 hover:bg-blue-500/10 focus:ring-blue-400",
+  confirm: "text-[var(--ds-color-text-secondary)] hover:text-emerald-300 hover:bg-emerald-500/10 focus:ring-emerald-400",
+  complete: "text-[var(--ds-color-text-secondary)] hover:text-teal-300 hover:bg-teal-500/10 focus:ring-teal-400",
+  reextract: "text-[var(--ds-color-text-secondary)] hover:text-amber-300 hover:bg-amber-500/10 focus:ring-amber-400",
+  fail: "text-[var(--ds-color-text-secondary)] hover:text-rose-300 hover:bg-rose-500/10 focus:ring-rose-400",
+  default: "text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 focus:ring-teal-400",
 };
 
 const SIZE_CLASSES: Record<IconButtonSize, { iconOnly: string; withText: string }> = {

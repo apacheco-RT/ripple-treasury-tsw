@@ -33,15 +33,15 @@ export function HoldModal({
           <motion.div ref={dialogRef}
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
             role="dialog" aria-modal="true" aria-labelledby="hold-title"
-            className="bg-[var(--ds-color-surface-default)] border border-slate-700/60 rounded-[var(--ds-radius-3xl)] shadow-2xl max-w-sm w-full p-6">
+            className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/60 rounded-[var(--ds-radius-3xl)] shadow-2xl max-w-sm w-full p-6">
             <div className="flex items-center gap-3 mb-3">
               <Clock className="w-5 h-5 text-amber-400" aria-hidden="true" />
               <h3 id="hold-title" className="text-white font-medium text-base m-0">Place {count} payment{count !== 1 ? "s" : ""} on hold?</h3>
             </div>
-            <p className="text-slate-300 text-sm mb-5 m-0">Held payments remain in the queue and can be released or rejected later. This action is logged in the audit trail.</p>
+            <p className="text-[var(--ds-color-text-secondary)] text-sm mb-5 m-0">Held payments remain in the queue and can be released or rejected later. This action is logged in the audit trail.</p>
             <div className="flex gap-3 justify-end">
               <button onClick={onClose}
-                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-slate-300 hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
                 Cancel
               </button>
               <button autoFocus onClick={onConfirm}

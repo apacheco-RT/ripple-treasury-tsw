@@ -38,11 +38,11 @@ function TableToolbarInner({
   cols, setCols, colPickerRef, refreshing, handleRefresh, sorted, page, rowsPerPage, handleHold, className,
 }: TableToolbarProps) {
   return (
-    <div className={cn("flex items-center justify-between px-3 py-2 bg-[var(--ds-color-surface-default)] border-x border-b-0 border-slate-700/50", className)}>
+    <div className={cn("flex items-center justify-between px-3 py-2 bg-[var(--ds-color-surface-default)] border-x border-b-0 border-[var(--ds-color-border-default)]/50", className)}>
       <div className="flex items-center gap-2 min-h-[32px]">
         {selected.length > 0 ? (
           <div className="flex items-center gap-2" role="toolbar" aria-label="Bulk actions">
-            <span className="text-xs text-slate-300 font-medium">{selected.length} selected</span>
+            <span className="text-xs text-[var(--ds-color-text-secondary)] font-medium">{selected.length} selected</span>
             <button onClick={handleApprove}
               className="flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors focus:outline-hidden focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 focus:ring-offset-transparent">
               <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" /> Approve
@@ -63,7 +63,7 @@ function TableToolbarInner({
             </IconButton>
           </div>
         ) : (
-          <span className="text-xs text-slate-300 flex items-center gap-1.5">
+          <span className="text-xs text-[var(--ds-color-text-secondary)] flex items-center gap-1.5">
             <ChevronUp className="w-3 h-3 text-rose-400" aria-hidden="true" />
             {sortCol === "urgency"
               ? "Sorted by urgency · overdue first, then risk score"
@@ -74,16 +74,16 @@ function TableToolbarInner({
 
       <div className="flex items-center gap-2">
         <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" aria-hidden="true" />
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[var(--ds-color-text-secondary)] pointer-events-none" aria-hidden="true" />
           <input
             value={tableSearch}
             onChange={e => { setTableSearch(e.target.value); setPage(1); }}
             placeholder="Search transactions…"
             aria-label="Search transaction details"
-            className="h-10 bg-[var(--ds-color-surface-page)] border border-slate-700/60 text-slate-200 text-xs rounded-[var(--ds-radius-lg)] pl-8 pr-3 w-44 focus:outline-hidden focus:ring-2 focus:ring-teal-400 placeholder:text-slate-400 transition-all"
+            className="h-10 bg-[var(--ds-color-surface-page)] border border-[var(--ds-color-border-default)]/60 text-[var(--ds-color-text-primary)] text-xs rounded-[var(--ds-radius-lg)] pl-8 pr-3 w-44 focus:outline-hidden focus:ring-2 focus:ring-teal-400 placeholder:text-[var(--ds-color-text-secondary)] transition-all"
           />
         </div>
-        <button className="flex items-center gap-1.5 px-4 h-10 rounded-full text-xs text-slate-300 hover:text-white border border-slate-700/60 hover:border-slate-600 bg-[var(--ds-color-surface-page)] transition-all focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+        <button className="flex items-center gap-1.5 px-4 h-10 rounded-full text-xs text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)] transition-all focus:outline-hidden focus:ring-2 focus:ring-teal-400">
           <Download className="w-3.5 h-3.5" aria-hidden="true" /> Export
         </button>
         <ColumnPicker
@@ -97,11 +97,11 @@ function TableToolbarInner({
           onClick={handleRefresh}
           aria-label={refreshing ? "Refreshing data" : "Refresh data"}
           icon={<RefreshCw className={cn("w-3.5 h-3.5", refreshing && "animate-spin")} aria-hidden="true" />}
-          className={cn("text-xs text-slate-300 hover:text-white border border-slate-700/60 hover:border-slate-600 bg-[var(--ds-color-surface-page)]", refreshing && "opacity-60")}
+          className={cn("text-xs text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)]", refreshing && "opacity-60")}
         >
           {refreshing ? "Refreshing…" : "Refresh"}
         </IconButton>
-        <span className="text-xs text-slate-300 pl-1" aria-live="polite" aria-atomic="true">
+        <span className="text-xs text-[var(--ds-color-text-secondary)] pl-1" aria-live="polite" aria-atomic="true">
           {sorted.length === 0 ? "0 results" : `${(page - 1) * rowsPerPage + 1}–${Math.min(page * rowsPerPage, sorted.length)} of ${sorted.length}`}
         </span>
       </div>

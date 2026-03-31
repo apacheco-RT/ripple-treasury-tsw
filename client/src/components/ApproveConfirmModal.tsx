@@ -33,15 +33,15 @@ export function ApproveConfirmModal({
           <motion.div ref={dialogRef}
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
             role="dialog" aria-modal="true" aria-labelledby="approve-confirm-title"
-            className="bg-[var(--ds-color-surface-default)] border border-slate-700/60 rounded-[var(--ds-radius-3xl)] shadow-2xl max-w-sm w-full p-6">
+            className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/60 rounded-[var(--ds-radius-3xl)] shadow-2xl max-w-sm w-full p-6">
             <div className="flex items-center gap-3 mb-3">
               <CheckCircle2 className="w-5 h-5 text-emerald-400" aria-hidden="true" />
               <h3 id="approve-confirm-title" className="text-white font-medium text-base m-0">Approve {count} payment{count !== 1 ? "s" : ""}?</h3>
             </div>
-            <p className="text-slate-300 text-sm mb-5 m-0">This will mark the selected transactions as approved and advance them to the next processing stage.</p>
+            <p className="text-[var(--ds-color-text-secondary)] text-sm mb-5 m-0">This will mark the selected transactions as approved and advance them to the next processing stage.</p>
             <div className="flex gap-3 justify-end">
               <button onClick={onClose}
-                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-slate-300 hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
                 Cancel
               </button>
               <button autoFocus onClick={onConfirm}

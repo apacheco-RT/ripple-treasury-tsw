@@ -36,7 +36,7 @@ function TransactionCardInner({
         : t.risk >= 70 ? "border-l-4 border-l-orange-500"
         : t.risk >= 40 ? "border-l-4 border-l-amber-500/50"
         : "border-l-4 border-l-transparent"}
-        ${isSel ? "bg-teal-500/5 border-teal-500/20" : "bg-[var(--ds-color-surface-default)] border-slate-700/50"}
+        ${isSel ? "bg-teal-500/5 border-teal-500/20" : "bg-[var(--ds-color-surface-default)] border-[var(--ds-color-border-default)]/50"}
       `}
     >
       <div
@@ -54,7 +54,7 @@ function TransactionCardInner({
           <button
             aria-label={isSel ? `Deselect ${t.payee}` : `Select ${t.payee}`}
             aria-pressed={isSel}
-            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-slate-400 hover:text-teal-400 transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400"
+            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-[var(--ds-color-text-secondary)] hover:text-teal-400 transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400"
           >
             {isSel ? <CheckSquare className="w-4 h-4 text-teal-400" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
           </button>
@@ -63,8 +63,8 @@ function TransactionCardInner({
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-sm font-medium text-white truncate">{t.payee}</span>
-            <span className="text-sm font-medium text-slate-200 whitespace-nowrap shrink-0">
-              {fmtAmt(t.amount, t.cur)} <span className="text-xs text-slate-400 font-normal">{t.cur}</span>
+            <span className="text-sm font-medium text-[var(--ds-color-text-primary)] whitespace-nowrap shrink-0">
+              {fmtAmt(t.amount, t.cur)} <span className="text-xs text-[var(--ds-color-text-secondary)] font-normal">{t.cur}</span>
             </span>
           </div>
 
@@ -72,7 +72,7 @@ function TransactionCardInner({
             <span className={`text-[10px] px-1.5 py-0.5 rounded-[var(--ds-radius-xs)] font-medium
               ${t.status === "Needs Approval" ? "bg-amber-500/15 text-amber-300 border border-amber-500/25"
               : t.status === "Approved" ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"
-              : "bg-slate-700/50 text-slate-300 border border-slate-600/50"}`}
+              : "bg-[var(--ds-color-surface-raised)]/50 text-[var(--ds-color-text-secondary)] border border-[var(--ds-color-border-default)]/50"}`}
             >
               {t.status}
             </span>
@@ -82,13 +82,13 @@ function TransactionCardInner({
             )}
           </div>
 
-          <div className="flex items-center gap-3 mt-1.5 text-xs text-slate-400">
+          <div className="flex items-center gap-3 mt-1.5 text-xs text-[var(--ds-color-text-secondary)]">
             <span className="font-mono">{t.id}</span>
             <span>{t.trnDate}</span>
           </div>
         </div>
 
-        <ChevronRight className={`w-4 h-4 text-slate-400 shrink-0 mt-1 transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`} />
+        <ChevronRight className={`w-4 h-4 text-[var(--ds-color-text-secondary)] shrink-0 mt-1 transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`} />
       </div>
 
       <AnimatePresence initial={false}>
@@ -100,7 +100,7 @@ function TransactionCardInner({
             transition={{ duration: 0.18, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="border-t border-slate-700/40 bg-[var(--ds-color-surface-page)] px-3 py-3 grid grid-cols-1 gap-3">
+            <div className="border-t border-[var(--ds-color-border-default)]/40 bg-[var(--ds-color-surface-page)] px-3 py-3 grid grid-cols-1 gap-3">
               <DetailCard title="Payment details">
                 <dl className="space-y-2">
                   {([
@@ -111,8 +111,8 @@ function TransactionCardInner({
                     ["Verified", t.verified ? "Verified" : "Unverified"],
                   ] as [string, string][]).map(([label, val]) => (
                     <div key={label} className="flex items-baseline justify-between gap-3">
-                      <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">{label}</dt>
-                      <dd className={`text-xs font-medium text-right truncate ${label === "Verified" && !t.verified ? "text-rose-300" : "text-slate-200"}`}>{val}</dd>
+                      <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">{label}</dt>
+                      <dd className={`text-xs font-medium text-right truncate ${label === "Verified" && !t.verified ? "text-rose-300" : "text-[var(--ds-color-text-primary)]"}`}>{val}</dd>
                     </div>
                   ))}
                 </dl>
@@ -127,8 +127,8 @@ function TransactionCardInner({
                     ["Approver", t.approver],
                   ] as [string, string][]).map(([label, val]) => (
                     <div key={label} className="flex items-baseline justify-between gap-3">
-                      <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">{label}</dt>
-                      <dd className="text-xs font-medium text-right truncate text-slate-200">{val}</dd>
+                      <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">{label}</dt>
+                      <dd className="text-xs font-medium text-right truncate text-[var(--ds-color-text-primary)]">{val}</dd>
                     </div>
                   ))}
                 </dl>
@@ -137,7 +137,7 @@ function TransactionCardInner({
               <DetailCard title="Account information">
                 <dl className="space-y-2">
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Operative Acct.</dt>
+                    <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Operative Acct.</dt>
                     <dd className="text-xs font-medium text-right text-teal-400 font-mono truncate">
                       {featureFlags.selectPaymentRail ? (
                         <button
@@ -150,20 +150,20 @@ function TransactionCardInner({
                     </dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Account Name</dt>
-                    <dd className="text-xs font-medium text-right text-slate-200 truncate">{t.payee}</dd>
+                    <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Account Name</dt>
+                    <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)] truncate">{t.payee}</dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Account No.</dt>
-                    <dd className="text-xs font-medium text-right text-slate-200 font-mono truncate">{t.offsetNumber}</dd>
+                    <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Account No.</dt>
+                    <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)] font-mono truncate">{t.offsetNumber}</dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Legal Entity</dt>
-                    <dd className="text-xs font-medium text-right text-slate-200 truncate">{t.legalEntity}</dd>
+                    <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Legal Entity</dt>
+                    <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)] truncate">{t.legalEntity}</dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Bank</dt>
-                    <dd className="text-xs font-medium text-right text-slate-200 truncate">{t.bank}</dd>
+                    <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Bank</dt>
+                    <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)] truncate">{t.bank}</dd>
                   </div>
                 </dl>
               </DetailCard>
@@ -171,18 +171,18 @@ function TransactionCardInner({
               <DetailCard title="Additional info">
                 <dl className="space-y-2">
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Type</dt>
-                    <dd className="text-xs font-medium text-right text-slate-200">{t.type}</dd>
+                    <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Type</dt>
+                    <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)]">{t.type}</dd>
                   </div>
                   {t.riskReason && (
                     <div className="flex items-baseline justify-between gap-3">
-                      <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Risk Reason</dt>
+                      <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Risk Reason</dt>
                       <dd className="text-xs font-medium text-right text-rose-300 truncate">{t.riskReason}</dd>
                     </div>
                   )}
                   {t.waterfallChain && (
                     <div className="flex items-baseline justify-between gap-3">
-                      <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Chain</dt>
+                      <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Chain</dt>
                       <dd className="text-xs font-medium text-right text-teal-400">
                         {t.waterfallChain} ({t.waterfallPosition}/{t.waterfallTotal})
                       </dd>
@@ -190,7 +190,7 @@ function TransactionCardInner({
                   )}
                   {t.attachment && (
                     <div className="flex items-center gap-2 pt-1">
-                      <Paperclip className="w-3 h-3 text-slate-400 shrink-0" aria-hidden="true" />
+                      <Paperclip className="w-3 h-3 text-[var(--ds-color-text-secondary)] shrink-0" aria-hidden="true" />
                       <button
                         onClick={e => { e.stopPropagation(); setAttachment(t.attachment!); }}
                         className="text-xs text-teal-400 hover:underline truncate focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]"

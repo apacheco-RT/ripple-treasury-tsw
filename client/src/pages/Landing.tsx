@@ -114,17 +114,17 @@ export default function Landing() {
               <span className="text-gradient">Redesign</span>
             </motion.h1>
 
-            <motion.p variants={fadeInUp} className="text-lg text-slate-400 mb-10 max-w-xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-lg text-[var(--ds-color-text-secondary)] mb-10 max-w-xl mx-auto">
               Full heuristic evaluation, annotated specifications, and an interactive prototype
               — built on Ripple Treasury's design system, ready for React.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-3 mb-12">
               {stats.map((s, i) => (
-                <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-slate-800 text-sm">
+                <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] text-sm">
                   <span className={s.color}>{s.icon}</span>
                   <span className="font-bold text-white">{s.value}</span>
-                  <span className="text-slate-400">{s.label}</span>
+                  <span className="text-[var(--ds-color-text-secondary)]">{s.label}</span>
                 </div>
               ))}
             </motion.div>
@@ -134,22 +134,22 @@ export default function Landing() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="max-w-lg mx-auto mb-16 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-slate-800 p-4"
+            className="max-w-lg mx-auto mb-16 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)] p-4"
           >
-            <p className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-4 text-center">Finding Severity Distribution</p>
+            <p className="text-xs uppercase tracking-widest text-[var(--ds-color-text-secondary)] font-medium mb-4 text-center">Finding Severity Distribution</p>
             <div className="space-y-3">
               {severityMap.map((s) => (
                 <div key={s.label} className="flex items-center gap-3">
                   <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-[var(--ds-radius-lg)] text-xs font-bold border ${s.bg} ${s.border} ${s.text} w-24 shrink-0`}>
                     {s.icon} {s.label}
                   </div>
-                  <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                  <div className="flex-1 h-2 rounded-full bg-[var(--ds-color-surface-raised)] overflow-hidden">
                     <div
                       className={`h-full rounded-full ${s.bar}`}
                       style={{ width: `${(s.count / 10) * 100}%` }}
                     />
                   </div>
-                  <span className="text-sm font-bold text-slate-300 w-4 text-right">{s.count}</span>
+                  <span className="text-sm font-bold text-[var(--ds-color-text-secondary)] w-4 text-right">{s.count}</span>
                 </div>
               ))}
             </div>
@@ -173,16 +173,16 @@ export default function Landing() {
                     {d.badge}
                   </div>
                   <h2 className="text-xl font-medium text-white mb-1 tracking-tight m-0">{d.title}</h2>
-                  <p className="text-sm text-slate-400 mb-5 leading-relaxed">{d.subtitle}</p>
+                  <p className="text-sm text-[var(--ds-color-text-secondary)] mb-5 leading-relaxed">{d.subtitle}</p>
                   <ul className="space-y-2 flex-1">
                     {d.bullets.map((b, j) => (
-                      <li key={j} className="flex items-start gap-2 text-xs text-slate-400">
+                      <li key={j} className="flex items-start gap-2 text-xs text-[var(--ds-color-text-secondary)]">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
                         {b}
                       </li>
                     ))}
                   </ul>
-                  <div className="flex items-center gap-1 mt-6 text-sm font-medium text-slate-400 group-hover:text-white transition-colors">
+                  <div className="flex items-center gap-1 mt-6 text-sm font-medium text-[var(--ds-color-text-secondary)] group-hover:text-white transition-colors">
                     {isPrototype ? (
                       <>
                         <Settings2 className="w-4 h-4 mr-0.5" />
@@ -222,19 +222,19 @@ export default function Landing() {
 
       <section className="py-10 border-t border-[var(--ds-color-border-default)]">
         <div className="container mx-auto px-6 max-w-4xl text-center">
-          <p className="text-slate-400 text-sm">
-            <span className="text-slate-400 font-medium">Persona focus:</span> Treasury Payment Approver &nbsp;·&nbsp;
-            <span className="text-slate-400 font-medium">Method:</span> Nielsen's 10 Heuristics + customer backlog synthesis &nbsp;·&nbsp;
-            <span className="text-slate-400 font-medium">Tech stack:</span> React + Ripple Treasury design system &nbsp;·&nbsp;
-            <span className="text-slate-400 font-medium">Feb 2026</span>
+          <p className="text-[var(--ds-color-text-secondary)] text-sm">
+            <span className="text-[var(--ds-color-text-secondary)] font-medium">Persona focus:</span> Treasury Payment Approver &nbsp;·&nbsp;
+            <span className="text-[var(--ds-color-text-secondary)] font-medium">Method:</span> Nielsen's 10 Heuristics + customer backlog synthesis &nbsp;·&nbsp;
+            <span className="text-[var(--ds-color-text-secondary)] font-medium">Tech stack:</span> React + Ripple Treasury design system &nbsp;·&nbsp;
+            <span className="text-[var(--ds-color-text-secondary)] font-medium">Feb 2026</span>
           </p>
         </div>
       </section>
 
       </main>
 
-      <footer className="py-6 border-t border-slate-800 bg-[var(--ds-color-surface-page)] /* @ds-component: custom — surface.deep has no DS equivalent */ text-center">
-        <p className="text-slate-400 text-xs">
+      <footer className="py-6 border-t border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)] /* @ds-component: custom — surface.deep has no DS equivalent */ text-center">
+        <p className="text-[var(--ds-color-text-secondary)] text-xs">
           PAYM — Transaction Status Workflow UX Audit &nbsp;·&nbsp; Ripple Treasury Product Design &nbsp;·&nbsp; Confidential
         </p>
       </footer>

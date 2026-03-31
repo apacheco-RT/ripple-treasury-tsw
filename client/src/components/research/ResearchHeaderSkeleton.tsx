@@ -12,7 +12,7 @@ export function ResearchHeaderSkeleton() {
         <Skeleton width="460px" height="20px" shape="text-line" className="mb-2" />
         <Skeleton width="320px" height="20px" shape="text-line" className="mb-6" />
 
-        <div className="bg-slate-800/40 border border-[var(--ds-color-border-default)] rounded-[var(--ds-radius-xl)] p-4 max-w-4xl">
+        <div className="bg-[var(--ds-color-surface-raised)]/40 border border-[var(--ds-color-border-default)] rounded-[var(--ds-radius-xl)] p-4 max-w-4xl">
           <div className="space-y-2">
             <Skeleton width="100%" height="14px" shape="text-line" />
             <Skeleton width="100%" height="14px" shape="text-line" />
@@ -24,7 +24,7 @@ export function ResearchHeaderSkeleton() {
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-slate-800 p-4 flex items-start gap-4"
+              className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)] p-4 flex items-start gap-4"
             >
               <Skeleton width="20px" height="20px" shape="circle" className="mt-0.5 shrink-0" />
               <div className="flex-1">

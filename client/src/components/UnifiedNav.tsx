@@ -104,7 +104,7 @@ export function UnifiedNav() {
           <div className="flex items-center h-11">
             <button
               onClick={() => setMobileMenuOpen(o => !o)}
-              className="p-2 rounded-full text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors shrink-0 mr-3 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center"
+              className="p-2 rounded-full text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5 transition-colors shrink-0 mr-3 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -123,7 +123,7 @@ export function UnifiedNav() {
                       className={`px-3 py-1.5 rounded-[var(--ds-radius-lg)] text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
                         ${active
                           ? "bg-teal-500/15 text-teal-400 border border-teal-500/25"
-                          : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                          : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                         }`}
                     >
                       <Settings2 className="w-3.5 h-3.5" />
@@ -138,7 +138,7 @@ export function UnifiedNav() {
                     className={`px-3 py-1.5 rounded-[var(--ds-radius-lg)] text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
                       ${active
                         ? "bg-teal-500/15 text-teal-400 border border-teal-500/25"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                        : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                       }`}
                   >
                     {label}
@@ -153,7 +153,7 @@ export function UnifiedNav() {
                 disabled={downloading}
                 aria-label="Download prototype as HTML"
                 title="Download prototype as HTML"
-                className="p-2 rounded-full transition-all duration-200 text-slate-400 hover:text-teal-400 hover:bg-teal-500/10 border border-transparent hover:border-teal-500/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-wait"
+                className="p-2 rounded-full transition-all duration-200 text-[var(--ds-color-text-secondary)] hover:text-teal-400 hover:bg-teal-500/10 border border-transparent hover:border-teal-500/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-wait"
               >
                 {downloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               </button>
@@ -161,7 +161,7 @@ export function UnifiedNav() {
                 onClick={toggle}
                 aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
                 title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                className="p-2 rounded-full transition-all duration-200 text-slate-400 hover:text-slate-600 hover:bg-black/5 border border-transparent hover:border-slate-200/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center"
+                className="p-2 rounded-full transition-all duration-200 text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-tertiary)] hover:bg-black/5 border border-transparent hover:border-white/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center"
               >
                 {theme === "dark"
                   ? <Sun className="w-4 h-4" />
@@ -184,7 +184,7 @@ export function UnifiedNav() {
                       className={`px-3 py-2 rounded-[var(--ds-radius-lg)] text-sm font-medium text-left transition-all duration-200 flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
                         ${active
                           ? "bg-teal-500/15 text-teal-400"
-                          : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                          : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                         }`}
                     >
                       <Settings2 className="w-3.5 h-3.5" />
@@ -199,7 +199,7 @@ export function UnifiedNav() {
                     className={`px-3 py-2 rounded-[var(--ds-radius-lg)] text-sm font-medium transition-all duration-200 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
                       ${active
                         ? "bg-teal-500/15 text-teal-400"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
+                        : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                       }`}
                   >
                     {label}
@@ -231,7 +231,7 @@ export function UnifiedNav() {
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] border border-slate-700/60 rounded-[var(--ds-radius-3xl)] shadow-2xl overflow-hidden outline-hidden"
+              className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/60 rounded-[var(--ds-radius-3xl)] shadow-2xl overflow-hidden outline-hidden"
             >
               <div className="flex items-center justify-between p-6 border-b border-[var(--ds-color-border-default)]">
                 <div className="flex items-center gap-3">
@@ -240,13 +240,13 @@ export function UnifiedNav() {
                   </div>
                   <div>
                     <h2 id="config-modal-title" className="text-2xl font-normal text-white m-0">Configure Prototype</h2>
-                    <p className="text-xs text-slate-400 m-0">Toggle features before launching</p>
+                    <p className="text-xs text-[var(--ds-color-text-secondary)] m-0">Toggle features before launching</p>
                   </div>
                 </div>
                 <button
                   onClick={closeModal}
                   aria-label="Close configure modal"
-                  className="p-2 rounded-[var(--ds-radius-lg)] text-slate-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
+                  className="p-2 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -259,12 +259,12 @@ export function UnifiedNav() {
                     className={`flex items-center justify-between p-4 rounded-[var(--ds-radius-xl)] border transition-all ${
                       featureToggles[feature.key]
                         ? "border-teal-500/30 bg-teal-500/5"
-                        : "border-slate-700/40 bg-[var(--ds-color-surface-sunken)]"
+                        : "border-[var(--ds-color-border-default)]/40 bg-[var(--ds-color-surface-sunken)]"
                     }`}
                   >
                     <div className="flex-1 min-w-0 mr-4">
                       <span className="text-sm font-medium text-white block">{feature.label}</span>
-                      <span className="text-xs text-slate-400 block mt-0.5">{feature.description}</span>
+                      <span className="text-xs text-[var(--ds-color-text-secondary)] block mt-0.5">{feature.description}</span>
                     </div>
                     <button
                       role="switch"
@@ -287,7 +287,7 @@ export function UnifiedNav() {
               </div>
 
               <div className="p-6 border-t border-[var(--ds-color-border-default)] flex items-center justify-between">
-                <span className="text-xs text-slate-400">
+                <span className="text-xs text-[var(--ds-color-text-secondary)]">
                   {Object.values(featureToggles).filter(Boolean).length} of {prototypeFeatures.length} features enabled
                 </span>
                 <button

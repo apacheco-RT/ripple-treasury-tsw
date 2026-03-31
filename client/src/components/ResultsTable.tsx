@@ -198,12 +198,12 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
     });
   }, [selected.length, toast]);
 
-  const th = "px-3 py-3 text-sm text-slate-200 font-medium text-left whitespace-nowrap select-none cursor-pointer hover:text-white transition-colors focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-teal-400";
+  const th = "px-3 py-3 text-sm text-[var(--ds-color-text-primary)] font-medium text-left whitespace-nowrap select-none cursor-pointer hover:text-white transition-colors focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-teal-400";
   const td = "px-3 py-3";
 
   return (
     <section aria-label="Transaction results">
-      <div className="flex items-center px-4 py-3 bg-[var(--ds-color-surface-default)] border border-b border-slate-700/50 rounded-t-[var(--ds-radius-xl)]">
+      <div className="flex items-center px-4 py-3 bg-[var(--ds-color-surface-default)] border border-b border-[var(--ds-color-border-default)]/50 rounded-t-[var(--ds-radius-xl)]">
         <h2 className="text-base font-medium text-white">Transaction details</h2>
       </div>
 
@@ -237,7 +237,7 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
           <div className="flex items-center justify-between px-4 py-2.5 bg-teal-500/10 border-x border-t border-teal-500/25 border-b border-b-teal-500/25">
             <div className="flex items-center gap-2.5">
               <span className="inline-flex items-center px-2 py-0.5 rounded-[var(--ds-radius-xs)] text-xs font-bold text-white bg-teal-500">RLUSD</span>
-              <span className="text-xs font-medium text-slate-300">
+              <span className="text-xs font-medium text-[var(--ds-color-text-secondary)]">
                 {rlusdCount} transaction{rlusdCount !== 1 ? "s" : ""} eligible for instant RLUSD settlement
               </span>
             </div>
@@ -249,7 +249,7 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
         );
       })()}
 
-      <div className="bg-[var(--ds-color-surface-default)] border border-slate-700/50 rounded-b-[var(--ds-radius-xl)] overflow-x-auto">
+      <div className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/50 rounded-b-[var(--ds-radius-xl)] overflow-x-auto">
         {isMobile ? (
           <div className="p-2 space-y-2">
             {pageRows.map((t, i) => (
@@ -273,13 +273,13 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
               Transaction results — {sorted.length} transactions, sorted by {sortCol === "urgency" ? "urgency (overdue first, then risk score)" : sortCol}
             </caption>
             <thead>
-              <tr className="bg-[var(--ds-color-surface-sunken)] border-b border-slate-700/60">
+              <tr className="bg-[var(--ds-color-surface-sunken)] border-b border-[var(--ds-color-border-default)]/60">
                 <th scope="col" className="pl-3 pr-1 py-3 w-6" aria-hidden="true" />
                 <th scope="col" className="px-3 py-3 w-9">
                   <button onClick={toggleAll}
                     aria-label={allSel ? "Deselect all transactions" : "Select all transactions on this page"}
                     aria-pressed={allSel}
-                    className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center text-slate-400 hover:text-white transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                    className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center text-[var(--ds-color-text-secondary)] hover:text-white transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400">
                     {allSel ? <CheckSquare className="w-4 h-4 text-teal-400" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
                   </button>
                 </th>
@@ -328,10 +328,10 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
                   aria-sort={sortCol === "offsetNum" ? (sortDir === "desc" ? "descending" : "ascending") : "none"}>
                   Account No. {sortCol === "offsetNum" ? <span aria-hidden="true">{sortDir === "desc" ? "↓" : "↑"}</span> : <span aria-hidden="true" className="opacity-30">↕</span>}
                 </th>}
-                <th scope="col" className="px-3 py-3 text-sm text-slate-200 font-medium text-left whitespace-nowrap w-px">Actions</th>
+                <th scope="col" className="px-3 py-3 text-sm text-[var(--ds-color-text-primary)] font-medium text-left whitespace-nowrap w-px">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-700/30">
+            <tbody className="divide-y divide-[var(--ds-color-border-default)]/30">
               {pageRows.map((t, i) => (
                 <TransactionRow
                   key={t.id}
@@ -356,9 +356,9 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
 
         {sorted.length === 0 && (
           <div className="py-16 text-center" role="status">
-            <SearchX className="w-10 h-10 text-slate-400 mx-auto mb-3" aria-hidden="true" />
-            <p className="text-slate-300 text-sm font-medium mb-1">No payments match these filters</p>
-            <p className="text-slate-400 text-xs mb-4">Try adjusting the filter criteria or clearing filters to see all transactions.</p>
+            <SearchX className="w-10 h-10 text-[var(--ds-color-text-secondary)] mx-auto mb-3" aria-hidden="true" />
+            <p className="text-[var(--ds-color-text-secondary)] text-sm font-medium mb-1">No payments match these filters</p>
+            <p className="text-[var(--ds-color-text-secondary)] text-xs mb-4">Try adjusting the filter criteria or clearing filters to see all transactions.</p>
             <button
               onClick={() => { setTableSearch(""); setRlusdOnly(false); setFilters({ ...DEFAULT_FILTERS, rowsPerPage: filters.rowsPerPage }); }}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-teal-400 hover:text-teal-300 bg-teal-500/10 hover:bg-teal-500/15 border border-teal-500/20 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"

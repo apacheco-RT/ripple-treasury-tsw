@@ -54,17 +54,17 @@ function StatusBadgeContent({ status, next, overdue, className }: Omit<StatusBad
     : s === "Processing"       ? "bg-sky-500/20 border-sky-500/35 text-sky-300"
     : s === "Approved"         ? "bg-emerald-500/20 border-emerald-500/35 text-emerald-300"
     : s === "Failed"           ? "bg-red-500/20 border-red-500/35 text-red-300"
-    : s === "Void"             ? "bg-[var(--ds-color-surface-raised)]/50 border-[var(--ds-color-border-default)]/50 text-slate-400"
+    : s === "Void"             ? "bg-[var(--ds-color-surface-raised)]/50 border-[var(--ds-color-border-default)]/50 text-[var(--ds-color-text-secondary)]"
     : s === "Draft"            ? "bg-indigo-500/15 border-indigo-500/30 text-indigo-300"
-    :                            "bg-[var(--ds-color-surface-raised)]/30 border-[var(--ds-color-border-default)]/40 text-slate-300";
+    :                            "bg-[var(--ds-color-surface-raised)]/30 border-[var(--ds-color-border-default)]/40 text-[var(--ds-color-text-secondary)]";
   return (
     <div className={cn("flex items-center gap-1 text-xs flex-wrap", className)}>
       <span className={`inline-flex items-center h-8 px-3 rounded-[var(--ds-radius-lg)] font-medium text-xs border ${cls}`}>
         {overdue && <Clock className="w-2.5 h-2.5 inline mr-1" aria-hidden="true" />}
         {status}
       </span>
-      <ArrowRight className="w-2.5 h-2.5 text-slate-400" aria-hidden="true" />
-      <span className="text-slate-300 text-xs">{next}</span>
+      <ArrowRight className="w-2.5 h-2.5 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
+      <span className="text-[var(--ds-color-text-secondary)] text-xs">{next}</span>
     </div>
   );
 }
@@ -93,7 +93,7 @@ function RiskScoreBadgeContent({ txn, size = "sm", className }: Omit<RiskScoreBa
       <div className="flex items-center gap-1.5">
         <div className={cn("rounded-full shrink-0", c.dot, lg ? "w-2.5 h-2.5" : "w-2 h-2")} />
         <span className={cn("font-bold tabular-nums", c.text, lg ? "text-2xl" : "text-sm")}>{score}</span>
-        <span className={cn("text-slate-400", lg ? "text-sm" : "text-xs")}>/100</span>
+        <span className={cn("text-[var(--ds-color-text-secondary)]", lg ? "text-sm" : "text-xs")}>/100</span>
       </div>
       <span className={cn("font-bold", c.text, lg ? "text-xs mt-0.5" : "text-xs")}>{c.label}</span>
     </div>

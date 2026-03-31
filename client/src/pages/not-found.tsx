@@ -4,7 +4,7 @@ import { Link } from "wouter";
 export default function NotFound() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[var(--ds-color-surface-page)]">
-      <div className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-3xl)] border border-slate-800 p-6 text-center">
+      <div className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-3xl)] border border-[var(--ds-color-border-default)] p-6 text-center">
         <div className="flex items-center justify-center gap-2 mb-6">
           <div className="h-8 w-8 rounded-full bg-linear-to-br from-teal-400 to-cyan-300" />
           <span className="text-lg font-semibold text-white tracking-tight">
@@ -17,7 +17,7 @@ export default function NotFound() {
         <h1 className="text-2xl font-normal text-white mb-2">
           404 Page Not Found
         </h1>
-        <p className="text-sm text-slate-400 mb-6">
+        <p className="text-sm text-[var(--ds-color-text-secondary)] mb-6">
           The page you're looking for doesn't exist or has been moved.
         </p>
 

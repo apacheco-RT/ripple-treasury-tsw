@@ -144,7 +144,7 @@ export const SUMMARY_ROWS: SummaryRow[] = [
   { id:"confirmed",            label:"Confirmed",            statusFilter:"Confirmed",        Icon:CheckCircle2,iconColor:"text-indigo-400",  iconBg:"bg-indigo-500/15",  debits:28450120.33,    credits:15280445.12,  amount:43730565.45,    count:189 },
   { id:"completed",            label:"Completed",            statusFilter:"Approved",         Icon:CheckCircle2,iconColor:"text-emerald-400", iconBg:"bg-emerald-500/15", debits:81838589.67,    credits:18933320.49,  amount:100771910.16,   count:238 },
   { id:"failed",               label:"Failed",               statusFilter:"Failed",           Icon:X,           iconColor:"text-red-400",     iconBg:"bg-red-500/15",     debits:2882646.73,     credits:1630339.30,   amount:4512986.03,     count:172 },
-  { id:"void",                 label:"Void",                 statusFilter:"Void",             Icon:Ban,         iconColor:"text-slate-400",   iconBg:"bg-slate-700/50",   debits:44058587.78,    credits:4067933.40,   amount:48126521.18,    count:96  },
+  { id:"void",                 label:"Void",                 statusFilter:"Void",             Icon:Ban,         iconColor:"text-[var(--ds-color-text-secondary)]",   iconBg:"bg-[var(--ds-color-surface-raised)]/50",   debits:44058587.78,    credits:4067933.40,   amount:48126521.18,    count:96  },
 ];
 
 export const ALL_COLS = {

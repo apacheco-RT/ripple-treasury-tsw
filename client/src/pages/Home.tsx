@@ -56,8 +56,8 @@ export default function Home() {
         />
       </main>
 
-      <footer className="py-8 border-t border-slate-800 bg-[var(--ds-color-surface-page)] /* @ds-component: custom — surface.deep has no DS equivalent */ text-center">
-        <p className="text-slate-400 text-sm">
+      <footer className="py-8 border-t border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)] /* @ds-component: custom — surface.deep has no DS equivalent */ text-center">
+        <p className="text-[var(--ds-color-text-secondary)] text-sm">
           &copy; 2026 Ripple Treasury. Confidential &amp; Proprietary.
         </p>
       </footer>

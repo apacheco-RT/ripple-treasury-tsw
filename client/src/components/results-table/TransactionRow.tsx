@@ -45,32 +45,32 @@ function TransactionRowInner({
           : t.risk >= 70 ? "border-l-orange-500"
           : t.risk >= 40 ? "border-l-amber-500/50"
           : "border-l-transparent"}
-          ${isExpanded ? "bg-slate-700/20" : isSel ? "bg-teal-500/5 hover:bg-teal-500/8" : "bg-[var(--ds-color-surface-page)] hover:bg-[var(--ds-color-interactive-selected-bg)]"}`}>
+          ${isExpanded ? "bg-[var(--ds-color-surface-raised)]/20" : isSel ? "bg-teal-500/5 hover:bg-teal-500/8" : "bg-[var(--ds-color-surface-page)] hover:bg-[var(--ds-color-interactive-selected-bg)]"}`}>
 
         <td className="pl-3 pr-1 py-3" aria-hidden="true">
-          <ChevronRight className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`} />
+          <ChevronRight className={`w-3.5 h-3.5 text-[var(--ds-color-text-secondary)] transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`} />
         </td>
         <td className={td} onClick={e => { e.stopPropagation(); toggleRow(t.id); }}>
           <button
             aria-label={isSel ? `Deselect ${t.payee}` : `Select ${t.payee}`}
             aria-pressed={isSel}
-            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-slate-400 hover:text-teal-400 transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-[var(--ds-color-text-secondary)] hover:text-teal-400 transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400">
             {isSel ? <CheckSquare className="w-4 h-4 text-teal-400" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
           </button>
         </td>
         {effectiveCols.risk && <td className={td} onClick={e => e.stopPropagation()}><FraudBadge risk={t.risk} reason={null} /></td>}
         {cols.trnNum && (
-          <td className={`${td} font-mono text-xs text-slate-300 whitespace-nowrap`}>
+          <td className={`${td} font-mono text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap`}>
             {t.id}
             {featureFlags.rlusdStrip && t.rlusdEligible && t.status === "Needs Approval" && (
               <span className="ml-1.5 inline-flex items-center px-1 py-0 rounded-[var(--ds-radius-xs)] text-[9px] font-bold text-white bg-teal-500 leading-tight">RLUSD</span>
             )}
           </td>
         )}
-        {cols.trnDate && <td className={`${td} text-xs text-slate-300`}>{t.trnDate}</td>}
+        {cols.trnDate && <td className={`${td} text-xs text-[var(--ds-color-text-secondary)]`}>{t.trnDate}</td>}
         {cols.amount && (
-          <td className={`${td} text-sm font-medium text-slate-200 whitespace-nowrap text-right`}>
-            {fmtAmt(t.amount, t.cur)} <span className="text-xs text-slate-400 font-normal">{t.cur}</span>
+          <td className={`${td} text-sm font-medium text-[var(--ds-color-text-primary)] whitespace-nowrap text-right`}>
+            {fmtAmt(t.amount, t.cur)} <span className="text-xs text-[var(--ds-color-text-secondary)] font-normal">{t.cur}</span>
           </td>
         )}
         {cols.payee && <td className={`${td} text-sm font-medium text-white whitespace-nowrap`}>{t.payee}</td>}
@@ -86,11 +86,11 @@ function TransactionRowInner({
         )}
         {cols.instType && (
           <td className={td}>
-            <span className="text-xs px-1.5 py-0.5 rounded-[var(--ds-radius-lg)] bg-slate-800/60 border border-[var(--ds-color-border-default)] text-slate-300 font-medium">{t.instType}</span>
+            <span className="text-xs px-1.5 py-0.5 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-raised)]/60 border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] font-medium">{t.instType}</span>
           </td>
         )}
-        {cols.valDate && <td className={`${td} text-xs text-slate-300`}>{t.valDate}</td>}
-        {cols.offsetNum && <td className={`${td} font-mono text-xs text-slate-300`}>{t.offsetNumber}</td>}
+        {cols.valDate && <td className={`${td} text-xs text-[var(--ds-color-text-secondary)]`}>{t.valDate}</td>}
+        {cols.offsetNum && <td className={`${td} font-mono text-xs text-[var(--ds-color-text-secondary)]`}>{t.offsetNumber}</td>}
         <td className={`${td} whitespace-nowrap`} onClick={e => e.stopPropagation()}>
           <div className="flex items-center gap-1">
             <IconButton variant="view" onClick={() => {}} aria-label={`View details for ${t.id}`} title="View"
@@ -127,8 +127,8 @@ function TransactionRowInner({
                         ["Verified", t.verified ? "✓ Verified" : "✗ Unverified"],
                       ] as [string, string][]).map(([label, val]) => (
                         <div key={label} className="flex items-baseline justify-between gap-3">
-                          <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">{label}</dt>
-                          <dd className={`text-xs font-medium text-right truncate ${label === "Verified" && !t.verified ? "text-rose-300" : "text-slate-200"}`}>{val}</dd>
+                          <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">{label}</dt>
+                          <dd className={`text-xs font-medium text-right truncate ${label === "Verified" && !t.verified ? "text-rose-300" : "text-[var(--ds-color-text-primary)]"}`}>{val}</dd>
                         </div>
                       ))}
                     </dl>
@@ -143,8 +143,8 @@ function TransactionRowInner({
                         ["Approver", t.approver],
                       ] as [string, string][]).map(([label, val]) => (
                         <div key={label} className="flex items-baseline justify-between gap-3">
-                          <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">{label}</dt>
-                          <dd className="text-xs font-medium text-right truncate text-slate-200">{val}</dd>
+                          <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">{label}</dt>
+                          <dd className="text-xs font-medium text-right truncate text-[var(--ds-color-text-primary)]">{val}</dd>
                         </div>
                       ))}
                     </dl>
@@ -153,24 +153,24 @@ function TransactionRowInner({
                   <DetailCard title="Account information">
                     <dl className="space-y-2.5">
                       <div className="flex items-baseline justify-between gap-3">
-                        <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Operative Acct.</dt>
+                        <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Operative Acct.</dt>
                         <dd className="text-xs font-medium text-right text-teal-400 font-mono truncate">{t.operativeAcct}</dd>
                       </div>
                       <div className="flex items-baseline justify-between gap-3">
-                        <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Account Name</dt>
-                        <dd className="text-xs font-medium text-right text-slate-200 truncate">{t.payee}</dd>
+                        <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Account Name</dt>
+                        <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)] truncate">{t.payee}</dd>
                       </div>
                       <div className="flex items-baseline justify-between gap-3">
-                        <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Account No.</dt>
-                        <dd className="text-xs font-medium text-right text-slate-200 font-mono truncate">{t.offsetNumber}</dd>
+                        <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Account No.</dt>
+                        <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)] font-mono truncate">{t.offsetNumber}</dd>
                       </div>
                       <div className="flex items-baseline justify-between gap-3">
-                        <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Legal Entity</dt>
-                        <dd className="text-xs font-medium text-right text-slate-200 truncate">{t.legalEntity}</dd>
+                        <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Legal Entity</dt>
+                        <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)] truncate">{t.legalEntity}</dd>
                       </div>
                       <div className="flex items-baseline justify-between gap-3">
-                        <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Bank</dt>
-                        <dd className="text-xs font-medium text-right text-slate-200 truncate">{t.bank}</dd>
+                        <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Bank</dt>
+                        <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)] truncate">{t.bank}</dd>
                       </div>
                     </dl>
                   </DetailCard>
@@ -178,18 +178,18 @@ function TransactionRowInner({
                   <DetailCard title="Additional info">
                     <dl className="space-y-2.5">
                       <div className="flex items-baseline justify-between gap-3">
-                        <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Type</dt>
-                        <dd className="text-xs font-medium text-right text-slate-200">{t.type}</dd>
+                        <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Type</dt>
+                        <dd className="text-xs font-medium text-right text-[var(--ds-color-text-primary)]">{t.type}</dd>
                       </div>
                       {t.riskReason && (
                         <div className="flex items-baseline justify-between gap-3">
-                          <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Risk Reason</dt>
+                          <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Risk Reason</dt>
                           <dd className="text-xs font-medium text-right text-rose-300 truncate">{t.riskReason}</dd>
                         </div>
                       )}
                       {t.waterfallChain && (
                         <div className="flex items-baseline justify-between gap-3">
-                          <dt className="text-xs text-slate-300 whitespace-nowrap shrink-0">Chain</dt>
+                          <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Chain</dt>
                           <dd className="text-xs font-medium text-right">
                             <button className="text-teal-400 hover:underline focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]">
                               {t.waterfallChain} ({t.waterfallPosition}/{t.waterfallTotal})
@@ -199,7 +199,7 @@ function TransactionRowInner({
                       )}
                       {t.attachment && (
                         <div className="flex items-center gap-2 pt-1">
-                          <Paperclip className="w-3 h-3 text-slate-400 shrink-0" aria-hidden="true" />
+                          <Paperclip className="w-3 h-3 text-[var(--ds-color-text-secondary)] shrink-0" aria-hidden="true" />
                           <button
                             onClick={e => { e.stopPropagation(); setAttachment(t.attachment!); }}
                             className="text-xs text-teal-400 hover:underline truncate focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]">

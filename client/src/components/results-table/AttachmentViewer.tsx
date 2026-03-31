@@ -17,14 +17,14 @@ function AttachmentViewerInner({ attachment, onClose }: AttachmentViewerProps) {
           onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
             role="dialog" aria-modal="true" aria-label={attachment.name}
-            className="bg-[var(--ds-color-surface-default)] border border-slate-700/50 rounded-[var(--ds-radius-3xl)] shadow-2xl max-w-3xl w-full flex flex-col overflow-hidden max-h-[90vh]">
-            <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-700/50">
+            className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/50 rounded-[var(--ds-radius-3xl)] shadow-2xl max-w-3xl w-full flex flex-col overflow-hidden max-h-[90vh]">
+            <div className="flex items-center justify-between px-5 py-3.5 border-b border-[var(--ds-color-border-default)]/50">
               <div className="flex items-center gap-2">
-                <Paperclip className="w-4 h-4 text-slate-400" aria-hidden="true" />
+                <Paperclip className="w-4 h-4 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
                 <span className="text-sm font-medium text-white">{attachment.name}</span>
               </div>
               <button onClick={onClose} aria-label="Close attachment viewer"
-                className="p-1.5 rounded-[var(--ds-radius-lg)] text-slate-400 hover:text-white hover:bg-slate-700/50 transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                className="p-1.5 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-[var(--ds-color-surface-raised)]/50 transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
                 <X className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>

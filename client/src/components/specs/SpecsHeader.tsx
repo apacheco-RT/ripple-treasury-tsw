@@ -28,18 +28,18 @@ export function SpecsHeader() {
           <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-medium tracking-tight mb-3 text-white">
             Design Specifications
           </motion.h1>
-          <motion.p variants={fadeInUp} className="text-slate-400 text-lg max-w-2xl mb-6">
+          <motion.p variants={fadeInUp} className="text-[var(--ds-color-text-secondary)] text-lg max-w-2xl mb-6">
             10 prioritised recommendations — each with a problem statement, proposed solution,
             Ripple design tokens, and testable acceptance criteria.
           </motion.p>
-          <motion.div variants={fadeInUp} className="bg-slate-800/40 border border-[var(--ds-color-border-default)] rounded-[var(--ds-radius-xl)] p-4 max-w-4xl mb-10">
-            <p className="text-sm text-slate-300 leading-relaxed m-0">The redesign addresses the approval experience across three priority tiers. The six high-priority changes overhaul the core workflow by surfacing urgent transactions first, embedding fraud scores and status indicators directly in the queue, adding a safeguard for risky bulk actions, and restructuring the table to actively guide approvers rather than just display data. The three medium-priority changes reduce everyday friction through better filtering, clearer language, and saved views. A final lower-priority addition rounds things out by improving onboarding through tooltips and helpful empty states.</p>
+          <motion.div variants={fadeInUp} className="bg-[var(--ds-color-surface-raised)]/40 border border-[var(--ds-color-border-default)] rounded-[var(--ds-radius-xl)] p-4 max-w-4xl mb-10">
+            <p className="text-sm text-[var(--ds-color-text-secondary)] leading-relaxed m-0">The redesign addresses the approval experience across three priority tiers. The six high-priority changes overhaul the core workflow by surfacing urgent transactions first, embedding fraud scores and status indicators directly in the queue, adding a safeguard for risky bulk actions, and restructuring the table to actively guide approvers rather than just display data. The three medium-priority changes reduce everyday friction through better filtering, clearer language, and saved views. A final lower-priority addition rounds things out by improving onboarding through tooltips and helpful empty states.</p>
           </motion.div>
 
           <motion.div variants={fadeInUp} className="flex flex-wrap gap-3 text-xs">
             {legendItems.map((l, i) => (
-              <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-slate-800 text-slate-400">
-                <span className="font-bold text-slate-300">{l.label}:</span> {l.desc}
+              <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)]">
+                <span className="font-bold text-[var(--ds-color-text-secondary)]">{l.label}:</span> {l.desc}
               </div>
             ))}
           </motion.div>

@@ -31,8 +31,8 @@ export default function ResearchReport() {
           <ResearchHeaderSkeleton />
         )}
       </main>
-      <footer className="py-6 border-t border-slate-800 bg-[var(--ds-color-surface-page)] /* @ds-component: custom — surface.deep has no DS equivalent */ text-center">
-        <p className="text-slate-400 text-xs">PAYM — UX Research Report · Ripple Treasury Product Design · Feb 2026</p>
+      <footer className="py-6 border-t border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)] /* @ds-component: custom — surface.deep has no DS equivalent */ text-center">
+        <p className="text-[var(--ds-color-text-secondary)] text-xs">PAYM — UX Research Report · Ripple Treasury Product Design · Feb 2026</p>
       </footer>
     </div>
   );

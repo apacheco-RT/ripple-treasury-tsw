@@ -24,7 +24,7 @@ export function Skeleton({
   return (
     <div
       className={cn(
-        "skeleton-shimmer bg-slate-700/40",
+        "skeleton-shimmer bg-[var(--ds-color-surface-raised)]/40",
         shapeClasses[shape],
         className
       )}

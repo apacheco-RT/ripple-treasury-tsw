@@ -15,19 +15,19 @@ export function BacklogTable() {
             <span className="w-8 h-8 rounded-full bg-teal-500/15 border border-teal-500/25 text-teal-400 text-sm font-bold flex items-center justify-center">B</span>
             Customer Backlog — Enhancement Requests
           </h2>
-          <p className="text-slate-400 text-sm mb-8">7 items from the product backlog reported by Ripple Treasury customers. All categorised as Enhancement (UX) on the Transaction Status Workflow.</p>
+          <p className="text-[var(--ds-color-text-secondary)] text-sm mb-8">7 items from the product backlog reported by Ripple Treasury customers. All categorised as Enhancement (UX) on the Transaction Status Workflow.</p>
 
-          <div className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-slate-800 overflow-hidden">
+          <div className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)] overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-teal-500/20 bg-[var(--ds-color-surface-page)]">
-                    <th className="px-4 py-3 text-xs uppercase text-slate-400 font-bold">#</th>
-                    <th className="px-4 py-3 text-xs uppercase text-slate-400 font-bold">Enhancement Request</th>
-                    <th className="px-4 py-3 text-xs uppercase text-slate-400 font-bold w-20">Screen</th>
-                    <th className="px-4 py-3 text-xs uppercase text-slate-400 font-bold w-24">Effort</th>
-                    <th className="px-4 py-3 text-xs uppercase text-slate-400 font-bold w-24">Impact</th>
-                    <th className="px-4 py-3 text-xs uppercase text-slate-400 font-bold">Design Note</th>
+                    <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold">#</th>
+                    <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold">Enhancement Request</th>
+                    <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold w-20">Screen</th>
+                    <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold w-24">Effort</th>
+                    <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold w-24">Impact</th>
+                    <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold">Design Note</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-surface-border">
@@ -38,16 +38,16 @@ export function BacklogTable() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.05 }}
-                      className="hover:bg-slate-800/25 transition-colors"
+                      className="hover:bg-[var(--ds-color-surface-raised)]/25 transition-colors"
                     >
-                      <td className="px-4 py-3 text-xs text-slate-400 font-mono font-bold">{i + 1}</td>
-                      <td className="px-4 py-3 text-xs text-slate-300 leading-relaxed max-w-xs">{b.item}</td>
+                      <td className="px-4 py-3 text-xs text-[var(--ds-color-text-secondary)] font-mono font-bold">{i + 1}</td>
+                      <td className="px-4 py-3 text-xs text-[var(--ds-color-text-secondary)] leading-relaxed max-w-xs">{b.item}</td>
                       <td className="px-4 py-3">
-                        <span className="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-medium">{b.screen}</span>
+                        <span className="text-xs px-2 py-0.5 rounded bg-[var(--ds-color-surface-raised)] text-[var(--ds-color-text-secondary)] font-medium">{b.screen}</span>
                       </td>
                       <td className="px-4 py-3"><FeasBadge level={b.effort} /></td>
                       <td className="px-4 py-3"><SeverityBadge level={b.impact} /></td>
-                      <td className="px-4 py-3 text-xs text-slate-400 leading-relaxed max-w-xs">{b.note}</td>
+                      <td className="px-4 py-3 text-xs text-[var(--ds-color-text-secondary)] leading-relaxed max-w-xs">{b.note}</td>
                     </motion.tr>
                   ))}
                 </tbody>

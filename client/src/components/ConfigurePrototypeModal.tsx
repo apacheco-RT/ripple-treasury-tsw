@@ -73,7 +73,7 @@ export function ConfigurePrototypeModal({
             exit={{ opacity: 0, scale: 0.95, y: 12 }}
             transition={{ duration: 0.2 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] border border-slate-700/60 rounded-[var(--ds-radius-3xl)] shadow-2xl overflow-hidden outline-hidden"
+            className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/60 rounded-[var(--ds-radius-3xl)] shadow-2xl overflow-hidden outline-hidden"
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--ds-color-border-default)]">
               <div className="flex items-center gap-3">
@@ -82,13 +82,13 @@ export function ConfigurePrototypeModal({
                 </div>
                 <div>
                   <h2 id="config-modal-title" className="text-lg font-medium text-white m-0">Configure Prototype</h2>
-                  <p className="text-xs text-slate-400 m-0">Toggle features before launching</p>
+                  <p className="text-xs text-[var(--ds-color-text-secondary)] m-0">Toggle features before launching</p>
                 </div>
               </div>
               <button
                 onClick={closeModal}
                 aria-label="Close configure modal"
-                className="p-2 rounded-[var(--ds-radius-lg)] text-slate-400 hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
+                className="p-2 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -101,12 +101,12 @@ export function ConfigurePrototypeModal({
                   className={`flex items-center justify-between p-4 rounded-[var(--ds-radius-xl)] border transition-all ${
                     featureToggles[feature.key]
                       ? "border-teal-500/30 bg-teal-500/5"
-                      : "border-slate-700/40 bg-[var(--ds-color-surface-sunken)]"
+                      : "border-[var(--ds-color-border-default)]/40 bg-[var(--ds-color-surface-sunken)]"
                   }`}
                 >
                   <div className="flex-1 min-w-0 mr-4">
                     <span className="text-sm font-medium text-white block">{feature.label}</span>
-                    <span className="text-xs text-slate-400 block mt-0.5">{feature.description}</span>
+                    <span className="text-xs text-[var(--ds-color-text-secondary)] block mt-0.5">{feature.description}</span>
                   </div>
                   <button
                     role="switch"
@@ -129,7 +129,7 @@ export function ConfigurePrototypeModal({
             </div>
 
             <div className="px-6 py-4 border-t border-[var(--ds-color-border-default)] flex items-center justify-between">
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-[var(--ds-color-text-secondary)]">
                 {Object.values(featureToggles).filter(Boolean).length} of {prototypeFeatures.length} features enabled
               </span>
               <button

@@ -47,5 +47,5 @@ export function screenColor(screen: string) {
   if (screen === "Filter")  return "bg-blue-500/10 border-blue-500/20 text-blue-400";
   if (screen === "Results") return "bg-teal-500/10 border-teal-500/20 text-teal-400";
   if (screen === "Both")    return "bg-purple-500/10 border-purple-500/20 text-purple-400";
-  return "bg-slate-500/10 border-slate-500/20 text-slate-400";
+  return "bg-[var(--ds-color-surface-raised)]/30 border-[var(--ds-color-border-default)]/20 text-[var(--ds-color-text-secondary)]";
 }

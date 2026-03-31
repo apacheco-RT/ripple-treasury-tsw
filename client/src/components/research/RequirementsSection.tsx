@@ -9,17 +9,17 @@ const reqIcons: Record<string, { icon: ReactNode; iconBg: string }> = {
   "REQ-02": { icon: <ShieldAlert className="w-4 h-4 text-amber-400" />, iconBg: "bg-amber-500/10" },
   "REQ-03": { icon: <Table2 className="w-4 h-4 text-teal-400" />, iconBg: "bg-teal-500/10" },
   "REQ-04": { icon: <ShieldAlert className="w-4 h-4 text-rose-400" />, iconBg: "bg-rose-500/10" },
-  "REQ-05": { icon: <Columns3 className="w-4 h-4 text-slate-300" />, iconBg: "bg-slate-500/10" },
-  "REQ-06": { icon: <ArrowUpDown className="w-4 h-4 text-slate-300" />, iconBg: "bg-slate-500/10" },
+  "REQ-05": { icon: <Columns3 className="w-4 h-4 text-[var(--ds-color-text-secondary)]" />, iconBg: "bg-[var(--ds-color-surface-raised)]/30" },
+  "REQ-06": { icon: <ArrowUpDown className="w-4 h-4 text-[var(--ds-color-text-secondary)]" />, iconBg: "bg-[var(--ds-color-surface-raised)]/30" },
   "REQ-07": { icon: <Filter className="w-4 h-4 text-blue-400" />, iconBg: "bg-blue-500/10" },
-  "REQ-08": { icon: <HelpCircle className="w-4 h-4 text-slate-300" />, iconBg: "bg-slate-500/10" },
+  "REQ-08": { icon: <HelpCircle className="w-4 h-4 text-[var(--ds-color-text-secondary)]" />, iconBg: "bg-[var(--ds-color-surface-raised)]/30" },
   "REQ-09": { icon: <BookmarkCheck className="w-4 h-4 text-teal-400" />, iconBg: "bg-teal-500/10" },
   "REQ-10": { icon: <RotateCw className="w-4 h-4 text-teal-400" />, iconBg: "bg-teal-500/10" },
   "REQ-11": { icon: <Trash2 className="w-4 h-4 text-rose-400" />, iconBg: "bg-rose-500/10" },
   "REQ-12": { icon: <Bug className="w-4 h-4 text-rose-400" />, iconBg: "bg-rose-500/10" },
   "REQ-13": { icon: <ListFilter className="w-4 h-4 text-blue-400" />, iconBg: "bg-blue-500/10" },
   "REQ-14": { icon: <ArrowUpDown className="w-4 h-4 text-amber-400" />, iconBg: "bg-amber-500/10" },
-  "REQ-15": { icon: <HelpCircle className="w-4 h-4 text-slate-400" />, iconBg: "bg-slate-500/10" },
+  "REQ-15": { icon: <HelpCircle className="w-4 h-4 text-[var(--ds-color-text-secondary)]" />, iconBg: "bg-[var(--ds-color-surface-raised)]/30" },
 };
 
 interface ScreenLegendItem {
@@ -47,7 +47,7 @@ export function RequirementsSection() {
             <span className="w-8 h-8 rounded-full bg-orange-500/15 border border-orange-500/25 text-orange-400 text-sm font-bold flex items-center justify-center">D</span>
             Design Requirements &amp; Changes
           </h2>
-          <p className="text-slate-400 text-sm mb-8">
+          <p className="text-[var(--ds-color-text-secondary)] text-sm mb-8">
             15 functional requirements derived from the heuristic evaluation and customer feedback. Each maps to a screen, a source finding, and a concrete design change.
           </p>
 
@@ -59,7 +59,7 @@ export function RequirementsSection() {
 
           <div className="space-y-4">
             {requirements.map((req, i) => {
-              const icons = reqIcons[req.id] || { icon: null, iconBg: "bg-slate-500/10" };
+              const icons = reqIcons[req.id] || { icon: null, iconBg: "bg-[var(--ds-color-surface-raised)]/30" };
               return (
                 <motion.div
                   key={req.id}
@@ -67,12 +67,12 @@ export function RequirementsSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.04 }}
-                  className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-slate-800 overflow-hidden hover:border-slate-700 transition-colors"
+                  className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)] overflow-hidden hover:border-[var(--ds-color-border-default)] transition-colors"
                 >
                   <div className="flex items-start gap-4 p-4 border-b border-[var(--ds-color-border-default)]">
                     <div className="flex items-center gap-2 shrink-0">
-                      <div className="w-14 h-8 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-slate-700 flex items-center justify-center">
-                        <span className="text-xs font-extrabold text-slate-300 font-mono">{req.id}</span>
+                      <div className="w-14 h-8 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] flex items-center justify-center">
+                        <span className="text-xs font-extrabold text-[var(--ds-color-text-secondary)] font-mono">{req.id}</span>
                       </div>
                       <div className={`w-8 h-8 rounded-[var(--ds-radius-lg)] flex items-center justify-center shrink-0 ${icons.iconBg}`}>
                         {icons.icon}
@@ -88,7 +88,7 @@ export function RequirementsSection() {
                             <Bug className="w-3 h-3" /> Defect
                           </span>
                         )}
-                        <span className="text-xs text-slate-400 font-mono">{req.source}</span>
+                        <span className="text-xs text-[var(--ds-color-text-secondary)] font-mono">{req.source}</span>
                       </div>
                       <p className="text-sm font-medium text-white leading-snug">{req.title}</p>
                     </div>
@@ -96,12 +96,12 @@ export function RequirementsSection() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-surface-border">
                     <div className="p-4">
-                      <p className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-2">Requirement</p>
-                      <p className="text-xs text-slate-300 leading-relaxed">{req.requirement}</p>
+                      <p className="text-xs uppercase tracking-widest text-[var(--ds-color-text-secondary)] font-medium mb-2">Requirement</p>
+                      <p className="text-xs text-[var(--ds-color-text-secondary)] leading-relaxed">{req.requirement}</p>
                     </div>
                     <div className="p-4">
                       <p className="text-xs uppercase tracking-widest text-teal-500 font-medium mb-2">Design Change</p>
-                      <p className="text-xs text-slate-300 leading-relaxed">{req.designChange}</p>
+                      <p className="text-xs text-[var(--ds-color-text-secondary)] leading-relaxed">{req.designChange}</p>
                     </div>
                   </div>
                 </motion.div>
