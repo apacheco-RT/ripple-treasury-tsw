@@ -73,7 +73,7 @@ function TransactionRowInner({
             {fmtAmt(t.amount, t.cur)} <span className="text-xs text-[var(--ds-color-text-secondary)] font-normal">{t.cur}</span>
           </td>
         )}
-        {cols.payee && <td className={`${td} text-sm font-medium text-white whitespace-nowrap`}>{t.payee}</td>}
+        {cols.payee && <td className={`${td} text-sm font-medium text-[var(--ds-color-text-primary)] whitespace-nowrap`}>{t.payee}</td>}
         {cols.operativeAcct && (
           <td className={`${td} font-mono text-xs whitespace-nowrap`}>
             <button

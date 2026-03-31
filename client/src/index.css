@@ -99,8 +99,8 @@ layer(base);
   --color-status-busy: rgb(239 68 68);
   --color-status-offline: rgb(156 163 175);
 
-  --font-serif: var(--font-serif);
-  --font-mono: var(--font-mono);
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", Menlo, Monaco, "Courier New", monospace;
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
@@ -314,7 +314,7 @@ layer(base);
   --ds-color-surface-disabled: var(--ds-color-neutral-800);
   --ds-color-text-primary: var(--ds-color-neutral-50);
   --ds-color-text-secondary: var(--ds-color-neutral-400);
-  --ds-color-text-tertiary: var(--ds-color-neutral-600);
+  --ds-color-text-tertiary: var(--ds-color-neutral-500);
   --ds-color-text-disabled: var(--ds-color-neutral-700);
   --ds-color-text-inverse: var(--ds-color-neutral-900);
   --ds-color-text-on-brand: var(--ds-color-neutral-900);
@@ -348,10 +348,8 @@ layer(base);
   --ds-color-interactive-disabled: var(--ds-color-neutral-700);
   --ds-color-interactive-selected: var(--ds-color-blue-400);
   --ds-color-interactive-selected-bg: var(--ds-color-blue-950);
-}
 
-/* Shadcn semantic token overrides for dark mode */
-[data-theme="dark"] {
+  /* ── Shadcn semantic tokens ────────────────────────────────────────────── */
   --background: 222 84% 5%;
   --foreground: 210 40% 98%;
 
@@ -390,7 +388,7 @@ layer(base);
   --sidebar-accent: hsl(217 33% 14%);
   --sidebar-accent-foreground: hsl(203.8863 88.2845% 53.1373%);
   --sidebar-ring: hsl(203.8863 88.2845% 53.1373%);
-}
+} /* end [data-theme="dark"] */
 
 @layer base {
   body {
@@ -520,6 +518,7 @@ layer(base);
   --ds-color-text-tertiary:   #64748b;
   --ds-color-surface-page:    #0f172a;
   --ds-color-surface-default: #1e293b;
+  --ds-color-surface-sunken:  #0a1628;
   --ds-color-border-default:  #334155;
 }
 /* White SVG wordmark: stays white on the dark nav in both modes — no invert */

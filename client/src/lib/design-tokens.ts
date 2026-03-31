@@ -34,7 +34,7 @@ export const surface = {
   card:      'var(--ds-color-surface-default)',          // --ds-color-surface-default (dark theme = neutral-900)
   elevated:  'var(--ds-color-surface-raised)',           // --ds-color-surface-raised (dark theme = neutral-800; DS naming: surface-raised)
   inset:     'var(--ds-color-surface-sunken)',           // --ds-color-surface-sunken (form inputs / deep nested bg)
-  section:   'var(--ds-color-surface-page)',             // no dedicated DS token for alternating rows; closest is surface-page
+  section:   'var(--ds-color-surface-default)',          // alternating row bg — pairs with surface-page as base
   deep:      '#050b14',                                  // @ds-component: custom — no DS-foundation equivalent (darker than neutral-950)
   rowHover:  'var(--ds-color-interactive-selected-bg)',  // --ds-color-interactive-selected-bg (dark = blue-950)
   border:    'var(--ds-color-border-default)',           // --ds-color-border-default (dark = neutral-700)
