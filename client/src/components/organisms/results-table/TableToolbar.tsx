@@ -103,7 +103,7 @@ function TableToolbarInner({
           onClick={handleRefresh}
           aria-label={refreshing ? "Refreshing data" : "Refresh data"}
           icon={<RefreshCw className={cn("w-3.5 h-3.5", refreshing && "animate-spin")} aria-hidden="true" />}
-          className={cn("text-xs text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)]", refreshing && "opacity-60")}
+          className={cn("text-xs text-[var(--ds-color-text-secondary)] border border-[var(--ds-color-border-default)]/60 bg-[var(--ds-color-surface-page)]", refreshing && "opacity-60")}
         >
           {refreshing ? "Refreshing…" : "Refresh"}
         </IconButton>

@@ -64,7 +64,7 @@ function TransactionCardInner({
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-1.5">
-            <span className="text-sm font-medium text-white truncate">{t.payee}</span>
+            <span className="text-sm font-medium text-[var(--ds-color-text-primary)] truncate">{t.payee}</span>
             <span className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
               <MonoAmount value={t.amount} currency={t.cur as 'USD' | 'EUR' | 'GBP'} />
               <CurrencyBadge currency={t.cur as 'USD' | 'EUR' | 'GBP'} />
