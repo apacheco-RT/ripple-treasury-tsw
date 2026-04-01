@@ -35,17 +35,17 @@ export function RejectModal({
             role="dialog" aria-modal="true" aria-labelledby="reject-title"
             className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/60 rounded-[var(--ds-radius-3xl)] shadow-2xl max-w-sm w-full p-6">
             <div className="flex items-center gap-3 mb-3">
-              <AlertTriangle className="w-5 h-5 text-rose-400" aria-hidden="true" />
+              <AlertTriangle className="w-5 h-5 text-[var(--ds-color-feedback-error-text)]" aria-hidden="true" />
               <h3 id="reject-title" className="text-white font-medium text-base m-0">Reject {count} payment{count !== 1 ? "s" : ""}?</h3>
             </div>
             <p className="text-[var(--ds-color-text-secondary)] text-sm mb-5 m-0">Rejected payments are logged in the audit trail and cannot be re-approved without re-entry.</p>
             <div className="flex gap-3 justify-end">
               <button onClick={onClose}
-                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
                 Cancel
               </button>
               <button autoFocus onClick={onConfirm}
-                className="px-6 h-10 rounded-full bg-rose-500 hover:bg-rose-400 text-white font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-rose-400 focus:ring-offset-2 focus:ring-offset-surface-card">
+                className="px-6 h-10 rounded-full bg-[var(--ds-color-feedback-error-border)] hover:bg-[var(--ds-color-feedback-error-icon)] text-white font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-feedback-error-border)] focus:ring-offset-2 focus:ring-offset-surface-card">
                 Reject payments
               </button>
             </div>

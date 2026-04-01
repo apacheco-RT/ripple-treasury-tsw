@@ -32,11 +32,11 @@ function TransactionCardInner({
       transition={{ delay: Math.min(i * 0.03, 0.36), duration: 0.25 }}
       aria-label={`${urgencyLabel} — ${t.payee}, ${fmtAmt(t.amount, t.cur)}, ${t.status}`}
       className={`rounded-[var(--ds-radius-xl)] border transition-colors
-        ${t.overdue ? "border-l-4 border-l-rose-500"
-        : t.risk >= 70 ? "border-l-4 border-l-orange-500"
-        : t.risk >= 40 ? "border-l-4 border-l-amber-500/50"
+        ${t.overdue ? "border-l-4 border-l-[var(--ds-color-feedback-error-border)]"
+        : t.risk >= 70 ? "border-l-4 border-l-[var(--ds-color-feedback-warning-border)]"
+        : t.risk >= 40 ? "border-l-4 border-l-[var(--ds-color-feedback-warning-border)]/50"
         : "border-l-4 border-l-transparent"}
-        ${isSel ? "bg-teal-500/5 border-teal-500/20" : "bg-[var(--ds-color-surface-default)] border-[var(--ds-color-border-default)]/50"}
+        ${isSel ? "bg-[var(--ds-color-brand-primary-subtle)] border-[var(--ds-color-brand-primary)]/20" : "bg-[var(--ds-color-surface-default)] border-[var(--ds-color-border-default)]/50"}
       `}
     >
       <div
@@ -54,9 +54,9 @@ function TransactionCardInner({
           <button
             aria-label={isSel ? `Deselect ${t.payee}` : `Select ${t.payee}`}
             aria-pressed={isSel}
-            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-[var(--ds-color-text-secondary)] hover:text-teal-400 transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400"
+            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-brand-primary)] transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]"
           >
-            {isSel ? <CheckSquare className="w-4 h-4 text-teal-400" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
+            {isSel ? <CheckSquare className="w-4 h-4 text-[var(--ds-color-brand-primary)]" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
           </button>
         </div>
 
@@ -70,15 +70,15 @@ function TransactionCardInner({
 
           <div className="flex items-center gap-2 flex-wrap">
             <span className={`text-[10px] px-1.5 py-0.5 rounded-[var(--ds-radius-xs)] font-medium
-              ${t.status === "Needs Approval" ? "bg-amber-500/15 text-amber-300 border border-amber-500/25"
-              : t.status === "Approved" ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"
+              ${t.status === "Needs Approval" ? "bg-[var(--ds-color-feedback-warning-bg)] text-[var(--ds-color-feedback-warning-text)] border border-[var(--ds-color-feedback-warning-border)]/25"
+              : t.status === "Approved" ? "bg-[var(--ds-color-feedback-success-bg)] text-[var(--ds-color-feedback-success-text)] border border-[var(--ds-color-feedback-success-border)]/25"
               : "bg-[var(--ds-color-surface-raised)]/50 text-[var(--ds-color-text-secondary)] border border-[var(--ds-color-border-default)]/50"}`}
             >
               {t.status}
             </span>
             <FraudBadge risk={t.risk} reason={null} />
             {featureFlags.rlusdStrip && t.rlusdEligible && t.status === "Needs Approval" && (
-              <span className="inline-flex items-center px-1 py-0 rounded-[var(--ds-radius-xs)] text-[9px] font-bold text-white bg-teal-500 leading-tight">RLUSD</span>
+              <span className="inline-flex items-center px-1 py-0 rounded-[var(--ds-radius-xs)] text-[9px] font-bold text-[var(--ds-color-text-on-brand)] bg-[var(--ds-color-brand-primary)] leading-tight">RLUSD</span>
             )}
           </div>
 
@@ -112,7 +112,7 @@ function TransactionCardInner({
                   ] as [string, string][]).map(([label, val]) => (
                     <div key={label} className="flex items-baseline justify-between gap-3">
                       <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">{label}</dt>
-                      <dd className={`text-xs font-medium text-right truncate ${label === "Verified" && !t.verified ? "text-rose-300" : "text-[var(--ds-color-text-primary)]"}`}>{val}</dd>
+                      <dd className={`text-xs font-medium text-right truncate ${label === "Verified" && !t.verified ? "text-[var(--ds-color-feedback-error-text)]" : "text-[var(--ds-color-text-primary)]"}`}>{val}</dd>
                     </div>
                   ))}
                 </dl>
@@ -138,11 +138,11 @@ function TransactionCardInner({
                 <dl className="space-y-2">
                   <div className="flex items-baseline justify-between gap-3">
                     <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Operative Acct.</dt>
-                    <dd className="text-xs font-medium text-right text-teal-400 font-mono truncate">
+                    <dd className="text-xs font-medium text-right text-[var(--ds-color-brand-primary)] font-mono truncate">
                       {featureFlags.selectPaymentRail ? (
                         <button
                           onClick={e => { e.stopPropagation(); setPaymentRailTxn(t); }}
-                          className="text-teal-400 hover:text-teal-300 hover:underline transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]"
+                          className="text-[var(--ds-color-brand-primary)] hover:text-[var(--ds-color-brand-primary-hover)] hover:underline transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] rounded-[var(--ds-radius-xs)]"
                         >
                           {t.operativeAcct}
                         </button>
@@ -177,13 +177,13 @@ function TransactionCardInner({
                   {t.riskReason && (
                     <div className="flex items-baseline justify-between gap-3">
                       <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Risk Reason</dt>
-                      <dd className="text-xs font-medium text-right text-rose-300 truncate">{t.riskReason}</dd>
+                      <dd className="text-xs font-medium text-right text-[var(--ds-color-feedback-error-text)] truncate">{t.riskReason}</dd>
                     </div>
                   )}
                   {t.waterfallChain && (
                     <div className="flex items-baseline justify-between gap-3">
                       <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Chain</dt>
-                      <dd className="text-xs font-medium text-right text-teal-400">
+                      <dd className="text-xs font-medium text-right text-[var(--ds-color-brand-primary)]">
                         {t.waterfallChain} ({t.waterfallPosition}/{t.waterfallTotal})
                       </dd>
                     </div>
@@ -193,7 +193,7 @@ function TransactionCardInner({
                       <Paperclip className="w-3 h-3 text-[var(--ds-color-text-secondary)] shrink-0" aria-hidden="true" />
                       <button
                         onClick={e => { e.stopPropagation(); setAttachment(t.attachment!); }}
-                        className="text-xs text-teal-400 hover:underline truncate focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]"
+                        className="text-xs text-[var(--ds-color-brand-primary)] hover:underline truncate focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] rounded-[var(--ds-radius-xs)]"
                       >
                         {t.attachment.name}
                       </button>

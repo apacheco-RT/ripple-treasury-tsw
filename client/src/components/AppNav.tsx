@@ -162,7 +162,7 @@ export default function AppNav() {
       {/* Skip to main content */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:px-4 focus:py-2 focus:rounded-[var(--ds-radius-lg)] focus:bg-teal-600 focus:text-white focus:text-sm focus:font-medium focus:shadow-lg focus:outline-hidden"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:px-4 focus:py-2 focus:rounded-[var(--ds-radius-lg)] focus:bg-[var(--ds-color-brand-primary)] focus:text-[var(--ds-color-text-on-brand)] focus:text-sm focus:font-medium focus:shadow-lg focus:outline-hidden"
       >
         Skip to main content
       </a>
@@ -190,7 +190,7 @@ export default function AppNav() {
                   aria-haspopup="true"
                   onClick={() => toggle("antiFraud")}
                   className={`flex flex-col items-center justify-center gap-[3px] px-3 h-full text-xs font-medium tracking-wide shrink-0 border-b-2 transition-all
-                    ${isActive || isOpen ? "text-teal-400 border-teal-400 bg-teal-400/5" : "text-[var(--ds-color-text-secondary)] border-transparent hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"}`}
+                    ${isActive || isOpen ? "text-[var(--ds-color-brand-primary)] border-[var(--ds-color-brand-primary)] bg-[var(--ds-color-brand-primary-subtle)]" : "text-[var(--ds-color-text-secondary)] border-transparent hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"}`}
                 >
                   <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                   {label}
@@ -208,7 +208,7 @@ export default function AppNav() {
                   aria-haspopup="true"
                   onClick={() => toggle("payments")}
                   className={`flex flex-col items-center justify-center gap-[3px] px-3 h-full text-xs font-medium tracking-wide shrink-0 border-b-2 transition-all
-                    ${isActive || isOpen ? "text-teal-400 border-teal-400 bg-teal-400/5" : "text-[var(--ds-color-text-secondary)] border-transparent hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"}`}
+                    ${isActive || isOpen ? "text-[var(--ds-color-brand-primary)] border-[var(--ds-color-brand-primary)] bg-[var(--ds-color-brand-primary-subtle)]" : "text-[var(--ds-color-text-secondary)] border-transparent hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"}`}
                 >
                   <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                   {label}
@@ -234,7 +234,7 @@ export default function AppNav() {
             <input
               placeholder="I'm looking for..."
               aria-label="Global search"
-              className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] text-xs rounded-full pl-4 pr-8 py-1.5 w-52 focus:outline-hidden focus:ring-2 focus:ring-teal-400 focus:border-teal-500/40 placeholder:text-[var(--ds-color-text-tertiary)] transition-all"
+              className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] text-xs rounded-full pl-4 pr-8 py-1.5 w-52 focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] focus:border-[var(--ds-color-brand-primary)]/40 placeholder:text-[var(--ds-color-text-tertiary)] transition-all"
             />
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
           </div>
@@ -248,7 +248,7 @@ export default function AppNav() {
               <button
                 key={lbl}
                 aria-label={lbl}
-                className="text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] p-2 transition-colors shrink-0 rounded focus:outline-hidden focus:ring-2 focus:ring-teal-400"
+                className="text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] p-2 transition-colors shrink-0 rounded focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]"
               >
                 <Ic className="w-4 h-4" aria-hidden="true" />
               </button>
@@ -283,17 +283,17 @@ export default function AppNav() {
                     }}
                     className={`flex flex-col items-center gap-1.5 p-3 rounded-[var(--ds-radius-lg)] transition-colors min-w-[80px] text-left ${
                       item.highlight
-                        ? "bg-linear-to-br from-orange-500/20 to-yellow-500/10 hover:from-orange-500/30 hover:to-yellow-500/20 ring-1 ring-orange-500/30"
+                        ? "bg-linear-to-br from-[var(--ds-color-feedback-warning-bg)] to-[var(--ds-color-feedback-warning-bg)] hover:from-[var(--ds-color-feedback-warning-bg)] hover:to-[var(--ds-color-feedback-warning-bg)] ring-1 ring-[var(--ds-color-feedback-warning-border)]/30"
                         : "hover:bg-[var(--ds-color-surface-default)]"
                     } ${item.route ? "cursor-pointer" : "cursor-default"}`}
                   >
                     <item.icon
-                      className={`w-5 h-5 ${item.highlight ? "text-orange-400" : "text-[var(--ds-color-text-secondary)]"}`}
+                      className={`w-5 h-5 ${item.highlight ? "text-[var(--ds-color-feedback-warning-text)]" : "text-[var(--ds-color-text-secondary)]"}`}
                       aria-hidden="true"
                     />
                     <span
                       className={`text-xs font-medium text-center leading-tight ${
-                        item.highlight ? "text-orange-300" : "text-[var(--ds-color-text-secondary)]"
+                        item.highlight ? "text-[var(--ds-color-feedback-warning-text)]" : "text-[var(--ds-color-text-secondary)]"
                       }`}
                     >
                       {item.label}
@@ -320,7 +320,7 @@ export default function AppNav() {
                 onClick={() => setPaymentsSection(section.title)}
                 className={`w-full text-left px-4 py-2.5 text-xs transition-colors ${
                   paymentsSection === section.title
-                    ? "text-teal-400 font-medium bg-teal-400/5 border-l-2 border-teal-400"
+                    ? "text-[var(--ds-color-brand-primary)] font-medium bg-[var(--ds-color-brand-primary-subtle)] border-l-2 border-[var(--ds-color-brand-primary)]"
                     : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                 }`}
               >
@@ -345,17 +345,17 @@ export default function AppNav() {
                     }}
                     className={`flex flex-col items-center gap-1.5 p-3 rounded-[var(--ds-radius-lg)] transition-colors min-w-[100px] ${
                       item.highlight
-                        ? "bg-linear-to-br from-teal-500/20 to-cyan-500/10 hover:from-teal-500/30 hover:to-cyan-500/20 ring-1 ring-teal-500/30"
+                        ? "bg-linear-to-br from-[var(--ds-color-brand-primary-subtle)] to-[var(--ds-color-brand-primary-subtle)] hover:from-[var(--ds-color-interactive-selected-bg)] hover:to-[var(--ds-color-interactive-selected-bg)] ring-1 ring-[var(--ds-color-brand-primary)]/30"
                         : "hover:bg-[var(--ds-color-surface-default)]"
                     } ${item.route ? "cursor-pointer" : "cursor-default"}`}
                   >
                     <item.icon
-                      className={`w-6 h-6 ${item.highlight ? "text-teal-400" : "text-[var(--ds-color-text-secondary)]"}`}
+                      className={`w-6 h-6 ${item.highlight ? "text-[var(--ds-color-brand-primary)]" : "text-[var(--ds-color-text-secondary)]"}`}
                       aria-hidden="true"
                     />
                     <span
                       className={`text-xs font-medium text-center leading-tight ${
-                        item.highlight ? "text-teal-300" : "text-[var(--ds-color-text-secondary)]"
+                        item.highlight ? "text-[var(--ds-color-brand-primary)]" : "text-[var(--ds-color-text-secondary)]"
                       }`}
                     >
                       {item.label}

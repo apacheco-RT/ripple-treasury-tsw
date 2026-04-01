@@ -40,12 +40,12 @@ function TransactionRowInner({
         tabIndex={0}
         aria-expanded={isExpanded}
         aria-label={`${urgencyLabel} — ${t.payee}, ${fmtAmt(t.amount, t.cur)}, ${t.status}`}
-        className={`transition-colors cursor-pointer border-l-2 focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-teal-400
-          ${t.overdue ? "border-l-rose-500"
-          : t.risk >= 70 ? "border-l-orange-500"
-          : t.risk >= 40 ? "border-l-amber-500/50"
+        className={`transition-colors cursor-pointer border-l-2 focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]
+          ${t.overdue ? "border-l-[var(--ds-color-feedback-error-border)]"
+          : t.risk >= 70 ? "border-l-[var(--ds-color-feedback-error-icon)]"
+          : t.risk >= 40 ? "border-l-[var(--ds-color-feedback-warning-border)]"
           : "border-l-transparent"}
-          ${isExpanded ? "bg-[var(--ds-color-surface-raised)]/20" : isSel ? "bg-teal-500/5 hover:bg-teal-500/8" : "bg-[var(--ds-color-surface-page)] hover:bg-[var(--ds-color-interactive-selected-bg)]"}`}>
+          ${isExpanded ? "bg-[var(--ds-color-surface-raised)]/20" : isSel ? "bg-[var(--ds-color-interactive-selected-bg)] hover:bg-[var(--ds-color-interactive-selected-bg)]" : "bg-[var(--ds-color-surface-page)] hover:bg-[var(--ds-color-interactive-selected-bg)]"}`}>
 
         <td className="pl-3 pr-1 py-3" aria-hidden="true">
           <ChevronRight className={`w-3.5 h-3.5 text-[var(--ds-color-text-secondary)] transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`} />
@@ -54,8 +54,8 @@ function TransactionRowInner({
           <button
             aria-label={isSel ? `Deselect ${t.payee}` : `Select ${t.payee}`}
             aria-pressed={isSel}
-            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-[var(--ds-color-text-secondary)] hover:text-teal-400 transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400">
-            {isSel ? <CheckSquare className="w-4 h-4 text-teal-400" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
+            className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center cursor-pointer text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-brand-primary)] transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
+            {isSel ? <CheckSquare className="w-4 h-4 text-[var(--ds-color-brand-primary)]" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
           </button>
         </td>
         {effectiveCols.risk && <td className={td} onClick={e => e.stopPropagation()}><FraudBadge risk={t.risk} reason={null} /></td>}
@@ -63,7 +63,7 @@ function TransactionRowInner({
           <td className={`${td} font-mono text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap`}>
             {t.id}
             {featureFlags.rlusdStrip && t.rlusdEligible && t.status === "Needs Approval" && (
-              <span className="ml-1.5 inline-flex items-center px-1 py-0 rounded-[var(--ds-radius-xs)] text-[9px] font-bold text-white bg-teal-500 leading-tight">RLUSD</span>
+              <span className="ml-1.5 inline-flex items-center px-1 py-0 rounded-[var(--ds-radius-xs)] text-[9px] font-bold text-[var(--ds-color-text-on-brand)] bg-[var(--ds-color-brand-primary)] leading-tight">RLUSD</span>
             )}
           </td>
         )}
@@ -79,7 +79,7 @@ function TransactionRowInner({
             <button
               aria-label={`View operative account ${t.operativeAcct}`}
               onClick={e => e.stopPropagation()}
-              className="inline-flex items-center min-h-6 px-0.5 text-teal-400 hover:text-teal-300 hover:underline transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]">
+              className="inline-flex items-center min-h-6 px-0.5 text-[var(--ds-color-brand-primary)] hover:text-[var(--ds-color-brand-primary-hover)] hover:underline transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] rounded-[var(--ds-radius-xs)]">
               {t.operativeAcct}
             </button>
           </td>
@@ -128,7 +128,7 @@ function TransactionRowInner({
                       ] as [string, string][]).map(([label, val]) => (
                         <div key={label} className="flex items-baseline justify-between gap-3">
                           <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">{label}</dt>
-                          <dd className={`text-xs font-medium text-right truncate ${label === "Verified" && !t.verified ? "text-rose-300" : "text-[var(--ds-color-text-primary)]"}`}>{val}</dd>
+                          <dd className={`text-xs font-medium text-right truncate ${label === "Verified" && !t.verified ? "text-[var(--ds-color-feedback-error-text)]" : "text-[var(--ds-color-text-primary)]"}`}>{val}</dd>
                         </div>
                       ))}
                     </dl>
@@ -154,7 +154,7 @@ function TransactionRowInner({
                     <dl className="space-y-2.5">
                       <div className="flex items-baseline justify-between gap-3">
                         <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Operative Acct.</dt>
-                        <dd className="text-xs font-medium text-right text-teal-400 font-mono truncate">{t.operativeAcct}</dd>
+                        <dd className="text-xs font-medium text-right text-[var(--ds-color-brand-primary)] font-mono truncate">{t.operativeAcct}</dd>
                       </div>
                       <div className="flex items-baseline justify-between gap-3">
                         <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Account Name</dt>
@@ -184,14 +184,14 @@ function TransactionRowInner({
                       {t.riskReason && (
                         <div className="flex items-baseline justify-between gap-3">
                           <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Risk Reason</dt>
-                          <dd className="text-xs font-medium text-right text-rose-300 truncate">{t.riskReason}</dd>
+                          <dd className="text-xs font-medium text-right text-[var(--ds-color-feedback-error-text)] truncate">{t.riskReason}</dd>
                         </div>
                       )}
                       {t.waterfallChain && (
                         <div className="flex items-baseline justify-between gap-3">
                           <dt className="text-xs text-[var(--ds-color-text-secondary)] whitespace-nowrap shrink-0">Chain</dt>
                           <dd className="text-xs font-medium text-right">
-                            <button className="text-teal-400 hover:underline focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]">
+                            <button className="text-[var(--ds-color-brand-primary)] hover:underline focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] rounded-[var(--ds-radius-xs)]">
                               {t.waterfallChain} ({t.waterfallPosition}/{t.waterfallTotal})
                             </button>
                           </dd>
@@ -202,7 +202,7 @@ function TransactionRowInner({
                           <Paperclip className="w-3 h-3 text-[var(--ds-color-text-secondary)] shrink-0" aria-hidden="true" />
                           <button
                             onClick={e => { e.stopPropagation(); setAttachment(t.attachment!); }}
-                            className="text-xs text-teal-400 hover:underline truncate focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)]">
+                            className="text-xs text-[var(--ds-color-brand-primary)] hover:underline truncate focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] rounded-[var(--ds-radius-xs)]">
                             {t.attachment.name}
                           </button>
                         </div>

@@ -135,7 +135,7 @@ export default function Prototype() {
               Last refreshed: <span className="text-[var(--ds-color-text-secondary)] font-medium">{lastRefreshed}</span>
             </p>
             <button onClick={handleRefresh} aria-label={refreshing ? "Refreshing all sections" : "Refresh all sections"}
-              className={`flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-default)] transition-all focus:outline-hidden focus:ring-2 focus:ring-teal-400 ${refreshing ? "opacity-60" : ""}`}>
+              className={`flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-default)] transition-all focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] ${refreshing ? "opacity-60" : ""}`}>
               <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin" : ""}`} aria-hidden="true" />
               {refreshing ? "Refreshing…" : "Refresh"}
             </button>
@@ -164,9 +164,9 @@ export default function Prototype() {
           <button
             onClick={() => setIsDark(d => !d)}
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-raised)]/60 hover:border-[var(--ds-color-border-default)] hover:bg-[var(--ds-color-surface-raised)]/60 transition-all text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-raised)]/60 hover:border-[var(--ds-color-border-default)] hover:bg-[var(--ds-color-surface-raised)]/60 transition-all text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
             {isDark
-              ? <><Sun className="w-3 h-3 text-amber-400" aria-hidden="true" /> Light</>
+              ? <><Sun className="w-3 h-3 text-[var(--ds-color-feedback-warning-text)]" aria-hidden="true" /> Light</>
               : <><Moon className="w-3 h-3 text-[var(--ds-color-text-secondary)]" aria-hidden="true" /> Dark</>}
           </button>
         </div>

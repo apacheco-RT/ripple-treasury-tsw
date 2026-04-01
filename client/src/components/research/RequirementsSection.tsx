@@ -5,20 +5,20 @@ import { screenColor, SeverityBadge, FeasBadge } from "./research-data";
 import { useLazyData } from "@/hooks/useLazyData";
 
 const reqIcons: Record<string, { icon: ReactNode; iconBg: string }> = {
-  "REQ-01": { icon: <ArrowUpDown className="w-4 h-4 text-rose-400" />, iconBg: "bg-rose-500/10" },
-  "REQ-02": { icon: <ShieldAlert className="w-4 h-4 text-amber-400" />, iconBg: "bg-amber-500/10" },
-  "REQ-03": { icon: <Table2 className="w-4 h-4 text-teal-400" />, iconBg: "bg-teal-500/10" },
-  "REQ-04": { icon: <ShieldAlert className="w-4 h-4 text-rose-400" />, iconBg: "bg-rose-500/10" },
+  "REQ-01": { icon: <ArrowUpDown className="w-4 h-4 text-[var(--ds-color-feedback-error-text)]" />, iconBg: "bg-[var(--ds-color-feedback-error-bg)]" },
+  "REQ-02": { icon: <ShieldAlert className="w-4 h-4 text-[var(--ds-color-feedback-warning-text)]" />, iconBg: "bg-[var(--ds-color-feedback-warning-bg)]" },
+  "REQ-03": { icon: <Table2 className="w-4 h-4 text-[var(--ds-color-brand-primary)]" />, iconBg: "bg-[var(--ds-color-brand-primary-subtle)]" },
+  "REQ-04": { icon: <ShieldAlert className="w-4 h-4 text-[var(--ds-color-feedback-error-text)]" />, iconBg: "bg-[var(--ds-color-feedback-error-bg)]" },
   "REQ-05": { icon: <Columns3 className="w-4 h-4 text-[var(--ds-color-text-secondary)]" />, iconBg: "bg-[var(--ds-color-surface-raised)]/30" },
   "REQ-06": { icon: <ArrowUpDown className="w-4 h-4 text-[var(--ds-color-text-secondary)]" />, iconBg: "bg-[var(--ds-color-surface-raised)]/30" },
-  "REQ-07": { icon: <Filter className="w-4 h-4 text-blue-400" />, iconBg: "bg-blue-500/10" },
+  "REQ-07": { icon: <Filter className="w-4 h-4 text-[var(--ds-color-feedback-info-text)]" />, iconBg: "bg-[var(--ds-color-feedback-info-bg)]" },
   "REQ-08": { icon: <HelpCircle className="w-4 h-4 text-[var(--ds-color-text-secondary)]" />, iconBg: "bg-[var(--ds-color-surface-raised)]/30" },
-  "REQ-09": { icon: <BookmarkCheck className="w-4 h-4 text-teal-400" />, iconBg: "bg-teal-500/10" },
-  "REQ-10": { icon: <RotateCw className="w-4 h-4 text-teal-400" />, iconBg: "bg-teal-500/10" },
-  "REQ-11": { icon: <Trash2 className="w-4 h-4 text-rose-400" />, iconBg: "bg-rose-500/10" },
-  "REQ-12": { icon: <Bug className="w-4 h-4 text-rose-400" />, iconBg: "bg-rose-500/10" },
-  "REQ-13": { icon: <ListFilter className="w-4 h-4 text-blue-400" />, iconBg: "bg-blue-500/10" },
-  "REQ-14": { icon: <ArrowUpDown className="w-4 h-4 text-amber-400" />, iconBg: "bg-amber-500/10" },
+  "REQ-09": { icon: <BookmarkCheck className="w-4 h-4 text-[var(--ds-color-brand-primary)]" />, iconBg: "bg-[var(--ds-color-brand-primary-subtle)]" },
+  "REQ-10": { icon: <RotateCw className="w-4 h-4 text-[var(--ds-color-brand-primary)]" />, iconBg: "bg-[var(--ds-color-brand-primary-subtle)]" },
+  "REQ-11": { icon: <Trash2 className="w-4 h-4 text-[var(--ds-color-feedback-error-text)]" />, iconBg: "bg-[var(--ds-color-feedback-error-bg)]" },
+  "REQ-12": { icon: <Bug className="w-4 h-4 text-[var(--ds-color-feedback-error-text)]" />, iconBg: "bg-[var(--ds-color-feedback-error-bg)]" },
+  "REQ-13": { icon: <ListFilter className="w-4 h-4 text-[var(--ds-color-feedback-info-text)]" />, iconBg: "bg-[var(--ds-color-feedback-info-bg)]" },
+  "REQ-14": { icon: <ArrowUpDown className="w-4 h-4 text-[var(--ds-color-feedback-warning-text)]" />, iconBg: "bg-[var(--ds-color-feedback-warning-bg)]" },
   "REQ-15": { icon: <HelpCircle className="w-4 h-4 text-[var(--ds-color-text-secondary)]" />, iconBg: "bg-[var(--ds-color-surface-raised)]/30" },
 };
 
@@ -28,10 +28,10 @@ interface ScreenLegendItem {
 }
 
 const screenLegend: ScreenLegendItem[] = [
-  { label: "Filter screen", color: "bg-blue-500/10 border-blue-500/20 text-blue-400" },
-  { label: "Results screen", color: "bg-teal-500/10 border-teal-500/20 text-teal-400" },
-  { label: "Both screens", color: "bg-purple-500/10 border-purple-500/20 text-purple-400" },
-  { label: "Bug / Defect", color: "bg-rose-500/10 border-rose-500/20 text-rose-400" },
+  { label: "Filter screen", color: "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)]/20 text-[var(--ds-color-feedback-info-text)]" },
+  { label: "Results screen", color: "bg-[var(--ds-color-brand-primary-subtle)] border-[var(--ds-color-brand-primary)]/20 text-[var(--ds-color-brand-primary)]" },
+  { label: "Both screens", color: "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)]/20 text-[var(--ds-color-feedback-info-text)]" },
+  { label: "Bug / Defect", color: "bg-[var(--ds-color-feedback-error-bg)] border-[var(--ds-color-feedback-error-border)]/20 text-[var(--ds-color-feedback-error-text)]" },
 ];
 
 export function RequirementsSection() {
@@ -44,7 +44,7 @@ export function RequirementsSection() {
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 className="text-xl font-medium text-white mb-2 flex items-center gap-3">
-            <span className="w-8 h-8 rounded-full bg-orange-500/15 border border-orange-500/25 text-orange-400 text-sm font-bold flex items-center justify-center">D</span>
+            <span className="w-8 h-8 rounded-full bg-[var(--ds-color-feedback-warning-bg)] border border-[var(--ds-color-feedback-warning-border)]/25 text-[var(--ds-color-feedback-warning-text)] text-sm font-bold flex items-center justify-center">D</span>
             Design Requirements &amp; Changes
           </h2>
           <p className="text-[var(--ds-color-text-secondary)] text-sm mb-8">
@@ -84,7 +84,7 @@ export function RequirementsSection() {
                         <SeverityBadge level={req.severity} />
                         <FeasBadge level={req.effort} />
                         {req.isBug && (
-                          <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-[var(--ds-radius-lg)] border bg-rose-500/10 border-rose-500/25 text-rose-400">
+                          <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-[var(--ds-radius-lg)] border bg-[var(--ds-color-feedback-error-bg)] border-[var(--ds-color-feedback-error-border)]/25 text-[var(--ds-color-feedback-error-text)]">
                             <Bug className="w-3 h-3" /> Defect
                           </span>
                         )}
@@ -100,7 +100,7 @@ export function RequirementsSection() {
                       <p className="text-xs text-[var(--ds-color-text-secondary)] leading-relaxed">{req.requirement}</p>
                     </div>
                     <div className="p-4">
-                      <p className="text-xs uppercase tracking-widest text-teal-500 font-medium mb-2">Design Change</p>
+                      <p className="text-xs uppercase tracking-widest text-[var(--ds-color-brand-primary)] font-medium mb-2">Design Change</p>
                       <p className="text-xs text-[var(--ds-color-text-secondary)] leading-relaxed">{req.designChange}</p>
                     </div>
                   </div>

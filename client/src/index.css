@@ -664,19 +664,13 @@ layer(base);
 /* Orange: orange-400 ≈ 2.0:1 on white → darken to orange-700 (#c2410c) ≈ 5:1 */
 [data-theme="light"] .text-orange-400 { color: #c2410c !important; }
 
-/* Blue/Sky/Purple: already readable but boost to accessible dark variants */
+/* Blue: already readable but boost to accessible dark variants */
 [data-theme="light"] .text-blue-300,
 [data-theme="light"] .text-blue-400   { color: #1d4ed8 !important; }  /* blue-700   ≈ 5:1 */
-[data-theme="light"] .text-sky-300    { color: #0369a1 !important; }  /* sky-700    ≈ 5:1 */
-[data-theme="light"] .text-purple-300 { color: #6d28d9 !important; }  /* purple-700 ≈ 5:1 */
 
 /* Red: red-400 (#f87171) = 3.2:1 on white → darken to red-600 (#dc2626) ≈ 5.1:1 */
 [data-theme="light"] .text-red-400 { color: #dc2626 !important; }
 
-/* Orange/Red/Indigo -300 variants used by new status chips */
-[data-theme="light"] .text-orange-300 { color: #c2410c !important; }  /* orange-700 ≈ 5:1 */
-[data-theme="light"] .text-red-300    { color: #dc2626 !important; }  /* red-600    ≈ 5:1 */
-[data-theme="light"] .text-indigo-300 { color: #4338ca !important; }  /* indigo-700 ≈ 6:1 */
 
 /* ── bg-white opacity variants invisible on light surfaces ─────────────── */
 /* bg-white/15 and bg-white/20 are used for icon/badge overlays in the

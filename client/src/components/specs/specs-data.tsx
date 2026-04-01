@@ -7,9 +7,9 @@ export const fadeInUp = {
 
 export function SeverityBadge({ level }: { level: "HIGH" | "MEDIUM" | "LOW" }) {
   const map = {
-    HIGH:   { cls: "bg-rose-500/15 border-rose-500/30 text-rose-400",     icon: <AlertTriangle className="w-3 h-3" /> },
-    MEDIUM: { cls: "bg-amber-500/15 border-amber-500/30 text-amber-400",   icon: <AlertCircle   className="w-3 h-3" /> },
-    LOW:    { cls: "bg-emerald-500/15 border-emerald-500/30 text-emerald-400", icon: <Info       className="w-3 h-3" /> },
+    HIGH:   { cls: "bg-[var(--ds-color-feedback-error-bg)] border-[var(--ds-color-feedback-error-border)]/30 text-[var(--ds-color-feedback-error-text)]",     icon: <AlertTriangle className="w-3 h-3" /> },
+    MEDIUM: { cls: "bg-[var(--ds-color-feedback-warning-bg)] border-[var(--ds-color-feedback-warning-border)]/30 text-[var(--ds-color-feedback-warning-text)]",   icon: <AlertCircle   className="w-3 h-3" /> },
+    LOW:    { cls: "bg-[var(--ds-color-feedback-success-bg)] border-[var(--ds-color-feedback-success-border)]/30 text-[var(--ds-color-feedback-success-text)]", icon: <Info       className="w-3 h-3" /> },
   };
   const s = map[level];
   return <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-[var(--ds-radius-lg)] text-xs font-bold border ${s.cls}`}>{s.icon}{level}</span>;
@@ -17,9 +17,9 @@ export function SeverityBadge({ level }: { level: "HIGH" | "MEDIUM" | "LOW" }) {
 
 export function FeasBadge({ level }: { level: "LOW EFFORT" | "MED EFFORT" | "HIGH EFFORT" }) {
   const cls = {
-    "LOW EFFORT":  "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
-    "MED EFFORT":  "bg-amber-500/10   border-amber-500/20   text-amber-400",
-    "HIGH EFFORT": "bg-rose-500/10    border-rose-500/20    text-rose-400",
+    "LOW EFFORT":  "bg-[var(--ds-color-feedback-success-bg)] border-[var(--ds-color-feedback-success-border)]/20 text-[var(--ds-color-feedback-success-text)]",
+    "MED EFFORT":  "bg-[var(--ds-color-feedback-warning-bg)] border-[var(--ds-color-feedback-warning-border)]/20 text-[var(--ds-color-feedback-warning-text)]",
+    "HIGH EFFORT": "bg-[var(--ds-color-feedback-error-bg)]   border-[var(--ds-color-feedback-error-border)]/20   text-[var(--ds-color-feedback-error-text)]",
   }[level];
   return <span className={`inline-flex items-center px-2 py-0.5 rounded-[var(--ds-radius-lg)] text-xs font-bold border ${cls}`}>{level}</span>;
 }
@@ -29,9 +29,9 @@ export function PriorityBadge({ rank }: { rank: string }) {
   const isMed  = ["P7","P8","P9"].includes(rank);
   return (
     <div className={`w-12 h-12 rounded-[var(--ds-radius-xl)] flex items-center justify-center text-sm font-bold shrink-0
-      ${isHigh ? "bg-rose-500/15 border border-rose-500/30 text-rose-400"
-               : isMed ? "bg-amber-500/15 border border-amber-500/30 text-amber-400"
-                       : "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"}`}>
+      ${isHigh ? "bg-[var(--ds-color-feedback-error-bg)] border border-[var(--ds-color-feedback-error-border)]/30 text-[var(--ds-color-feedback-error-text)]"
+               : isMed ? "bg-[var(--ds-color-feedback-warning-bg)] border border-[var(--ds-color-feedback-warning-border)]/30 text-[var(--ds-color-feedback-warning-text)]"
+                       : "bg-[var(--ds-color-feedback-success-bg)] border border-[var(--ds-color-feedback-success-border)]/20 text-[var(--ds-color-feedback-success-text)]"}`}>
       {rank}
     </div>
   );

@@ -45,17 +45,17 @@ function StatusBadgeContent({ status, next, overdue, className }: Omit<StatusBad
   const s = status;
   const cls =
     overdue                      ? "bg-[var(--ds-color-feedback-error-bg)] border-[var(--ds-color-feedback-error-border)] text-[var(--ds-color-feedback-error-text)]"
-    : s === "Under Review"     ? "bg-orange-500/20 border-orange-500/35 text-orange-300"
+    : s === "Under Review"     ? "bg-[var(--ds-color-feedback-warning-bg)] border-[var(--ds-color-feedback-warning-border)] text-[var(--ds-color-feedback-warning-text)]"
     : s === "Needs Approval"   ? "bg-[var(--ds-color-feedback-warning-bg)] border-[var(--ds-color-feedback-warning-border)] text-[var(--ds-color-feedback-warning-text)]"
-    : s === "Ready to Approve" ? "bg-purple-500/20 border-purple-500/35 text-purple-300"
+    : s === "Ready to Approve" ? "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)] text-[var(--ds-color-feedback-info-text)]"
     : s === "Ready to Extract" ? "bg-[var(--ds-color-brand-primary-subtle)] border-[var(--ds-color-brand-primary)] text-[var(--ds-color-brand-primary)]"
     : s === "Extracted"        ? "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)] text-[var(--ds-color-feedback-info-text)]"
-    : s === "Confirmed"        ? "bg-indigo-500/20 border-indigo-500/35 text-indigo-300"
-    : s === "Processing"       ? "bg-sky-500/20 border-sky-500/35 text-sky-300"
+    : s === "Confirmed"        ? "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)] text-[var(--ds-color-feedback-info-text)]"
+    : s === "Processing"       ? "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)] text-[var(--ds-color-feedback-info-text)]"
     : s === "Approved"         ? "bg-[var(--ds-color-feedback-success-bg)] border-[var(--ds-color-feedback-success-border)] text-[var(--ds-color-feedback-success-text)]"
-    : s === "Failed"           ? "bg-red-500/20 border-red-500/35 text-red-300"
+    : s === "Failed"           ? "bg-[var(--ds-color-feedback-error-bg)] border-[var(--ds-color-feedback-error-border)] text-[var(--ds-color-feedback-error-text)]"
     : s === "Void"             ? "bg-[var(--ds-color-surface-raised)]/50 border-[var(--ds-color-border-default)]/50 text-[var(--ds-color-text-secondary)]"
-    : s === "Draft"            ? "bg-indigo-500/15 border-indigo-500/30 text-indigo-300"
+    : s === "Draft"            ? "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)] text-[var(--ds-color-feedback-info-text)]"
     :                            "bg-[var(--ds-color-surface-raised)]/30 border-[var(--ds-color-border-default)]/40 text-[var(--ds-color-text-secondary)]";
   return (
     <div className={cn("flex items-center gap-1 text-xs flex-wrap", className)}>

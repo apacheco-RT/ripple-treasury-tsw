@@ -12,7 +12,7 @@ export function PriorityList() {
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 className="text-xl font-medium text-white mb-2 flex items-center gap-3">
-            <span className="w-8 h-8 rounded-full bg-purple-500/15 border border-purple-500/25 text-purple-400 text-sm font-bold flex items-center justify-center">C</span>
+            <span className="w-8 h-8 rounded-full bg-[var(--ds-color-feedback-info-bg)] border border-[var(--ds-color-feedback-info-border)]/25 text-[var(--ds-color-feedback-info-text)] text-sm font-bold flex items-center justify-center">C</span>
             Combined Priority List — P1 to P10
           </h2>
           <p className="text-[var(--ds-color-text-secondary)] text-sm mb-8">Heuristic + backlog findings consolidated and ranked by severity × implementation feasibility. Source indicates whether the finding came from heuristic evaluation, customer backlog, or both.</p>

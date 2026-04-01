@@ -24,7 +24,7 @@ function AttachmentViewerInner({ attachment, onClose }: AttachmentViewerProps) {
                 <span className="text-sm font-medium text-white">{attachment.name}</span>
               </div>
               <button onClick={onClose} aria-label="Close attachment viewer"
-                className="p-1.5 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-[var(--ds-color-surface-raised)]/50 transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                className="p-1.5 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-[var(--ds-color-surface-raised)]/50 transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
                 <X className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>

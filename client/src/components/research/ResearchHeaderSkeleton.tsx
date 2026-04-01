@@ -4,7 +4,7 @@ export function ResearchHeaderSkeleton() {
   return (
     <section className="pt-28 pb-12 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/3 w-[500px] h-[300px] bg-blue-600/8 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/3 w-[500px] h-[300px] bg-[var(--ds-color-feedback-info-bg)] rounded-full blur-3xl" />
       </div>
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         <Skeleton width="140px" height="28px" className="rounded-full mb-4" />

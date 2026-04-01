@@ -50,7 +50,7 @@ function ColumnPickerInner({ showColPicker, setShowColPicker, cols, setCols, col
                 <input type="checkbox"
                   checked={cols[key as keyof typeof cols]}
                   onChange={() => setCols(c => ({ ...c, [key]: !c[key as keyof typeof c] }))}
-                  className="w-4 h-4 rounded accent-teal-500" />
+                  className="w-4 h-4 rounded accent-[var(--ds-color-brand-primary)]" />
                 <span className="text-xs text-[var(--ds-color-text-secondary)] group-hover:text-white transition-colors">{label}</span>
               </label>
             ))}

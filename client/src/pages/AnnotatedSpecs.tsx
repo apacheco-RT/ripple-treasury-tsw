@@ -29,7 +29,7 @@ export default function AnnotatedSpecs() {
             <section className="pb-16 border-t border-[var(--ds-color-border-default)]">
               <div className="container mx-auto px-6 max-w-5xl">
                 <div className="pt-10">
-                  <SectionDivider label="HIGH" color="bg-rose-500/8 border-rose-500/20 text-rose-400" />
+                  <SectionDivider label="HIGH" color="bg-[var(--ds-color-feedback-error-bg)] border-[var(--ds-color-feedback-error-border)]/20 text-[var(--ds-color-feedback-error-text)]" />
                   <div className="space-y-6">
                     {highSpecs.map((spec, i) => (
                       <SpecCard key={spec.rank} spec={spec} index={i} />
@@ -38,7 +38,7 @@ export default function AnnotatedSpecs() {
                 </div>
 
                 <div className="pt-10">
-                  <SectionDivider label="MEDIUM" color="bg-amber-500/8 border-amber-500/20 text-amber-400" />
+                  <SectionDivider label="MEDIUM" color="bg-[var(--ds-color-feedback-warning-bg)] border-[var(--ds-color-feedback-warning-border)]/20 text-[var(--ds-color-feedback-warning-text)]" />
                   <div className="space-y-6">
                     {mediumSpecs.map((spec, i) => (
                       <SpecCard key={spec.rank} spec={spec} index={i} />
@@ -47,7 +47,7 @@ export default function AnnotatedSpecs() {
                 </div>
 
                 <div className="pt-10">
-                  <SectionDivider label="LOW" color="bg-emerald-500/8 border-emerald-500/20 text-emerald-400" />
+                  <SectionDivider label="LOW" color="bg-[var(--ds-color-feedback-success-bg)] border-[var(--ds-color-feedback-success-border)]/20 text-[var(--ds-color-feedback-success-text)]" />
                   <div className="space-y-6">
                     {lowSpecs.map((spec, i) => (
                       <SpecCard key={spec.rank} spec={spec} index={i} />

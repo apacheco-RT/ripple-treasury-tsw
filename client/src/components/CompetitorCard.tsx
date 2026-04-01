@@ -11,17 +11,17 @@ interface CompetitorCardProps {
 
 export function CompetitorCard({ name, pros, cons, color }: CompetitorCardProps) {
   const borderColors = {
-    teal: "border-l-teal-500",
-    purple: "border-l-purple-500",
-    blue: "border-l-blue-500",
-    indigo: "border-l-indigo-500"
+    teal: "border-l-[var(--ds-color-brand-primary)]",
+    purple: "border-l-[var(--ds-color-feedback-info-border)]",
+    blue: "border-l-[var(--ds-color-feedback-info-border)]",
+    indigo: "border-l-[var(--ds-color-brand-primary)]"
   };
 
   const bgColors = {
-    teal: "from-teal-500/10",
-    purple: "from-purple-500/10",
-    blue: "from-blue-500/10",
-    indigo: "from-indigo-500/10"
+    teal: "from-[var(--ds-color-brand-primary-subtle)]",
+    purple: "from-[var(--ds-color-feedback-info-bg)]",
+    blue: "from-[var(--ds-color-feedback-info-bg)]",
+    indigo: "from-[var(--ds-color-brand-primary-subtle)]"
   };
 
   return (
@@ -39,11 +39,11 @@ export function CompetitorCard({ name, pros, cons, color }: CompetitorCardProps)
       
       <div className="space-y-4">
         <div>
-          <h4 className="text-xs uppercase tracking-wider text-emerald-400 font-medium mb-2">Strengths</h4>
+          <h4 className="text-xs uppercase tracking-wider text-[var(--ds-color-feedback-success-text)] font-medium mb-2">Strengths</h4>
           <ul className="space-y-2">
             {pros.map((pro, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-[var(--ds-color-text-secondary)]">
-                <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                <Check className="w-4 h-4 text-[var(--ds-color-feedback-success-text)] mt-0.5 shrink-0" />
                 {pro}
               </li>
             ))}
@@ -51,11 +51,11 @@ export function CompetitorCard({ name, pros, cons, color }: CompetitorCardProps)
         </div>
         
         <div className="border-t border-[var(--ds-color-border-default)] pt-4">
-          <h4 className="text-xs uppercase tracking-wider text-rose-400 font-medium mb-2">Weaknesses</h4>
+          <h4 className="text-xs uppercase tracking-wider text-[var(--ds-color-feedback-error-text)] font-medium mb-2">Weaknesses</h4>
           <ul className="space-y-2">
             {cons.map((con, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-[var(--ds-color-text-secondary)]">
-                <X className="w-4 h-4 text-rose-500 mt-0.5 shrink-0" />
+                <X className="w-4 h-4 text-[var(--ds-color-feedback-error-text)] mt-0.5 shrink-0" />
                 {con}
               </li>
             ))}

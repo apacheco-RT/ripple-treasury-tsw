@@ -20,7 +20,7 @@ export function ResearchSection() {
             viewport={{ once: true }}
             className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)] overflow-hidden shadow-lg"
           >
-            <div className="px-6 py-4 border-b border-blue-500/30 bg-[var(--ds-color-surface-default)]">
+            <div className="px-6 py-4 border-b border-[var(--ds-color-feedback-info-border)]/30 bg-[var(--ds-color-surface-default)]">
               <h3 className="text-white font-medium m-0">Key Personas</h3>
             </div>
             <div className="overflow-x-auto">
@@ -71,17 +71,17 @@ export function ResearchSection() {
             className="flex flex-col justify-center"
           >
             <div className="relative">
-              <div className="absolute -top-6 -left-6 text-6xl text-blue-800 font-serif opacity-50">"</div>
+              <div className="absolute -top-6 -left-6 text-6xl text-[var(--ds-color-feedback-info-border)] font-serif opacity-50">"</div>
               <blockquote className="text-2xl font-light text-[var(--ds-color-text-secondary)] italic leading-relaxed z-10 relative">
                 The biggest risk isn't market volatility; it's our inability to see the volatility until it's too late.
               </blockquote>
               <div className="mt-6 flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-[var(--ds-color-surface-raised)] overflow-hidden">
-                  <div className="w-full h-full bg-linear-to-tr from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">SJ</div>
+                  <div className="w-full h-full bg-linear-to-tr from-[var(--ds-color-feedback-info-border)] to-[var(--ds-color-feedback-info-text)] flex items-center justify-center text-white font-bold">SJ</div>
                 </div>
                 <div>
                   <div className="text-white font-medium">Sarah Jenkins</div>
-                  <div className="text-sm text-blue-400">Head of Global Treasury</div>
+                  <div className="text-sm text-[var(--ds-color-feedback-info-text)]">Head of Global Treasury</div>
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@ export function ResearchSection() {
         </div>
 
         <h3 className="text-xl font-medium text-white mb-8 flex items-center gap-3">
-          <Globe className="text-teal-400" />
+          <Globe className="text-[var(--ds-color-brand-primary)]" />
           Competitive Landscape
         </h3>
         

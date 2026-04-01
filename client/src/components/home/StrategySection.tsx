@@ -30,8 +30,8 @@ const differentiators: Differentiator[] = [
 export function StrategySection() {
   return (
     <section id="strategy" className="py-20 relative overflow-hidden">
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-600/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[var(--ds-color-feedback-info-bg)] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[var(--ds-color-brand-primary-subtle)] rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <SectionHeader 
@@ -70,7 +70,7 @@ export function StrategySection() {
               <div className="grid grid-cols-1 gap-4">
                 {differentiators.map((diff, i) => (
                   <div key={i} className="flex items-center justify-between p-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-lg)] border border-[var(--ds-color-border-default)]/50">
-                    <span className="font-medium text-blue-300">{diff.title}</span>
+                    <span className="font-medium text-[var(--ds-color-feedback-info-text)]">{diff.title}</span>
                     <span className="text-sm text-[var(--ds-color-text-secondary)] text-right max-w-[200px]">{diff.val}</span>
                   </div>
                 ))}

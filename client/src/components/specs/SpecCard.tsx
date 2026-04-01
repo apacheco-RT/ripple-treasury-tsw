@@ -27,11 +27,11 @@ export function SpecCard({ spec, index }: { spec: Spec; index: number }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-surface-border">
         <div className="p-4">
-          <p className="text-xs uppercase tracking-widest text-rose-400 font-medium mb-2">⚠ Problem — Current State</p>
+          <p className="text-xs uppercase tracking-widest text-[var(--ds-color-feedback-error-text)] font-medium mb-2">⚠ Problem — Current State</p>
           <p className="text-sm text-[var(--ds-color-text-secondary)] leading-relaxed">{spec.problem}</p>
         </div>
         <div className="p-4">
-          <p className="text-xs uppercase tracking-widest text-teal-400 font-medium mb-2">→ Solution — Proposed Design</p>
+          <p className="text-xs uppercase tracking-widest text-[var(--ds-color-brand-primary)] font-medium mb-2">→ Solution — Proposed Design</p>
           <p className="text-sm text-[var(--ds-color-text-secondary)] leading-relaxed">{spec.solution}</p>
         </div>
       </div>
@@ -42,7 +42,7 @@ export function SpecCard({ spec, index }: { spec: Spec; index: number }) {
           <ul className="space-y-1">
             {spec.tokens.map((t, i) => (
               <li key={i} className="flex items-start gap-2 text-xs text-[var(--ds-color-text-secondary)]">
-                <ChevronRight className="w-3 h-3 text-teal-500 shrink-0 mt-0.5" />
+                <ChevronRight className="w-3 h-3 text-[var(--ds-color-brand-primary)] shrink-0 mt-0.5" />
                 <span className="font-mono">{t}</span>
               </li>
             ))}

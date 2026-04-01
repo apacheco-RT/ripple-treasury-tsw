@@ -42,7 +42,7 @@ function TablePaginationInner({ sorted, page, totalPages, rowsPerPage, setPage, 
         value={filters.rowsPerPage}
         aria-label="Rows per page"
         onChange={e => setFilters({ ...filters, rowsPerPage: e.target.value })}
-        className="ds-select bg-[var(--ds-color-surface-page)] border border-[var(--ds-color-border-default)]/50 text-[var(--ds-color-text-secondary)] text-xs rounded-[var(--ds-radius-xs)] px-2 py-1.5 focus:outline-hidden focus:ring-2 focus:ring-teal-400 cursor-pointer">
+        className="ds-select bg-[var(--ds-color-surface-page)] border border-[var(--ds-color-border-default)]/50 text-[var(--ds-color-text-secondary)] text-xs rounded-[var(--ds-radius-xs)] px-2 py-1.5 focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] cursor-pointer">
         <option value="25">25 / page</option>
         <option value="50">50 / page</option>
         <option value="100">100 / page</option>

@@ -96,7 +96,7 @@ export function UnifiedNav() {
 
   return (
     <>
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:px-4 focus:py-2 focus:rounded-[var(--ds-radius-lg)] focus:bg-teal-600 focus:text-white focus:text-sm focus:font-bold focus:shadow-lg focus:outline-hidden">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:px-4 focus:py-2 focus:rounded-[var(--ds-radius-lg)] focus:bg-[var(--ds-color-brand-primary)] focus:text-[var(--ds-color-text-on-brand)] focus:text-sm focus:font-bold focus:shadow-lg focus:outline-hidden">
         Skip to main content
       </a>
       <header className="fixed top-0 left-0 right-0 z-50 glass-header">
@@ -104,7 +104,7 @@ export function UnifiedNav() {
           <div className="flex items-center h-11">
             <button
               onClick={() => setMobileMenuOpen(o => !o)}
-              className="p-2 rounded-full text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5 transition-colors shrink-0 mr-3 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center"
+              className="p-2 rounded-full text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5 transition-colors shrink-0 mr-3 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)] h-10 w-10 flex items-center justify-center"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -120,9 +120,9 @@ export function UnifiedNav() {
                       key={href}
                       ref={triggerRef}
                       onClick={() => setShowConfigModal(true)}
-                      className={`px-3 py-1.5 rounded-[var(--ds-radius-lg)] text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
+                      className={`px-3 py-1.5 rounded-[var(--ds-radius-lg)] text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]
                         ${active
-                          ? "bg-teal-500/15 text-teal-400 border border-teal-500/25"
+                          ? "bg-[var(--ds-color-brand-primary-subtle)] text-[var(--ds-color-brand-primary)] border border-[var(--ds-color-brand-primary)]/25"
                           : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                         }`}
                     >
@@ -135,9 +135,9 @@ export function UnifiedNav() {
                   <Link
                     key={href}
                     href={href}
-                    className={`px-3 py-1.5 rounded-[var(--ds-radius-lg)] text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
+                    className={`px-3 py-1.5 rounded-[var(--ds-radius-lg)] text-sm font-medium whitespace-nowrap transition-all duration-200 cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]
                       ${active
-                        ? "bg-teal-500/15 text-teal-400 border border-teal-500/25"
+                        ? "bg-[var(--ds-color-brand-primary-subtle)] text-[var(--ds-color-brand-primary)] border border-[var(--ds-color-brand-primary)]/25"
                         : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                       }`}
                   >
@@ -153,7 +153,7 @@ export function UnifiedNav() {
                 disabled={downloading}
                 aria-label="Download prototype as HTML"
                 title="Download prototype as HTML"
-                className="p-2 rounded-full transition-all duration-200 text-[var(--ds-color-text-secondary)] hover:text-teal-400 hover:bg-teal-500/10 border border-transparent hover:border-teal-500/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-wait"
+                className="p-2 rounded-full transition-all duration-200 text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-brand-primary)] hover:bg-[var(--ds-color-brand-primary-subtle)] border border-transparent hover:border-[var(--ds-color-brand-primary)]/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)] h-10 w-10 flex items-center justify-center disabled:opacity-50 disabled:cursor-wait"
               >
                 {downloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               </button>
@@ -161,7 +161,7 @@ export function UnifiedNav() {
                 onClick={toggle}
                 aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
                 title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                className="p-2 rounded-full transition-all duration-200 text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-tertiary)] hover:bg-black/5 border border-transparent hover:border-white/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 h-10 w-10 flex items-center justify-center"
+                className="p-2 rounded-full transition-all duration-200 text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-tertiary)] hover:bg-black/5 border border-transparent hover:border-white/20 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)] h-10 w-10 flex items-center justify-center"
               >
                 {theme === "dark"
                   ? <Sun className="w-4 h-4" />
@@ -181,9 +181,9 @@ export function UnifiedNav() {
                     <button
                       key={href}
                       onClick={() => { setMobileMenuOpen(false); setShowConfigModal(true); }}
-                      className={`px-3 py-2 rounded-[var(--ds-radius-lg)] text-sm font-medium text-left transition-all duration-200 flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
+                      className={`px-3 py-2 rounded-[var(--ds-radius-lg)] text-sm font-medium text-left transition-all duration-200 flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]
                         ${active
-                          ? "bg-teal-500/15 text-teal-400"
+                          ? "bg-[var(--ds-color-brand-primary-subtle)] text-[var(--ds-color-brand-primary)]"
                           : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                         }`}
                     >
@@ -196,9 +196,9 @@ export function UnifiedNav() {
                   <Link
                     key={href}
                     href={href}
-                    className={`px-3 py-2 rounded-[var(--ds-radius-lg)] text-sm font-medium transition-all duration-200 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400
+                    className={`px-3 py-2 rounded-[var(--ds-radius-lg)] text-sm font-medium transition-all duration-200 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]
                       ${active
-                        ? "bg-teal-500/15 text-teal-400"
+                        ? "bg-[var(--ds-color-brand-primary-subtle)] text-[var(--ds-color-brand-primary)]"
                         : "text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-white/5"
                       }`}
                   >
@@ -246,7 +246,7 @@ export function UnifiedNav() {
                 <button
                   onClick={closeModal}
                   aria-label="Close configure modal"
-                  className="p-2 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
+                  className="p-2 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -258,7 +258,7 @@ export function UnifiedNav() {
                     key={feature.key}
                     className={`flex items-center justify-between p-4 rounded-[var(--ds-radius-xl)] border transition-all ${
                       featureToggles[feature.key]
-                        ? "border-teal-500/30 bg-teal-500/5"
+                        ? "border-[var(--ds-color-brand-primary)]/30 bg-[var(--ds-color-brand-primary-subtle)]"
                         : "border-[var(--ds-color-border-default)]/40 bg-[var(--ds-color-surface-sunken)]"
                     }`}
                   >
@@ -270,9 +270,9 @@ export function UnifiedNav() {
                       role="switch"
                       aria-checked={featureToggles[feature.key]}
                       onClick={() => toggleFeature(feature.key)}
-                      className={`relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 ${
+                      className={`relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)] ${
                         featureToggles[feature.key]
-                          ? "bg-teal-500 border-teal-500"
+                          ? "bg-[var(--ds-color-brand-primary)] border-[var(--ds-color-brand-primary)]"
                           : "bg-[var(--ds-color-surface-raised)] border-[var(--ds-color-border-default)]"
                       }`}
                     >
@@ -292,7 +292,7 @@ export function UnifiedNav() {
                 </span>
                 <button
                   onClick={launchPrototype}
-                  className="h-10 px-6 bg-linear-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white text-sm font-medium rounded-full transition-all shadow-lg hover:shadow-purple-500/20 flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
+                  className="h-10 px-6 bg-linear-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white text-sm font-medium rounded-full transition-all shadow-lg hover:shadow-purple-500/20 flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]"
                 >
                   Launch Prototype
                   <ArrowRight className="w-4 h-4" />

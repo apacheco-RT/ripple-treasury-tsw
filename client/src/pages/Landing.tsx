@@ -20,22 +20,22 @@ const stagger = {
 };
 
 const stats = [
-  { value: "10", label: "Heuristic Findings", icon: <FileSearch className="w-4 h-4" />, color: "text-blue-400" },
-  { value: "7", label: "Backlog Items", icon: <BookOpen className="w-4 h-4" />, color: "text-teal-400" },
-  { value: "6", label: "HIGH Severity", icon: <AlertTriangle className="w-4 h-4" />, color: "text-rose-400" },
-  { value: "3", label: "MEDIUM Severity", icon: <AlertCircle className="w-4 h-4" />, color: "text-amber-400" },
-  { value: "1", label: "LOW Severity", icon: <Info className="w-4 h-4" />, color: "text-emerald-400" },
+  { value: "10", label: "Heuristic Findings", icon: <FileSearch className="w-4 h-4" />, color: "text-[var(--ds-color-feedback-info-text)]" },
+  { value: "7", label: "Backlog Items", icon: <BookOpen className="w-4 h-4" />, color: "text-[var(--ds-color-brand-primary)]" },
+  { value: "6", label: "HIGH Severity", icon: <AlertTriangle className="w-4 h-4" />, color: "text-[var(--ds-color-feedback-error-text)]" },
+  { value: "3", label: "MEDIUM Severity", icon: <AlertCircle className="w-4 h-4" />, color: "text-[var(--ds-color-feedback-warning-text)]" },
+  { value: "1", label: "LOW Severity", icon: <Info className="w-4 h-4" />, color: "text-[var(--ds-color-feedback-success-text)]" },
 ];
 
 const deliverables = [
   {
     href: "/research",
     icon: <FileSearch className="w-8 h-8" />,
-    accent: "from-blue-600 to-blue-800",
-    border: "border-blue-500/30 hover:border-blue-400/50",
-    glow: "hover:shadow-blue-500/10",
+    accent: "from-[var(--ds-color-feedback-info-border)] to-[var(--ds-color-feedback-info-text)]",
+    border: "border-[var(--ds-color-feedback-info-border)]/30 hover:border-[var(--ds-color-feedback-info-border)]/50",
+    glow: "hover:shadow-[var(--ds-color-feedback-info-border)]/10",
     badge: "10 findings",
-    badgeColor: "bg-blue-500/15 text-blue-400 border-blue-500/25",
+    badgeColor: "bg-[var(--ds-color-feedback-info-bg)] text-[var(--ds-color-feedback-info-text)] border-[var(--ds-color-feedback-info-border)]/25",
     title: "Research Report",
     subtitle: "Heuristic evaluation + customer backlog synthesis",
     bullets: [
@@ -47,11 +47,11 @@ const deliverables = [
   {
     href: "/specs",
     icon: <BookOpen className="w-8 h-8" />,
-    accent: "from-teal-600 to-teal-800",
-    border: "border-teal-500/30 hover:border-teal-400/50",
-    glow: "hover:shadow-teal-500/10",
+    accent: "from-[var(--ds-color-brand-primary)] to-[var(--ds-color-brand-primary-hover)]",
+    border: "border-[var(--ds-color-brand-primary)]/30 hover:border-[var(--ds-color-brand-primary)]/50",
+    glow: "hover:shadow-[var(--ds-color-brand-primary)]/10",
     badge: "P1–P10 specs",
-    badgeColor: "bg-teal-500/15 text-teal-400 border-teal-500/25",
+    badgeColor: "bg-[var(--ds-color-brand-primary-subtle)] text-[var(--ds-color-brand-primary)] border-[var(--ds-color-brand-primary)]/25",
     title: "Annotated Specs",
     subtitle: "10 prioritised design recommendations with feasibility ratings",
     bullets: [
@@ -63,11 +63,11 @@ const deliverables = [
   {
     href: "/prototype",
     icon: <Layers className="w-8 h-8" />,
-    accent: "from-purple-600 to-purple-800",
-    border: "border-purple-500/30 hover:border-purple-400/50",
-    glow: "hover:shadow-purple-500/10",
+    accent: "from-[var(--ds-color-feedback-info-text)] to-[var(--ds-color-feedback-info-border)]",
+    border: "border-[var(--ds-color-feedback-info-border)]/30 hover:border-[var(--ds-color-feedback-info-border)]/50",
+    glow: "hover:shadow-[var(--ds-color-feedback-info-border)]/10",
     badge: "Interactive",
-    badgeColor: "bg-purple-500/15 text-purple-400 border-purple-500/25",
+    badgeColor: "bg-[var(--ds-color-feedback-info-bg)] text-[var(--ds-color-feedback-info-text)] border-[var(--ds-color-feedback-info-border)]/25",
     title: "Interactive Prototype",
     subtitle: "Redesigned Transaction Status Workflow in React",
     bullets: [
@@ -79,9 +79,9 @@ const deliverables = [
 ];
 
 const severityMap = [
-  { label: "HIGH", count: 6, icon: <AlertTriangle className="w-3.5 h-3.5" />, bg: "bg-rose-500/10", border: "border-rose-500/20", text: "text-rose-400", bar: "bg-rose-500" },
-  { label: "MEDIUM", count: 3, icon: <AlertCircle className="w-3.5 h-3.5" />, bg: "bg-amber-500/10", border: "border-amber-500/20", text: "text-amber-400", bar: "bg-amber-500" },
-  { label: "LOW", count: 1, icon: <Info className="w-3.5 h-3.5" />, bg: "bg-emerald-500/10", border: "border-emerald-500/20", text: "text-emerald-400", bar: "bg-emerald-500" },
+  { label: "HIGH", count: 6, icon: <AlertTriangle className="w-3.5 h-3.5" />, bg: "bg-[var(--ds-color-feedback-error-bg)]", border: "border-[var(--ds-color-feedback-error-border)]/20", text: "text-[var(--ds-color-feedback-error-text)]", bar: "bg-[var(--ds-color-feedback-error-border)]" },
+  { label: "MEDIUM", count: 3, icon: <AlertCircle className="w-3.5 h-3.5" />, bg: "bg-[var(--ds-color-feedback-warning-bg)]", border: "border-[var(--ds-color-feedback-warning-border)]/20", text: "text-[var(--ds-color-feedback-warning-text)]", bar: "bg-[var(--ds-color-feedback-warning-border)]" },
+  { label: "LOW", count: 1, icon: <Info className="w-3.5 h-3.5" />, bg: "bg-[var(--ds-color-feedback-success-bg)]", border: "border-[var(--ds-color-feedback-success-border)]/20", text: "text-[var(--ds-color-feedback-success-text)]", bar: "bg-[var(--ds-color-feedback-success-border)]" },
 ];
 
 export default function Landing() {
@@ -94,8 +94,8 @@ export default function Landing() {
       <main id="main-content">
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-blue-600/8 rounded-full blur-3xl" />
-          <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-teal-600/8 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-[var(--ds-color-feedback-info-bg)] rounded-full blur-3xl" />
+          <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-[var(--ds-color-brand-primary-subtle)] rounded-full blur-3xl" />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -105,7 +105,7 @@ export default function Landing() {
             variants={stagger}
             className="max-w-3xl mx-auto text-center"
           >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold uppercase tracking-widest mb-6">
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--ds-color-brand-primary-subtle)] border border-[var(--ds-color-brand-primary)]/20 text-[var(--ds-color-brand-primary)] text-xs font-bold uppercase tracking-widest mb-6">
               PAYM · Transaction Status Workflow
             </motion.div>
 
@@ -177,7 +177,7 @@ export default function Landing() {
                   <ul className="space-y-2 flex-1">
                     {d.bullets.map((b, j) => (
                       <li key={j} className="flex items-start gap-2 text-xs text-[var(--ds-color-text-secondary)]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[var(--ds-color-feedback-success-text)] shrink-0 mt-0.5" />
                         {b}
                       </li>
                     ))}
@@ -204,7 +204,7 @@ export default function Landing() {
                     <button
                       type="button"
                       onClick={() => setShowConfigModal(true)}
-                      className="w-full text-left appearance-none bg-transparent border-0 p-0 cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 rounded-[var(--ds-radius-xl)]"
+                      className="w-full text-left appearance-none bg-transparent border-0 p-0 cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)] rounded-[var(--ds-radius-xl)]"
                     >
                       {cardContent}
                     </button>

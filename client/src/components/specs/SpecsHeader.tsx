@@ -18,11 +18,11 @@ export function SpecsHeader() {
   return (
     <section className="pt-28 pb-12 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-1/3 w-[400px] h-[300px] bg-teal-600/8 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-1/3 w-[400px] h-[300px] bg-[var(--ds-color-brand-primary-subtle)] rounded-full blur-3xl" />
       </div>
       <div className="container mx-auto px-6 relative z-10 max-w-5xl">
         <motion.div initial="hidden" animate="visible" variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } }}>
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold uppercase tracking-widest mb-4">
+          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--ds-color-brand-primary-subtle)] border border-[var(--ds-color-brand-primary)]/20 text-[var(--ds-color-brand-primary)] text-xs font-bold uppercase tracking-widest mb-4">
             <BookOpen className="w-3.5 h-3.5" /> Annotated Specs
           </motion.div>
           <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-medium tracking-tight mb-3 text-white">

@@ -4,7 +4,7 @@ export function SpecsHeaderSkeleton() {
   return (
     <section className="pt-28 pb-12 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-1/3 w-[400px] h-[300px] bg-teal-600/8 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-1/3 w-[400px] h-[300px] bg-[var(--ds-color-brand-primary-subtle)] rounded-full blur-3xl" />
       </div>
       <div className="container mx-auto px-6 relative z-10 max-w-5xl">
         <Skeleton width="150px" height="28px" className="rounded-full mb-4" />

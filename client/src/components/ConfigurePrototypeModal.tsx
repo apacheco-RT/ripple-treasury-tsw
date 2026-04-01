@@ -88,7 +88,7 @@ export function ConfigurePrototypeModal({
               <button
                 onClick={closeModal}
                 aria-label="Close configure modal"
-                className="p-2 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
+                className="p-2 rounded-[var(--ds-radius-lg)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/5 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -100,7 +100,7 @@ export function ConfigurePrototypeModal({
                   key={feature.key}
                   className={`flex items-center justify-between p-4 rounded-[var(--ds-radius-xl)] border transition-all ${
                     featureToggles[feature.key]
-                      ? "border-teal-500/30 bg-teal-500/5"
+                      ? "border-[var(--ds-color-brand-primary)]/30 bg-[var(--ds-color-brand-primary-subtle)]"
                       : "border-[var(--ds-color-border-default)]/40 bg-[var(--ds-color-surface-sunken)]"
                   }`}
                 >
@@ -112,9 +112,9 @@ export function ConfigurePrototypeModal({
                     role="switch"
                     aria-checked={featureToggles[feature.key]}
                     onClick={() => toggleFeature(feature.key)}
-                    className={`relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400 ${
+                    className={`relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)] ${
                       featureToggles[feature.key]
-                        ? "bg-teal-500 border-teal-500"
+                        ? "bg-[var(--ds-color-brand-primary)] border-[var(--ds-color-brand-primary)]"
                         : "bg-[var(--ds-color-surface-raised)] border-[var(--ds-color-border-default)]"
                     }`}
                   >
@@ -134,7 +134,7 @@ export function ConfigurePrototypeModal({
               </span>
               <button
                 onClick={launchPrototype}
-                className="px-6 h-10 bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium rounded-full transition-all flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
+                className="px-6 h-10 bg-[var(--ds-color-brand-primary)] hover:bg-[var(--ds-color-brand-primary-hover)] text-white text-sm font-medium rounded-full transition-all flex items-center gap-2 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]"
               >
                 Launch Prototype
                 <ArrowRight className="w-4 h-4" />

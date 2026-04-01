@@ -35,17 +35,17 @@ export function HoldModal({
             role="dialog" aria-modal="true" aria-labelledby="hold-title"
             className="bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)]/60 rounded-[var(--ds-radius-3xl)] shadow-2xl max-w-sm w-full p-6">
             <div className="flex items-center gap-3 mb-3">
-              <Clock className="w-5 h-5 text-amber-400" aria-hidden="true" />
+              <Clock className="w-5 h-5 text-[var(--ds-color-feedback-warning-text)]" aria-hidden="true" />
               <h3 id="hold-title" className="text-white font-medium text-base m-0">Place {count} payment{count !== 1 ? "s" : ""} on hold?</h3>
             </div>
             <p className="text-[var(--ds-color-text-secondary)] text-sm mb-5 m-0">Held payments remain in the queue and can be released or rejected later. This action is logged in the audit trail.</p>
             <div className="flex gap-3 justify-end">
               <button onClick={onClose}
-                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400">
+                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
                 Cancel
               </button>
               <button autoFocus onClick={onConfirm}
-                className="px-6 h-10 rounded-full bg-amber-500 hover:bg-amber-400 text-white font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 focus:ring-offset-surface-card">
+                className="px-6 h-10 rounded-full bg-[var(--ds-color-feedback-warning-border)] hover:brightness-110 text-white font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-feedback-warning-border)] focus:ring-offset-2 focus:ring-offset-surface-card">
                 Place on Hold
               </button>
             </div>

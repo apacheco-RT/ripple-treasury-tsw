@@ -55,7 +55,7 @@ export function Navigation() {
               onClick={() => scrollTo(item.toLowerCase())}
               className={cn(
                 "nav-link text-sm font-medium tracking-wide",
-                activeSection === item.toLowerCase() ? "text-blue-400" : "text-[var(--ds-color-text-secondary)]"
+                activeSection === item.toLowerCase() ? "text-[var(--ds-color-feedback-info-text)]" : "text-[var(--ds-color-text-secondary)]"
               )}
             >
               {item}
@@ -65,7 +65,7 @@ export function Navigation() {
 
         <Button 
           variant="outline" 
-          className="hidden md:flex border-blue-500/20 text-blue-400 hover:bg-blue-500/10 hover:text-blue-300"
+          className="hidden md:flex border-[var(--ds-color-feedback-info-border)]/20 text-[var(--ds-color-feedback-info-text)] hover:bg-[var(--ds-color-feedback-info-bg)] hover:text-[var(--ds-color-feedback-info-text)]"
           onClick={() => scrollTo("feedback")}
         >
           Provide Feedback

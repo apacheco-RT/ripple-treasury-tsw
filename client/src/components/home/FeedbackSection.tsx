@@ -37,7 +37,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
                     <FormItem>
                       <FormLabel className="text-[var(--ds-color-text-secondary)]">Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" className="bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-blue-500 transition-colors" {...field} />
+                        <Input placeholder="John Doe" className="bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -50,7 +50,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
                     <FormItem>
                       <FormLabel className="text-[var(--ds-color-text-secondary)]">Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="john@company.com" className="bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-blue-500 transition-colors" {...field} />
+                        <Input placeholder="john@company.com" className="bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -67,7 +67,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
                     <FormControl>
                       <Textarea 
                         placeholder="I think the roadmap should include..." 
-                        className="min-h-[120px] bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-blue-500 transition-colors resize-none" 
+                        className="min-h-[120px] bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors resize-none" 
                         {...field} 
                       />
                     </FormControl>
@@ -78,7 +78,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
 
               <Button 
                 type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-6 rounded-full shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+                className="w-full bg-[var(--ds-color-feedback-info-border)] hover:brightness-110 text-white font-medium py-6 rounded-full shadow-lg transition-all duration-300"
                 disabled={isPending}
               >
                 {isPending ? "Submitting..." : (
@@ -96,7 +96,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.25 }}
                     role="status"
-                    className="flex items-center gap-2 px-4 py-3 rounded-[var(--ds-radius-lg)] bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-sm font-medium"
+                    className="flex items-center gap-2 px-4 py-3 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-feedback-success-bg)] border border-[var(--ds-color-feedback-success-border)]/25 text-[var(--ds-color-feedback-success-text)] text-sm font-medium"
                   >
                     <CheckCircle2 className="w-4 h-4 shrink-0" />
                     Thank you! Your feedback has been submitted successfully.

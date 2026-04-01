@@ -198,7 +198,7 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
     });
   }, [selected.length, toast]);
 
-  const th = "px-3 py-3 text-sm text-[var(--ds-color-text-primary)] font-medium text-left whitespace-nowrap select-none cursor-pointer hover:text-white transition-colors focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-teal-400";
+  const th = "px-3 py-3 text-sm text-[var(--ds-color-text-primary)] font-medium text-left whitespace-nowrap select-none cursor-pointer hover:text-white transition-colors focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]";
   const td = "px-3 py-3";
 
   return (
@@ -234,15 +234,15 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
         const rlusdCount = filtered.filter(t => t.rlusdEligible && t.status === "Needs Approval").length;
         if (rlusdCount === 0) return null;
         return (
-          <div className="flex items-center justify-between px-4 py-2.5 bg-teal-500/10 border-x border-t border-teal-500/25 border-b border-b-teal-500/25">
+          <div className="flex items-center justify-between px-4 py-2.5 bg-[var(--ds-color-brand-primary-subtle)] border-x border-t border-[var(--ds-color-brand-primary)]/25 border-b border-b-[var(--ds-color-brand-primary)]/25">
             <div className="flex items-center gap-2.5">
-              <span className="inline-flex items-center px-2 py-0.5 rounded-[var(--ds-radius-xs)] text-xs font-bold text-white bg-teal-500">RLUSD</span>
+              <span className="inline-flex items-center px-2 py-0.5 rounded-[var(--ds-radius-xs)] text-xs font-bold text-[var(--ds-color-text-on-brand)] bg-[var(--ds-color-brand-primary)]">RLUSD</span>
               <span className="text-xs font-medium text-[var(--ds-color-text-secondary)]">
                 {rlusdCount} transaction{rlusdCount !== 1 ? "s" : ""} eligible for instant RLUSD settlement
               </span>
             </div>
             <button onClick={() => setRlusdOnly(v => !v)}
-              className="text-xs font-medium text-teal-400 hover:text-teal-300 transition-colors focus:outline-hidden focus:ring-2 focus:ring-teal-400 rounded-[var(--ds-radius-xs)] px-1">
+              className="text-xs font-medium text-[var(--ds-color-brand-primary)] hover:text-[var(--ds-color-brand-primary-hover)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] rounded-[var(--ds-radius-xs)] px-1">
               {rlusdOnly ? "Show all" : "View eligible only"}
             </button>
           </div>
@@ -279,8 +279,8 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
                   <button onClick={toggleAll}
                     aria-label={allSel ? "Deselect all transactions" : "Select all transactions on this page"}
                     aria-pressed={allSel}
-                    className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center text-[var(--ds-color-text-secondary)] hover:text-white transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-teal-400">
-                    {allSel ? <CheckSquare className="w-4 h-4 text-teal-400" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
+                    className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center text-[var(--ds-color-text-secondary)] hover:text-white transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
+                    {allSel ? <CheckSquare className="w-4 h-4 text-[var(--ds-color-brand-primary)]" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
                   </button>
                 </th>
                 {effectiveCols.risk && <th scope="col" className={th} tabIndex={0} role="button" onClick={() => handleSort("risk")}
@@ -361,7 +361,7 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
             <p className="text-[var(--ds-color-text-secondary)] text-xs mb-4">Try adjusting the filter criteria or clearing filters to see all transactions.</p>
             <button
               onClick={() => { setTableSearch(""); setRlusdOnly(false); setFilters({ ...DEFAULT_FILTERS, rowsPerPage: filters.rowsPerPage }); }}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-teal-400 hover:text-teal-300 bg-teal-500/10 hover:bg-teal-500/15 border border-teal-500/20 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-teal-400"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-[var(--ds-color-brand-primary)] hover:text-[var(--ds-color-brand-primary-hover)] bg-[var(--ds-color-brand-primary-subtle)] hover:brightness-110 border border-[var(--ds-color-brand-primary)]/20 transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--ds-color-brand-primary)]"
             >
               <X className="w-3.5 h-3.5" aria-hidden="true" />
               Clear all filters

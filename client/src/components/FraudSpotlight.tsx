@@ -94,23 +94,23 @@ export function FraudSpotlight() {
   const currentKybResult = selectedPn ? VERIF_DATA[selectedPn]?.kyb : undefined;
 
   return (
-    <section aria-label="Fraud spotlight" className="rounded-[var(--ds-radius-xl)] overflow-hidden border border-rose-500/20 mb-4">
+    <section aria-label="Fraud spotlight" className="rounded-[var(--ds-radius-xl)] overflow-hidden border border-[var(--ds-color-feedback-error-border)]/20 mb-4">
 
       <button
         onClick={() => setOpen(o => !o)}
         aria-expanded={open && !allCleared}
         aria-controls={!allCleared ? "fraud-spotlight-content" : undefined}
-        className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-white/20 ${allCleared ? "bg-emerald-500/10" : "fraud-gradient-header"}`}
+        className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-white/20 ${allCleared ? "bg-[var(--ds-color-feedback-success-bg)]" : "fraud-gradient-header"}`}
         style={allCleared ? undefined : { background: `linear-gradient(to right, ${fraudSpotlight.gradientFrom}, ${fraudSpotlight.gradientVia}, ${fraudSpotlight.gradientTo})` }}
       >
-        <div className={`w-8 h-8 rounded-[var(--ds-radius-lg)] flex items-center justify-center shrink-0 ${allCleared ? "bg-emerald-500/15" : "bg-white/15 backdrop-blur-xs"}`}>
+        <div className={`w-8 h-8 rounded-[var(--ds-radius-lg)] flex items-center justify-center shrink-0 ${allCleared ? "bg-[var(--ds-color-feedback-success-bg)]" : "bg-white/15 backdrop-blur-xs"}`}>
           {allCleared
-            ? <ShieldCheck className="w-4 h-4 text-emerald-400" aria-hidden="true" />
+            ? <ShieldCheck className="w-4 h-4 text-[var(--ds-color-feedback-success-text)]" aria-hidden="true" />
             : <ShieldAlert className="w-4 h-4 text-white" aria-hidden="true" />}
         </div>
         <div className="flex-1 flex items-center gap-2 flex-wrap min-w-0">
           {allCleared ? (
-            <span className="text-sm font-medium text-emerald-400">All flagged transactions reviewed</span>
+            <span className="text-sm font-medium text-[var(--ds-color-feedback-success-text)]">All flagged transactions reviewed</span>
           ) : (
             <>
               <span className="text-sm font-medium text-white">Fraud Protection Spotlight</span>
@@ -128,8 +128,8 @@ export function FraudSpotlight() {
           </span>
         )}
         {open
-          ? <ChevronUp className={`w-4 h-4 shrink-0 ${allCleared ? "text-emerald-400" : "text-white"}`} aria-hidden="true" />
-          : <ChevronDown className={`w-4 h-4 shrink-0 ${allCleared ? "text-emerald-400" : "text-white"}`} aria-hidden="true" />}
+          ? <ChevronUp className={`w-4 h-4 shrink-0 ${allCleared ? "text-[var(--ds-color-feedback-success-text)]" : "text-white"}`} aria-hidden="true" />
+          : <ChevronDown className={`w-4 h-4 shrink-0 ${allCleared ? "text-[var(--ds-color-feedback-success-text)]" : "text-white"}`} aria-hidden="true" />}
       </button>
 
       <AnimatePresence initial={false}>

@@ -12,9 +12,9 @@ export const stagger = {
 
 export function SeverityBadge({ level }: { level: "HIGH" | "MEDIUM" | "LOW" }) {
   const map = {
-    HIGH:   { bg: "bg-rose-500/15",    border: "border-rose-500/30",   text: "text-rose-400",   icon: <AlertTriangle className="w-3 h-3" /> },
-    MEDIUM: { bg: "bg-amber-500/15",   border: "border-amber-500/30",  text: "text-amber-400",  icon: <AlertCircle   className="w-3 h-3" /> },
-    LOW:    { bg: "bg-emerald-500/15", border: "border-emerald-500/30",text: "text-emerald-400",icon: <Info          className="w-3 h-3" /> },
+    HIGH:   { bg: "bg-[var(--ds-color-feedback-error-bg)]",   border: "border-[var(--ds-color-feedback-error-border)]/30",   text: "text-[var(--ds-color-feedback-error-text)]",   icon: <AlertTriangle className="w-3 h-3" /> },
+    MEDIUM: { bg: "bg-[var(--ds-color-feedback-warning-bg)]", border: "border-[var(--ds-color-feedback-warning-border)]/30", text: "text-[var(--ds-color-feedback-warning-text)]", icon: <AlertCircle   className="w-3 h-3" /> },
+    LOW:    { bg: "bg-[var(--ds-color-feedback-success-bg)]", border: "border-[var(--ds-color-feedback-success-border)]/30", text: "text-[var(--ds-color-feedback-success-text)]", icon: <Info          className="w-3 h-3" /> },
   };
   const s = map[level];
   return (
@@ -26,9 +26,9 @@ export function SeverityBadge({ level }: { level: "HIGH" | "MEDIUM" | "LOW" }) {
 
 export function FeasBadge({ level }: { level: "LOW EFFORT" | "MED EFFORT" | "HIGH EFFORT" }) {
   const map = {
-    "LOW EFFORT":  "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
-    "MED EFFORT":  "bg-amber-500/10   border-amber-500/20   text-amber-400",
-    "HIGH EFFORT": "bg-rose-500/10    border-rose-500/20    text-rose-400",
+    "LOW EFFORT":  "bg-[var(--ds-color-feedback-success-bg)] border-[var(--ds-color-feedback-success-border)]/20 text-[var(--ds-color-feedback-success-text)]",
+    "MED EFFORT":  "bg-[var(--ds-color-feedback-warning-bg)] border-[var(--ds-color-feedback-warning-border)]/20 text-[var(--ds-color-feedback-warning-text)]",
+    "HIGH EFFORT": "bg-[var(--ds-color-feedback-error-bg)]   border-[var(--ds-color-feedback-error-border)]/20   text-[var(--ds-color-feedback-error-text)]",
   };
   return (
     <span className={`inline-flex items-center px-2 py-0.5 rounded-[var(--ds-radius-lg)] text-xs font-bold border ${map[level]}`}>
@@ -38,14 +38,14 @@ export function FeasBadge({ level }: { level: "LOW EFFORT" | "MED EFFORT" | "HIG
 }
 
 export const sourceColor: Record<string, string> = {
-  Heuristic: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-  Backlog:   "bg-teal-500/10  text-teal-400  border-teal-500/20",
-  Both:      "bg-purple-500/10 text-purple-400 border-purple-500/20",
+  Heuristic: "bg-[var(--ds-color-feedback-info-bg)] text-[var(--ds-color-feedback-info-text)] border-[var(--ds-color-feedback-info-border)]/20",
+  Backlog:   "bg-[var(--ds-color-brand-primary-subtle)] text-[var(--ds-color-brand-primary)] border-[var(--ds-color-brand-primary)]/20",
+  Both:      "bg-[var(--ds-color-feedback-info-bg)] text-[var(--ds-color-feedback-info-text)] border-[var(--ds-color-feedback-info-border)]/20",
 };
 
 export function screenColor(screen: string) {
-  if (screen === "Filter")  return "bg-blue-500/10 border-blue-500/20 text-blue-400";
-  if (screen === "Results") return "bg-teal-500/10 border-teal-500/20 text-teal-400";
-  if (screen === "Both")    return "bg-purple-500/10 border-purple-500/20 text-purple-400";
+  if (screen === "Filter")  return "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)]/20 text-[var(--ds-color-feedback-info-text)]";
+  if (screen === "Results") return "bg-[var(--ds-color-brand-primary-subtle)] border-[var(--ds-color-brand-primary)]/20 text-[var(--ds-color-brand-primary)]";
+  if (screen === "Both")    return "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)]/20 text-[var(--ds-color-feedback-info-text)]";
   return "bg-[var(--ds-color-surface-raised)]/30 border-[var(--ds-color-border-default)]/20 text-[var(--ds-color-text-secondary)]";
 }

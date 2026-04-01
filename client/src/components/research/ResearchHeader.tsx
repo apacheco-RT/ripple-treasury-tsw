@@ -11,20 +11,20 @@ interface ContextCard {
 }
 
 const contextCards: ContextCard[] = [
-  { icon: <Monitor className="w-5 h-5 text-blue-400" />, label: "Screens Evaluated", value: "2", sub: "Screen 1: Filter form · Screen 2: Results table" },
-  { icon: <FileSearch className="w-5 h-5 text-teal-400" />, label: "Method", value: "Heuristic", sub: "Nielsen's 10 usability heuristics, severity rated HIGH / MEDIUM / LOW" },
-  { icon: <Layers className="w-5 h-5 text-purple-400" />, label: "Total Findings", value: "17", sub: "10 heuristic + 7 backlog items → 10 consolidated priority recommendations" },
+  { icon: <Monitor className="w-5 h-5 text-[var(--ds-color-feedback-info-text)]" />, label: "Screens Evaluated", value: "2", sub: "Screen 1: Filter form · Screen 2: Results table" },
+  { icon: <FileSearch className="w-5 h-5 text-[var(--ds-color-brand-primary)]" />, label: "Method", value: "Heuristic", sub: "Nielsen's 10 usability heuristics, severity rated HIGH / MEDIUM / LOW" },
+  { icon: <Layers className="w-5 h-5 text-[var(--ds-color-feedback-info-text)]" />, label: "Total Findings", value: "17", sub: "10 heuristic + 7 backlog items → 10 consolidated priority recommendations" },
 ];
 
 export function ResearchHeader() {
   return (
     <section className="pt-28 pb-12 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/3 w-[500px] h-[300px] bg-blue-600/8 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/3 w-[500px] h-[300px] bg-[var(--ds-color-feedback-info-bg)] rounded-full blur-3xl" />
       </div>
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
+          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--ds-color-feedback-info-bg)] border border-[var(--ds-color-feedback-info-border)]/20 text-[var(--ds-color-feedback-info-text)] text-xs font-bold uppercase tracking-widest mb-4">
             <FileSearch className="w-3.5 h-3.5" /> Research Report
           </motion.div>
           <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-medium tracking-tight mb-3 text-white">

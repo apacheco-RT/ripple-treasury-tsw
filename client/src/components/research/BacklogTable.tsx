@@ -12,7 +12,7 @@ export function BacklogTable() {
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 className="text-xl font-medium text-white mb-2 flex items-center gap-3">
-            <span className="w-8 h-8 rounded-full bg-teal-500/15 border border-teal-500/25 text-teal-400 text-sm font-bold flex items-center justify-center">B</span>
+            <span className="w-8 h-8 rounded-full bg-[var(--ds-color-brand-primary-subtle)] border border-[var(--ds-color-brand-primary)]/25 text-[var(--ds-color-brand-primary)] text-sm font-bold flex items-center justify-center">B</span>
             Customer Backlog — Enhancement Requests
           </h2>
           <p className="text-[var(--ds-color-text-secondary)] text-sm mb-8">7 items from the product backlog reported by Ripple Treasury customers. All categorised as Enhancement (UX) on the Transaction Status Workflow.</p>
@@ -21,7 +21,7 @@ export function BacklogTable() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
-                  <tr className="border-b border-teal-500/20 bg-[var(--ds-color-surface-page)]">
+                  <tr className="border-b border-[var(--ds-color-brand-primary)]/20 bg-[var(--ds-color-surface-page)]">
                     <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold">#</th>
                     <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold">Enhancement Request</th>
                     <th className="px-4 py-3 text-xs uppercase text-[var(--ds-color-text-secondary)] font-bold w-20">Screen</th>
