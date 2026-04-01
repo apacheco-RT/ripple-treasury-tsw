@@ -4,7 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { MotionConfig } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import ErrorBoundary from "@/components/atoms/ErrorBoundary";
 import Landing from "@/pages/Landing";
 import ResearchReport from "@/pages/ResearchReport";
 import AnnotatedSpecs from "@/pages/AnnotatedSpecs";

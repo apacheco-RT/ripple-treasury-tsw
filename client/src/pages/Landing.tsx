@@ -6,8 +6,8 @@ import {
   AlertTriangle, AlertCircle, Info, CheckCircle2,
   Settings2
 } from "lucide-react";
-import { UnifiedNav } from "@/components/UnifiedNav";
-import { ConfigurePrototypeModal } from "@/components/ConfigurePrototypeModal";
+import { UnifiedNav } from "@/components/navigation/UnifiedNav";
+import { ConfigurePrototypeModal } from "@/components/organisms/ConfigurePrototypeModal";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },

@@ -1,11 +1,11 @@
-import { UnifiedNav } from "@/components/UnifiedNav";
-import { PrintBar } from "@/components/export/PrintBar";
-import { CoverPage } from "@/components/export/CoverPage";
-import { SectionA } from "@/components/export/SectionA";
-import { SectionB } from "@/components/export/SectionB";
-import { SectionC } from "@/components/export/SectionC";
-import { SectionD } from "@/components/export/SectionD";
-import { SectionE } from "@/components/export/SectionE";
+import { UnifiedNav } from "@/components/navigation/UnifiedNav";
+import { PrintBar } from "@/components/templates/export/PrintBar";
+import { CoverPage } from "@/components/templates/export/CoverPage";
+import { SectionA } from "@/components/templates/export/SectionA";
+import { SectionB } from "@/components/templates/export/SectionB";
+import { SectionC } from "@/components/templates/export/SectionC";
+import { SectionD } from "@/components/templates/export/SectionD";
+import { SectionE } from "@/components/templates/export/SectionE";
 import { useLazyData } from "@/hooks/useLazyData";
 
 export default function ExportReport() {

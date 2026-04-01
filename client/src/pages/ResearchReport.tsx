@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { UnifiedNav } from "@/components/UnifiedNav";
-import { ResearchHeader } from "@/components/research/ResearchHeader";
-import { ResearchHeaderSkeleton } from "@/components/research/ResearchHeaderSkeleton";
-import { HeuristicTable } from "@/components/research/HeuristicTable";
-import { BacklogTable } from "@/components/research/BacklogTable";
-import { PriorityList } from "@/components/research/PriorityList";
-import { RequirementsSection } from "@/components/research/RequirementsSection";
+import { UnifiedNav } from "@/components/navigation/UnifiedNav";
+import { ResearchHeader } from "@/components/templates/research/ResearchHeader";
+import { ResearchHeaderSkeleton } from "@/components/templates/research/ResearchHeaderSkeleton";
+import { HeuristicTable } from "@/components/templates/research/HeuristicTable";
+import { BacklogTable } from "@/components/templates/research/BacklogTable";
+import { PriorityList } from "@/components/templates/research/PriorityList";
+import { RequirementsSection } from "@/components/templates/research/RequirementsSection";
 
 export default function ResearchReport() {
   const [loaded, setLoaded] = useState(false);

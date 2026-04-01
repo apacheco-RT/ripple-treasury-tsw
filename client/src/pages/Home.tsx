@@ -4,13 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertFeedbackSchema, type InsertFeedback } from "@shared/schema";
 import { useCreateFeedback } from "@/hooks/use-feedback";
 
-import { UnifiedNav } from "@/components/UnifiedNav";
-import { Navigation } from "@/components/Navigation";
-import { HeroSection } from "@/components/home/HeroSection";
-import { ResearchSection } from "@/components/home/ResearchSection";
-import { StrategySection } from "@/components/home/StrategySection";
-import { RoadmapSection } from "@/components/home/RoadmapSection";
-import { FeedbackSection } from "@/components/home/FeedbackSection";
+import { UnifiedNav } from "@/components/navigation/UnifiedNav";
+import { Navigation } from "@/components/navigation/Navigation";
+import { HeroSection } from "@/components/templates/home/HeroSection";
+import { ResearchSection } from "@/components/templates/home/ResearchSection";
+import { StrategySection } from "@/components/templates/home/StrategySection";
+import { RoadmapSection } from "@/components/templates/home/RoadmapSection";
+import { FeedbackSection } from "@/components/templates/home/FeedbackSection";
 
 export default function Home() {
   const createFeedback = useCreateFeedback();

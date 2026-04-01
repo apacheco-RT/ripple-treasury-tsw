@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { UnifiedNav } from "@/components/UnifiedNav";
-import { SpecsHeader } from "@/components/specs/SpecsHeader";
-import { SpecsHeaderSkeleton } from "@/components/specs/SpecsHeaderSkeleton";
-import { SpecCard } from "@/components/specs/SpecCard";
-import { SectionDivider } from "@/components/specs/specs-data";
+import { UnifiedNav } from "@/components/navigation/UnifiedNav";
+import { SpecsHeader } from "@/components/templates/specs/SpecsHeader";
+import { SpecsHeaderSkeleton } from "@/components/templates/specs/SpecsHeaderSkeleton";
+import { SpecCard } from "@/components/templates/specs/SpecCard";
+import { SectionDivider } from "@/components/templates/specs/specs-data";
 import { useLazyData } from "@/hooks/useLazyData";
 
 export default function AnnotatedSpecs() {
