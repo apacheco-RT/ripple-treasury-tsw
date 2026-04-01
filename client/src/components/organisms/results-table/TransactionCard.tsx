@@ -3,9 +3,10 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckSquare, ChevronRight, Square } from "lucide-react";
 import { FraudBadge } from "@/components/molecules/FraudBadge";
-import { DetailCard, MonoAmount, CurrencyBadge } from "@ds-foundation/react";
+import { DetailCard, MonoAmount, CurrencyBadge, StateBadge } from "@ds-foundation/react";
 import type { Txn, TxnAttachment, FeatureFlags } from "@/lib/types";
 import { fmtAmt } from "@/lib/mock-data";
+import { getTxStatusIntent } from "@/lib/design-tokens";
 import { Paperclip } from "lucide-react";
 
 interface TransactionCardProps {
@@ -71,13 +72,7 @@ function TransactionCardInner({
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-[10px] px-1.5 py-0.5 rounded-[var(--ds-radius-xs)] font-medium
-              ${t.status === "Needs Approval" ? "bg-[var(--ds-color-feedback-warning-bg)] text-[var(--ds-color-feedback-warning-text)] border border-[var(--ds-color-feedback-warning-border)]/25"
-              : t.status === "Approved" ? "bg-[var(--ds-color-feedback-success-bg)] text-[var(--ds-color-feedback-success-text)] border border-[var(--ds-color-feedback-success-border)]/25"
-              : "bg-[var(--ds-color-surface-raised)]/50 text-[var(--ds-color-text-secondary)] border border-[var(--ds-color-border-default)]/50"}`}
-            >
-              {t.status}
-            </span>
+            <StateBadge state={t.status} intent={getTxStatusIntent(t.status)} size="sm" />
             <FraudBadge risk={t.risk} reason={null} />
             {featureFlags.rlusdStrip && t.rlusdEligible && t.status === "Needs Approval" && (
               <span className="inline-flex items-center px-1 py-0 rounded-[var(--ds-radius-xs)] text-[9px] font-bold text-[var(--ds-color-text-on-brand)] bg-[var(--ds-color-brand-primary)] leading-tight">RLUSD</span>
