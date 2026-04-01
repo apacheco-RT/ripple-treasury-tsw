@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { FreshnessChip, deriveFreshnessState } from '@ds-foundation/react';
 import { UnifiedNav } from "@/components/navigation/UnifiedNav";
 import AppNav from "@/components/navigation/AppNav";
 import { ChevronRight, Moon, RefreshCw, Sun } from "lucide-react";
@@ -64,7 +65,7 @@ function filtersToParams(filters: Filters): URLSearchParams {
 export default function Prototype() {
   const [filters, setFilters] = useState<Filters>(() => filtersFromURL());
   const [refreshing, setRefreshing] = useState(false);
-  const [lastRefreshed, setLastRefreshed] = useState("4:23 PM");
+  const [lastRefreshed, setLastRefreshed] = useState<Date>(() => new Date());
   const [isDark, setIsDark] = useState(() => localStorage.getItem("paym-theme") !== "light");
   const isInitialMount = useRef(true);
 
@@ -108,7 +109,7 @@ export default function Prototype() {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-      setLastRefreshed(new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }));
+      setLastRefreshed(new Date());
     }, 1200);
   };
 
@@ -131,9 +132,11 @@ export default function Prototype() {
             <p className="text-xs text-[var(--ds-color-text-secondary)] mt-1 m-0">Manage and monitor all your payments in one place</p>
           </div>
           <div className="flex items-center gap-3">
-            <p className="text-xs text-[var(--ds-color-text-secondary)] m-0" aria-live="polite">
-              Last refreshed: <span className="text-[var(--ds-color-text-secondary)] font-medium">{lastRefreshed}</span>
-            </p>
+            <FreshnessChip
+              state={deriveFreshnessState(lastRefreshed)}
+              timestamp={lastRefreshed}
+              onRefresh={handleRefresh}
+            />
             <button onClick={handleRefresh} aria-label={refreshing ? "Refreshing all sections" : "Refresh all sections"}
               className={`flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-default)] transition-all focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] ${refreshing ? "opacity-60" : ""}`}>
               <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin" : ""}`} aria-hidden="true" />
