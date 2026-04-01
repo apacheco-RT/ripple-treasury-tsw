@@ -6,7 +6,7 @@ Contribute three components from TSW to `ds-foundation`, cut a new `@ds-foundati
 
 ## Scope
 
-**ds-foundation-rt contributions (3 PRs):**
+**ds-foundation contributions (3 PRs):**
 1. `DetailCard` — direct style conversion, no API change
 2. `IconButton` — genericized variant system, style conversion
 3. `StateBadge` — new component designed for DS Foundation (does not exist yet in TSW)
@@ -22,7 +22,7 @@ Contribute three components from TSW to `ds-foundation`, cut a new `@ds-foundati
 **Out of scope:**
 - `atoms/Badge.tsx` stays local — it is a TSW domain molecule, not a generic primitive
 - No changes to `atoms/StatusChip.tsx` or other TSW-specific atoms
-- No ds-foundation-rt registry rebuild or CI pipeline changes beyond what each contribution PR triggers
+- No ds-foundation registry rebuild or CI pipeline changes beyond what each contribution PR triggers
 
 ---
 
@@ -240,6 +240,8 @@ export interface StateBadgeProps {
 - `role="status"` on the container
 - `aria-label` computed as: `"Status: {state}"` or `"Status: {state}, next: {nextState}"`
 
+**Styling:** Inline `style` objects only — no Tailwind, no `className` prop. Add `// @ds-component` annotation comment at the top of the file (per DS Foundation convention). Use `--ds-` prefixed tokens only.
+
 **TSW usage (Badge.tsx after migration):**
 
 Replace `StatusBadgeContent` entirely with `<StateBadge>`. Two intentional behavioural changes:
@@ -295,7 +297,7 @@ export function getTxStatusIntent(status: string): StateBadgeIntent {
 
 ## Delivery Sequence
 
-### PR 1 — ds-foundation-rt: DetailCard
+### PR 1 — ds-foundation: DetailCard
 Lowest risk. Proves the contribution workflow end-to-end.
 - `packages/react/src/DetailCard.tsx`
 - `packages/react/src/DetailCard.stories.tsx`
@@ -304,7 +306,7 @@ Lowest risk. Proves the contribution workflow end-to-end.
 - `npm run typecheck && npm run ci:validate`
 - `npx changeset` — patch
 
-### PR 2 — ds-foundation-rt: IconButton
+### PR 2 — ds-foundation: IconButton
 - `packages/react/src/IconButton.tsx`
 - `packages/react/src/IconButton.stories.tsx`
 - `packages/registry/components/icon-button.mdx`
@@ -312,7 +314,7 @@ Lowest risk. Proves the contribution workflow end-to-end.
 - `npm run typecheck && npm run ci:validate`
 - `npx changeset` — patch
 
-### PR 3 — ds-foundation-rt: StateBadge
+### PR 3 — ds-foundation: StateBadge
 New component — most review surface.
 - `packages/react/src/StateBadge.tsx`
 - `packages/react/src/StateBadge.stories.tsx`
