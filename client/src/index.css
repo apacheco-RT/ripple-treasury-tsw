@@ -213,7 +213,7 @@ layer(base);
 }
 
 @utility text-gradient {
-  @apply bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-teal-400;
+  @apply bg-clip-text text-transparent bg-linear-to-r from-[var(--ds-color-feedback-info-text)] to-[var(--ds-color-brand-primary)];
 }
 
 @utility card-gradient {
@@ -232,18 +232,18 @@ layer(base);
   @apply text-sm font-medium text-[var(--ds-color-text-secondary)] hover:text-white transition-colors duration-200 cursor-pointer;
 
   &.active {
-    @apply text-blue-400;
+    @apply text-[var(--ds-color-brand-primary)];
   }
 }
 
 @utility active {
   &.nav-link {
-    @apply text-blue-400;
+    @apply text-[var(--ds-color-brand-primary)];
   }
 }
 
 @utility glow-point {
-  @apply relative flex items-center justify-center w-8 h-8 rounded-full bg-[var(--ds-color-surface-raised)] text-blue-400 font-bold border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.2)];
+  @apply relative flex items-center justify-center w-8 h-8 rounded-full bg-[var(--ds-color-surface-raised)] text-[var(--ds-color-brand-primary)] font-bold border border-[var(--ds-color-brand-primary)]/30 shadow-[0_0_15px_color-mix(in_srgb,var(--ds-color-brand-primary)_20%,transparent)];
 }
 
 :root {

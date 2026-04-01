@@ -45,16 +45,11 @@ export const surface = {
 // Used by: FraudBadge, row highlighting, Fraud Spotlight gradient, filter chips.
 // Scores: 0–100 from fraud engine. Visual breakpoints: 70+ = high, 40–69 = medium.
 export const risk = {
-  // @ds-component: custom — no DS-foundation equivalent
-  critical: { bg: '#fef2f2', border: '#fecaca', text: '#dc2626', solid: '#ef4444', label: 'Critical' },
-  // @ds-component: custom — no DS-foundation equivalent
-  high:     { bg: '#fff7ed', border: '#fed7aa', text: '#c2410c', solid: '#f97316', label: 'High' },
-  // @ds-component: custom — no DS-foundation equivalent
-  medium:   { bg: '#fffbeb', border: '#fde68a', text: '#b45309', solid: '#f59e0b', label: 'Medium' },
-  // @ds-component: custom — no DS-foundation equivalent
-  low:      { bg: '#f0fdf4', border: '#bbf7d0', text: '#166534', solid: '#22c55e', label: 'Low' },
-  // @ds-component: custom — no DS-foundation equivalent
-  none:     { bg: '#f8fafc', border: '#e2e8f0', text: '#475569', solid: '#94a3b8', label: 'Clear'  },
+  critical: { bg: 'var(--ds-color-feedback-error-bg)',   border: 'var(--ds-color-feedback-error-border)',   text: 'var(--ds-color-feedback-error-text)',   solid: 'var(--ds-color-feedback-error-icon)',   label: 'Critical' },
+  high:     { bg: 'var(--ds-color-feedback-warning-bg)', border: 'var(--ds-color-feedback-warning-border)', text: 'var(--ds-color-feedback-warning-text)', solid: 'var(--ds-color-feedback-warning-icon)', label: 'High' },
+  medium:   { bg: 'var(--ds-color-feedback-warning-bg)', border: 'var(--ds-color-feedback-warning-border)', text: 'var(--ds-color-feedback-warning-text)', solid: 'var(--ds-color-feedback-warning-icon)', label: 'Medium' },
+  low:      { bg: 'var(--ds-color-feedback-success-bg)', border: 'var(--ds-color-feedback-success-border)', text: 'var(--ds-color-feedback-success-text)', solid: 'var(--ds-color-feedback-success-icon)', label: 'Low' },
+  none:     { bg: 'var(--ds-color-surface-sunken)',       border: 'var(--ds-color-border-default)',           text: 'var(--ds-color-text-secondary)',         solid: 'var(--ds-color-text-tertiary)',          label: 'Clear' },
 } as const;
 
 // Threshold above which bulk approve is intercepted by the fraud gate.
@@ -64,16 +59,11 @@ export const FRAUD_GATE_THRESHOLD = 70;
 // @ds-component: custom | @ds-adapter: tailwind | @ds-version: 0.2.2 | @ds-layer: token
 // Maps to the 5 stages in the horizontal pipeline chip component.
 export const processStage = {
-  // @ds-component: custom — no DS-foundation equivalent
-  create:    { color: '#6366f1', bg: '#eef2ff', label: 'Create',     order: 1 },
-  // @ds-component: custom — no DS-foundation equivalent
-  antiFraud: { color: '#f97316', bg: '#fff7ed', label: 'Anti Fraud', order: 2 },
-  // @ds-component: custom — no DS-foundation equivalent
-  approvals: { color: '#8b5cf6', bg: '#f5f3ff', label: 'Approvals',  order: 3 },
-  // @ds-component: custom — no DS-foundation equivalent
-  status:    { color: '#0ea5e9', bg: '#f0f9ff', label: 'Status',     order: 4 },
-  // @ds-component: custom — no DS-foundation equivalent
-  history:   { color: '#64748b', bg: '#f8fafc', label: 'History',    order: 5 },
+  create:    { color: 'var(--ds-color-brand-primary)',         bg: 'var(--ds-color-brand-primary-subtle)',    border: 'var(--ds-color-brand-primary)',            label: 'Create',     order: 1 },
+  antiFraud: { color: 'var(--ds-color-feedback-error-text)',   bg: 'var(--ds-color-feedback-error-bg)',       border: 'var(--ds-color-feedback-error-border)',    label: 'Anti Fraud', order: 2 },
+  approvals: { color: 'var(--ds-color-feedback-warning-text)', bg: 'var(--ds-color-feedback-warning-bg)',     border: 'var(--ds-color-feedback-warning-border)',  label: 'Approvals',  order: 3 },
+  status:    { color: 'var(--ds-color-feedback-info-text)',    bg: 'var(--ds-color-feedback-info-bg)',        border: 'var(--ds-color-feedback-info-border)',     label: 'Status',     order: 4 },
+  history:   { color: 'var(--ds-color-text-secondary)',        bg: 'var(--ds-color-surface-sunken)',          border: 'var(--ds-color-border-default)',           label: 'History',    order: 5 },
 } as const;
 
 export type ProcessStageKey = keyof typeof processStage;
@@ -82,22 +72,14 @@ export type ProcessStageKey = keyof typeof processStage;
 // @ds-component: custom | @ds-adapter: tailwind | @ds-version: 0.2.2 | @ds-layer: token
 // Display labels for status badges in the results table.
 export const txStatus = {
-  // @ds-component: custom — no DS-foundation equivalent
-  pending:        { color: '#b45309', bg: '#fffbeb', label: 'Pending'           },
-  // @ds-component: custom — no DS-foundation equivalent
-  processing:     { color: '#0369a1', bg: '#f0f9ff', label: 'Processing'        },
-  // @ds-component: custom — no DS-foundation equivalent
-  readyToApprove: { color: '#7c3aed', bg: '#f5f3ff', label: 'Ready to Approve'  },
-  // @ds-component: custom — no DS-foundation equivalent
-  approved:       { color: '#166534', bg: '#f0fdf4', label: 'Approved'          },
-  // @ds-component: custom — no DS-foundation equivalent
-  rejected:       { color: '#dc2626', bg: '#fef2f2', label: 'Rejected'          },
-  // @ds-component: custom — no DS-foundation equivalent
-  onHold:         { color: '#92400e', bg: '#fef3c7', label: 'On Hold'           },
-  // @ds-component: custom — no DS-foundation equivalent
-  escalated:      { color: '#1d4ed8', bg: '#eff6ff', label: 'Escalated'         },
-  // @ds-component: custom — no DS-foundation equivalent
-  cancelled:      { color: '#374151', bg: '#f9fafb', label: 'Cancelled'         },
+  pending:        { color: 'var(--ds-color-feedback-warning-text)', bg: 'var(--ds-color-feedback-warning-bg)', label: 'Pending'          },
+  processing:     { color: 'var(--ds-color-feedback-info-text)',    bg: 'var(--ds-color-feedback-info-bg)',    label: 'Processing'       },
+  readyToApprove: { color: 'var(--ds-color-feedback-info-text)',    bg: 'var(--ds-color-feedback-info-bg)',    label: 'Ready to Approve' },
+  approved:       { color: 'var(--ds-color-feedback-success-text)', bg: 'var(--ds-color-feedback-success-bg)', label: 'Approved'         },
+  rejected:       { color: 'var(--ds-color-feedback-error-text)',   bg: 'var(--ds-color-feedback-error-bg)',   label: 'Rejected'         },
+  onHold:         { color: 'var(--ds-color-feedback-warning-text)', bg: 'var(--ds-color-feedback-warning-bg)', label: 'On Hold'          },
+  escalated:      { color: 'var(--ds-color-feedback-info-text)',    bg: 'var(--ds-color-feedback-info-bg)',    label: 'Escalated'        },
+  cancelled:      { color: 'var(--ds-color-text-secondary)',        bg: 'var(--ds-color-surface-sunken)',       label: 'Cancelled'        },
 } as const;
 
 export type TxStatusKey = keyof typeof txStatus;

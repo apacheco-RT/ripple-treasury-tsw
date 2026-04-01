@@ -8,10 +8,10 @@ export function getRiskColors(risk: number) {
   const hi = risk >= 70;
   const md = risk >= 40;
   return {
-    border: hi ? "border-rose-600" : md ? "border-amber-500" : "border-emerald-600",
-    text: hi ? "text-rose-400" : md ? "text-amber-400" : "text-emerald-400",
-    reason: hi ? "text-rose-300" : md ? "text-amber-300" : "text-emerald-300",
-    bg: hi ? "bg-rose-500/10" : md ? "bg-amber-500/10" : "bg-emerald-500/10",
+    border: hi ? "border-[var(--ds-color-feedback-error-border)]"   : md ? "border-[var(--ds-color-feedback-warning-border)]"   : "border-[var(--ds-color-feedback-success-border)]",
+    text:   hi ? "text-[var(--ds-color-feedback-error-text)]"       : md ? "text-[var(--ds-color-feedback-warning-text)]"       : "text-[var(--ds-color-feedback-success-text)]",
+    reason: hi ? "text-[var(--ds-color-feedback-error-text)]"       : md ? "text-[var(--ds-color-feedback-warning-text)]"       : "text-[var(--ds-color-feedback-success-text)]",
+    bg:     hi ? "bg-[var(--ds-color-feedback-error-bg)]"           : md ? "bg-[var(--ds-color-feedback-warning-bg)]"           : "bg-[var(--ds-color-feedback-success-bg)]",
     label: hi ? "HIGH" as const : md ? "MED" as const : "LOW" as const,
     isHigh: hi,
   };
@@ -44,15 +44,15 @@ type BadgeProps = StatusBadgeProps | FraudBadgeProps | RiskScoreBadgeProps;
 function StatusBadgeContent({ status, next, overdue, className }: Omit<StatusBadgeProps, "variant">) {
   const s = status;
   const cls =
-    overdue                      ? "bg-rose-500/20 border-rose-500/40 text-rose-300"
+    overdue                      ? "bg-[var(--ds-color-feedback-error-bg)] border-[var(--ds-color-feedback-error-border)] text-[var(--ds-color-feedback-error-text)]"
     : s === "Under Review"     ? "bg-orange-500/20 border-orange-500/35 text-orange-300"
-    : s === "Needs Approval"   ? "bg-amber-500/20 border-amber-500/35 text-amber-300"
+    : s === "Needs Approval"   ? "bg-[var(--ds-color-feedback-warning-bg)] border-[var(--ds-color-feedback-warning-border)] text-[var(--ds-color-feedback-warning-text)]"
     : s === "Ready to Approve" ? "bg-purple-500/20 border-purple-500/35 text-purple-300"
-    : s === "Ready to Extract" ? "bg-teal-500/20 border-teal-500/35 text-teal-300"
-    : s === "Extracted"        ? "bg-blue-500/20 border-blue-500/35 text-blue-300"
+    : s === "Ready to Extract" ? "bg-[var(--ds-color-brand-primary-subtle)] border-[var(--ds-color-brand-primary)] text-[var(--ds-color-brand-primary)]"
+    : s === "Extracted"        ? "bg-[var(--ds-color-feedback-info-bg)] border-[var(--ds-color-feedback-info-border)] text-[var(--ds-color-feedback-info-text)]"
     : s === "Confirmed"        ? "bg-indigo-500/20 border-indigo-500/35 text-indigo-300"
     : s === "Processing"       ? "bg-sky-500/20 border-sky-500/35 text-sky-300"
-    : s === "Approved"         ? "bg-emerald-500/20 border-emerald-500/35 text-emerald-300"
+    : s === "Approved"         ? "bg-[var(--ds-color-feedback-success-bg)] border-[var(--ds-color-feedback-success-border)] text-[var(--ds-color-feedback-success-text)]"
     : s === "Failed"           ? "bg-red-500/20 border-red-500/35 text-red-300"
     : s === "Void"             ? "bg-[var(--ds-color-surface-raised)]/50 border-[var(--ds-color-border-default)]/50 text-[var(--ds-color-text-secondary)]"
     : s === "Draft"            ? "bg-indigo-500/15 border-indigo-500/30 text-indigo-300"
