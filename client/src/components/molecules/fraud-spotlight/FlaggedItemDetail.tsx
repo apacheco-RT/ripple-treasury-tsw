@@ -1,6 +1,7 @@
 // @ds-molecule — composed from DS atoms + TSW domain logic
 import React from "react";
 import { AlertTriangle, Ban, ShieldCheck, X } from "lucide-react";
+import { MonoAmount, CurrencyBadge } from "@ds-foundation/react";
 import { RiskScoreBadge } from "./RiskScoreBadge";
 import { VerificationActions } from "./VerificationActions";
 import { isAnomaly } from "@/lib/mock-data";
@@ -47,7 +48,10 @@ function FlaggedItemDetailInner({
         <div className="flex-1 min-w-0">
           <h3 className="font-medium text-white text-base leading-tight m-0">{selectedTxn.vendor}</h3>
           <p className="text-sm font-medium text-[var(--ds-color-text-primary)] mt-1 m-0">
-            {selectedTxn.currency} {selectedTxn.amount.toLocaleString()}
+            <span className="flex items-center gap-1.5">
+              <MonoAmount value={selectedTxn.amount} currency={selectedTxn.currency as 'USD' | 'EUR' | 'GBP'} />
+              <CurrencyBadge currency={selectedTxn.currency as 'USD' | 'EUR' | 'GBP'} />
+            </span>
           </p>
           <div className="flex items-center gap-2 mt-0.5 flex-wrap">
             <span className="text-xs text-[var(--ds-color-text-secondary)]">#{selectedTxn.paymentNumber}</span>

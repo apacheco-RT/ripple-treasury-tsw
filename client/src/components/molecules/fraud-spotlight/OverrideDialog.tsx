@@ -2,6 +2,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
+import { MonoAmount } from "@ds-foundation/react";
 import type { FlaggedTxn } from "@/lib/types";
 
 interface OverrideDialogProps {
@@ -40,7 +41,11 @@ function OverrideDialogInner({
                 <span className="font-medium text-sm text-white">Payment #{overrideTxn?.paymentNumber}</span>
               </div>
               <p className="text-xs text-[var(--ds-color-text-secondary)] m-0">
-                {overrideTxn?.vendor} · {overrideTxn?.currency} {overrideTxn?.amount.toLocaleString()} · Risk Score: {overrideTxn?.riskScore}/100
+                {overrideTxn?.vendor}
+                {overrideTxn && (
+                  <> · <MonoAmount value={overrideTxn.amount} currency={overrideTxn.currency as 'USD' | 'EUR' | 'GBP'} size="sm" /></>
+                )}
+                 · Risk Score: {overrideTxn?.riskScore}/100
               </p>
             </div>
             <label className="block text-sm font-medium text-[var(--ds-color-text-secondary)] mb-1.5">

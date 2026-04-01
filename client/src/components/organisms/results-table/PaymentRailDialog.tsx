@@ -5,6 +5,7 @@ import {
   ArrowRight, CheckCircle2, Clock, FileText, HelpCircle, Landmark, X,
 } from "lucide-react";
 import type { Txn } from "@/lib/types";
+import { MonoAmount } from "@ds-foundation/react";
 
 interface PaymentRailDialogProps {
   txn: Txn | null;
@@ -29,8 +30,6 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
   }, [txn, onClose]);
 
   if (!txn) return null;
-
-  const fmtUSD = (n: number) => `$${n.toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
 
   return (
     <AnimatePresence>
@@ -57,7 +56,7 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 text-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-[var(--ds-color-text-secondary)]">Payment Amount:</span>
-                  <span className="text-lg font-bold text-white">{fmtUSD(txn.amount)}</span>
+                  <MonoAmount value={txn.amount} currency="USD" />
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-[var(--ds-color-text-secondary)]">Corridor:</span>

@@ -3,7 +3,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckSquare, ChevronRight, Square } from "lucide-react";
 import { FraudBadge } from "@/components/molecules/FraudBadge";
-import { DetailCard } from "@ds-foundation/react";
+import { DetailCard, MonoAmount, CurrencyBadge } from "@ds-foundation/react";
 import type { Txn, TxnAttachment, FeatureFlags } from "@/lib/types";
 import { fmtAmt } from "@/lib/mock-data";
 import { Paperclip } from "lucide-react";
@@ -64,8 +64,9 @@ function TransactionCardInner({
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-sm font-medium text-white truncate">{t.payee}</span>
-            <span className="text-sm font-medium text-[var(--ds-color-text-primary)] whitespace-nowrap shrink-0">
-              {fmtAmt(t.amount, t.cur)} <span className="text-xs text-[var(--ds-color-text-secondary)] font-normal">{t.cur}</span>
+            <span className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
+              <MonoAmount value={t.amount} currency={t.cur as 'USD' | 'EUR' | 'GBP'} />
+              <CurrencyBadge currency={t.cur as 'USD' | 'EUR' | 'GBP'} />
             </span>
           </div>
 
