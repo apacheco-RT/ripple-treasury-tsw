@@ -42,7 +42,7 @@
 | `components/organisms/results-table/TransactionRow.tsx` | Modify | Update DetailCard + IconButton import paths; wrap variants with `toIconButtonVariant()` |
 | `components/organisms/results-table/TableToolbar.tsx` | Modify | Update IconButton import path |
 | `components/organisms/results-table/TablePagination.tsx` | Modify | Update IconButton import path |
-| `components/organisms/results-table/ColumnPicker.tsx` | Modify | Update IconButton import path; wrap variants with `toIconButtonVariant()` |
+| `components/organisms/results-table/ColumnPicker.tsx` | Modify | Update IconButton import path (no `variant=` props — no shim needed) |
 
 ---
 
@@ -763,7 +763,7 @@ git commit -m "feat(react): add StateBadge component"
 - Modify: `payments-tsw-phase1/client/src/lib/design-tokens.ts`
 - Modify: `payments-tsw-phase1/client/src/components/atoms/Badge.tsx`
 - Modify: `payments-tsw-phase1/client/src/components/organisms/results-table/TransactionCard.tsx`
-- Modify: `payments-tsw-phase1/client/src/components/results-table/TransactionRow.tsx`
+- Modify: `payments-tsw-phase1/client/src/components/organisms/results-table/TransactionRow.tsx`
 - Modify: `payments-tsw-phase1/client/src/components/organisms/results-table/TableToolbar.tsx`
 - Modify: `payments-tsw-phase1/client/src/components/organisms/results-table/TablePagination.tsx`
 - Modify: `payments-tsw-phase1/client/src/components/organisms/results-table/ColumnPicker.tsx`
