@@ -1,3 +1,5 @@
+import type { StateBadgeIntent } from '@ds-foundation/react';
+
 // Thin re-export wrapper — maps TSW token API to @ds-foundation/tokens CSS vars.
 /**
  * Design Tokens — Ripple Treasury (TSW)
@@ -191,8 +193,8 @@ export const a11y = {
   focusNotObscured:   true,// 2.4.11 Focus Not Obscured (Minimum) — new in WCAG 2.2
 } as const;
 
-import type { StateBadgeIntent } from '@ds-foundation/react';
-
+// NOTE: getTxStatusIntent below covers all 15 TSW statuses. txStatus above only
+// covers 8 (the legacy colour-map subset). Keep both in sync when adding statuses.
 export function getTxStatusIntent(status: string): StateBadgeIntent {
   switch (status) {
     case 'Pending':
