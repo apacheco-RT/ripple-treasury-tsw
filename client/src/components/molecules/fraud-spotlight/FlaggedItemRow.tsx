@@ -35,9 +35,9 @@ function FlaggedItemRowInner({ txn: t, isSelected: isSel, onSelect, flagged }: F
         <div className="text-sm font-medium text-[var(--ds-color-text-primary)] truncate">{t.vendor}</div>
         <div className="flex items-center gap-2 mt-0.5">
           <span className="flex items-center gap-1.5">
-              <MonoAmount value={t.amount} currency={t.currency as 'USD' | 'EUR' | 'GBP'} size="sm" />
-              <CurrencyBadge currency={t.currency as 'USD' | 'EUR' | 'GBP'} />
-            </span>
+            <MonoAmount value={t.amount} currency={t.currency as 'USD' | 'EUR' | 'GBP'} size="sm" />
+            <CurrencyBadge currency={t.currency as 'USD' | 'EUR' | 'GBP'} />
+          </span>
           <span className="text-xs text-[var(--ds-color-text-secondary)]">#{t.paymentNumber}</span>
         </div>
       </div>
