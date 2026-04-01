@@ -14,7 +14,7 @@ import { TransactionCard } from "@/components/organisms/results-table/Transactio
 import { TablePagination } from "@/components/organisms/results-table/TablePagination";
 import { AttachmentViewer } from "@/components/organisms/results-table/AttachmentViewer";
 import { DEFAULT_FILTERS, type Txn, type TxnAttachment, type TrayFilter, type Filters, type FeatureFlags } from "@/lib/types";
-import { fmtAmt, ALL_COLS, DEFAULT_COLS } from "@/lib/mock-data";
+import { ALL_COLS, DEFAULT_COLS } from "@/lib/mock-data";
 
 function parseDDMMYYYY(s: string): number {
   const [d, m, y] = s.split("/");
