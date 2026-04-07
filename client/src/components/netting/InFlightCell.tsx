@@ -1,21 +1,12 @@
 import { Plus, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { formatAmount, type Action, type ActionStatus } from "./types";
+import { type Action } from "./types";
+import { StatusPill, MonoAmount } from "@ds-foundation/react";
 
 interface InFlightCellProps {
   actions: Action[];
   onInitiateAction: () => void;
 }
-
-const STATUS_CONFIG: Record<ActionStatus, { label: string; dot: string; text: string }> = {
-  submitted:     { label: "Submitted",      dot: "bg-gray-400",   text: "text-gray-500" },
-  in_payments:   { label: "In Payments",    dot: "bg-blue-500",   text: "text-blue-600" },
-  first_approval: { label: "1st Approved",   dot: "bg-indigo-500", text: "text-indigo-600" },
-  second_approval:{ label: "2nd Approved",   dot: "bg-indigo-600", text: "text-indigo-700" },
-  sent_to_bank:  { label: "Sent to Bank",   dot: "bg-teal-500",   text: "text-teal-600" },
-  bank_confirmed:{ label: "Confirmed",      dot: "bg-green-500",  text: "text-green-600" },
-  failed:        { label: "Failed",         dot: "bg-red-500",    text: "text-red-600" },
-};
 
 export function InFlightCell({ actions, onInitiateAction }: InFlightCellProps) {
   const sorted = [
@@ -30,7 +21,6 @@ export function InFlightCell({ actions, onInitiateAction }: InFlightCellProps) {
       ) : (
         <div className="space-y-2 mb-3">
           {sorted.map((action) => {
-            const cfg = STATUS_CONFIG[action.status];
             const isFailed = action.status === "failed";
             return (
               <div
@@ -38,23 +28,22 @@ export function InFlightCell({ actions, onInitiateAction }: InFlightCellProps) {
                 className={`rounded-md p-2 ${isFailed ? "bg-red-50 border border-red-100" : "bg-gray-50"}`}
               >
                 <div className="flex items-center gap-1.5">
-                  {isFailed
-                    ? <AlertCircle className="w-3 h-3 text-red-500 shrink-0" />
-                    : <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${cfg.dot}`} />
-                  }
-                  <span className={`text-xs font-medium ${cfg.text}`}>{cfg.label}</span>
-                  <span className="ml-auto text-xs font-semibold tabular-nums text-gray-700">
-                    {formatAmount(action.amount, action.currency)}
+                  {isFailed && <AlertCircle className="w-3 h-3 text-red-500 shrink-0" />}
+                  <StatusPill status={action.status} />
+                  <span className="ml-auto">
+                    <MonoAmount value={action.amount} currency={action.currency} size="sm" />
                   </span>
                 </div>
                 <p className="text-xs text-gray-400 mt-0.5 ml-4 truncate">
                   {action.accountFrom} → {action.accountTo}
                 </p>
                 {isFailed && action.failureReason && (
-                  <p className="text-xs text-red-500 mt-1 ml-4">{action.failureReason}</p>
+                  <p className="text-xs mt-1 ml-4" style={{ color: 'var(--ds-color-feedback-error-text)' }}>
+                    {action.failureReason}
+                  </p>
                 )}
                 {action.requiresManualRelease && (
-                  <p className="text-xs text-amber-600 mt-1 ml-4 font-medium">
+                  <p className="text-xs mt-1 ml-4 font-medium" style={{ color: 'var(--ds-color-feedback-warning-text)' }}>
                     ⚠ Requires manual bank release
                   </p>
                 )}
