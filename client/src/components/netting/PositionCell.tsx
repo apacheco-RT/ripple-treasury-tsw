@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChevronDown, ChevronRight, CheckCircle } from "lucide-react";
-import { FreshnessChip } from "./FreshnessChip";
-import { formatAmount, type EntityPairing } from "./types";
+import { FreshnessChip, deriveFreshnessState } from "@ds-foundation/react";
+import { formatAmount, freshnessMinutesToDate, type EntityPairing } from "./types";
 
 interface PositionCellProps {
   pairing: EntityPairing;
@@ -22,7 +22,12 @@ export function PositionCell({ pairing }: PositionCellProps) {
         <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-purple-50 text-purple-700 border border-purple-100">
           {pairing.currency}
         </span>
-        <FreshnessChip minutes={pairing.freshnessMinutes} className="ml-auto" />
+        <span className="ml-auto">
+          <FreshnessChip
+            state={deriveFreshnessState(freshnessMinutesToDate(pairing.freshnessMinutes))}
+            timestamp={freshnessMinutesToDate(pairing.freshnessMinutes)}
+          />
+        </span>
       </div>
 
       <div className="space-y-1.5">

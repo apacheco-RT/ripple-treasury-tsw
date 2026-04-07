@@ -1,0 +1,1812 @@
+/**
+ * Intercompany Settlement — Command Center
+ * Cross-Entity Settlement Module — Bitstamp × Ripple Treasury
+ *
+ * Design system: nav_v2 light tokens · purple (#9c47ff) Netting accent
+ * Layout: TreasuryShell → three-panel (Net Positions | FBO Balances | In-Flight)
+ * Features: batch configurator drawer, pre-go summary overlay, provenance modal
+ */
+
+import { useState, useEffect, useRef, Fragment } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import TreasuryShell from "@/components/TreasuryShell";
+import {
+  Zap, ChevronRight, ChevronDown, X, AlertTriangle,
+  CheckCircle, Clock, Building2, ArrowRight, RefreshCcw,
+  BarChart3, FileText, LayoutList, Table2, Download,
+} from "lucide-react";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type Currency = "USD" | "EUR" | "GBP";
+type Entity   = "SA" | "LTD" | "INC" | "BVI" | "BFS" | "MTF";
+type TxType   = "Trade" | "Deposit" | "Ripple IOU" | "OTC" | "Derivatives";
+type Urgency  = "critical" | "watch" | "clear";
+type InstructionStatus =
+  | "submitted" | "in_payments" | "first_signed" | "second_signed"
+  | "sent_to_bank" | "confirmed" | "failed";
+type RoutingKind = "instant" | "banking_window" | "manual";
+type SettlementType =
+  | "Trade settlement"
+  | "Creditcard settlement"
+  | "Ripple settlement"
+  | "Deposit settlement"
+  | "OTC trade settlement"
+  | "Derivatives settlement"
+  | "Derivatives IF claim"
+  | "Derivatives IF premium"
+  | "Derivatives FEE sweep"
+  | "Derivatives liquidation"
+  | "Derivatives"
+  | "Account transfers"
+  | "Withdrawals";
+
+const SETTLEMENT_TYPES: SettlementType[] = [
+  "Trade settlement",
+  "Creditcard settlement",
+  "Ripple settlement",
+  "Deposit settlement",
+  "OTC trade settlement",
+  "Derivatives settlement",
+  "Derivatives IF claim",
+  "Derivatives IF premium",
+  "Derivatives FEE sweep",
+  "Derivatives liquidation",
+  "Derivatives",
+  "Account transfers",
+  "Withdrawals",
+];
+
+interface ReportRow {
+  id: string;
+  from: Entity;
+  to: Entity;
+  currency: Currency;
+  toSettle: number;
+  totalBalance: number;
+  previouslySettled: number;
+  settlementTx: string | null;
+  ref: string | null;
+  rowStatus: "Unsettled" | "Settled" | "Processing";
+  isInverse?: boolean; // red row — payment goes To → From
+}
+
+interface TxBreakdown {
+  type: TxType;
+  amount: number;
+  count: number;
+}
+
+interface NetPosition {
+  id: string;
+  from: Entity;
+  to: Entity;
+  currency: Currency;
+  amount: number;
+  threshold: number;
+  urgency: Urgency;
+  lastSettledDaysAgo: number;
+  breakdown: TxBreakdown[];
+  isSkipNode?: boolean;
+  skipVia?: Entity;
+}
+
+interface FBOAccount {
+  id: string;
+  entity: Entity;
+  bank: string;
+  currency: Currency;
+  balance: number;
+  batchApplied: number;
+  isFBO: boolean;
+  routing: RoutingKind;
+  windowCountdown?: string;
+  windowUrgent?: boolean;
+  exposureUsed?: number;
+  exposureLimit?: number;
+  lastUpdatedMins: number;
+}
+
+interface InFlight {
+  id: string;
+  traceId: string;
+  from: Entity;
+  to: Entity;
+  currency: Currency;
+  amount: number;
+  status: InstructionStatus;
+  routing: RoutingKind;
+  bank: string;
+  isSkipNode?: boolean;
+  failureReason?: string;
+  icsWriteback?: "confirmed" | "pending" | "failed";
+  timestamp: string;
+  bankRef?: string;
+}
+
+interface ConfigPosition {
+  positionId: string;
+  action: "full" | "partial" | "defer" | null;
+  partialAmount: number;
+}
+
+// ─── Mock Data ────────────────────────────────────────────────────────────────
+
+const NET_POSITIONS: NetPosition[] = [
+  {
+    id: "p1", from: "SA", to: "INC", currency: "USD",
+    amount: 23_100_000, threshold: 20_000_000, urgency: "critical",
+    lastSettledDaysAgo: 3,
+    breakdown: [
+      { type: "Trade",   amount: 18_400_000, count: 12453 },
+      { type: "Deposit", amount:  3_100_000, count: 89 },
+      { type: "OTC",     amount:  1_600_000, count: 12 },
+    ],
+  },
+  {
+    id: "p2", from: "SA", to: "LTD", currency: "EUR",
+    amount: 14_200_000, threshold: 10_000_000, urgency: "critical",
+    lastSettledDaysAgo: 2,
+    breakdown: [
+      { type: "Trade",      amount: 12_100_000, count: 8712 },
+      { type: "Ripple IOU", amount:  2_100_000, count: 34 },
+    ],
+  },
+  {
+    id: "p3", from: "BFS", to: "INC", currency: "USD",
+    amount: 1_800_000, threshold: 20_000_000, urgency: "watch",
+    lastSettledDaysAgo: 1,
+    isSkipNode: true, skipVia: "MTF",
+    breakdown: [
+      { type: "Derivatives", amount: 1_800_000, count: 204 },
+    ],
+  },
+  {
+    id: "p4", from: "SA", to: "LTD", currency: "GBP",
+    amount: 7_100_000, threshold: 5_000_000, urgency: "watch",
+    lastSettledDaysAgo: 1,
+    breakdown: [
+      { type: "Trade",   amount: 6_800_000, count: 3201 },
+      { type: "Deposit", amount:   300_000, count: 21 },
+    ],
+  },
+  {
+    id: "p5", from: "LTD", to: "INC", currency: "USD",
+    amount: 8_400_000, threshold: 20_000_000, urgency: "clear",
+    lastSettledDaysAgo: 0,
+    breakdown: [
+      { type: "Trade", amount: 8_400_000, count: 4109 },
+    ],
+  },
+  {
+    id: "p6", from: "SA", to: "BVI", currency: "USD",
+    amount: 3_200_000, threshold: 20_000_000, urgency: "clear",
+    lastSettledDaysAgo: 0,
+    breakdown: [
+      { type: "Trade", amount: 3_200_000, count: 892 },
+    ],
+  },
+];
+
+const FBO_ACCOUNTS: FBOAccount[] = [
+  // SA
+  { id: "sa-lhv-eur",  entity: "SA",  bank: "LHV",            currency: "EUR", balance: 48_200_000, batchApplied: 14_200_000, isFBO: true,  routing: "banking_window", windowCountdown: "1h 18m", windowUrgent: true,  lastUpdatedMins: 8 },
+  { id: "sa-cb-usd",   entity: "SA",  bank: "Customers Bank", currency: "USD", balance: 80_100_000, batchApplied: 23_100_000, isFBO: true,  routing: "instant", exposureUsed: 480_000_000, exposureLimit: 500_000_000, lastUpdatedMins: 8 },
+  { id: "sa-bf-chf",   entity: "SA",  bank: "Bank Frick",     currency: "USD", balance: 6_200_000,  batchApplied: 0,          isFBO: false, routing: "banking_window", windowCountdown: "3h 42m", lastUpdatedMins: 8 },
+  // LTD
+  { id: "ltd-lhv-eur", entity: "LTD", bank: "LHV",            currency: "EUR", balance: 42_100_000, batchApplied: 14_200_000, isFBO: true,  routing: "banking_window", windowCountdown: "1h 18m", windowUrgent: true,  lastUpdatedMins: 8 },
+  { id: "ltd-lhv-gbp", entity: "LTD", bank: "LHV",            currency: "GBP", balance: 18_900_000, batchApplied: 7_100_000,  isFBO: true,  routing: "manual", lastUpdatedMins: 8 },
+  // INC
+  { id: "inc-cb-usd",  entity: "INC", bank: "Customers Bank", currency: "USD", balance: 95_400_000, batchApplied: 23_100_000, isFBO: true,  routing: "instant", exposureUsed: 480_000_000, exposureLimit: 500_000_000, lastUpdatedMins: 8 },
+  { id: "inc-bf-usd",  entity: "INC", bank: "Bank Frick",     currency: "USD", balance: 12_100_000, batchApplied: 0,          isFBO: true,  routing: "banking_window", windowCountdown: "3h 42m", lastUpdatedMins: 8 },
+  // BVI
+  { id: "bvi-bf-usd",  entity: "BVI", bank: "Bank Frick",     currency: "USD", balance: 8_700_000,  batchApplied: 0,          isFBO: false, routing: "banking_window", windowCountdown: "3h 42m", lastUpdatedMins: 8 },
+];
+
+const IN_FLIGHT: InFlight[] = [
+  {
+    id: "i1", traceId: "#TRC-047-001", from: "SA", to: "INC", currency: "USD",
+    amount: 23_100_000, status: "failed", routing: "instant", bank: "Customers Bank",
+    failureReason: "LHV insufficient funds ($2.1M short)", icsWriteback: "failed",
+    timestamp: "08:43 UTC",
+  },
+  {
+    id: "i2", traceId: "#TRC-047-002", from: "SA", to: "LTD", currency: "EUR",
+    amount: 14_200_000, status: "confirmed", routing: "banking_window", bank: "LHV",
+    icsWriteback: "confirmed", timestamp: "08:51 UTC", bankRef: "ENDID-2026-0311-00142",
+  },
+  {
+    id: "i3", traceId: "#TRC-047-003", from: "SA", to: "LTD", currency: "GBP",
+    amount: 7_100_000, status: "sent_to_bank", routing: "manual", bank: "LHV",
+    icsWriteback: "pending", timestamp: "08:47 UTC",
+  },
+  {
+    id: "i4", traceId: "#TRC-047-004", from: "LTD", to: "INC", currency: "USD",
+    amount: 8_400_000, status: "confirmed", routing: "instant", bank: "Customers Bank",
+    icsWriteback: "confirmed", timestamp: "08:52 UTC", bankRef: "FEDREF-20260311-00408",
+  },
+  {
+    id: "i5", traceId: "#TRC-047-005", from: "SA", to: "BVI", currency: "USD",
+    amount: 3_200_000, status: "confirmed", routing: "banking_window", bank: "Bank Frick",
+    icsWriteback: "confirmed", timestamp: "08:38 UTC", bankRef: "FRICKREF-20260311-00512",
+  },
+  {
+    id: "i6", traceId: "#TRC-047-006", from: "BFS", to: "INC", currency: "USD",
+    amount: 1_800_000, status: "confirmed", routing: "banking_window", bank: "Bank Frick",
+    isSkipNode: true, icsWriteback: "confirmed", timestamp: "08:36 UTC", bankRef: "FRICKREF-20260311-00509",
+  },
+  {
+    id: "i7", traceId: "#TRC-047-007", from: "SA", to: "INC", currency: "USD",
+    amount: 400_000, status: "confirmed", routing: "instant", bank: "Customers Bank",
+    icsWriteback: "confirmed", timestamp: "08:35 UTC", bankRef: "FEDREF-20260311-00406",
+  },
+];
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function fmtAmt(n: number, currency: Currency): string {
+  const sym = currency === "USD" ? "$" : currency === "EUR" ? "€" : "£";
+  if (n >= 1_000_000) return `${sym}${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000)     return `${sym}${(n / 1_000).toFixed(0)}K`;
+  return `${sym}${n.toFixed(0)}`;
+}
+
+function thresholdPct(amount: number, threshold: number): number {
+  return Math.min((amount / threshold) * 100, 100);
+}
+
+const STATUS_CONFIG: Record<InstructionStatus, { label: string; cls: string }> = {
+  submitted:    { label: "Submitted",            cls: "bg-slate-100 text-slate-600" },
+  in_payments:  { label: "In Payments",          cls: "bg-blue-50 text-blue-700" },
+  first_signed: { label: "First approver signed",cls: "bg-blue-100 text-blue-800" },
+  second_signed:{ label: "Second approver signed",cls:"bg-indigo-100 text-indigo-800" },
+  sent_to_bank: { label: "Sent to bank",         cls: "bg-violet-100 text-violet-800" },
+  confirmed:    { label: "Confirmed received",   cls: "bg-green-100 text-green-700" },
+  failed:       { label: "Failed",               cls: "bg-red-100 text-red-700" },
+};
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function UrgencyDot({ urgency }: { urgency: Urgency }) {
+  const cls =
+    urgency === "critical" ? "bg-red-500 ring-red-200" :
+    urgency === "watch"    ? "bg-amber-500 ring-amber-200" :
+                             "bg-green-500 ring-green-200";
+  return <div className={`w-2.5 h-2.5 rounded-full ring-2 shrink-0 ${cls}`} />;
+}
+
+function UrgencyLabel({ urgency }: { urgency: Urgency }) {
+  const cls =
+    urgency === "critical" ? "text-red-600" :
+    urgency === "watch"    ? "text-amber-600" :
+                             "text-green-600";
+  return (
+    <span className={`text-[10px] font-medium ${cls}`}>
+      {urgency === "critical" ? "Critical" : urgency === "watch" ? "Watch" : "Clear"}
+    </span>
+  );
+}
+
+function CurrencyPill({ currency }: { currency: Currency }) {
+  return (
+    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">
+      {currency}
+    </span>
+  );
+}
+
+// ─── Calculation Provenance Modal ──────────────────────────────────────────────
+
+function ProvenanceModal({ position, onClose }: { position: NetPosition; onClose: () => void }) {
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/20"
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        onClick={onClose}
+      >
+        <motion.div
+          className="bg-white rounded-2xl border border-[#e2e8f0] shadow-2xl p-6 max-w-sm w-full mx-4"
+          initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold text-[#0f172a]">Calculation Provenance</h3>
+            <button onClick={onClose} className="text-[#94a3b8] hover:text-[#475569] p-1 rounded-lg hover:bg-[#f1f5f9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="space-y-2.5 text-sm">
+            <div className="flex justify-between">
+              <span className="text-[#64748b]">Entity pair</span>
+              <span className="font-semibold text-[#0f172a]">{position.from} ↔ {position.to}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[#64748b]">Net position</span>
+              <span className="font-semibold text-[#0f172a]">{fmtAmt(position.amount, position.currency)} {position.currency}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[#64748b]">Source transactions</span>
+              <span className="text-[#0f172a]">{position.breakdown.reduce((s, b) => s + b.count, 0).toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[#64748b]">Date range</span>
+              <span className="text-[#0f172a]">Feb 18 – Mar 4</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[#64748b]">Last settlement</span>
+              <span className="text-[#0f172a]">
+                {position.lastSettledDaysAgo === 0 ? "Today" :
+                 position.lastSettledDaysAgo === 1 ? "Yesterday" :
+                 `${position.lastSettledDaysAgo}d ago`}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[#64748b]">Calculated at</span>
+              <span className="text-[#0f172a]">Today 08:42 UTC</span>
+            </div>
+            <div className="mt-1 pt-3 border-t border-[#f1f5f9] space-y-1.5">
+              {position.breakdown.map(b => (
+                <div key={b.type} className="flex justify-between text-xs">
+                  <span className="text-[#64748b]">{b.type}</span>
+                  <span className="text-[#0f172a] font-medium">
+                    {fmtAmt(b.amount, position.currency)} · {b.count.toLocaleString()} txns
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+// ─── Left Panel: Net Positions ─────────────────────────────────────────────────
+
+function NetPositionsPanel({ onProvenanceClick }: { onProvenanceClick: (p: NetPosition) => void }) {
+  const [activeTab, setActiveTab] = useState<"All" | Currency>("All");
+  const [expandedId, setExpandedId] = useState<string | null>("p1");
+
+  const filtered = activeTab === "All"
+    ? NET_POSITIONS
+    : NET_POSITIONS.filter(p => p.currency === activeTab);
+
+  // Group by currency for subtotals
+  const groups = ["USD", "EUR", "GBP"].map(c => ({
+    currency: c as Currency,
+    positions: filtered.filter(p => p.currency === c),
+    total: filtered.filter(p => p.currency === c).reduce((s, p) => s + p.amount, 0),
+  })).filter(g => g.positions.length > 0);
+
+  return (
+    <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#e2e8f0]">
+        <span className="text-sm font-semibold text-[#0f172a]">Net Positions</span>
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 border border-amber-200">
+          8 min ago
+        </span>
+      </div>
+
+      {/* Currency tabs */}
+      <div className="flex border-b border-[#e2e8f0] px-2">
+        {(["All", "USD", "EUR", "GBP"] as const).map(tab => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-3 py-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50 focus-visible:ring-offset-1 rounded-sm ${
+              activeTab === tab
+                ? "text-[#9c47ff] border-b-2 border-[#9c47ff]"
+                : "text-[#64748b] hover:text-[#475569]"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* Positions list */}
+      <div className="overflow-y-auto flex-1">
+        {groups.map(group => (
+          <div key={group.currency}>
+            {/* Currency group header */}
+            <div className="px-4 py-2 bg-[#f8fafc] border-b border-[#e2e8f0]">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#94a3b8]">
+                  {group.currency}
+                </span>
+                <span className="text-xs font-semibold text-[#0f172a]">
+                  {fmtAmt(group.total, group.currency)}
+                </span>
+              </div>
+            </div>
+
+            {group.positions.map(pos => {
+              const isExpanded = expandedId === pos.id;
+              const pct = thresholdPct(pos.amount, pos.threshold);
+              const barColor = pos.urgency === "critical" ? "bg-red-500" : pos.urgency === "watch" ? "bg-amber-400" : "bg-green-500";
+
+              return (
+                <div
+                  key={pos.id}
+                  className={`border-b border-[#f1f5f9] last:border-0 transition-colors ${isExpanded ? "bg-[#fafbff]" : "hover:bg-[#fafbff]"}`}
+                >
+                  {/* Position row */}
+                  <div
+                    className="flex items-center gap-3 px-4 py-3 cursor-pointer"
+                    onClick={() => setExpandedId(isExpanded ? null : pos.id)}
+                  >
+                    <UrgencyDot urgency={pos.urgency} />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-sm font-medium text-[#0f172a]">{pos.from} ↔ {pos.to}</span>
+                        <CurrencyPill currency={pos.currency} />
+                        {pos.isSkipNode && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-purple-50 text-purple-600 border border-purple-200 font-medium">
+                            Derivatives · Skip-node
+                          </span>
+                        )}
+                        {pos.currency === "GBP" && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 font-medium">
+                            Manual
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-xs text-[#64748b] mt-0.5">
+                        {pos.lastSettledDaysAgo === 0 ? "Settled today" :
+                         pos.lastSettledDaysAgo === 1 ? "Last settled 1d ago" :
+                         `Last settled ${pos.lastSettledDaysAgo}d ago`}
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <button
+                        onClick={e => { e.stopPropagation(); onProvenanceClick(pos); }}
+                        className="text-sm font-semibold text-[#0f172a] hover:text-[#9c47ff] transition-colors underline-offset-2 hover:underline"
+                      >
+                        {fmtAmt(pos.amount, pos.currency)}
+                      </button>
+                      <div className="mt-0.5">
+                        <UrgencyLabel urgency={pos.urgency} />
+                      </div>
+                    </div>
+                    <ChevronRight className={`h-4 w-4 text-[#94a3b8] transition-transform shrink-0 ${isExpanded ? "rotate-90" : ""}`} />
+                  </div>
+
+                  {/* Expanded breakdown */}
+                  {isExpanded && (
+                    <div className="px-4 pb-3 pt-1 bg-[#fafbff] border-t border-[#f1f5f9]">
+                      <div className="text-[10px] font-semibold uppercase tracking-wider text-[#94a3b8] mb-2">
+                        Transaction types
+                      </div>
+                      {pos.breakdown.map(b => (
+                        <div key={b.type} className="flex items-center justify-between py-1">
+                          <span className="text-xs text-[#475569]">{b.type}</span>
+                          <div className="text-right">
+                            <span className="text-xs font-medium text-[#0f172a]">{fmtAmt(b.amount, pos.currency)}</span>
+                            <span className="text-[10px] text-[#94a3b8] ml-1">({b.count.toLocaleString()} txns)</span>
+                          </div>
+                        </div>
+                      ))}
+                      {/* Threshold bar */}
+                      <div className="mt-2 pt-2 border-t border-[#f1f5f9]">
+                        <div className="flex justify-between text-[10px] text-[#94a3b8] mb-1">
+                          <span>Threshold: {fmtAmt(pos.threshold, pos.currency)}</span>
+                          <span className={pos.urgency === "critical" ? "text-red-600 font-medium" : "text-amber-600 font-medium"}>
+                            {Math.round((pos.amount / pos.threshold) * 100)}% of threshold
+                          </span>
+                        </div>
+                        <div className="h-1.5 rounded-full bg-[#f1f5f9]">
+                          <div className={`h-1.5 rounded-full ${barColor}`} style={{ width: `${pct}%` }} />
+                        </div>
+                      </div>
+                      {pos.isSkipNode && pos.skipVia && (
+                        <div className="mt-2 pt-2 border-t border-purple-100 flex items-center gap-1.5 text-[11px] text-purple-700 flex-wrap">
+                          <span className="font-medium">{pos.from}</span>
+                          <span>→</span>
+                          <span className="px-1.5 py-0.5 bg-purple-50 rounded border border-purple-200 line-through text-purple-400">{pos.skipVia}</span>
+                          <span>→</span>
+                          <span className="font-medium">{pos.to}</span>
+                          <span className="text-[10px] text-purple-500">Direct A→C; {pos.skipVia} pass-through only</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Center Panel: FBO Balances ────────────────────────────────────────────────
+
+const BANKING_WINDOWS = [
+  { currency: "USD", status: "open", countdown: "3h 42m", label: "Fedwire closes", urgent: false },
+  { currency: "EUR", status: "open", countdown: "1h 18m", label: "SEPA closes",    urgent: true  },
+  { currency: "GBP", status: "manual", countdown: null,   label: "Manual release only", urgent: false },
+];
+
+const ENTITY_ORDER: Entity[] = ["SA", "LTD", "INC", "BVI"];
+
+function FBOBalancesPanel() {
+  const [expandedEntity, setExpandedEntity] = useState<Entity | null>("SA");
+
+  // Group FBO accounts by entity
+  const byEntity = ENTITY_ORDER.map(e => ({
+    entity: e,
+    accounts: FBO_ACCOUNTS.filter(a => a.entity === e),
+  })).filter(g => g.accounts.length > 0);
+
+  return (
+    <div className="flex flex-col gap-3">
+      {/* Banking Windows */}
+      <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm">
+        <div className="px-4 py-3 border-b border-[#e2e8f0]">
+          <span className="text-sm font-semibold text-[#0f172a]">Banking Windows</span>
+        </div>
+        <div className="px-4 py-1 divide-y divide-[#f1f5f9]">
+          {BANKING_WINDOWS.map(w => (
+            <div
+              key={w.currency}
+              className={`flex items-center gap-3 py-2.5 ${w.urgent ? "-mx-4 px-4 bg-amber-50/60 rounded" : ""}`}
+            >
+              <span className="w-8 text-xs font-bold text-[#475569]">{w.currency}</span>
+              <div className={`w-2 h-2 rounded-full shrink-0 ${w.status === "open" ? "bg-green-500" : "bg-slate-300"}`} />
+              <span className="text-xs text-[#475569] flex-1">{w.label}</span>
+              {w.countdown ? (
+                <span className={`text-xs font-mono font-semibold ${w.urgent ? "text-amber-600" : "text-[#0f172a]"}`}>
+                  {w.countdown}
+                </span>
+              ) : (
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 font-medium">Manual</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FBO Accounts by entity */}
+      {byEntity.map(({ entity, accounts }) => {
+        const isOpen = expandedEntity === entity;
+        return (
+          <div key={entity} className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm overflow-hidden">
+            <button
+              className="w-full flex items-center justify-between px-4 py-3 border-b border-[#e2e8f0] hover:bg-[#f8fafc] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50 focus-visible:ring-inset"
+              onClick={() => setExpandedEntity(isOpen ? null : entity)}
+            >
+              <div className="flex items-center gap-2">
+                <Building2 className="h-4 w-4 text-[#64748b]" />
+                <span className="text-sm font-semibold text-[#0f172a]">{entity}</span>
+                <span className="text-[10px] text-[#94a3b8]">{accounts.length} accounts</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-600 border border-amber-200">
+                  8 min ago
+                </span>
+                <ChevronDown className={`h-4 w-4 text-[#94a3b8] transition-transform ${isOpen ? "rotate-180" : ""}`} />
+              </div>
+            </button>
+
+            {isOpen && (
+              <div className="divide-y divide-[#f1f5f9]">
+                {accounts.map(acct => {
+                  const available = acct.balance - acct.batchApplied;
+                  const pct = acct.balance > 0 ? (available / acct.balance) * 100 : 0;
+                  const barColor = pct < 20 ? "bg-red-400" : pct < 40 ? "bg-amber-400" : "bg-green-400";
+                  const isNearLimit = acct.exposureLimit && acct.exposureUsed && (acct.exposureUsed / acct.exposureLimit) > 0.9;
+
+                  return (
+                    <div key={acct.id} className="px-4 py-3">
+                      {/* Account header */}
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-xs font-semibold text-[#0f172a]">{acct.bank}</span>
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 font-medium">
+                              {acct.currency}
+                            </span>
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium border ${
+                              acct.isFBO
+                                ? "bg-blue-50 text-blue-600 border-blue-200"
+                                : "bg-slate-50 text-slate-500 border-slate-200"
+                            }`}>
+                              {acct.isFBO ? "FBO" : "Corporate"}
+                            </span>
+                          </div>
+                          {/* Routing pill */}
+                          <div className="mt-1">
+                            {acct.routing === "instant" ? (
+                              <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-50 text-green-600 border border-green-200">
+                                Instant (intra-bank)
+                              </span>
+                            ) : acct.routing === "manual" ? (
+                              <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">
+                                Manual release required
+                              </span>
+                            ) : (
+                              <span className={`text-[10px] px-2 py-0.5 rounded-full border ${
+                                acct.windowUrgent
+                                  ? "bg-amber-50 text-amber-600 border-amber-200"
+                                  : "bg-slate-50 text-slate-500 border-slate-200"
+                              }`}>
+                                Banking window{acct.windowCountdown ? ` · closes ${acct.windowCountdown}` : ""}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Balance formula */}
+                      <div className="text-xs text-[#475569] mb-2 font-mono bg-[#f8fafc] px-2 py-1.5 rounded-lg">
+                        {acct.bank}: {fmtAmt(acct.balance, acct.currency)}
+                        {acct.batchApplied > 0 && (
+                          <span className="text-red-600"> − {fmtAmt(acct.batchApplied, acct.currency)} batch</span>
+                        )}
+                        <span className="font-semibold text-[#0f172a]"> = Avail {fmtAmt(available, acct.currency)}</span>
+                      </div>
+
+                      {/* Balance bar */}
+                      <div>
+                        <div className="h-1.5 rounded-full bg-[#f1f5f9]">
+                          <div className={`h-1.5 rounded-full ${barColor} transition-all`} style={{ width: `${Math.max(pct, 2)}%` }} />
+                        </div>
+                        <div className="text-[10px] text-[#94a3b8] mt-0.5">
+                          {Math.round(pct)}% available after batch
+                        </div>
+                      </div>
+
+                      {/* Bank exposure */}
+                      {acct.exposureUsed !== undefined && acct.exposureLimit !== undefined && (
+                        <div className="mt-2 pt-2 border-t border-[#f1f5f9]">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className="text-[#64748b]">{acct.bank} exposure</span>
+                            <span className="font-medium text-[#0f172a]">
+                              {fmtAmt(acct.exposureUsed, acct.currency)} / {fmtAmt(acct.exposureLimit, acct.currency)}
+                            </span>
+                          </div>
+                          <div className="h-1.5 rounded-full bg-[#e2e8f0]">
+                            <div
+                              className={`h-1.5 rounded-full ${isNearLimit ? "bg-amber-400" : "bg-blue-400"}`}
+                              style={{ width: `${Math.round((acct.exposureUsed / acct.exposureLimit) * 100)}%` }}
+                            />
+                          </div>
+                          {isNearLimit && (
+                            <div className="text-[10px] text-amber-600 mt-0.5">
+                              {Math.round((acct.exposureUsed / acct.exposureLimit) * 100)}% of cap — near limit
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── Right Panel: In-Flight Activity ──────────────────────────────────────────
+
+function InFlightPanel() {
+  const confirmed = IN_FLIGHT.filter(i => i.status === "confirmed").length;
+  const sentToBank = IN_FLIGHT.filter(i => i.status === "sent_to_bank").length;
+  const failed     = IN_FLIGHT.filter(i => i.status === "failed").length;
+
+  // Failed instructions pinned to top
+  const sorted = [
+    ...IN_FLIGHT.filter(i => i.status === "failed"),
+    ...IN_FLIGHT.filter(i => i.status !== "failed"),
+  ];
+
+  return (
+    <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="px-4 py-3 border-b border-[#e2e8f0]">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="text-sm font-semibold text-[#0f172a]">In-Flight Activity</span>
+          <span className="text-[10px] text-[#94a3b8]">Ref: BATCH-047</span>
+        </div>
+        <div className="flex gap-1.5 flex-wrap">
+          {confirmed > 0 && (
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200">
+              {confirmed} confirmed
+            </span>
+          )}
+          {sentToBank > 0 && (
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
+              {sentToBank} sent to bank
+            </span>
+          )}
+          {failed > 0 && (
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
+              {failed} failed
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Instructions */}
+      <div className="overflow-y-auto flex-1">
+        {sorted.map(instr => {
+          const isFailed    = instr.status === "failed";
+          const isConfirmed = instr.status === "confirmed";
+          const sc = STATUS_CONFIG[instr.status];
+
+          return (
+            <div
+              key={instr.id}
+              className={`border-b border-[#f1f5f9] last:border-0 ${isFailed ? "border-l-2 border-l-red-500 bg-red-50/30" : ""}`}
+            >
+              <div className={`px-4 py-3 ${isFailed ? "pl-3" : ""}`}>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-xs font-medium text-[#0f172a]">{instr.from} → {instr.to}</span>
+                      {instr.isSkipNode && (
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-purple-50 text-purple-600 border border-purple-200 font-medium">
+                          Skip-node
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <span className="text-[10px] font-mono text-[#94a3b8]">{instr.traceId}</span>
+                    </div>
+
+                    {isFailed ? (
+                      <>
+                        <div className="text-xs text-red-600 mt-0.5 font-medium">
+                          {fmtAmt(instr.amount, instr.currency)} {instr.currency}
+                        </div>
+                        <div className="text-[10px] text-red-500 mt-0.5">
+                          {instr.failureReason}
+                        </div>
+                        {instr.icsWriteback === "failed" && (
+                          <button className="text-[10px] text-[#9c47ff] hover:underline mt-1 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50 rounded">
+                            Retry write-back
+                          </button>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-xs text-[#475569] mt-0.5">
+                          {fmtAmt(instr.amount, instr.currency)} {instr.currency} · {instr.bank}
+                        </div>
+                        {/* ICS write-back status */}
+                        {instr.icsWriteback && (
+                          <div className="flex items-center gap-1 mt-1">
+                            {instr.icsWriteback === "confirmed" ? (
+                              <>
+                                <CheckCircle className="h-3 w-3 text-green-500 shrink-0" />
+                                <span className="text-[10px] text-green-600">ICS write-back confirmed</span>
+                              </>
+                            ) : instr.icsWriteback === "pending" ? (
+                              <>
+                                <Clock className="h-3 w-3 text-amber-500 shrink-0" />
+                                <span className="text-[10px] text-amber-600">ICS write-back pending</span>
+                              </>
+                            ) : null}
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+
+                  <span className={`shrink-0 text-[10px] px-2 py-0.5 rounded-full font-medium ${sc.cls}`}>
+                    {sc.label}
+                  </span>
+                </div>
+
+                {/* Timestamp + bank ref */}
+                <div className="text-[10px] text-[#94a3b8] mt-1.5">
+                  {instr.timestamp}
+                  {instr.bankRef && ` · ref: ${instr.bankRef.length > 20 ? instr.bankRef.substring(0, 20) + "…" : instr.bankRef}`}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ─── Batch Configurator Drawer ─────────────────────────────────────────────────
+
+function ConfiguratorDrawer({
+  onClose,
+  onSubmit,
+}: {
+  onClose: () => void;
+  onSubmit: () => void;
+}) {
+  const [activeCurrency, setActiveCurrency] = useState<Currency>("USD");
+  const [positions, setPositions] = useState<ConfigPosition[]>(
+    NET_POSITIONS.map(p => ({ positionId: p.id, action: null, partialAmount: p.amount }))
+  );
+  const [settleAllToast, setSettleAllToast] = useState(false);
+  const [settleAllCountdown, setSettleAllCountdown] = useState(5);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const filteredPositions = NET_POSITIONS.filter(p => p.currency === activeCurrency);
+
+  const getConfig = (posId: string) => positions.find(p => p.positionId === posId)!;
+  const setAction = (posId: string, action: "full" | "partial" | "defer") => {
+    setPositions(prev => prev.map(p => p.positionId === posId ? { ...p, action } : p));
+  };
+
+  // Cleanup interval on unmount
+  useEffect(() => () => { if (countdownRef.current) clearInterval(countdownRef.current); }, []);
+
+  function handleSettleAll() {
+    // Clear any existing interval before starting a new one
+    if (countdownRef.current) clearInterval(countdownRef.current);
+    setPositions(prev => prev.map(p => {
+      const pos = NET_POSITIONS.find(np => np.id === p.positionId);
+      if (pos && pos.currency === activeCurrency) return { ...p, action: "full" };
+      return p;
+    }));
+    setSettleAllToast(true);
+    setSettleAllCountdown(5);
+    countdownRef.current = setInterval(() => {
+      setSettleAllCountdown(n => {
+        if (n <= 1) {
+          clearInterval(countdownRef.current!);
+          countdownRef.current = null;
+          setSettleAllToast(false);
+          return 0;
+        }
+        return n - 1;
+      });
+    }, 1000);
+  }
+
+  function handleUndo() {
+    if (countdownRef.current) clearInterval(countdownRef.current);
+    countdownRef.current = null;
+    setSettleAllToast(false);
+    setPositions(prev => prev.map(p => {
+      const pos = NET_POSITIONS.find(np => np.id === p.positionId);
+      if (pos && pos.currency === activeCurrency) return { ...p, action: null };
+      return p;
+    }));
+  }
+
+  // Running balance totals for sidebar
+  const sbAccounts = [
+    { bank: "LHV (SA)",            currency: "EUR" as Currency, balance: 48_200_000, applied: 14_200_000 },
+    { bank: "Customers Bank (SA)", currency: "USD" as Currency, balance: 80_100_000, applied: 23_100_000 },
+  ];
+
+  const configuredCount = filteredPositions.filter(p => getConfig(p.id).action !== null).length;
+  const canGoNext = configuredCount === filteredPositions.length;
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-40 flex"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* Backdrop */}
+      <div className="flex-1 bg-black/20 backdrop-blur-[1px]" onClick={onClose} />
+
+      {/* Drawer */}
+      <motion.div
+        className="w-[560px] bg-white border-l border-[#e2e8f0] shadow-2xl flex flex-col h-full"
+        initial={{ x: 560 }}
+        animate={{ x: 0 }}
+        exit={{ x: 560 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      >
+        {/* Drawer header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#e2e8f0] shrink-0">
+          <div>
+            <h2 className="text-base font-semibold text-[#0f172a]">Configure Batch</h2>
+            <p className="text-xs text-[#64748b] mt-0.5">{configuredCount} of {filteredPositions.length} positions configured</p>
+          </div>
+          <button onClick={onClose} className="text-[#94a3b8] hover:text-[#475569] p-2 rounded-lg hover:bg-[#f1f5f9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Currency tabs */}
+        <div className="flex border-b border-[#e2e8f0] px-4 shrink-0">
+          {(["USD", "EUR", "GBP"] as Currency[]).map(c => (
+            <button
+              key={c}
+              onClick={() => setActiveCurrency(c)}
+              className={`px-4 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50 focus-visible:ring-offset-1 rounded-sm ${
+                activeCurrency === c
+                  ? "text-[#9c47ff] border-b-2 border-[#9c47ff]"
+                  : "text-[#64748b] hover:text-[#475569]"
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+
+        {/* Main area: positions + running balance sidebar */}
+        <div className="flex flex-1 overflow-hidden">
+          {/* Positions list */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            {/* Settle all button */}
+            <button
+              onClick={handleSettleAll}
+              className="w-full py-2 text-xs font-medium rounded-lg border border-[#9c47ff]/30 bg-[#9c47ff]/5 text-[#9c47ff] hover:bg-[#9c47ff]/10 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50"
+            >
+              Settle all at recommended <kbd className="ml-1 text-[10px] bg-[#9c47ff]/10 px-1.5 py-0.5 rounded font-mono">⌥A</kbd>
+            </button>
+
+            {filteredPositions.map(pos => {
+              const cfg = getConfig(pos.id);
+              const recommendedFBO = pos.currency === "EUR" ? "LHV (SA) → LHV (LTD)"
+                                   : pos.currency === "GBP" ? "LHV (SA) → LHV (LTD)"
+                                   : "Customers Bank (SA) → Customers Bank (INC)";
+              const routingLabel = pos.currency === "GBP" ? "Manual release"
+                                 : pos.currency === "EUR" ? "SEPA · closes 1h 18m"
+                                 : "Instant";
+
+              return (
+                <div
+                  key={pos.id}
+                  className={`border rounded-xl bg-white p-4 transition-all ${
+                    cfg.action === "defer" ? "opacity-60 border-[#e2e8f0]" :
+                    cfg.action !== null ? "border-[#9c47ff]/30 shadow-sm" :
+                    "border-[#e2e8f0]"
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <div className="text-sm font-medium text-[#0f172a]">{pos.from} ↔ {pos.to}</div>
+                      <div className="text-xs text-[#64748b] mt-0.5">
+                        {fmtAmt(pos.amount, pos.currency)} {pos.currency} · {pos.breakdown.length} types ·{" "}
+                        {pos.lastSettledDaysAgo === 0 ? "settled today" : `last settled ${pos.lastSettledDaysAgo}d ago`}
+                      </div>
+                    </div>
+                    <div className={`text-[10px] px-2 py-1 rounded-full border font-medium ${
+                      pos.urgency === "critical" ? "bg-red-50 border-red-200 text-red-700" :
+                      pos.urgency === "watch"    ? "bg-amber-50 border-amber-200 text-amber-700" :
+                                                   "bg-green-50 border-green-200 text-green-700"
+                    }`}>
+                      {pos.urgency === "critical" ? "Critical" : pos.urgency === "watch" ? "Watch" : "Clear"}
+                    </div>
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setAction(pos.id, "full")}
+                      className={`flex-1 py-2 text-xs font-medium rounded-lg border-2 transition-all ${
+                        cfg.action === "full"
+                          ? "border-[#9c47ff] bg-[#9c47ff] text-white"
+                          : "border-[#9c47ff] bg-[#9c47ff]/5 text-[#9c47ff] hover:bg-[#9c47ff]/10"
+                      }`}
+                    >
+                      Settle Full ({fmtAmt(pos.amount, pos.currency)})
+                    </button>
+                    <button
+                      onClick={() => setAction(pos.id, "partial")}
+                      className={`px-3 py-2 text-xs font-medium rounded-lg border transition-all ${
+                        cfg.action === "partial"
+                          ? "border-[#9c47ff] bg-[#9c47ff]/10 text-[#9c47ff]"
+                          : "border-[#e2e8f0] text-[#475569] hover:border-[#9c47ff]/30 hover:text-[#9c47ff]"
+                      }`}
+                    >
+                      Partial
+                    </button>
+                    <button
+                      onClick={() => setAction(pos.id, "defer")}
+                      className={`px-3 py-2 text-xs font-medium rounded-lg border transition-all ${
+                        cfg.action === "defer"
+                          ? "border-slate-400 bg-slate-100 text-slate-600"
+                          : "border-[#e2e8f0] text-[#475569] hover:bg-[#f8fafc]"
+                      }`}
+                    >
+                      Defer
+                    </button>
+                  </div>
+
+                  {/* Recommended FBO */}
+                  <div className="mt-2 pt-2 border-t border-[#f1f5f9] flex items-center justify-between">
+                    <span className="text-[11px] text-[#64748b]">
+                      → {recommendedFBO} · {routingLabel}
+                    </span>
+                    <button className="text-[10px] text-[#006AFF] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#006AFF]/50 rounded">Change</button>
+                  </div>
+
+                  {/* Skip-node indicator */}
+                  {pos.isSkipNode && pos.skipVia && (
+                    <div className="mt-2 pt-2 border-t border-purple-100 flex items-center gap-1.5 text-[11px] text-purple-700">
+                      <span className="font-medium">{pos.from}</span>
+                      <ArrowRight className="h-3 w-3" />
+                      <span className="px-1.5 py-0.5 bg-purple-50 rounded border border-purple-200 line-through text-purple-400">{pos.skipVia}</span>
+                      <ArrowRight className="h-3 w-3" />
+                      <span className="font-medium">{pos.to}</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Running balance sidebar */}
+          <div className="w-[200px] shrink-0 border-l border-[#e2e8f0] bg-[#f8fafc] p-4 flex flex-col gap-4 overflow-y-auto">
+            <div className="text-xs font-semibold text-[#0f172a]">Running Balance</div>
+
+            {sbAccounts.map(a => {
+              const available = a.balance - a.applied;
+              return (
+                <div key={a.bank} className="text-[11px] space-y-1">
+                  <div className="font-medium text-[#475569]">{a.bank}</div>
+                  <div className="flex justify-between text-[#64748b]">
+                    <span>LM balance</span>
+                    <span>{fmtAmt(a.balance, a.currency)}</span>
+                  </div>
+                  <div className="flex justify-between text-[#64748b]">
+                    <span>Applied</span>
+                    <span className="text-red-600">−{fmtAmt(a.applied, a.currency)}</span>
+                  </div>
+                  <div className="flex justify-between font-semibold">
+                    <span className="text-[#0f172a]">Available</span>
+                    <span className={available < a.applied * 0.3 ? "text-amber-600" : "text-green-600"}>
+                      {fmtAmt(available, a.currency)}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Customers Bank cap */}
+            <div className="text-[11px]">
+              <div className="flex justify-between text-[#64748b] mb-1">
+                <span>Customers Bank cap</span>
+                <span className="text-amber-600 font-medium">96%</span>
+              </div>
+              <div className="h-1 rounded-full bg-[#e2e8f0]">
+                <div className="h-1 rounded-full bg-amber-400" style={{ width: "96%" }} />
+              </div>
+            </div>
+
+            {/* Keyboard hints */}
+            <div className="mt-auto text-[10px] text-[#94a3b8] space-y-0.5">
+              <div>↵ Accept · D Defer</div>
+              <div>⌥A Settle all</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Drawer footer */}
+        <div className="shrink-0 px-5 py-4 border-t border-[#e2e8f0] flex items-center gap-3">
+          <button
+            onClick={onClose}
+            className="px-4 py-2.5 text-sm font-medium rounded-xl border border-[#e2e8f0] text-[#475569] hover:bg-[#f8fafc] transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            disabled={!canGoNext}
+            onClick={onSubmit}
+            className={`flex-1 py-2.5 text-sm font-semibold rounded-xl transition-all ${
+              canGoNext
+                ? "bg-[#9c47ff] text-white hover:bg-[#6417bf] shadow-sm shadow-[#9c47ff]/20"
+                : "bg-[#9c47ff]/20 text-[#9c47ff]/50 cursor-not-allowed"
+            }`}
+          >
+            {canGoNext ? "Review Pre-Go Summary →" : `Configure all ${filteredPositions.length - configuredCount} remaining positions`}
+          </button>
+        </div>
+
+        {/* Settle-all undo toast */}
+        <AnimatePresence>
+          {settleAllToast && (
+            <motion.div
+              className="absolute bottom-20 left-4 right-4 bg-[#0f172a] text-white rounded-xl px-4 py-3 shadow-xl flex items-center gap-3 text-xs"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+            >
+              <span className="flex-1">All {filteredPositions.length} positions set to recommended amounts</span>
+              <button onClick={handleUndo} className="text-[#9c47ff] font-medium hover:text-[#c084fc]">
+                Undo ({settleAllCountdown}s)
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ─── Pre-Go Summary Overlay ────────────────────────────────────────────────────
+
+const PRE_GO_INSTRUCTIONS = [
+  { id: "pg1", entityPair: "SA → INC", amount: "$23.1M", currency: "USD" as Currency, sourceFBO: "Customers Bank (SA)", routing: "Instant · Fedwire", traceId: "#TRC-048-001", isSkipNode: false, isGBP: false },
+  { id: "pg2", entityPair: "SA → LTD", amount: "€14.2M", currency: "EUR" as Currency, sourceFBO: "LHV (SA)",            routing: "SEPA · closes 1h 18m", traceId: "#TRC-048-002", isSkipNode: false, isGBP: false },
+  { id: "pg3", entityPair: "SA → LTD", amount: "£7.1M",  currency: "GBP" as Currency, sourceFBO: "LHV (SA)",            routing: "Manual release",  traceId: "#TRC-048-003", isSkipNode: false, isGBP: true  },
+  { id: "pg4", entityPair: "BFS → INC", amount: "$1.8M", currency: "USD" as Currency, sourceFBO: "Bank Frick (BFS)",    routing: "SEPA · skip-node", traceId: "#TRC-048-004", isSkipNode: true,  isGBP: false },
+];
+
+function PreGoSummary({ onClose, onConfirm }: { onClose: () => void; onConfirm: () => void }) {
+  const [gbpAcked, setGbpAcked] = useState(false);
+  const isStale = false; // mock: data is fresh enough
+
+  const canSubmit = gbpAcked && !isStale;
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 bg-white flex flex-col"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between px-8 py-4 border-b border-[#e2e8f0] shrink-0">
+        <div>
+          <h2 className="text-lg font-semibold text-[#0f172a]">Pre-Go Summary</h2>
+          <p className="text-sm text-[#64748b] mt-0.5">Review all instructions before submitting to Payments</p>
+        </div>
+        <button onClick={onClose} className="text-[#94a3b8] hover:text-[#475569] p-2 rounded-lg hover:bg-[#f1f5f9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50">
+          <X className="h-5 w-5" />
+        </button>
+      </div>
+
+      {/* Scrollable body */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-3xl mx-auto px-8 py-6 space-y-3">
+
+          {/* Banking window warning */}
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 flex gap-3">
+            <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+            <div>
+              <div className="text-sm font-medium text-amber-800">Banking window closing soon</div>
+              <div className="text-xs text-amber-700 mt-0.5">
+                2 instructions require cross-bank routing. SEPA window closes in 1h 18m. Payments team must act promptly.
+              </div>
+            </div>
+          </div>
+
+          {/* GBP acknowledgement */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="gbp-ack"
+                checked={gbpAcked}
+                onChange={e => setGbpAcked(e.target.checked)}
+                className="mt-0.5 w-4 h-4 accent-[#9c47ff] cursor-pointer"
+              />
+              <label htmlFor="gbp-ack" className="text-sm text-[#0f172a] cursor-pointer leading-relaxed">
+                I understand GBP instructions (1 instruction · £7.1M) require{" "}
+                <strong>manual release</strong> in the banking portal. They cannot be processed automatically.
+              </label>
+            </div>
+          </div>
+
+          {/* Instructions */}
+          {PRE_GO_INSTRUCTIONS.map((instr, i) => (
+            <div
+              key={instr.id}
+              className={`rounded-xl border bg-white p-4 ${instr.isSkipNode ? "border-purple-200" : "border-[#e2e8f0]"}`}
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-sm font-semibold text-[#0f172a]">{i + 1}. {instr.entityPair}</span>
+                  {instr.isSkipNode && (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 font-medium">
+                      Derivatives · Skip-node
+                    </span>
+                  )}
+                  {instr.isGBP && (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
+                      Manual release required
+                    </span>
+                  )}
+                </div>
+                <span className="text-[10px] font-mono text-[#94a3b8] shrink-0">{instr.traceId}</span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 text-xs">
+                <div>
+                  <div className="text-[#94a3b8] mb-0.5">Amount</div>
+                  <input
+                    type="text"
+                    defaultValue={instr.amount}
+                    className="font-semibold text-[#0f172a] border-b border-transparent hover:border-[#9c47ff]/40 focus:border-[#9c47ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50 focus-visible:ring-offset-1 rounded-sm bg-transparent w-full"
+                  />
+                </div>
+                <div>
+                  <div className="text-[#94a3b8] mb-0.5">Source FBO</div>
+                  <div className="font-medium text-[#0f172a]">{instr.sourceFBO}</div>
+                </div>
+                <div>
+                  <div className="text-[#94a3b8] mb-0.5">Routing</div>
+                  <div className="font-medium text-[#475569]">{instr.routing}</div>
+                </div>
+              </div>
+
+              {/* Skip-node diagram */}
+              {instr.isSkipNode && (
+                <div className="mt-3 pt-3 border-t border-purple-100 flex items-center gap-2 text-[11px] text-purple-700 flex-wrap">
+                  <span className="font-medium">BFS</span>
+                  <span>→</span>
+                  <span className="px-2 py-0.5 bg-purple-50 rounded border border-purple-200 line-through text-purple-400">MTF</span>
+                  <span>→</span>
+                  <span className="font-medium">INC</span>
+                  <span className="ml-2 text-[10px] text-purple-500">Direct A→C payment; MTF pass-through only</span>
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* Large amount warning */}
+          <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-4">
+            <div className="text-sm font-medium text-yellow-800">Large instruction confirmation</div>
+            <div className="text-xs text-yellow-700 mt-1">
+              $23.1M SA → INC exceeds the $20M large-amount threshold. Please confirm this is intentional before submitting.
+            </div>
+          </div>
+
+          {/* Summary totals */}
+          <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4">
+            <div className="flex justify-between text-sm">
+              <span className="text-[#64748b]">Total batch value</span>
+              <span className="font-semibold text-[#0f172a]">$44.8M equivalent</span>
+            </div>
+            <div className="flex justify-between text-xs text-[#94a3b8] mt-1">
+              <span>4 instructions · 3 currencies</span>
+              <span>2 banking window · 1 instant · 1 manual</span>
+            </div>
+          </div>
+
+          {/* Submit button — below last instruction, requires scroll */}
+          <div className="pt-4 pb-8">
+            <button
+              disabled={!canSubmit}
+              onClick={onConfirm}
+              className={`w-full py-4 rounded-xl text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50 focus-visible:ring-offset-2 ${
+                !canSubmit
+                  ? "bg-[#9c47ff]/30 text-[#9c47ff]/50 cursor-not-allowed"
+                  : "bg-[#9c47ff] text-white hover:bg-[#6417bf] shadow-md shadow-[#9c47ff]/20"
+              }`}
+            >
+              {isStale
+                ? "Balance data too old — refresh before submitting"
+                : !gbpAcked
+                  ? "Acknowledge GBP manual release to continue"
+                  : "Submit 4 instructions to Payments →"}
+            </button>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Settlement Report Mock Data ───────────────────────────────────────────────
+
+const REPORT_ROWS: Record<SettlementType, ReportRow[]> = {
+  "Trade settlement": [
+    { id: "r1",  from: "INC", to: "SA",  currency: "EUR", toSettle: 14_200_000, totalBalance: 16_100_000, previouslySettled: 1_900_000, settlementTx: "ENDID-2026-0311-00142", ref: "IC-EUR-047", rowStatus: "Settled" },
+    { id: "r2",  from: "SA",  to: "LTD", currency: "EUR", toSettle:  8_300_000, totalBalance:  9_800_000, previouslySettled: 1_500_000, settlementTx: null,                      ref: "IC-EUR-048", rowStatus: "Unsettled" },
+    { id: "r3",  from: "LTD", to: "INC", currency: "EUR", toSettle:  3_100_000, totalBalance:  3_100_000, previouslySettled:          0, settlementTx: null,                      ref: "IC-EUR-049", rowStatus: "Unsettled" },
+    { id: "r4",  from: "BVI", to: "LTD", currency: "EUR", toSettle:  2_200_000, totalBalance:  2_200_000, previouslySettled:          0, settlementTx: null,                      ref: "IC-EUR-050", rowStatus: "Unsettled" },
+    { id: "r5",  from: "BVI", to: "SA",  currency: "EUR", toSettle:    900_000, totalBalance:  1_100_000, previouslySettled:    200_000, settlementTx: null,                      ref: "IC-EUR-051", rowStatus: "Unsettled", isInverse: true },
+    { id: "r6",  from: "BVI", to: "INC", currency: "EUR", toSettle:  1_400_000, totalBalance:  1_400_000, previouslySettled:          0, settlementTx: null,                      ref: "IC-EUR-052", rowStatus: "Unsettled" },
+    { id: "r7",  from: "SA",  to: "INC", currency: "USD", toSettle: 23_100_000, totalBalance: 24_600_000, previouslySettled: 1_500_000, settlementTx: null,                      ref: "IC-USD-047", rowStatus: "Processing" },
+    { id: "r8",  from: "LTD", to: "INC", currency: "USD", toSettle:  8_400_000, totalBalance:  8_400_000, previouslySettled:          0, settlementTx: "FEDREF-20260311-00408", ref: "IC-USD-048", rowStatus: "Settled" },
+    { id: "r9",  from: "SA",  to: "BVI", currency: "USD", toSettle:  3_200_000, totalBalance:  3_200_000, previouslySettled:          0, settlementTx: null,                      ref: "IC-USD-049", rowStatus: "Unsettled" },
+    { id: "r10", from: "SA",  to: "LTD", currency: "GBP", toSettle:  7_100_000, totalBalance:  7_800_000, previouslySettled:    700_000, settlementTx: null,                      ref: "IC-GBP-047", rowStatus: "Unsettled" },
+  ],
+  "Creditcard settlement": [
+    { id: "cc1", from: "SA",  to: "INC", currency: "EUR", toSettle:  2_100_000, totalBalance:  2_100_000, previouslySettled: 0, settlementTx: null, ref: "CC-EUR-012", rowStatus: "Unsettled" },
+    { id: "cc2", from: "LTD", to: "SA",  currency: "EUR", toSettle:    450_000, totalBalance:    450_000, previouslySettled: 0, settlementTx: null, ref: "CC-EUR-013", rowStatus: "Unsettled" },
+    { id: "cc3", from: "INC", to: "BVI", currency: "USD", toSettle:    780_000, totalBalance:    780_000, previouslySettled: 0, settlementTx: null, ref: "CC-USD-012", rowStatus: "Unsettled" },
+  ],
+  "Ripple settlement": [
+    { id: "rp1", from: "SA",  to: "LTD", currency: "EUR", toSettle: 2_100_000, totalBalance: 2_100_000, previouslySettled: 0, settlementTx: null, ref: "RP-EUR-009", rowStatus: "Unsettled" },
+    { id: "rp2", from: "BVI", to: "INC", currency: "USD", toSettle:   340_000, totalBalance:   340_000, previouslySettled: 0, settlementTx: null, ref: "RP-USD-009", rowStatus: "Unsettled" },
+  ],
+  "Deposit settlement": [
+    { id: "dp1", from: "SA",  to: "INC", currency: "USD", toSettle: 3_100_000, totalBalance: 3_300_000, previouslySettled: 200_000, settlementTx: null, ref: "DEP-USD-031", rowStatus: "Unsettled" },
+    { id: "dp2", from: "SA",  to: "LTD", currency: "GBP", toSettle:   300_000, totalBalance:   300_000, previouslySettled:       0, settlementTx: null, ref: "DEP-GBP-031", rowStatus: "Unsettled" },
+    { id: "dp3", from: "LTD", to: "INC", currency: "EUR", toSettle:   880_000, totalBalance:   880_000, previouslySettled:       0, settlementTx: null, ref: "DEP-EUR-031", rowStatus: "Unsettled" },
+  ],
+  "OTC trade settlement": [
+    { id: "otc1", from: "SA",  to: "INC", currency: "USD", toSettle: 1_600_000, totalBalance: 1_600_000, previouslySettled: 0, settlementTx: null, ref: "OTC-USD-021", rowStatus: "Unsettled" },
+    { id: "otc2", from: "BVI", to: "SA",  currency: "EUR", toSettle:   200_000, totalBalance:   200_000, previouslySettled: 0, settlementTx: null, ref: "OTC-EUR-021", rowStatus: "Unsettled", isInverse: true },
+  ],
+  "Derivatives settlement": [
+    { id: "dv1", from: "BFS", to: "INC", currency: "USD", toSettle: 1_800_000, totalBalance: 1_800_000, previouslySettled: 0, settlementTx: null, ref: "DRV-USD-015", rowStatus: "Processing" },
+    { id: "dv2", from: "MTF", to: "BFS", currency: "EUR", toSettle:   620_000, totalBalance:   620_000, previouslySettled: 0, settlementTx: null, ref: "DRV-EUR-015", rowStatus: "Unsettled" },
+  ],
+  "Derivatives IF claim": [
+    { id: "ifc1", from: "BFS", to: "SA", currency: "USD", toSettle: 450_000, totalBalance: 450_000, previouslySettled: 0, settlementTx: null, ref: "IFC-USD-004", rowStatus: "Unsettled" },
+  ],
+  "Derivatives IF premium": [
+    { id: "ifp1", from: "SA", to: "BFS", currency: "USD", toSettle: 120_000, totalBalance: 120_000, previouslySettled: 0, settlementTx: null, ref: "IFP-USD-004", rowStatus: "Unsettled" },
+    { id: "ifp2", from: "INC", to: "BFS", currency: "USD", toSettle: 89_000, totalBalance: 89_000, previouslySettled: 0, settlementTx: null, ref: "IFP-USD-005", rowStatus: "Unsettled" },
+  ],
+  "Derivatives FEE sweep": [
+    { id: "fee1", from: "SA",  to: "BFS", currency: "USD", toSettle: 230_000, totalBalance: 230_000, previouslySettled: 0, settlementTx: null, ref: "FEE-USD-011", rowStatus: "Unsettled" },
+    { id: "fee2", from: "LTD", to: "BFS", currency: "EUR", toSettle:  74_000, totalBalance:  74_000, previouslySettled: 0, settlementTx: null, ref: "FEE-EUR-011", rowStatus: "Unsettled" },
+    { id: "fee3", from: "INC", to: "BFS", currency: "USD", toSettle: 185_000, totalBalance: 185_000, previouslySettled: 0, settlementTx: null, ref: "FEE-USD-012", rowStatus: "Unsettled" },
+  ],
+  "Derivatives liquidation": [
+    { id: "liq1", from: "BFS", to: "SA", currency: "USD", toSettle: 310_000, totalBalance: 310_000, previouslySettled: 0, settlementTx: null, ref: "LIQ-USD-003", rowStatus: "Unsettled" },
+  ],
+  "Derivatives": [
+    { id: "drv1", from: "BFS", to: "MTF", currency: "EUR", toSettle: 980_000, totalBalance: 980_000, previouslySettled: 0, settlementTx: null, ref: "DGEN-EUR-007", rowStatus: "Unsettled" },
+    { id: "drv2", from: "MTF", to: "INC", currency: "USD", toSettle: 440_000, totalBalance: 440_000, previouslySettled: 0, settlementTx: null, ref: "DGEN-USD-007", rowStatus: "Unsettled" },
+  ],
+  "Account transfers": [
+    { id: "at1", from: "SA",  to: "INC", currency: "USD", toSettle: 5_000_000, totalBalance: 5_000_000, previouslySettled: 0, settlementTx: "FEDREF-20260311-00390", ref: "AT-USD-019", rowStatus: "Settled" },
+    { id: "at2", from: "LTD", to: "SA",  currency: "GBP", toSettle: 1_200_000, totalBalance: 1_200_000, previouslySettled: 0, settlementTx: null,                      ref: "AT-GBP-019", rowStatus: "Unsettled" },
+  ],
+  "Withdrawals": [
+    { id: "wd1", from: "SA",  to: "INC", currency: "USD", toSettle: 880_000, totalBalance: 880_000, previouslySettled: 0, settlementTx: null, ref: "WD-USD-008", rowStatus: "Unsettled" },
+    { id: "wd2", from: "BVI", to: "INC", currency: "EUR", toSettle: 340_000, totalBalance: 340_000, previouslySettled: 0, settlementTx: null, ref: "WD-EUR-008", rowStatus: "Unsettled" },
+  ],
+};
+
+// ─── Settlement Report Table ────────────────────────────────────────────────────
+
+function SettlementReportTable({ settlementType }: { settlementType: SettlementType }) {
+  const currentRows = REPORT_ROWS[settlementType] ?? [];
+  const [rowStatuses, setRowStatuses] = useState<Record<string, ReportRow["rowStatus"]>>(
+    Object.fromEntries(currentRows.map(r => [r.id, r.rowStatus]))
+  );
+
+  // Reset statuses when settlement type changes
+  useEffect(() => {
+    const newRows = REPORT_ROWS[settlementType] ?? [];
+    setRowStatuses(Object.fromEntries(newRows.map(r => [r.id, r.rowStatus])));
+  }, [settlementType]);
+
+  const unsettledCount = currentRows.filter(r => (rowStatuses[r.id] ?? r.rowStatus) === "Unsettled").length;
+  const settledCount   = currentRows.filter(r => (rowStatuses[r.id] ?? r.rowStatus) === "Settled").length;
+
+  // Group by currency
+  const currencies = Array.from(new Set(currentRows.map(r => r.currency)));
+
+  return (
+    <div className="flex flex-col h-full overflow-hidden">
+      {/* Table toolbar */}
+      <div className="flex items-center justify-between px-6 py-3 bg-white border-b border-[#e2e8f0]">
+        <div className="flex items-center gap-4 text-xs text-[#64748b]">
+          <span><span className="font-semibold text-[#0f172a]">{currentRows.length}</span> rows</span>
+          <span className="text-[#e2e8f0]">·</span>
+          <span><span className="font-semibold text-amber-600">{unsettledCount}</span> unsettled</span>
+          <span className="text-[#e2e8f0]">·</span>
+          <span><span className="font-semibold text-green-600">{settledCount}</span> settled</span>
+          <span className="text-[#e2e8f0]">·</span>
+          <span>Total: <span className="font-semibold text-[#0f172a]">{
+            currencies.map(c => {
+              const sum = currentRows.filter(r => r.currency === c).reduce((s, r) => s + r.toSettle, 0);
+              const sym = c === "USD" ? "$" : c === "EUR" ? "€" : "£";
+              return `${sym}${(sum / 1_000_000).toFixed(1)}M ${c}`;
+            }).join(" + ")
+          }</span></span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50">
+            <Download className="h-3 w-3" />
+            Export Source Transactions
+          </button>
+          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50">
+            <FileText className="h-3 w-3" />
+            Export Report
+          </button>
+        </div>
+      </div>
+
+      {/* Table */}
+      <div className="flex-1 overflow-y-auto">
+        <table className="w-full text-sm border-collapse">
+          <thead className="sticky top-0 z-10">
+            <tr className="bg-[#f8fafc] border-b border-[#e2e8f0]">
+              <th className="text-left px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b] whitespace-nowrap">From</th>
+              <th className="text-center px-2 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b]"></th>
+              <th className="text-left px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b] whitespace-nowrap">To</th>
+              <th className="text-right px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b] whitespace-nowrap">To Settle</th>
+              <th className="text-left px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b]">Calculation</th>
+              <th className="text-left px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b] whitespace-nowrap">Settlement tx</th>
+              <th className="text-left px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b]">Ref</th>
+              <th className="text-left px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b]">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currencies.map(currency => {
+              const currencyRows = currentRows.filter(r => r.currency === currency);
+              const currencyTotal = currencyRows.reduce((s, r) => s + r.toSettle, 0);
+              const sym = currency === "USD" ? "$" : currency === "EUR" ? "€" : "£";
+              return (
+                <Fragment key={currency}>
+                  {/* Currency section header */}
+                  <tr className="bg-[#f1f5f9] border-y border-[#e2e8f0]">
+                    <td colSpan={7} className="px-4 py-1.5">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#475569]">{currency}</span>
+                    </td>
+                    <td className="px-4 py-1.5 text-right">
+                      <span className="text-[11px] font-bold text-[#0f172a]">
+                        {sym}{(currencyTotal / 1_000_000).toFixed(2)}M
+                      </span>
+                    </td>
+                  </tr>
+                  {currencyRows.map((row, idx) => {
+                    const status = rowStatuses[row.id] ?? row.rowStatus;
+                    const isInverse = row.isInverse;
+                    return (
+                      <tr
+                        key={row.id}
+                        className={`border-b border-[#f1f5f9] transition-colors ${
+                          isInverse
+                            ? "bg-red-50 hover:bg-red-100/60"
+                            : idx % 2 === 0
+                              ? "bg-white hover:bg-[#fafbff]"
+                              : "bg-[#fafcff] hover:bg-[#fafbff]"
+                        }`}
+                      >
+                        {/* From */}
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full bg-violet-100 flex items-center justify-center">
+                              <span className="text-[9px] font-bold text-violet-700">{row.from}</span>
+                            </div>
+                            <span className="text-xs font-medium text-[#0f172a]">{row.from}</span>
+                          </div>
+                        </td>
+                        {/* Direction arrow */}
+                        <td className="px-2 py-2.5 text-center">
+                          {isInverse ? (
+                            <span className="text-red-500 font-bold text-sm">←</span>
+                          ) : (
+                            <span className="text-[#94a3b8]">→</span>
+                          )}
+                        </td>
+                        {/* To */}
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center">
+                              <span className="text-[9px] font-bold text-slate-600">{row.to}</span>
+                            </div>
+                            <span className="text-xs font-medium text-[#0f172a]">{row.to}</span>
+                          </div>
+                        </td>
+                        {/* To Settle */}
+                        <td className="px-4 py-2.5 text-right">
+                          <span className={`text-sm font-semibold ${isInverse ? "text-red-700" : "text-[#0f172a]"}`}>
+                            {sym}{(row.toSettle / 1_000_000).toFixed(2)}M
+                          </span>
+                        </td>
+                        {/* Calculation */}
+                        <td className="px-4 py-2.5">
+                          <div className="text-[11px] text-[#64748b] font-mono whitespace-nowrap">
+                            {sym}{(row.totalBalance / 1_000_000).toFixed(2)}M
+                            {row.previouslySettled > 0 && (
+                              <> <span className="text-red-500">− {sym}{(row.previouslySettled / 1_000_000).toFixed(2)}M</span></>
+                            )}
+                            <span className="text-[#94a3b8]"> = </span>
+                            <span className="text-[#0f172a] font-semibold">{sym}{(row.toSettle / 1_000_000).toFixed(2)}M</span>
+                          </div>
+                        </td>
+                        {/* Settlement tx */}
+                        <td className="px-4 py-2.5">
+                          {row.settlementTx ? (
+                            <span className="text-[11px] font-mono text-[#006aff] truncate max-w-[140px] block">{row.settlementTx}</span>
+                          ) : (
+                            <span className="text-[11px] text-[#94a3b8]">—</span>
+                          )}
+                        </td>
+                        {/* Ref */}
+                        <td className="px-4 py-2.5">
+                          <span className="text-[11px] font-mono text-[#475569]">{row.ref}</span>
+                        </td>
+                        {/* Status dropdown */}
+                        <td className="px-4 py-2.5">
+                          <div className="relative inline-block">
+                            <select
+                              value={status}
+                              onChange={e => setRowStatuses(prev => ({ ...prev, [row.id]: e.target.value as ReportRow["rowStatus"] }))}
+                              className={`text-[11px] font-medium pl-2 pr-6 py-1 rounded-lg border cursor-pointer transition-colors appearance-none ${
+                                status === "Settled"    ? "bg-green-50 border-green-200 text-green-700" :
+                                status === "Processing" ? "bg-blue-50 border-blue-200 text-blue-700" :
+                                                          "bg-amber-50 border-amber-200 text-amber-700"
+                              }`}
+                            >
+                              <option value="Unsettled">Unsettled</option>
+                              <option value="Processing">Processing</option>
+                              <option value="Settled">Settled</option>
+                            </select>
+                            <ChevronDown className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 h-3 w-3 opacity-50" />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </Fragment>
+              );
+            })}
+          </tbody>
+        </table>
+
+        {currentRows.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-16 text-[#94a3b8]">
+            <Table2 className="h-8 w-8 mb-3 opacity-40" />
+            <p className="text-sm">No rows for this settlement type</p>
+          </div>
+        )}
+      </div>
+
+      {/* Table action bar */}
+      <div className="shrink-0 px-6 py-3 bg-white border-t border-[#e2e8f0] flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <button className="px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+            Manual settlement
+          </button>
+          <button className="px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+            Consolidate transactions
+          </button>
+          <button className="px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+            <RefreshCcw className="h-3 w-3 inline mr-1" />
+            Calculate new report
+          </button>
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+            Update Statuses
+          </button>
+          <button className="px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+            ← Previous
+          </button>
+          <button className="px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+            Next →
+          </button>
+          <button className="px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+            Last Report
+          </button>
+          <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#9c47ff] text-white hover:bg-[#6417bf] shadow-sm shadow-[#9c47ff]/20 transition-all">
+            Process
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Page ─────────────────────────────────────────────────────────────────
+
+export default function IntercompanySettlement() {
+  const [showConfigurator, setShowConfigurator] = useState(false);
+  const [showPreGo, setShowPreGo] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [provenancePosition, setProvenancePosition] = useState<NetPosition | null>(null);
+  const [activeView, setActiveView] = useState<"command" | "report">("command");
+  const [settlementType, setSettlementType] = useState<SettlementType>("Trade settlement");
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const batchInFlight = IN_FLIGHT.some(i => ["submitted", "in_payments", "first_signed", "second_signed", "sent_to_bank"].includes(i.status));
+
+  // Clean up toast timer on unmount
+  useEffect(() => () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current); }, []);
+
+  function handleConfiguratorSubmit() {
+    setShowConfigurator(false);
+    setShowPreGo(true);
+  }
+
+  function handleConfirm() {
+    setShowPreGo(false);
+    setShowToast(true);
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => setShowToast(false), 10000);
+  }
+
+  // Close provenance on Escape
+  useEffect(() => {
+    function handler(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setProvenancePosition(null);
+        setShowPreGo(false);
+        setShowConfigurator(false);
+      }
+    }
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
+  return (
+    <TreasuryShell solution="Netting" activeFeature="Intercompany Settlement">
+      <div className="flex flex-col h-full bg-[#f8fafc]">
+
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-1.5 text-sm px-6 pt-4 pb-2">
+          <span className="text-[#64748b]">Netting</span>
+          <ChevronRight className="h-3.5 w-3.5 text-[#94a3b8]" />
+          <span className="font-medium text-[#0f172a]">Intercompany Settlement</span>
+        </nav>
+
+        {/* Page header */}
+        <div className="px-6 pb-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2 rounded-xl border shadow-sm bg-gradient-to-br from-violet-50 to-purple-100 border-violet-200 shrink-0">
+              <Zap className="h-5 w-5 text-[#9c47ff]" />
+            </div>
+            <div className="pt-0.5 min-w-0">
+              <h1 className="text-xl font-semibold tracking-tight text-[#0f172a]">Intercompany Settlement</h1>
+              <p className="text-sm mt-0.5 text-[#64748b]">Command center — Batch #047 in flight</p>
+            </div>
+            <div className="ml-auto flex items-center gap-3 shrink-0">
+              {/* Settlement type dropdown — only relevant in Report view */}
+              <div className={`flex items-center gap-2 transition-opacity ${activeView === "command" ? "opacity-40 pointer-events-none" : ""}`}>
+                <label htmlFor="settlement-type-select" className="text-xs text-[#64748b] whitespace-nowrap">Settlement type</label>
+                <div className="relative">
+                  <select
+                    id="settlement-type-select"
+                    tabIndex={activeView === "command" ? -1 : 0}
+                    value={settlementType}
+                    onChange={e => setSettlementType(e.target.value as SettlementType)}
+                    className="appearance-none text-sm font-medium text-[#0f172a] bg-white border border-[#e2e8f0] rounded-lg pl-3 pr-8 py-2 cursor-pointer hover:border-[#9c47ff]/50 focus:outline-none focus:border-[#9c47ff] focus:ring-2 focus:ring-[#9c47ff]/10 transition-all min-w-[200px]"
+                  >
+                    {SETTLEMENT_TYPES.map(t => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#94a3b8]" />
+                </div>
+              </div>
+
+              {/* View toggle */}
+              <div className="flex items-center rounded-lg border border-[#e2e8f0] p-0.5 bg-[#f8fafc]">
+                <button
+                  onClick={() => setActiveView("command")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+                    activeView === "command"
+                      ? "bg-white text-[#0f172a] shadow-sm border border-[#e2e8f0]"
+                      : "text-[#64748b] hover:text-[#475569]"
+                  }`}
+                >
+                  <LayoutList className="h-3.5 w-3.5" />
+                  Command Center
+                </button>
+                <button
+                  onClick={() => setActiveView("report")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+                    activeView === "report"
+                      ? "bg-white text-[#0f172a] shadow-sm border border-[#e2e8f0]"
+                      : "text-[#64748b] hover:text-[#475569]"
+                  }`}
+                >
+                  <Table2 className="h-3.5 w-3.5" />
+                  Settlement Report
+                </button>
+              </div>
+
+              <span className="text-xs text-[#94a3b8]">Calculated 08:42 UTC</span>
+              <button className="text-xs px-3 py-1.5 rounded-lg border border-[#e2e8f0] text-[#475569] hover:bg-white hover:border-[#9c47ff]/40 hover:text-[#9c47ff] transition-all flex items-center gap-1.5">
+                <RefreshCcw className="h-3 w-3" />
+                Recalculate
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Main content — conditionally render view */}
+        {activeView === "command" ? (
+          <>
+            {/* Three-panel layout */}
+            <div className="flex gap-4 flex-1 overflow-hidden px-6 pb-2 min-h-0">
+              {/* Left: Net Positions */}
+              <div className="w-[300px] shrink-0 flex flex-col gap-3 overflow-y-auto min-h-0">
+                <NetPositionsPanel onProvenanceClick={setProvenancePosition} />
+              </div>
+              {/* Center: FBO Balances */}
+              <div className="flex-1 flex flex-col gap-3 overflow-y-auto min-h-0">
+                <FBOBalancesPanel />
+              </div>
+              {/* Right: In-Flight */}
+              <div className="w-[280px] shrink-0 flex flex-col gap-3 overflow-y-auto min-h-0">
+                <InFlightPanel />
+              </div>
+            </div>
+            {/* Command center sticky bottom bar */}
+            <div className="shrink-0 px-6 py-3 bg-white border-t border-[#e2e8f0] flex items-center justify-between">
+              <div className="flex items-center gap-3 text-xs text-[#64748b] flex-wrap">
+                <span>Batch #047 in flight</span>
+                <span className="text-[#e2e8f0]">·</span>
+                <span>7 instructions</span>
+                <span className="text-[#e2e8f0]">·</span>
+                <span>{IN_FLIGHT.filter(i => i.status === "confirmed").length} of {IN_FLIGHT.length} confirmed</span>
+                <span className="text-[#e2e8f0]">·</span>
+                <span className="text-red-600 font-medium">1 failed</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+                  <BarChart3 className="h-3.5 w-3.5" />
+                  Analytics
+                </button>
+                <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#e2e8f0] text-xs text-[#475569] hover:bg-[#f8fafc] transition-all">
+                  <FileText className="h-3.5 w-3.5" />
+                  Export
+                </button>
+                <button
+                  disabled={batchInFlight}
+                  onClick={() => setShowConfigurator(true)}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9c47ff]/50 focus-visible:ring-offset-2 ${
+                    batchInFlight
+                      ? "bg-[#9c47ff]/20 text-[#9c47ff]/50 cursor-not-allowed"
+                      : "bg-[#9c47ff] text-white hover:bg-[#6417bf] shadow-sm shadow-[#9c47ff]/20"
+                  }`}
+                >
+                  <Zap className="h-4 w-4" />
+                  {batchInFlight ? "Batch in flight — awaiting Payments" : "Configure New Batch"}
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          /* Settlement Report table view */
+          <div className="flex-1 overflow-hidden flex flex-col">
+            <SettlementReportTable settlementType={settlementType} />
+          </div>
+        )}
+      </div>
+
+      {/* Overlays */}
+      <AnimatePresence>
+        {showConfigurator && (
+          <ConfiguratorDrawer
+            onClose={() => setShowConfigurator(false)}
+            onSubmit={handleConfiguratorSubmit}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showPreGo && (
+          <PreGoSummary
+            onClose={() => setShowPreGo(false)}
+            onConfirm={handleConfirm}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Provenance modal */}
+      <AnimatePresence>
+        {provenancePosition && (
+          <ProvenanceModal
+            position={provenancePosition}
+            onClose={() => setProvenancePosition(null)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Post-submit toast */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            className="fixed bottom-6 right-6 z-50 bg-[#0f172a] text-white rounded-xl px-5 py-3 shadow-xl flex items-center gap-3 text-sm"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          >
+            <CheckCircle className="h-4 w-4 text-green-400 shrink-0" />
+            <span>Batch #048 submitted — 4 instructions sent to Payments</span>
+            <button onClick={() => setShowToast(false)} className="text-white/50 hover:text-white ml-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded">
+              <X className="h-3.5 w-3.5" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </TreasuryShell>
+  );
+}

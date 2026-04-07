@@ -12,8 +12,6 @@ export type ActionStatus =
   | "submitted" | "in_payments" | "first_approval" | "second_approval"
   | "sent_to_bank" | "bank_confirmed" | "failed";
 
-export type FreshnessState = "fresh" | "watch" | "stale";
-
 export interface TxBreakdown {
   type: TxType;
   amount: number;
@@ -63,6 +61,11 @@ export const SETTLEMENT_TYPES: TxType[] = [
   "Derivatives IF claim", "Derivatives IF premium", "Derivatives FEE sweep",
   "Derivatives liquidation", "Derivatives", "Account transfers", "Withdrawals",
 ];
+
+/** Convert freshnessMinutes offset to a Date for use with FreshnessChip */
+export function freshnessMinutesToDate(minutes: number): Date {
+  return new Date(Date.now() - minutes * 60 * 1000);
+}
 
 export const MOCK_PAIRINGS: EntityPairing[] = [
   {
@@ -190,12 +193,6 @@ export const MOCK_ACCOUNTS: BankAccount[] = [
   { id: "CB-BVI-USD", entity: "BVI", bank: "Customers Bank", currency: "USD", label: "Customers Bank BVI - USD", balance: 75 },
   { id: "BF-SA-USD", entity: "SA", bank: "Bank Frick", currency: "USD", label: "Bank Frick SA - USD", balance: 12 },
 ];
-
-export function getFreshnessState(minutes: number): FreshnessState {
-  if (minutes < 3) return "fresh";
-  if (minutes <= 15) return "watch";
-  return "stale";
-}
 
 export function formatAmount(amount: number, currency: Currency): string {
   const symbols: Record<Currency, string> = { USD: "$", EUR: "€", GBP: "£" };
