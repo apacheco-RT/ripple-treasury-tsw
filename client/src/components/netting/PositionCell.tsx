@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { ChevronDown, ChevronRight, CheckCircle } from "lucide-react";
-import { FreshnessChip, deriveFreshnessState } from "@ds-foundation/react";
+import { CurrencyBadge, FreshnessChip, deriveFreshnessState } from "@ds-foundation/react";
 import { formatAmount, freshnessMinutesToDate, type EntityPairing } from "./types";
 
 interface PositionCellProps {
@@ -19,9 +19,7 @@ export function PositionCell({ pairing }: PositionCellProps) {
         <span className="text-sm font-semibold text-gray-900">
           {pairing.from} ↔ {pairing.to}
         </span>
-        <span className="px-1.5 py-0.5 text-xs font-medium rounded bg-purple-50 text-purple-700 border border-purple-100">
-          {pairing.currency}
-        </span>
+        <CurrencyBadge currency={pairing.currency} />
         <span className="ml-auto">
           <FreshnessChip
             state={deriveFreshnessState(freshnessMinutesToDate(pairing.freshnessMinutes))}
@@ -34,24 +32,24 @@ export function PositionCell({ pairing }: PositionCellProps) {
         <MetricRow
           label="Gross exposure"
           value={formatAmount(pairing.grossExposure, pairing.currency)}
-          valueClass="text-gray-700"
+          valueStyle={{ color: 'var(--ds-color-text-primary)' }}
         />
         <MetricRow
           label="Settled"
           value={formatAmount(pairing.settled, pairing.currency)}
-          valueClass="text-green-600"
+          valueStyle={{ color: 'var(--ds-color-feedback-success-icon)' }}
         />
         <MetricRow
           label="Open"
           value={formatAmount(pairing.open, pairing.currency)}
-          valueClass={pairing.open === 0
-            ? "text-green-500 text-xs"
-            : "text-amber-600 font-semibold"}
+          valueStyle={pairing.open === 0
+            ? { color: 'var(--ds-color-feedback-success-icon)', fontSize: '0.75rem' }
+            : { color: 'var(--ds-color-feedback-warning-text)', fontWeight: 600 }}
         />
       </div>
 
       {pairing.open === 0 && (
-        <div className="mt-2 flex items-center gap-1 text-xs text-green-600">
+        <div className="mt-2 flex items-center gap-1 text-xs" style={{ color: 'var(--ds-color-feedback-success-text)' }}>
           <CheckCircle className="w-3 h-3" />
           Fully settled
         </div>
@@ -101,12 +99,12 @@ export function PositionCell({ pairing }: PositionCellProps) {
 }
 
 function MetricRow({
-  label, value, valueClass,
-}: { label: string; value: string; valueClass: string }) {
+  label, value, valueStyle,
+}: { label: string; value: string; valueStyle?: CSSProperties }) {
   return (
     <div className="flex items-center justify-between">
       <span className="text-xs text-gray-400">{label}</span>
-      <span className={`text-sm font-medium tabular-nums ${valueClass}`}>{value}</span>
+      <span className="text-sm font-medium tabular-nums" style={valueStyle}>{value}</span>
     </div>
   );
 }
