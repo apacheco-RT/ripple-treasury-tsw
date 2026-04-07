@@ -9,8 +9,8 @@ export type TxType =
   | "Derivatives liquidation" | "Derivatives" | "Account transfers" | "Withdrawals";
 
 export type ActionStatus =
-  | "submitted" | "in_payments" | "first_signed" | "second_signed"
-  | "sent_to_bank" | "confirmed" | "failed";
+  | "submitted" | "in_payments" | "first_approval" | "second_approval"
+  | "sent_to_bank" | "bank_confirmed" | "failed";
 
 export type FreshnessState = "fresh" | "watch" | "stale";
 
@@ -163,7 +163,7 @@ export const MOCK_COMPLETED_ACTIONS: Action[] = [
   {
     id: "ACT-C001", pairingId: "SA-LTD-EUR",
     from: "SA", to: "LTD", currency: "EUR", amount: 340,
-    status: "confirmed",
+    status: "bank_confirmed",
     accountFrom: "LHV Frankfurt - EUR", accountTo: "LHV London - EUR",
     createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
@@ -172,7 +172,7 @@ export const MOCK_COMPLETED_ACTIONS: Action[] = [
   {
     id: "ACT-C002", pairingId: "SA-INC-USD",
     from: "SA", to: "INC", currency: "USD", amount: 420,
-    status: "confirmed",
+    status: "bank_confirmed",
     accountFrom: "Customers Bank SA - USD", accountTo: "Customers Bank INC - USD",
     createdAt: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),

@@ -8,13 +8,13 @@ interface InFlightCellProps {
 }
 
 const STATUS_CONFIG: Record<ActionStatus, { label: string; dot: string; text: string }> = {
-  submitted:    { label: "Submitted",      dot: "bg-gray-400",   text: "text-gray-500" },
-  in_payments:  { label: "In Payments",    dot: "bg-blue-500",   text: "text-blue-600" },
-  first_signed: { label: "1st Approved",   dot: "bg-indigo-500", text: "text-indigo-600" },
-  second_signed:{ label: "2nd Approved",   dot: "bg-indigo-600", text: "text-indigo-700" },
-  sent_to_bank: { label: "Sent to Bank",   dot: "bg-teal-500",   text: "text-teal-600" },
-  confirmed:    { label: "Confirmed",      dot: "bg-green-500",  text: "text-green-600" },
-  failed:       { label: "Failed",         dot: "bg-red-500",    text: "text-red-600" },
+  submitted:     { label: "Submitted",      dot: "bg-gray-400",   text: "text-gray-500" },
+  in_payments:   { label: "In Payments",    dot: "bg-blue-500",   text: "text-blue-600" },
+  first_approval: { label: "1st Approved",   dot: "bg-indigo-500", text: "text-indigo-600" },
+  second_approval:{ label: "2nd Approved",   dot: "bg-indigo-600", text: "text-indigo-700" },
+  sent_to_bank:  { label: "Sent to Bank",   dot: "bg-teal-500",   text: "text-teal-600" },
+  bank_confirmed:{ label: "Confirmed",      dot: "bg-green-500",  text: "text-green-600" },
+  failed:        { label: "Failed",         dot: "bg-red-500",    text: "text-red-600" },
 };
 
 export function InFlightCell({ actions, onInitiateAction }: InFlightCellProps) {
