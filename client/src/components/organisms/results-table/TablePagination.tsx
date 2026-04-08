@@ -32,7 +32,7 @@ function TablePaginationInner({ sorted, page, totalPages, rowsPerPage, setPage, 
             key={label as string}
             onClick={fn as () => void}
             disabled={disabled as boolean}
-            className="text-[var(--ds-color-text-secondary)] hover:text-white"
+            className="text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)]"
           >
             {label as string}
           </IconButton>

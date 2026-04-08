@@ -22,7 +22,7 @@ export function ResearchSection() {
             className="bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)] overflow-hidden shadow-lg"
           >
             <div className="px-6 py-4 border-b border-[var(--ds-color-feedback-info-border)]/30 bg-[var(--ds-color-surface-default)]">
-              <h3 className="text-white font-medium m-0">Key Personas</h3>
+              <h3 className="text-[var(--ds-color-text-primary)] font-medium m-0">Key Personas</h3>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
@@ -35,7 +35,7 @@ export function ResearchSection() {
                 <tbody className="divide-y divide-surface-border">
                   <tr className="hover:bg-[var(--ds-color-surface-raised)]/30 transition-colors">
                     <td className="p-4">
-                      <div className="font-medium text-white">Cash Manager</div>
+                      <div className="font-medium text-[var(--ds-color-text-primary)]">Cash Manager</div>
                       <div className="text-xs text-[var(--ds-color-text-secondary)]">Daily Ops</div>
                     </td>
                     <td className="p-4 text-sm text-[var(--ds-color-text-secondary)]">
@@ -44,7 +44,7 @@ export function ResearchSection() {
                   </tr>
                   <tr className="hover:bg-[var(--ds-color-surface-raised)]/30 transition-colors">
                     <td className="p-4">
-                      <div className="font-medium text-white">Risk Analyst</div>
+                      <div className="font-medium text-[var(--ds-color-text-primary)]">Risk Analyst</div>
                       <div className="text-xs text-[var(--ds-color-text-secondary)]">Strategic</div>
                     </td>
                     <td className="p-4 text-sm text-[var(--ds-color-text-secondary)]">
@@ -53,7 +53,7 @@ export function ResearchSection() {
                   </tr>
                   <tr className="hover:bg-[var(--ds-color-surface-raised)]/30 transition-colors">
                     <td className="p-4">
-                      <div className="font-medium text-white">CFO</div>
+                      <div className="font-medium text-[var(--ds-color-text-primary)]">CFO</div>
                       <div className="text-xs text-[var(--ds-color-text-secondary)]">Executive</div>
                     </td>
                     <td className="p-4 text-sm text-[var(--ds-color-text-secondary)]">
@@ -81,7 +81,7 @@ export function ResearchSection() {
                   <div className="w-full h-full bg-linear-to-tr from-[var(--ds-color-feedback-info-border)] to-[var(--ds-color-feedback-info-text)] flex items-center justify-center text-white font-bold">SJ</div>
                 </div>
                 <div>
-                  <div className="text-white font-medium">Sarah Jenkins</div>
+                  <div className="text-[var(--ds-color-text-primary)] font-medium">Sarah Jenkins</div>
                   <div className="text-sm text-[var(--ds-color-feedback-info-text)]">Head of Global Treasury</div>
                 </div>
               </div>
@@ -89,7 +89,7 @@ export function ResearchSection() {
           </motion.div>
         </div>
 
-        <h3 className="text-xl font-medium text-white mb-8 flex items-center gap-3">
+        <h3 className="text-xl font-medium text-[var(--ds-color-text-primary)] mb-8 flex items-center gap-3">
           <Globe className="text-[var(--ds-color-brand-primary)]" />
           Competitive Landscape
         </h3>

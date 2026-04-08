@@ -45,7 +45,7 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
             <div className="px-6 py-5 border-b border-[var(--ds-color-border-default)]">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h2 id="rail-dialog-title" className="text-xl font-medium text-white m-0">Select payment rail</h2>
+                  <h2 id="rail-dialog-title" className="text-xl font-medium text-[var(--ds-color-text-primary)] m-0">Select payment rail</h2>
                   <p className="text-[var(--ds-color-text-secondary)] text-sm mt-1">Choose how to process this payment. Compare options to find the best solution.</p>
                 </div>
                 <IconButton
@@ -91,7 +91,7 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
                     <Landmark className="w-5 h-5 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-white text-sm">Bank wire transfer</h3>
+                    <h3 className="font-medium text-[var(--ds-color-text-primary)] text-sm">Bank wire transfer</h3>
                     <p className="text-xs text-[var(--ds-color-text-secondary)]">Standard processing</p>
                   </div>
                 </div>
@@ -135,7 +135,7 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
                       <span className="text-xs font-bold text-[var(--ds-color-brand-primary)] px-0.5">RLUSD</span>
                     </div>
                     <div>
-                      <h3 className="font-medium text-white text-sm">Stablecoin transfer (RLUSD)</h3>
+                      <h3 className="font-medium text-[var(--ds-color-text-primary)] text-sm">Stablecoin transfer (RLUSD)</h3>
                       <p className="text-xs text-[var(--ds-color-text-secondary)]">Next-generation instant settlement</p>
                     </div>
                   </div>
@@ -175,7 +175,7 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[var(--ds-color-brand-primary)]" aria-hidden="true" />
-                      <h3 className="font-medium text-white text-base m-0">Stablecoin quote</h3>
+                      <h3 className="font-medium text-[var(--ds-color-text-primary)] text-base m-0">Stablecoin quote</h3>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="px-2 py-0.5 rounded-[var(--ds-radius-xs)] text-xs font-bold bg-[var(--ds-color-brand-primary)] text-[var(--ds-color-text-on-brand)]">VALID</span>
@@ -185,13 +185,13 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
                   <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 mb-4">
                     <div className="rounded-[var(--ds-radius-lg)] border border-[var(--ds-color-border-default)]/50 bg-[var(--ds-color-surface-default)] p-3">
                       <p className="text-xs text-[var(--ds-color-brand-primary)] font-medium mb-1">Source</p>
-                      <p className="text-xl font-medium text-white">100.15 <span className="text-sm font-medium">RLUSD</span></p>
+                      <p className="text-xl font-medium text-[var(--ds-color-text-primary)]">100.15 <span className="text-sm font-medium">RLUSD</span></p>
                       <p className="text-xs text-[var(--ds-color-text-secondary)] mt-1 font-mono">ACT_998877</p>
                     </div>
                     <ArrowRight className="w-5 h-5 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
                     <div className="rounded-[var(--ds-radius-lg)] border border-[var(--ds-color-border-default)]/50 bg-[var(--ds-color-surface-default)] p-3">
                       <p className="text-xs text-[var(--ds-color-brand-primary)] font-medium mb-1">Destination</p>
-                      <p className="text-xl font-medium text-white">1,854.20 <span className="text-sm font-medium">MXN</span></p>
+                      <p className="text-xl font-medium text-[var(--ds-color-text-primary)]">1,854.20 <span className="text-sm font-medium">MXN</span></p>
                       <p className="text-xs text-[var(--ds-color-text-secondary)] mt-1 font-mono">DEST_554433</p>
                     </div>
                   </div>
@@ -207,7 +207,7 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
                     ] as [string, string, string][]).map(([label, val, sub]) => (
                       <div key={label}>
                         <p className="text-xs text-[var(--ds-color-brand-primary)] font-medium mb-0.5">{label}</p>
-                        <p className="font-medium text-white text-sm">{val}</p>
+                        <p className="font-medium text-[var(--ds-color-text-primary)] text-sm">{val}</p>
                         {sub && <p className="text-xs text-[var(--ds-color-text-secondary)]">{sub}</p>}
                       </div>
                     ))}
@@ -219,7 +219,7 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
 
                 <div className="rounded-[var(--ds-radius-xl)] border border-[var(--ds-color-border-default)]/50 bg-[var(--ds-color-surface-default)] p-5">
                   <div className="flex items-center gap-2 mb-4">
-                    <h3 className="font-medium text-white text-sm m-0">Additional details</h3>
+                    <h3 className="font-medium text-[var(--ds-color-text-primary)] text-sm m-0">Additional details</h3>
                     <HelpCircle className="w-3.5 h-3.5 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
                   </div>
                   <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
@@ -241,7 +241,7 @@ function PaymentRailDialogInner({ txn, dialogRef, onClose, showStablecoin = true
 
             <div className="px-6 py-4 border-t border-[var(--ds-color-border-default)] flex items-center justify-between">
               <button onClick={onClose}
-                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-white hover:bg-white/8 font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
+                className="px-6 h-10 rounded-full border border-[var(--ds-color-border-default)] text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] hover:bg-[var(--ds-color-surface-raised)] font-medium text-sm transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
                 Cancel
               </button>
               {(quoteGenerated && selectedRail === "stablecoin") || selectedRail === "bank-wire" ? (

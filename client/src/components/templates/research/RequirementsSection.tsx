@@ -44,7 +44,7 @@ export function RequirementsSection() {
     <section className="py-12 border-t border-[var(--ds-color-border-default)]">
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="text-xl font-medium text-white mb-2 flex items-center gap-3">
+          <h2 className="text-xl font-medium text-[var(--ds-color-text-primary)] mb-2 flex items-center gap-3">
             <span className="w-8 h-8 rounded-full bg-[var(--ds-color-feedback-warning-bg)] border border-[var(--ds-color-feedback-warning-border)]/25 text-[var(--ds-color-feedback-warning-text)] text-sm font-bold flex items-center justify-center">D</span>
             Design Requirements &amp; Changes
           </h2>
@@ -91,7 +91,7 @@ export function RequirementsSection() {
                         )}
                         <span className="text-xs text-[var(--ds-color-text-secondary)] font-mono">{req.source}</span>
                       </div>
-                      <p className="text-sm font-medium text-white leading-snug">{req.title}</p>
+                      <p className="text-sm font-medium text-[var(--ds-color-text-primary)] leading-snug">{req.title}</p>
                     </div>
                   </div>
 

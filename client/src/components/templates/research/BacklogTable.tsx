@@ -12,7 +12,7 @@ export function BacklogTable() {
     <section className="py-12 border-t border-[var(--ds-color-border-default)]">
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="text-xl font-medium text-white mb-2 flex items-center gap-3">
+          <h2 className="text-xl font-medium text-[var(--ds-color-text-primary)] mb-2 flex items-center gap-3">
             <span className="w-8 h-8 rounded-full bg-[var(--ds-color-brand-primary-subtle)] border border-[var(--ds-color-brand-primary)]/25 text-[var(--ds-color-brand-primary)] text-sm font-bold flex items-center justify-center">B</span>
             Customer Backlog — Enhancement Requests
           </h2>

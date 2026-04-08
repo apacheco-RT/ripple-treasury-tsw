@@ -28,7 +28,7 @@ export function ResearchHeader() {
           <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--ds-color-feedback-info-bg)] border border-[var(--ds-color-feedback-info-border)]/20 text-[var(--ds-color-feedback-info-text)] text-xs font-bold uppercase tracking-widest mb-4">
             <FileSearch className="w-3.5 h-3.5" /> Research Report
           </motion.div>
-          <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-medium tracking-tight mb-3 text-white">
+          <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-medium tracking-tight mb-3 text-[var(--ds-color-text-primary)]">
             UX Research Findings
           </motion.h1>
           <motion.p variants={fadeInUp} className="text-[var(--ds-color-text-secondary)] text-lg max-w-2xl mb-6">
@@ -49,7 +49,7 @@ export function ResearchHeader() {
               <div className="mt-0.5">{c.icon}</div>
               <div>
                 <p className="text-xs uppercase tracking-widest text-[var(--ds-color-text-secondary)] font-medium mb-0.5">{c.label}</p>
-                <p className="text-xl font-bold text-white leading-none mb-1">{c.value}</p>
+                <p className="text-xl font-bold text-[var(--ds-color-text-primary)] leading-none mb-1">{c.value}</p>
                 <p className="text-xs text-[var(--ds-color-text-secondary)]">{c.sub}</p>
               </div>
             </div>

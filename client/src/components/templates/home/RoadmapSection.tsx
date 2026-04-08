@@ -9,21 +9,21 @@ const phases = [
     time: "Q3 2024",
     items: ["Bank API Integration Layer", "Cash Position Dashboard", "User Role Management"],
     status: "completed",
-    icon: <Layers className="w-5 h-5 text-white" />
+    icon: <Layers className="w-5 h-5 text-[var(--ds-color-text-primary)]" />
   },
   {
     phase: "Phase 2: Intelligence",
     time: "Q4 2024",
     items: ["Cash Flow Forecasting", "FX Hedging Recommendations", "Automated Reporting"],
     status: "active",
-    icon: <PieChart className="w-5 h-5 text-white" />
+    icon: <PieChart className="w-5 h-5 text-[var(--ds-color-text-primary)]" />
   },
   {
     phase: "Phase 3: Automation",
     time: "Q1 2025",
     items: ["Smart Payment Routing", "Inter-company Netting Engine", "Virtual Account Management"],
     status: "future",
-    icon: <Wallet className="w-5 h-5 text-white" />
+    icon: <Wallet className="w-5 h-5 text-[var(--ds-color-text-primary)]" />
   }
 ];
 
@@ -69,7 +69,7 @@ export function RoadmapSection() {
                       </span>
                     </div>
                     
-                    <h3 className="text-xl font-medium text-white mb-1">{item.phase}</h3>
+                    <h3 className="text-xl font-medium text-[var(--ds-color-text-primary)] mb-1">{item.phase}</h3>
                     <ul className="mt-4 space-y-2">
                       {item.items.map((sub, j) => (
                         <li key={j} className="flex items-center gap-2 text-sm text-[var(--ds-color-text-secondary)]">

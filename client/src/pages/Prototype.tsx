@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { FreshnessChip, deriveFreshnessState } from '@ds-foundation/react';
 import { UnifiedNav } from "@/components/navigation/UnifiedNav";
 import AppNav from "@/components/navigation/AppNav";
-import { ChevronRight, Moon, RefreshCw, Sun } from "lucide-react";
+import { ChevronRight, RefreshCw } from "lucide-react";
 import { FilterPanel } from "@/components/organisms/FilterPanel";
 import { FraudSpotlight } from "@/components/organisms/FraudSpotlight";
 import { PaymentSummary } from "@/components/molecules/PaymentSummary";
@@ -66,7 +66,6 @@ export default function Prototype() {
   const [filters, setFilters] = useState<Filters>(() => filtersFromURL());
   const [refreshing, setRefreshing] = useState(false);
   const [lastRefreshed, setLastRefreshed] = useState<Date>(() => new Date());
-  const [isDark, setIsDark] = useState(() => localStorage.getItem("paym-theme") !== "light");
   const isInitialMount = useRef(true);
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -100,11 +99,6 @@ export default function Prototype() {
     setFilters(f);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("light-mode", !isDark);
-    localStorage.setItem("paym-theme", isDark ? "dark" : "light");
-  }, [isDark]);
-
   const handleRefresh = () => {
     setRefreshing(true);
     setTimeout(() => {
@@ -114,7 +108,7 @@ export default function Prototype() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--ds-color-surface-page)] text-white">
+    <div className="min-h-screen flex flex-col bg-[var(--ds-color-surface-page)] text-[var(--ds-color-text-primary)]">
       <UnifiedNav />
       <div className="mt-11">
         <AppNav />
@@ -128,7 +122,7 @@ export default function Prototype() {
               <ChevronRight className="w-3 h-3 text-[var(--ds-color-text-secondary)]" aria-hidden="true" />
               <span className="text-[var(--ds-color-text-secondary)]" aria-current="page">Transaction Center</span>
             </nav>
-            <h1 className="text-xl font-medium text-white m-0 leading-tight tracking-tight">Transaction Center</h1>
+            <h1 className="text-xl font-medium text-[var(--ds-color-text-primary)] m-0 leading-tight tracking-tight">Transaction Center</h1>
             <p className="text-xs text-[var(--ds-color-text-secondary)] mt-1 m-0">Manage and monitor all your payments in one place</p>
           </div>
           <div className="flex items-center gap-3">
@@ -138,7 +132,7 @@ export default function Prototype() {
               onRefresh={handleRefresh}
             />
             <button onClick={handleRefresh} aria-label={refreshing ? "Refreshing all sections" : "Refresh all sections"}
-              className={`flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-default)] transition-all focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] ${refreshing ? "opacity-60" : ""}`}>
+              className={`flex items-center gap-1.5 px-4 h-10 rounded-full text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-default)] transition-all focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] ${refreshing ? "opacity-60" : ""}`}>
               <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin" : ""}`} aria-hidden="true" />
               {refreshing ? "Refreshing…" : "Refresh"}
             </button>
@@ -162,17 +156,7 @@ export default function Prototype() {
 
       <footer className="shrink-0 py-2 px-4 border-t border-[var(--ds-color-border-default)]/60 bg-[var(--ds-color-surface-page)] flex items-center justify-between">
         <span className="text-xs text-[var(--ds-color-text-secondary)]">©2026 Ripple Treasury. All rights reserved · 26.1.0421 · Policies · QAVR</span>
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-[var(--ds-color-text-secondary)]">Transaction Center · Ripple Treasury Design System · Feb 2026</span>
-          <button
-            onClick={() => setIsDark(d => !d)}
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-raised)]/60 hover:border-[var(--ds-color-border-default)] hover:bg-[var(--ds-color-surface-raised)]/60 transition-all text-xs font-medium text-[var(--ds-color-text-secondary)] hover:text-white focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
-            {isDark
-              ? <><Sun className="w-3 h-3 text-[var(--ds-color-feedback-warning-text)]" aria-hidden="true" /> Light</>
-              : <><Moon className="w-3 h-3 text-[var(--ds-color-text-secondary)]" aria-hidden="true" /> Dark</>}
-          </button>
-        </div>
+        <span className="text-xs text-[var(--ds-color-text-secondary)]">Transaction Center · Ripple Treasury Design System · Feb 2026</span>
       </footer>
     </div>
   );

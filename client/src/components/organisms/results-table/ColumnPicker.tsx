@@ -36,7 +36,7 @@ function ColumnPickerInner({ showColPicker, setShowColPicker, cols, setCols, col
         aria-expanded={showColPicker}
         aria-haspopup="dialog"
         icon={<Columns3 className="w-3.5 h-3.5" aria-hidden="true" />}
-        className="text-xs text-[var(--ds-color-text-secondary)] hover:text-white border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)]"
+        className="text-xs text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] border border-[var(--ds-color-border-default)]/60 hover:border-[var(--ds-color-border-default)] bg-[var(--ds-color-surface-page)]"
       >
         Columns
       </IconButton>
@@ -52,7 +52,7 @@ function ColumnPickerInner({ showColPicker, setShowColPicker, cols, setCols, col
                   checked={cols[key as keyof typeof cols]}
                   onChange={() => setCols(c => ({ ...c, [key]: !c[key as keyof typeof c] }))}
                   className="w-4 h-4 rounded accent-[var(--ds-color-brand-primary)]" />
-                <span className="text-xs text-[var(--ds-color-text-secondary)] group-hover:text-white transition-colors">{label}</span>
+                <span className="text-xs text-[var(--ds-color-text-secondary)] group-hover:text-[var(--ds-color-text-primary)] transition-colors">{label}</span>
               </label>
             ))}
           </motion.div>

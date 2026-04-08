@@ -43,7 +43,7 @@ export function StrategySection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
           <div>
-            <h3 className="text-xl font-medium text-white mb-6">Core Principles</h3>
+            <h3 className="text-xl font-medium text-[var(--ds-color-text-primary)] mb-6">Core Principles</h3>
             <div className="space-y-6">
               {principles.map((item, i) => (
                 <motion.div 
@@ -55,7 +55,7 @@ export function StrategySection() {
                     {i + 1}
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-white mb-1 flex items-center gap-2">
+                    <h4 className="text-lg font-medium text-[var(--ds-color-text-primary)] mb-1 flex items-center gap-2">
                       {item.title}
                     </h4>
                     <p className="text-[var(--ds-color-text-secondary)] text-sm">{item.desc}</p>
@@ -67,7 +67,7 @@ export function StrategySection() {
 
           <div className="bg-linear-to-br from-[var(--ds-color-surface-default)] to-surface-inset p-1 rounded-[var(--ds-radius-2xl)]">
             <div className="bg-[var(--ds-color-surface-sunken)] rounded-[var(--ds-radius-xl)] h-full p-6 border border-[var(--ds-color-border-default)]">
-              <h3 className="text-xl font-medium text-white mb-6">Key Differentiators</h3>
+              <h3 className="text-xl font-medium text-[var(--ds-color-text-primary)] mb-6">Key Differentiators</h3>
               <div className="grid grid-cols-1 gap-4">
                 {differentiators.map((diff, i) => (
                   <div key={i} className="flex items-center justify-between p-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-lg)] border border-[var(--ds-color-border-default)]/50">

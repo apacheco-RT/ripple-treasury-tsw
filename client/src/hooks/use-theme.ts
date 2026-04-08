@@ -11,6 +11,9 @@ const DEFAULT_THEME: Theme = 'dark'
 
 function getStoredTheme(): Theme {
   if (typeof window === 'undefined') return DEFAULT_THEME
+  const url = new URL(window.location.href)
+  const forceTheme = url.searchParams.get('theme')
+  if (forceTheme === 'light' || forceTheme === 'dark') return forceTheme
   const stored = localStorage.getItem(STORAGE_KEY)
   return stored === 'light' || stored === 'dark' ? stored : DEFAULT_THEME
 }

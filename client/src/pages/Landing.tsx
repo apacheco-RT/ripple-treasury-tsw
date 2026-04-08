@@ -123,7 +123,7 @@ export default function Landing() {
               {stats.map((s, i) => (
                 <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-[var(--ds-radius-lg)] bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] text-sm">
                   <span className={s.color}>{s.icon}</span>
-                  <span className="font-bold text-white">{s.value}</span>
+                  <span className="font-bold text-[var(--ds-color-text-primary)]">{s.value}</span>
                   <span className="text-[var(--ds-color-text-secondary)]">{s.label}</span>
                 </div>
               ))}
@@ -172,7 +172,7 @@ export default function Landing() {
                   <div className={`inline-flex items-center self-start px-2.5 py-0.5 rounded-full text-xs font-bold border mb-2 ${d.badgeColor}`}>
                     {d.badge}
                   </div>
-                  <h2 className="text-xl font-medium text-white mb-1 tracking-tight m-0">{d.title}</h2>
+                  <h2 className="text-xl font-medium text-[var(--ds-color-text-primary)] mb-1 tracking-tight m-0">{d.title}</h2>
                   <p className="text-sm text-[var(--ds-color-text-secondary)] mb-5 leading-relaxed">{d.subtitle}</p>
                   <ul className="space-y-2 flex-1">
                     {d.bullets.map((b, j) => (
@@ -182,7 +182,7 @@ export default function Landing() {
                       </li>
                     ))}
                   </ul>
-                  <div className="flex items-center gap-1 mt-6 text-sm font-medium text-[var(--ds-color-text-secondary)] group-hover:text-white transition-colors">
+                  <div className="flex items-center gap-1 mt-6 text-sm font-medium text-[var(--ds-color-text-secondary)] group-hover:text-[var(--ds-color-text-primary)] transition-colors">
                     {isPrototype ? (
                       <>
                         <Settings2 className="w-4 h-4 mr-0.5" />

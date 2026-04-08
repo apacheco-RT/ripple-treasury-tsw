@@ -1,3 +1,8 @@
+/* Space Grotesk = closest available substitute for TT Ripple (Ripple's custom typeface).
+   Replace @font-face below with self-hosted TT Ripple files when design system is supplied. */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap')
+layer(base);
+
 /* DS-Foundation token imports — source of truth for all design tokens
  *
  * Why only /tailwind and not /css or /css/dark?
@@ -14,11 +19,6 @@
  * [data-theme="dark"] block below, using the hex primitives already in :root.
  */
 @import "@ds-foundation/tokens/tailwind";
-
-/* Space Grotesk = closest available substitute for TT Ripple (Ripple's custom typeface).
-   Replace @font-face below with self-hosted TT Ripple files when design system is supplied. */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap')
-layer(base);
 
 @import 'tailwindcss';
 
@@ -217,7 +217,7 @@ layer(base);
 }
 
 @utility nav-link {
-  @apply text-sm font-medium text-[var(--ds-color-text-secondary)] hover:text-white transition-colors duration-200 cursor-pointer;
+  @apply text-sm font-medium text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] transition-colors duration-200 cursor-pointer;
 
   &.active {
     @apply text-[var(--ds-color-brand-primary)];
@@ -439,7 +439,7 @@ layer(base);
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-white;
+    @apply font-bold tracking-tight text-[var(--ds-color-text-primary)];
   }
 
   h1 {
@@ -512,14 +512,6 @@ layer(base);
     radial-gradient(circle at 100% 0%, rgba(20, 184, 166, 0.04) 0%, transparent 40%);
 }
 
-[data-theme="light"] h1,
-[data-theme="light"] h2,
-[data-theme="light"] h3,
-[data-theme="light"] h4,
-[data-theme="light"] h5,
-[data-theme="light"] h6 {
-  color: #0f172a;
-}
 
 /* ── Nav / header ─── */
 [data-theme="light"] .glass-header {
@@ -533,14 +525,18 @@ layer(base);
 /* ── White text — flip to dark for content on light surfaces ─── */
 [data-theme="light"] .text-white { color: #0f172a !important; }
 
-/* Restore white text on gradient buttons/badges (same element has both classes) */
+/* Restore white text on gradient buttons/badges and colored-bg CTAs */
 [data-theme="light"] [class*="from-teal"].text-white,
 [data-theme="light"] [class*="from-blue"].text-white,
 [data-theme="light"] [class*="from-purple"].text-white,
 [data-theme="light"] [class*="from-rose"].text-white,
 [data-theme="light"] [class*="from-amber"].text-white,
 [data-theme="light"] [class*="from-emerald"].text-white,
-[data-theme="light"] [class*="from-indigo"].text-white {
+[data-theme="light"] [class*="from-indigo"].text-white,
+[data-theme="light"] [class*="bg-\[var(--ds-color-brand-primary)"].text-white,
+[data-theme="light"] [class*="bg-\[var(--ds-color-feedback-info-border)"].text-white,
+[data-theme="light"] [class*="bg-\[var(--ds-color-feedback-success-text)"].text-white,
+[data-theme="light"] [class*="bg-\[var(--ds-color-feedback-error-border)"].text-white {
   color: #ffffff !important;
 }
 
@@ -589,12 +585,14 @@ layer(base);
   color-scheme: dark;
 }
 
-/* ── Hover states — white/2 and white/3 overlays are invisible in light mode ─── */
-[data-theme="light"] [class*="hover:bg-white\/2"]:hover { background-color: rgba(0, 0, 0, 0.04) !important; }
-[data-theme="light"] [class*="hover:bg-white\/3"]:hover { background-color: rgba(0, 0, 0, 0.06) !important; }
-/* Process Flow selected stage: bg-white/5 (5% white) is invisible on light surfaces.
-   Use exact class selector (.bg-white\/5) not substring (*=) to avoid matching bg-white/50 etc. */
+/* ── Hover states — white/* overlays are invisible in light mode ─── */
+[data-theme="light"] [class*="hover\:bg-white\/2"]:hover { background-color: rgba(0, 0, 0, 0.04) !important; }
+[data-theme="light"] [class*="hover\:bg-white\/3"]:hover { background-color: rgba(0, 0, 0, 0.06) !important; }
+[data-theme="light"] [class*="hover\:bg-white\/5"]:hover { background-color: rgba(0, 0, 0, 0.05) !important; }
+[data-theme="light"] [class*="hover\:bg-white\/8"]:hover { background-color: rgba(0, 0, 0, 0.06) !important; }
+/* Static bg-white/* overlays */
 [data-theme="light"] .bg-white\/5 { background-color: rgba(0, 0, 0, 0.04) !important; }
+[data-theme="light"] .bg-white\/8 { background-color: rgba(0, 0, 0, 0.05) !important; }
 
 /* ── color-scheme: restore to light for form controls in light mode ─── */
 [data-theme="light"] input,
@@ -611,6 +609,7 @@ layer(base);
 [data-theme="light"] .text-slate-500 { color: #6b7280 !important; }
 [data-theme="light"] .text-slate-600 { color: #6b7280 !important; }
 [data-theme="light"] .hover\:text-white:hover { color: #0f172a !important; }
+[data-theme="light"] [class*="hover\:text-white"]:hover { color: #0f172a !important; }
 
 
 /* ── bg-white opacity variants invisible on light surfaces ─────────────── */

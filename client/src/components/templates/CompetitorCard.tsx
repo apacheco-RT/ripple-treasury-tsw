@@ -35,7 +35,7 @@ export function CompetitorCard({ name, pros, cons, color }: CompetitorCardProps)
       )}
     >
       <div className={cn("h-16 w-full mb-4 rounded-[var(--ds-radius-lg)] bg-linear-to-r to-transparent flex items-center px-4", bgColors[color])}>
-        <h3 className="text-xl font-medium text-white m-0">{name}</h3>
+        <h3 className="text-xl font-medium text-[var(--ds-color-text-primary)] m-0">{name}</h3>
       </div>
       
       <div className="space-y-4">

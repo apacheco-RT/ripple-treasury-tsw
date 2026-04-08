@@ -199,13 +199,13 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
     });
   }, [selected.length, toast]);
 
-  const th = "px-3 py-3 text-sm text-[var(--ds-color-text-primary)] font-medium text-left whitespace-nowrap select-none cursor-pointer hover:text-white transition-colors focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]";
+  const th = "px-3 py-3 text-sm text-[var(--ds-color-text-primary)] font-medium text-left whitespace-nowrap select-none cursor-pointer hover:text-[var(--ds-color-text-primary)] transition-colors focus:outline-hidden focus:ring-inset focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]";
   const td = "px-3 py-3";
 
   return (
     <section aria-label="Transaction results">
       <div className="flex items-center px-4 py-3 bg-[var(--ds-color-surface-default)] border border-b border-[var(--ds-color-border-default)]/50 rounded-t-[var(--ds-radius-xl)]">
-        <h2 className="text-base font-medium text-white">Transaction details</h2>
+        <h2 className="text-base font-medium text-[var(--ds-color-text-primary)]">Transaction details</h2>
       </div>
 
       <TableToolbar
@@ -280,7 +280,7 @@ export function ResultsTable({ txns, tray, filters, setFilters, featureFlags = {
                   <button onClick={toggleAll}
                     aria-label={allSel ? "Deselect all transactions" : "Select all transactions on this page"}
                     aria-pressed={allSel}
-                    className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center text-[var(--ds-color-text-secondary)] hover:text-white transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
+                    className="p-1 min-w-[24px] min-h-[24px] flex items-center justify-center text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] transition-colors rounded-[var(--ds-radius-xs)] focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
                     {allSel ? <CheckSquare className="w-4 h-4 text-[var(--ds-color-brand-primary)]" aria-hidden="true" /> : <Square className="w-4 h-4" aria-hidden="true" />}
                   </button>
                 </th>

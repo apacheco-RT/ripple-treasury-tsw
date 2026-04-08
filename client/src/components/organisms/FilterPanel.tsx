@@ -164,7 +164,7 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
 
           {hasAnyClear && (
             <button onClick={clearAll}
-              className="text-xs text-[var(--ds-color-text-secondary)] hover:text-white transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] rounded-full px-3 h-10">
+              className="text-xs text-[var(--ds-color-text-secondary)] hover:text-[var(--ds-color-text-primary)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)] rounded-full px-3 h-10">
               Clear all
             </button>
           )}
@@ -282,7 +282,7 @@ export function FilterPanel({ filters, setFilters, className }: FilterPanelProps
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => setMoreOpen(false)}
-                    className="px-6 h-10 text-xs text-[var(--ds-color-text-secondary)] border border-[var(--ds-color-border-default)] rounded-full hover:text-white hover:bg-white/8 transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
+                    className="px-6 h-10 text-xs text-[var(--ds-color-text-secondary)] border border-[var(--ds-color-border-default)] rounded-full hover:text-[var(--ds-color-text-primary)] hover:bg-[var(--ds-color-surface-raised)] transition-colors focus:outline-hidden focus:ring-2 focus:ring-[var(--ds-color-brand-primary)]">
                     Close
                   </button>
                   <button onClick={() => setMoreOpen(false)}

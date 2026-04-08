@@ -47,7 +47,7 @@ export function FraudGateModal({
                 <ShieldAlert className="w-5 h-5 text-[var(--ds-color-feedback-error-text)]" aria-hidden="true" />
               </div>
               <div>
-                <h3 id="fraud-gate-title" className="text-white font-medium text-base m-0 mb-1">Elevated risk detected</h3>
+                <h3 id="fraud-gate-title" className="text-[var(--ds-color-text-primary)] font-medium text-base m-0 mb-1">Elevated risk detected</h3>
                 <p className="text-[var(--ds-color-text-secondary)] text-sm leading-relaxed m-0">
                   <strong className="text-[var(--ds-color-feedback-error-text)]">{flaggedInSel} of {selected.length}</strong> selected payments have a risk score ≥ 70. Review before approving.
                 </p>

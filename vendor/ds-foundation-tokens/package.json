@@ -1,0 +1,17 @@
+{
+  "name": "@ds-foundation/tokens",
+  "version": "0.2.2",
+  "description": "Stub package — CSS variables provided locally for Replit compatibility",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./tailwind": "./tailwind.css",
+    "./css": "./tailwind.css",
+    "./css/dark": "./tailwind.css"
+  }
+}

@@ -47,7 +47,7 @@ export function HeroSection() {
 
             <h3 className="text-[var(--ds-color-feedback-info-text)] font-medium uppercase tracking-wider text-sm mb-4">The Challenge</h3>
             <p className="text-lg text-[var(--ds-color-text-secondary)] leading-relaxed relative z-10">
-              Current treasury operations are fragmented across 12+ legacy systems, resulting in <span className="text-white font-bold">48h data latency</span> and <span className="text-white font-bold">manual reconciliation overhead</span>. We need a single source of truth.
+              Current treasury operations are fragmented across 12+ legacy systems, resulting in <span className="text-[var(--ds-color-text-primary)] font-bold">48h data latency</span> and <span className="text-[var(--ds-color-text-primary)] font-bold">manual reconciliation overhead</span>. We need a single source of truth.
             </p>
           </motion.div>
         </motion.div>

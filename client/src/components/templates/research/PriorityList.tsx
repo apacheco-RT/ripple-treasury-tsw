@@ -12,7 +12,7 @@ export function PriorityList() {
     <section className="py-12 border-t border-[var(--ds-color-border-default)]/50 bg-[var(--ds-color-surface-sunken)]">
       <div className="container mx-auto px-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="text-xl font-medium text-white mb-2 flex items-center gap-3">
+          <h2 className="text-xl font-medium text-[var(--ds-color-text-primary)] mb-2 flex items-center gap-3">
             <span className="w-8 h-8 rounded-full bg-[var(--ds-color-feedback-info-bg)] border border-[var(--ds-color-feedback-info-border)]/25 text-[var(--ds-color-feedback-info-text)] text-sm font-bold flex items-center justify-center">C</span>
             Combined Priority List — P1 to P10
           </h2>
@@ -31,7 +31,7 @@ export function PriorityList() {
                 <div className="w-12 h-12 rounded-[var(--ds-radius-xl)] bg-[var(--ds-color-surface-default)] border border-[var(--ds-color-border-default)] flex items-center justify-center shrink-0">
                   <span className="text-xs font-extrabold text-[var(--ds-color-text-secondary)]">{p.rank}</span>
                 </div>
-                <p className="flex-1 text-sm text-white font-medium leading-snug">{p.finding}</p>
+                <p className="flex-1 text-sm text-[var(--ds-color-text-primary)] font-medium leading-snug">{p.finding}</p>
                 <span className={`text-xs font-bold px-2.5 py-1 rounded-[var(--ds-radius-lg)] border shrink-0 ${sourceColor[p.source]}`}>
                   {p.source}
                 </span>

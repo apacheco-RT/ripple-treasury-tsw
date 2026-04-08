@@ -59,6 +59,16 @@ The Configure Prototype modal (accessible from the nav bar "Prototype" link or H
 - `/strategy` — Design Strategy (Home)
 - `/export` — Export Report (print-friendly)
 
+## Theme System
+- **Mechanism**: `data-theme="dark"|"light"` on `<html>`. Managed by `client/src/hooks/use-theme.ts` with `localStorage('theme')` persistence.
+- **URL override**: `?theme=light` or `?theme=dark` for testing.
+- **Default**: `dark`
+- **DS tokens**: `vendor/ds-foundation-tokens/tailwind.css` — light mode `:root` defaults; dark overrides in `[data-theme="dark"]` block in `index.css`.
+- **Brand primary**: `#2563eb` (blue-600) in light; `#38bdf8` (sky-400) in dark.
+- **Nav stays dark** in both modes via `.nav-dark` class with DS token override block.
+- **CSS safety net**: `[data-theme="light"] .text-white { color: #0f172a !important; }` with whitelist for colored-bg elements.
+- **Text-on-brand**: `--ds-color-text-on-brand: #ffffff` — white text on brand primary buttons in both modes.
+
 ## Material Design 3 Tokens
 All UI components use M3 CSS custom properties defined in `index.css`:
 - **Shape scale**: `--m3-shape-xs` (4px), `--m3-shape-sm` (8px), `--m3-shape-md` (12px), `--m3-shape-lg` (16px), `--m3-shape-xl` (28px), `--m3-shape-full` (9999px)

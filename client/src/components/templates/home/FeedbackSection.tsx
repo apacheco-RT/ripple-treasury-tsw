@@ -24,7 +24,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
       <div className="container mx-auto px-6 max-w-3xl">
         <div className="bg-linear-to-br from-[var(--ds-color-surface-default)] to-[var(--ds-color-surface-page)] rounded-[var(--ds-radius-2xl)] p-6 md:p-8 border border-[var(--ds-color-border-default)]/50 shadow-2xl">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-medium text-white mb-4">Share Your Feedback</h2>
+            <h2 className="text-3xl font-medium text-[var(--ds-color-text-primary)] mb-4">Share Your Feedback</h2>
             <p className="text-[var(--ds-color-text-secondary)]">Help shape the future of Treasury Management. Your input goes directly to the product team.</p>
           </div>
 
@@ -38,7 +38,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
                     <FormItem>
                       <FormLabel className="text-[var(--ds-color-text-secondary)]">Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" className="bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors" {...field} />
+                        <Input placeholder="John Doe" className="bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-[var(--ds-color-text-primary)] placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -51,7 +51,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
                     <FormItem>
                       <FormLabel className="text-[var(--ds-color-text-secondary)]">Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="john@company.com" className="bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors" {...field} />
+                        <Input placeholder="john@company.com" className="bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-[var(--ds-color-text-primary)] placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -68,7 +68,7 @@ export function FeedbackSection({ form, onSubmit, isPending, feedbackSent }: Fee
                     <FormControl>
                       <Textarea 
                         placeholder="I think the roadmap should include..." 
-                        className="min-h-[120px] bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-white placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors resize-none" 
+                        className="min-h-[120px] bg-[var(--ds-color-surface-sunken)] border-[var(--ds-color-border-default)] text-[var(--ds-color-text-primary)] placeholder:text-[var(--ds-color-text-tertiary)] focus:border-[var(--ds-color-feedback-info-border)] transition-colors resize-none" 
                         {...field} 
                       />
                     </FormControl>

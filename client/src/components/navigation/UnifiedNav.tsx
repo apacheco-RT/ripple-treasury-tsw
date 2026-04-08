@@ -241,7 +241,7 @@ export function UnifiedNav() {
                     <Settings2 className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h2 id="config-modal-title" className="text-2xl font-normal text-white m-0">Configure Prototype</h2>
+                    <h2 id="config-modal-title" className="text-2xl font-normal text-[var(--ds-color-text-primary)] m-0">Configure Prototype</h2>
                     <p className="text-xs text-[var(--ds-color-text-secondary)] m-0">Toggle features before launching</p>
                   </div>
                 </div>
@@ -264,7 +264,7 @@ export function UnifiedNav() {
                     }`}
                   >
                     <div className="flex-1 min-w-0 mr-4">
-                      <span className="text-sm font-medium text-white block">{feature.label}</span>
+                      <span className="text-sm font-medium text-[var(--ds-color-text-primary)] block">{feature.label}</span>
                       <span className="text-xs text-[var(--ds-color-text-secondary)] block mt-0.5">{feature.description}</span>
                     </div>
                     <button

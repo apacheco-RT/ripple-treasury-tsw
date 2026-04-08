@@ -36,14 +36,14 @@ export default class ErrorBoundary extends Component<Props, State> {
           <div className="w-full max-w-md mx-4 bg-[var(--ds-color-surface-default)] rounded-[var(--ds-radius-3xl)] border border-[var(--ds-color-border-default)] p-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-6">
               <div className="h-8 w-8 rounded-full bg-linear-to-br from-[var(--ds-color-brand-primary)] to-[var(--ds-color-brand-primary-hover)]" />
-              <span className="text-lg font-semibold text-white tracking-tight">
+              <span className="text-lg font-semibold text-[var(--ds-color-text-primary)] tracking-tight">
                 Ripple Treasury
               </span>
             </div>
 
             <AlertTriangle className="h-10 w-10 text-[var(--ds-color-feedback-warning-text)] mx-auto mb-4" />
 
-            <h1 className="text-2xl font-normal text-white mb-2">
+            <h1 className="text-2xl font-normal text-[var(--ds-color-text-primary)] mb-2">
               Something went wrong
             </h1>
             <p className="text-sm text-[var(--ds-color-text-secondary)] mb-6">

@@ -80,10 +80,10 @@ export function ConfigurePrototypeModal({
             <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--ds-color-border-default)]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-[var(--ds-radius-xl)] bg-linear-to-br from-purple-600 to-purple-800 flex items-center justify-center">
-                  <Settings2 className="w-5 h-5 text-white" />
+                  <Settings2 className="w-5 h-5 text-[var(--ds-color-text-primary)]" />
                 </div>
                 <div>
-                  <h2 id="config-modal-title" className="text-lg font-medium text-white m-0">Configure Prototype</h2>
+                  <h2 id="config-modal-title" className="text-lg font-medium text-[var(--ds-color-text-primary)] m-0">Configure Prototype</h2>
                   <p className="text-xs text-[var(--ds-color-text-secondary)] m-0">Toggle features before launching</p>
                 </div>
               </div>
@@ -106,7 +106,7 @@ export function ConfigurePrototypeModal({
                   }`}
                 >
                   <div className="flex-1 min-w-0 mr-4">
-                    <span className="text-sm font-medium text-white block">{feature.label}</span>
+                    <span className="text-sm font-medium text-[var(--ds-color-text-primary)] block">{feature.label}</span>
                     <span className="text-xs text-[var(--ds-color-text-secondary)] block mt-0.5">{feature.description}</span>
                   </div>
                   <button

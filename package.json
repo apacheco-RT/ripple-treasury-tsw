@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@ds-foundation/react": "file:vendor/ds-foundation-react-0.1.0.tgz",
-    "@ds-foundation/tokens": "^0.2.2",
+    "@ds-foundation/tokens": "file:vendor/ds-foundation-tokens",
     "@hookform/resolvers": "^3.10.0",
     "@jridgewell/trace-mapping": "^0.3.25",
     "@radix-ui/react-accordion": "^1.2.4",
